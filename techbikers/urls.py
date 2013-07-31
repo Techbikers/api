@@ -6,10 +6,11 @@ admin.autodiscover()
 
 urlpatterns = patterns('',
     # Riders
+    url(r'^$', 'techbikers.views.index'),
     url(r'^riders/', include('riders.urls')),
 
     # Payments
-    url(r"^payments/", include("payments.urls")),
+    # url(r"^payments/", include("payments.urls")),
 
     # Uncomment the next line to enable the admin:
     url(r'^admin/', include(admin.site.urls)),

@@ -7,18 +7,16 @@
 
 <body>
     <div id="header">
-        {% block header %}
-	<a href="/">Home</a> |
+        <a href="/">Home</a> |
 
-	{% if user.is_authenticated %}
-	Logged in: {{ user.username }}
-	(<a href="{% url 'auth_logout' %}">Log out</a>)
-	{% else %}
-	<a href="{% url 'auth_login' %}">Log in</a> |
-    <a href="{% url 'rider_registration' %}">Register</a>
-	{% endif %}
-	<hr />
-        {% endblock %}
+        {% if user.is_authenticated %}
+        Logged in: {{ user.username }}
+        (<a href="{% url 'auth_logout' %}">Log out</a>)
+        {% else %}
+        <a href="{% url 'auth_login' %}">Log in</a> |
+        <a href="{% url 'rider_registration' %}">Register</a>
+        {% endif %}
+        <hr />
     </div>
 
     <div id="content">
