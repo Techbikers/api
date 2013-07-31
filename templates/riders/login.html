@@ -1,0 +1,23 @@
+{% extends "shared/_base.html" %}
+
+{% block content %}
+<form id="loginform" method='post' novalidate="novalidate">
+    {% csrf_token %}
+    <div class="field">
+        <label for="Email">Email:</label>
+        <input type="text" name="email" value="" id="Email"
+               data-val="true"
+               data-val-required="Please enter your email address"
+               data-val-regex="Email Format is wrong"
+               data-val-regex-pattern="^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$" >
+    </div>
+    <div class="field">
+        <label for="password">Password:</label>
+        <input type="password" name="password" value="" id="Password"
+               data-val="true"
+               data-val-required="Please enter your password" >
+    </div>
+    <input type="submit" value="Log On"/>
+    <input type="hidden" name="next" value="{{ next }}"/>
+</form>
+{% endblock %}

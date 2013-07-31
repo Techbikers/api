@@ -1,0 +1,4 @@
+# requirements.txt
+Django==1.5.1
+stripe==1.9.2
+django-jsonfield==0.9.10

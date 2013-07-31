@@ -1,0 +1,29 @@
+{% extends "shared/_base.html" %}
+
+{% block content %}
+<form method="post">
+    {% csrf_token %}
+    <div>
+        {{ form.firstname }}<br/>
+        <span class="field-validation-valid" data-valmsg-for="firstname" data-valmsg-replace="true"></span>
+    </div>
+    <div>
+        {{ form.lastname }}<br/>
+        <span class="field-validation-valid" data-valmsg-for="lastname" data-valmsg-replace="true"></span>
+    </div>
+    <div>
+        {{ form.email }}<br/>
+        <span class="field-validation-valid" data-valmsg-for="email" data-valmsg-replace="true"></span>
+    </div>
+    <div>
+        {{ form.password1 }}<br/>
+        <span class="field-validation-valid" data-valmsg-for="password1" data-valmsg-replace="true"></span>
+    </div>
+    <div>
+        {{ form.password2 }}<br/>
+        <span class="field-validation-valid" data-valmsg-for="password2" data-valmsg-replace="true"></span>
+    </div>
+
+    <input type="submit" value="Sign Up"/>
+</form>
+{% endblock content %}
