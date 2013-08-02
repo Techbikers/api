@@ -2,3 +2,6 @@
 *.sublime*
 *.pyc
 *.sqlite
+
+venv/
+build/

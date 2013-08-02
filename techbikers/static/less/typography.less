@@ -1,0 +1,47 @@
+/**
+ * typography.less
+ * Basic typograhpy for the site
+ */
+
+body {
+  color: @fontColor;
+  font-family: 'Lato', sans-serif;
+  font-size: @baseFontSize;
+  line-height: @baseLineHeight;
+}
+
+// Links
+a {
+  &:hover {
+
+  }
+
+  &:active {
+
+  }
+}
+
+// Body
+p {
+  margin: @baseLineHeight 0;
+}
+
+// Headings
+h1, h2, h3, h4, h5, h6 {
+  margin: @baseLineHeight 0 0 0;
+
+  & + p {
+    margin-top: @baseLineHeight / 2;
+  }
+}
+
+h1 {
+  font-size: @baseFontSize * 2;
+  line-height: @baseLineHeight * 2;
+}
+
+h2 {
+  font-size: 24px;
+}
+
+// Copy typography

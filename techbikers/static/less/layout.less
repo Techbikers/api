@@ -1,0 +1,63 @@
+/**
+ * layout.less
+ * Major section layouts
+ */
+
+// Basic containers
+.content {
+  width: 800px;
+  margin: auto;
+}
+
+// Header specifics
+[role="header"] {
+  .topNavigation {
+    text-align: center;
+    height: 200px;
+
+    a {
+      .transition(color .3s linear);
+      margin: 0 24px;
+      vertical-align: top;
+      display: inline-block;
+      line-height: 200px;
+
+      color: #666;
+      text-decoration: none;
+
+      &:first-child:hover {
+        color: #eb1c24;
+      }
+      &:nth-child(2):hover {
+        color: #4494c7;
+      }
+      &:nth-child(4):hover {
+        color: #625398;
+      }
+      &:nth-child(5):hover {
+        color: #76c15a;
+      }
+    }
+  }
+}
+
+// Footer specifics
+[role="footer"] {
+
+}
+
+// Hero
+.hero {
+  //#gradient .directional(#92d5ff, #9e8bff, -60deg);
+  background: url('/static/img/bgtest.jpg') top;
+  background-size: cover;
+  .box-shadow(~'inset 0px 0px 10px rgba(0, 0, 0, .2)');
+
+  .content {
+    position: relative;
+  }
+
+  img {
+    display: block;
+  }
+}
