@@ -22,6 +22,15 @@ class RiderRegistration(forms.Form):
         "data-val-remote": "This email address has already been registered",
         "data-val-remote-url": "/ajax/users/signup/checkemail"
     }))
+    company = forms.CharField(label="Company", widget=forms.TextInput(attrs={
+        "placeholder": "Company"
+    }))
+    website = forms.CharField(label="Website", widget=forms.TextInput(attrs={
+        "placeholder": "Website"
+    }))
+    twitter = forms.CharField(label="Twitter", widget=forms.TextInput(attrs={
+        "placeholder": "Twitter"
+    }))
     password1 = forms.CharField(label="Password", widget=forms.PasswordInput(attrs={
         "placeholder": "Password",
         "data-val": "true",

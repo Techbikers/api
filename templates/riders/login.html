@@ -1,5 +1,7 @@
 {% extends "shared/_base.html" %}
 
+{% block title %}Login{% endblock %}
+
 {% block content %}
 <form id="loginform" method='post' novalidate="novalidate">
     {% csrf_token %}

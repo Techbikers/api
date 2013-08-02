@@ -1,0 +1,10 @@
+{% extends "shared/_base.html" %}
+
+{% block content %}
+These are the rides currently happening!
+    <ul>
+    {% for ride in rides %}
+    <li><a href="/rides/{{ ride.slug }}">{{ ride.name }}</a></li>
+    {% endfor %}
+    </ul>
+{% endblock %}

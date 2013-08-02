@@ -10,15 +10,19 @@ ADMINS = (
 
 MANAGERS = ADMINS
 
+BASE = os.path.abspath(os.path.dirname(__name__))
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': '/Users/michael/Documents/Workspace/techbikers/techbikers.db',                      # Or path to database file if using sqlite3.
+         # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': (os.path.join(BASE, 'techbikers.sqlite')),
         # The following settings are not used with sqlite3:
         'USER': '',
         'PASSWORD': '',
-        'HOST': '',                      # Empty for localhost through domain sockets or '127.0.0.1' for localhost through TCP.
-        'PORT': '',                      # Set to empty string for default.
+        # Host is empty for localhost through domain sockets or '127.0.0.1' for localhost through TCP.
+        'HOST': '',
+        'PORT': '',
     }
 }
 
@@ -85,6 +89,7 @@ STATICFILES_DIRS = (
     # Put strings here, like "/home/html/static" or "C:/www/django/static".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
+    (os.path.join(BASE, 'static'),)
 )
 
 # List of finder classes that know how to find static files in
@@ -134,7 +139,10 @@ INSTALLED_APPS = (
     'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
-    'riders'
+    'techbikers',
+    'riders',
+    'rides',
+    'chapters'
 )
 
 # A sample logging configuration. The only tangible logging

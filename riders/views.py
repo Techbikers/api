@@ -62,7 +62,11 @@ def register(request):
                 new_user.save()
 
                 # Create a blank user profile
-                RiderProfile.objects.create(user = new_user)
+                profile = RiderProfile.objects.create(user=new_user)
+                profile.company = form.cleaned_data["company"]
+                profile.website = form.cleaned_data["website"]
+                profile.twitter = form.cleaned_data["twitter"]
+                profile.save()
 
                 # Log the user in
                 user = authenticate(username=email, password=password)

@@ -8,6 +8,7 @@ urlpatterns = patterns('',
     # Riders
     url(r'^$', 'techbikers.views.index'),
     url(r'^riders/', include('riders.urls')),
+    url(r'^rides/', include('rides.urls')),
 
     # Payments
     # url(r"^payments/", include("payments.urls")),
