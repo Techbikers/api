@@ -20,6 +20,7 @@
       <a id="logo" href="{% url "home" %}" />
         <img src="{% static 'img/logo@2x.png' %}" alt="TechBikers" width="125"/>
       </a>
+      <a href="#about">About Us</a>
       <a href="#mission">The Ride</a>
       <a href="#charity">The Charity</a>
 
@@ -36,7 +37,17 @@
   <div role="footer">
     {% block footer %}
     <div class="content">
-      The footer
+      <div class="row">
+        <div class="span2">
+          One
+        </div>
+        <div class="span2">
+          Two
+        </div>
+        <div class="span2">
+          Three
+        </div>
+      </div>
     </div>
     {% endblock %}
   </div>
