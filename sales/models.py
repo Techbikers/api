@@ -8,7 +8,7 @@ class Sale(models.Model):
  
         # bring in stripe
         import stripe
-        # strip API key
+        # stripe API key (hard-coded for testing, just noticed we should eventually pick this up via settings/your env instead)
         stripe.api_key = "sk_test_o6TUf6WqoPoMJmFl9BPjZl8i"
  
         self.stripe = stripe

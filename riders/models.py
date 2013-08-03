@@ -12,7 +12,7 @@ class RiderProfile(models.Model):
 
     biography = models.TextField(blank=True)
     
-    # store the Strip charge ID (the response id from the Strip API upon successful CC charge)
+    # store the Stripe charge ID (the response id from the Stripe API upon successful CC charge)
     charge_id = models.CharField(max_length=32, null=True, blank=True)
 
     def __unicode__(self):
