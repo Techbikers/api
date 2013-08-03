@@ -11,6 +11,9 @@ class RiderProfile(models.Model):
     twitter = models.CharField(max_length=200, null=True, blank=True)
 
     biography = models.TextField(blank=True)
+    
+    # store the Strip charge ID (the response id from the Strip API upon successful CC charge)
+    charge_id = models.CharField(max_length=32, null=True, blank=True)
 
     def __unicode__(self):
         return self.user.username
