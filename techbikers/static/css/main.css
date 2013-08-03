@@ -377,6 +377,14 @@ body {
   font-size: 18px;
   line-height: 26px;
 }
+a {
+  color: #62519a;
+  text-decoration: none;
+}
+a:hover {
+  color: #7c6cb2;
+  text-decoration: underline;
+}
 p {
   margin: 26px 0;
 }
@@ -408,6 +416,26 @@ section > header > h1 {
   text-align: center;
   padding-bottom: 26px;
   background: url('../img/divider.png') bottom center no-repeat;
+}
+section > p {
+  margin-left: 58px;
+  margin-right: 80px;
+}
+.stat {
+  margin-top: 26px;
+  text-align: center;
+  font-size: 80px;
+  font-weight: bold;
+  line-height: 1;
+}
+.stat small {
+  display: block;
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+.statText {
+  text-align: center;
 }
 /**
  * layout.less
@@ -452,6 +480,21 @@ section > header > h1 {
 }
 .span6 {
   width: 800px;
+}
+.offset1 {
+  margin-left: 180px;
+}
+.offset2 {
+  margin-left: 320px;
+}
+.offset3 {
+  margin-left: 460px;
+}
+.offset4 {
+  margin-left: 600px;
+}
+.offset5 {
+  margin-left: 740px;
 }
 [role="header"] .topNavigation {
   position: relative;
@@ -509,9 +552,8 @@ section > header > h1 {
 }
 .hero .strapline {
   text-align: center;
-  float: right;
-  width: 50%;
-  margin: 100px 0;
+  margin-top: 100px;
+  margin-bottom: 100px;
 }
 .hero .strapline h1 {
   font-weight: bold;

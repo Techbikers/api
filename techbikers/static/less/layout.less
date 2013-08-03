@@ -26,6 +26,12 @@
 .span4 { width: (@columnWidth * 4) + (@gridGutter * 3); }
 .span5 { width: (@columnWidth * 5) + (@gridGutter * 4); }
 .span6 { width: (@columnWidth * 6) + (@gridGutter * 5); }
+.offset1 { margin-left: (@columnWidth * 1) + (@gridGutter * 2); }
+.offset2 { margin-left: (@columnWidth * 2) + (@gridGutter * 3); }
+.offset3 { margin-left: (@columnWidth * 3) + (@gridGutter * 4); }
+.offset4 { margin-left: (@columnWidth * 4) + (@gridGutter * 5); }
+.offset5 { margin-left: (@columnWidth * 5) + (@gridGutter * 6); }
+
 
 // Header specifics
 [role="header"] {
@@ -85,9 +91,8 @@
 
   .strapline {
     text-align: center;
-    float: right;
-    width: 50%;
-    margin: 100px 0;
+    margin-top: 100px;
+    margin-bottom: 100px;
 
     h1 {
       font-weight: bold;
@@ -101,4 +106,3 @@
     }
   }
 }
-
