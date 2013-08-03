@@ -22,22 +22,16 @@
         <img src="{% static 'img/logo@2x.png' %}" alt="TechBikers" width="180"/>
       </a>
       <a href="#charity">The Charity</a>
+
+      {% if user.is_authenticated %}
+      <a class="userAuth" href="{% url 'auth_logout' %}">Log out</a>
+      {% else %}
+      <a class="userAuth" href="{% url 'rider_registration' %}">Sign Up</a>
+      {% endif %}
     </nav>
   </header>
 
   {% block content %}{% endblock content %}
-
-  <div id="header">
-      <a href="/">Home</a> |
-      {% if user.is_authenticated %}
-      Logged in: {{ user.username }}
-      (<a href="{% url 'auth_logout' %}">Log out</a>)
-      {% else %}
-      <a href="{% url 'auth_login' %}">Log in</a> |
-      <a href="{% url 'rider_registration' %}">Register</a>
-      {% endif %}
-      <hr />
-  </div>
 
   <div role="footer">
     {% block footer %}{% endblock %}

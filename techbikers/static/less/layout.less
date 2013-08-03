@@ -12,6 +12,7 @@
 // Header specifics
 [role="header"] {
   .topNavigation {
+    position: relative;
     text-align: center;
     height: 200px;
 
@@ -36,6 +37,13 @@
       }
       &:nth-child(5):hover {
         color: #76c15a;
+      }
+
+      &.userAuth {
+        font-size: @baseFontSize - 3;
+        position: absolute;
+        top: 0;
+        right: 0;
       }
     }
   }

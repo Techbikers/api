@@ -418,6 +418,7 @@ section > header > h1 {
   margin: auto;
 }
 [role="header"] .topNavigation {
+  position: relative;
   text-align: center;
   height: 200px;
 }
@@ -444,6 +445,12 @@ section > header > h1 {
 }
 [role="header"] .topNavigation a:nth-child(5):hover {
   color: #76c15a;
+}
+[role="header"] .topNavigation a.userAuth {
+  font-size: 15px;
+  position: absolute;
+  top: 0;
+  right: 0;
 }
 .hero {
   *zoom: 1;
