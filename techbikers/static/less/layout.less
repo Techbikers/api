@@ -28,7 +28,7 @@
       &:first-child:hover {
         color: #eb1c24;
       }
-      &:nth-child(2):hover {
+      &:nth-child(3):hover {
         color: #4494c7;
       }
       &:nth-child(4):hover {
@@ -48,16 +48,20 @@
 
 // Hero
 .hero {
+  .clearfix();
   //#gradient .directional(#92d5ff, #9e8bff, -60deg);
-  background: url('/static/img/bgtest.jpg') top;
+  background: #FDEC18;
+  //background: url('/static/img/bgtest.jpg') top;
   background-size: cover;
-  .box-shadow(~'inset 0px 0px 10px rgba(0, 0, 0, .2)');
 
-  .content {
-    position: relative;
-  }
+  .strapline {
+    text-align: center;
+    float: right;
+    width: 50%;
+    margin: 200px 0;
 
-  img {
-    display: block;
+    .btn {
+      margin-top: 20px;
+    }
   }
 }

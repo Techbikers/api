@@ -6,7 +6,7 @@ admin.autodiscover()
 
 urlpatterns = patterns('',
     # Riders
-    url(r'^$', 'techbikers.views.index'),
+    url(r'^$', 'techbikers.views.index', name="home"),
     url(r'^riders/', include('riders.urls')),
     url(r'^rides/', include('rides.urls')),
 

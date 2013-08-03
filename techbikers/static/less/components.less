@@ -7,27 +7,32 @@
 .btn {
   display: inline-block;
   .ie7-inline-block();
-  padding: 4px 12px;
+  padding: 10px 40px;
   margin-bottom: 0; // For input.btn
   text-align: center;
+  font-size: @baseFontSize;
+  line-height: @baseLineHeight;
   vertical-align: middle;
   cursor: pointer;
   *border: 0; // Remove the border to prevent IE7's black border on input:focus
+  background: #4DA1EA;
+  text-decoration: none;
+  color: white;
+  .border-radius(3px);
+  .box-shadow(0px 2px 4px rgba(0, 0, 0, .1));
+  .transition(all .05s linear);
+
 
   // Hover/focus state
   &:hover,
   &:focus {
     text-decoration: none;
-    background-position: 0 -15px;
-
-    // transition is only when going to hover/focus, otherwise the background
-    // behind the gradient (there for IE<=9 fallback) gets mismatched
-    .transition(background-position .1s linear);
+    background: lighten(#4DA1EA, 5%);
   }
 
   // Focus state for keyboard and accessibility
   &:focus {
-    
+
   }
 
   // Active state
@@ -35,7 +40,8 @@
   &:active {
     background-image: none;
     outline: 0;
-    .box-shadow(~"inset 0 2px 4px rgba(0,0,0,.15), 0 1px 2px rgba(0,0,0,.05)");
+    .translate(0px, 3px);
+    .box-shadow(none);
   }
 
   // Disabled state
