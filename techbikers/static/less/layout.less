@@ -5,28 +5,47 @@
 
 // Basic containers
 .content {
-  width: 800px;
+  width: @pageWidth;
   margin: auto;
 }
+
+// HAND CRAFTED GRID, MOTHER FUCKERS
+// Now that is quality!
+.row { 
+  .clearfix(); 
+  margin-left: -@gridGutter;
+}
+[class*="span"] {
+  float: left;
+  min-height: 1px;
+  margin-left: @gridGutter;
+}
+.span1 { width: (@columnWidth * 1) + (@gridGutter * 0); }
+.span2 { width: (@columnWidth * 2) + (@gridGutter * 1); }
+.span3 { width: (@columnWidth * 3) + (@gridGutter * 2); }
+.span4 { width: (@columnWidth * 4) + (@gridGutter * 3); }
+.span5 { width: (@columnWidth * 5) + (@gridGutter * 4); }
+.span6 { width: (@columnWidth * 6) + (@gridGutter * 5); }
 
 // Header specifics
 [role="header"] {
   .topNavigation {
     position: relative;
-    text-align: center;
+    text-align: left;
     height: 200px;
 
     a {
-      .transition(color .3s linear);
-      margin: 0 24px;
-      vertical-align: top;
       display: inline-block;
+      .transition(color .3s linear);
+      margin: 0 40px 0 0;
+      vertical-align: middle;
+      height: 200px;
       line-height: 200px;
 
       color: #666;
       text-decoration: none;
 
-      &:first-child:hover {
+      &:nth-child(2):hover {
         color: #eb1c24;
       }
       &:nth-child(3):hover {
@@ -40,10 +59,8 @@
       }
 
       &.userAuth {
-        font-size: @baseFontSize - 3;
-        position: absolute;
-        top: 0;
-        right: 0;
+        float: right;
+        margin: 0 0 0 40px;
       }
     }
   }
@@ -51,7 +68,11 @@
 
 // Footer specifics
 [role="footer"] {
+  background: #392C3A;
+  margin-top: @baseLineHeight * 2;
+  padding: @baseLineHeight * 5 0;
 
+  color: #F5EFEA;
 }
 
 // Hero
@@ -66,10 +87,18 @@
     text-align: center;
     float: right;
     width: 50%;
-    margin: 200px 0;
+    margin: 100px 0;
+
+    h1 {
+      font-weight: bold;
+      text-transform: uppercase;
+      font-size: 60px;
+      line-height: 1;
+    }
 
     .btn {
       margin-top: 20px;
     }
   }
 }
+

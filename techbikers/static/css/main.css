@@ -417,24 +417,61 @@ section > header > h1 {
   width: 800px;
   margin: auto;
 }
+.row {
+  *zoom: 1;
+  margin-left: -40px;
+}
+.row:before,
+.row:after {
+  display: table;
+  content: "";
+  line-height: 0;
+}
+.row:after {
+  clear: both;
+}
+[class*="span"] {
+  float: left;
+  min-height: 1px;
+  margin-left: 40px;
+}
+.span1 {
+  width: 100px;
+}
+.span2 {
+  width: 240px;
+}
+.span3 {
+  width: 380px;
+}
+.span4 {
+  width: 520px;
+}
+.span5 {
+  width: 660px;
+}
+.span6 {
+  width: 800px;
+}
 [role="header"] .topNavigation {
   position: relative;
-  text-align: center;
+  text-align: left;
   height: 200px;
 }
 [role="header"] .topNavigation a {
+  display: inline-block;
   -webkit-transition: color 0.3s linear;
   -moz-transition: color 0.3s linear;
   -o-transition: color 0.3s linear;
   transition: color 0.3s linear;
-  margin: 0 24px;
-  vertical-align: top;
-  display: inline-block;
+  margin: 0 40px 0 0;
+  vertical-align: middle;
+  height: 200px;
   line-height: 200px;
   color: #666;
   text-decoration: none;
 }
-[role="header"] .topNavigation a:first-child:hover {
+[role="header"] .topNavigation a:nth-child(2):hover {
   color: #eb1c24;
 }
 [role="header"] .topNavigation a:nth-child(3):hover {
@@ -447,10 +484,14 @@ section > header > h1 {
   color: #76c15a;
 }
 [role="header"] .topNavigation a.userAuth {
-  font-size: 15px;
-  position: absolute;
-  top: 0;
-  right: 0;
+  float: right;
+  margin: 0 0 0 40px;
+}
+[role="footer"] {
+  background: #392C3A;
+  margin-top: 52px;
+  padding: 130px 0;
+  color: #F5EFEA;
 }
 .hero {
   *zoom: 1;
@@ -470,7 +511,13 @@ section > header > h1 {
   text-align: center;
   float: right;
   width: 50%;
-  margin: 200px 0;
+  margin: 100px 0;
+}
+.hero .strapline h1 {
+  font-weight: bold;
+  text-transform: uppercase;
+  font-size: 60px;
+  line-height: 1;
 }
 .hero .strapline .btn {
   margin-top: 20px;

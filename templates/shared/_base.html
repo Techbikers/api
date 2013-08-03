@@ -17,10 +17,10 @@
 <body>
   <header role="header" class="content">
     <nav class="topNavigation">
-      <a href="#mission">The Ride</a>
       <a id="logo" href="{% url "home" %}" />
-        <img src="{% static 'img/logo@2x.png' %}" alt="TechBikers" width="180"/>
+        <img src="{% static 'img/logo@2x.png' %}" alt="TechBikers" width="125"/>
       </a>
+      <a href="#mission">The Ride</a>
       <a href="#charity">The Charity</a>
 
       {% if user.is_authenticated %}
@@ -34,7 +34,11 @@
   {% block content %}{% endblock content %}
 
   <div role="footer">
-    {% block footer %}{% endblock %}
+    {% block footer %}
+    <div class="content">
+      The footer
+    </div>
+    {% endblock %}
   </div>
 </body>
 
