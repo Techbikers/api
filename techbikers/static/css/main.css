@@ -377,6 +377,14 @@ body {
   font-size: 18px;
   line-height: 26px;
 }
+a {
+  color: #62519a;
+  text-decoration: none;
+}
+a:hover {
+  color: #7c6cb2;
+  text-decoration: underline;
+}
 p {
   margin: 26px 0;
 }
@@ -544,9 +552,8 @@ section > p {
 }
 .hero .strapline {
   text-align: center;
-  float: right;
-  width: 50%;
-  margin: 100px 0;
+  margin-top: 100px;
+  margin-bottom: 100px;
 }
 .hero .strapline h1 {
   font-weight: bold;

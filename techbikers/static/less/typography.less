@@ -12,8 +12,12 @@ body {
 
 // Links
 a {
-  &:hover {
+  color: @linkColor;
+  text-decoration: none;
 
+  &:hover {
+    color: @linkColorHover;
+    text-decoration: underline;
   }
 
   &:active {
