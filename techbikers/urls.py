@@ -5,8 +5,11 @@ from django.contrib import admin
 admin.autodiscover()
 
 urlpatterns = patterns('',
-    # Riders
+    # Top level pages
     url(r'^$', 'techbikers.views.index', name="home"),
+    url(r'^about/$', 'techbikers.views.about', name="about"),
+
+    # Riders
     url(r'^riders/', include('riders.urls')),
     url(r'^rides/', include('rides.urls')),
 
