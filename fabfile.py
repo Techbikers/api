@@ -7,5 +7,5 @@ def deploy():
     "Updates the repository."
     print "ENV %s" %(env.hosts)
     run("cd ~/webapps/techbikers.com/; git pull")
-    run("sed 's/^DEBUG = True$/DEBUG = False/' techbikers/settings.py > techbikers/settings.py")
+    run("cd ~/webapps/techbikers.com/; sed 's/^DEBUG = True$/DEBUG = False/' -i techbikers/settings.py")
     sudo("supervisorctl restart techbikers.com")
