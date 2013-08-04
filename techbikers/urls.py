@@ -13,6 +13,7 @@ urlpatterns = patterns('',
     # Riders
     url(r'^riders/', include('riders.urls')),
     url(r'^rides/', include('rides.urls')),
+    url(r'^charge/', include('sales.urls')),
 
     # Payments
     # url(r"^payments/", include("payments.urls")),

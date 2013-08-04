@@ -30,7 +30,7 @@ ACCOUNT_ACTIVATION_DAYS = 7 # One-week activation window;
 
 # Hosts/domain names that are valid for this site; required if DEBUG is False
 # See https://docs.djangoproject.com/en/1.5/ref/settings/#allowed-hosts
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['techbikers.com','spoke.techbikers.com']
 
 EMAIL_HOST = 'localhost'
 EMAIL_PORT = 1025
@@ -139,10 +139,12 @@ INSTALLED_APPS = (
     'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
+    'south',
     'techbikers',
     'riders',
     'rides',
-    'chapters'
+    'chapters',
+    'sales',
 )
 
 # A sample logging configuration. The only tangible logging
