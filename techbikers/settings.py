@@ -142,7 +142,8 @@ INSTALLED_APPS = (
     'techbikers',
     'riders',
     'rides',
-    'chapters'
+    'chapters',
+    'sales',
 )
 
 # A sample logging configuration. The only tangible logging
