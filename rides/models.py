@@ -7,8 +7,8 @@ class Ride(models.Model):
     description    = models.TextField(blank = True)
     start_location = models.CharField(max_length = '255')
     end_location   = models.CharField(max_length = '255')
-    start_date     = models.DateTimeField()
-    end_date       = models.DateTimeField()
+    start_date     = models.DateField()
+    end_date       = models.DateField()
 
     # Details to sign up riders
     rider_capacity = models.IntegerField(default = 0)
