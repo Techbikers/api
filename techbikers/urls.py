@@ -8,6 +8,7 @@ urlpatterns = patterns('',
     # Top level pages
     url(r'^$', 'techbikers.views.index', name="home"),
     url(r'^about/$', 'techbikers.views.about', name="about"),
+    url(r'^the_ride/$', 'techbikers.views.the_ride', name="the_ride"),
 
     # Riders
     url(r'^riders/', include('riders.urls')),
