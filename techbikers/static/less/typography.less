@@ -47,23 +47,32 @@ h1 {
 
 h2 {
   font-size: 24px;
-  line-height: @baseLineHeight * 2;
+  line-height: @baseLineHeight * 1.5;
 }
 
 // Copy typography
-
-section > header > h1 {
-  text-align: center;
-  padding-bottom: @baseLineHeight;
+section > header {
   background: url('../img/divider.png') bottom center no-repeat;
+  padding-bottom: @baseLineHeight;
+
+  & > h1 {
+    text-align: center;
+  }
+  & > h2 {
+    text-align: center;
+    margin-top: 0;
+  }
 }
 
-section > p {
+section {
   // This is a bit experimental as any special grid
   // layout might break it, but I like the tighter
   // sendtences this give us.
-  margin-left: 58px;
-  margin-right: 80px;
+  & > h2, & > p, & ul {
+    padding-left: 0;
+    margin-left: 80px;
+    margin-right: 80px;
+  }
 }
 
 

@@ -411,15 +411,24 @@ h1 {
 }
 h2 {
   font-size: 24px;
-  line-height: 52px;
+  line-height: 39px;
+}
+section > header {
+  background: url('../img/divider.png') bottom center no-repeat;
+  padding-bottom: 26px;
 }
 section > header > h1 {
   text-align: center;
-  padding-bottom: 26px;
-  background: url('../img/divider.png') bottom center no-repeat;
 }
-section > p {
-  margin-left: 58px;
+section > header > h2 {
+  text-align: center;
+  margin-top: 0;
+}
+section > h2,
+section > p,
+section ul {
+  padding-left: 0;
+  margin-left: 80px;
   margin-right: 80px;
 }
 .stat {
