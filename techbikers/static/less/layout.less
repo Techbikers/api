@@ -88,21 +88,45 @@
   background: #FDEC18;
   //background: url('/static/img/bgtest.jpg') top;
   background-size: cover;
+  padding: 100px 0;
 
+  // Super custom stuff, needs to be broken out.
   .strapline {
+    text-transform: uppercase;
+    font-weight: bold;
     text-align: center;
-    margin-top: 100px;
-    margin-bottom: 100px;
 
-    h1 {
-      font-weight: bold;
-      text-transform: uppercase;
-      font-size: 60px;
+    .strap1 {
+      display: block;
+      font-size: 130px;
       line-height: 1;
     }
 
-    .btn {
-      margin-top: 20px;
+    .strap2 {
+      display: block;
+      font-size: 22px;
+      line-height: 1;
     }
+
+    .strap3 {
+      display: block;
+      font-size: 166px;
+      line-height: 1;
+    }
+
+    .strapAmp {
+      display: inline-block;
+      font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
+      font-weight: normal;
+      font-style: italic;
+      font-size: 48px;
+      .translate(0, 5px);
+    }
+  }
+
+  .intro {
+    margin-top: 14px;
+    font-size: 24px;
+    line-height: 1.3;
   }
 }
