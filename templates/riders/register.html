@@ -1,41 +1,37 @@
 {% extends "shared/_base.html" %}
 
 {% block content %}
-<form method="post">
-    {% csrf_token %}
-    <div>
-        {{ form.firstname }}<br/>
+<div class="content">
+  <form method="post">
+  {% csrf_token %}
+
+    <div class="row">
+      <div class="span2 offset1">
+        {{ form.firstname }}
         <span class="field-validation-valid" data-valmsg-for="firstname" data-valmsg-replace="true"></span>
-    </div>
-    <div>
-        {{ form.lastname }}<br/>
+
+        {{ form.lastname }}
         <span class="field-validation-valid" data-valmsg-for="lastname" data-valmsg-replace="true"></span>
-    </div>
-    <div>
-        {{ form.email }}<br/>
+
+        {{ form.email }}
         <span class="field-validation-valid" data-valmsg-for="email" data-valmsg-replace="true"></span>
-    </div>
 
-    <div>
-        {{ form.company }}<br/>
-    </div>
-    <div>
-        {{ form.website }}<br/>
-    </div>
-    <div>
-        {{ form.twitter }}<br/>
-    </div>
+        {{ form.company }}
+      </div>
 
-
-    <div>
-        {{ form.password1 }}<br/>
+      <div class="span2">
+        {{ form.website }}
+        {{ form.twitter }}
+        {{ form.password1 }}
         <span class="field-validation-valid" data-valmsg-for="password1" data-valmsg-replace="true"></span>
-    </div>
-    <div>
-        {{ form.password2 }}<br/>
+        {{ form.password2 }}
         <span class="field-validation-valid" data-valmsg-for="password2" data-valmsg-replace="true"></span>
-    </div>
 
-    <input type="submit" value="Sign Up"/>
-</form>
+      </div>
+    </div>
+    <p class="centerText">
+      <input type="submit" value="Sign Up" class="btn" />
+    </p>
+  </form>
+</div>
 {% endblock content %}
