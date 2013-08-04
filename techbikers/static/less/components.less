@@ -7,32 +7,38 @@
 .btn {
   display: inline-block;
   .ie7-inline-block();
+
   padding: 10px 40px;
   margin-bottom: 0; // For input.btn
+  border: 3px solid @fontColor;
+  .border-radius(6px);
+
+  color: @fontColor;
+  font-weight: bold;
   text-align: center;
   font-size: @baseFontSize;
   line-height: @baseLineHeight;
   vertical-align: middle;
   cursor: pointer;
-  *border: 0; // Remove the border to prevent IE7's black border on input:focus
-  background: #4DA1EA;
+  background: transparent;
   text-decoration: none;
-  color: white;
-  .border-radius(3px);
-  .box-shadow(0px 2px 4px rgba(0, 0, 0, .1));
-  .transition(all .05s linear);
+
+  .transition(all 50ms linear);
 
 
   // Hover/focus state
   &:hover,
   &:focus {
     text-decoration: none;
-    background: lighten(#4DA1EA, 5%);
+    background: lighten(@fontColor, 10%);
+    border-color: lighten(@fontColor, 10%);
+    color: white;
   }
 
   // Focus state for keyboard and accessibility
   &:focus {
-
+    // fuk da police
+    // also: do this
   }
 
   // Active state
@@ -50,7 +56,5 @@
     cursor: default;
     background-image: none;
     .opacity(65);
-    .box-shadow(none);
   }
-
 }
