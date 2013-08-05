@@ -1,6 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import User
 
+from sales.models import Sale
+
 class Ride(models.Model):
     name           = models.CharField(max_length = '255')
     slug           = models.CharField(max_length = '255', unique = True)
@@ -31,6 +33,7 @@ class RideRiders(models.Model):
     signup_date = models.DateTimeField()
     pending     = models.BooleanField() # is the spot reserved for them before paying?
     paid        = models.BooleanField() # have they completed payment for the ride?
+    sale        = models.ForeignKey(Sale, blank=True, null=True) # what is the sale that this transaction happened through?
 
     class Meta:
         db_table    = 'rides_riders'
