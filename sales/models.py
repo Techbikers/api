@@ -1,28 +1,20 @@
+import stripe
+from datetime import datetime
 from django.db import models
 from django.contrib.auth.models import User
-from riders.models import RiderProfile
- 
+
+
 class Sale(models.Model):
+    sale_date = models.DateTimeField(default=datetime.now())
+    # store the stripe charge id for this sale
+    charge_id = models.CharField(max_length=32)
+    # also store the rider id
+    rider = models.ForeignKey(User)
+
     def __init__(self, *args, **kwargs):
         super(Sale, self).__init__(*args, **kwargs)
  
-        # bring in stripe
-        import stripe
-        # stripe API key (hard-coded for testing, just noticed we should eventually pick this up via settings/your env instead)
-        stripe.api_key = "sk_test_o6TUf6WqoPoMJmFl9BPjZl8i"
- 
-        self.stripe = stripe
- 
-    # store the stripe charge id for this sale
-    charge_id = models.CharField(max_length=32)
-    
-    # also store the rider id, not sure what type this should be?
-    rider_id = models.CharField(max_length=32)
- 
-    # you could also store other information about the sale
-    # but I'll leave that to you!
- 
-    def charge(self, user_id, price_in_cents, number, exp_month, exp_year, cvc):
+    def charge(self, user, price_in_cents, number, exp_month, exp_year, cvc):
         """
         Takes a the price and credit card details: number, exp_month,
         exp_year, cvc.
@@ -31,12 +23,15 @@ class Sale(models.Model):
         the charge was successful, and the class is response (or error)
         instance.
         """
+
+        # stripe API key (hard-coded for testing, just noticed we should eventually pick this up via settings/your env instead)
+        stripe.api_key = "sk_test_o6TUf6WqoPoMJmFl9BPjZl8i"
  
         if self.charge_id: # don't let this be charged twice!
             return False, Exception(message="Already charged.")
  
         try:
-            response = self.stripe.Charge.create(
+            response = stripe.Charge.create(
                 amount = price_in_cents,
                 currency = "gbp",
                 card = {
@@ -54,15 +49,10 @@ class Sale(models.Model):
                 description='Thank you for your purchase!')
  
             self.charge_id = response.id
-            # this (getting the current rider profile) doesn't seem elegant, but...
-            curr_user = User.objects.get(id = user_id)
-            rider = RiderProfile.objects.get(user = curr_user)
-            rider.charge_id = self.charge_id
-            self.rider_id = curr_user.id
+            self.rider_id = user.id
             self.save()
-            rider.save()
  
-        except self.stripe.CardError, ce:
+        except stripe.CardError, ce:
             # charge failed
             return False, ce
  
