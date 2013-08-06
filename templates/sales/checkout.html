@@ -1,8 +1,10 @@
 {% extends "shared/_base.html" %}
 
+{% load currency %}
+
 {% block content %}
 
-    You are about to sign up for {{ ride.name }} at a cost of {{ ride.price }}
+    You are about to sign up for {{ ride.name }} at a cost of {{ ride.price|currency }}
 
     <form method="post">
         {% csrf_token %}
