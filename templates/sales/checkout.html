@@ -1,0 +1,30 @@
+{% extends "shared/_base.html" %}
+
+{% block content %}
+
+    You are about to sign up for {{ ride.name }} at a cost of {{ ride.price }}
+
+    <form method="post">
+        {% csrf_token %}
+
+        <input type="hidden" name="ride" value="{{ ride.id }}">
+
+        {% for field in form %}
+          <div class="field-wrapper">
+
+            <div class="field-label">
+              {{ field.label_tag }}:
+            </div>
+
+            <div class="field-field">
+              {{ field }}
+              {{ field.errors }}
+            </div>
+
+          </div>
+        {% endfor %}
+
+        <button type="submit">Let's go!</button>
+    </form>
+
+{% endblock %}

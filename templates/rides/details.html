@@ -1,5 +1,9 @@
 {% extends 'shared/_base.html' %}
 
 {% block content %}
-<h2>{{ ride.name }}</h2>
+
+    <h2>{{ ride.name }}</h2>
+
+    <a href="/sales/checkout?ride={{ ride.id }}">Sign up for the ride!</a>
+
 {% endblock %}
