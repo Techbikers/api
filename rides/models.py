@@ -21,6 +21,12 @@ class Ride(models.Model):
     chapter        = models.ForeignKey('chapters.Chapter', null=True, blank=True)
     riders         = models.ManyToManyField(User, through='RideRiders', null=True, blank=True)
 
+    # Calculated properties (not stored in the db)
+    def get_spaces_left(self):
+        return self.rider_capacity - self.riders.count()
+
+    spaces_left = property(get_spaces_left)
+
     class Meta:
         db_table    = 'rides'
         app_label   = 'rides'
