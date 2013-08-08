@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
 
 from rides.models import Ride, RideRiders
@@ -15,7 +15,17 @@ def checkout(request):
             # Get the ride info
             ride = Ride.objects.get(id = ride_id)
 
-            return render(request, 'sales/checkout.html', {'ride': ride, 'form': SalePaymentForm()})
+            # Check to see if the rider is already signed up to this ride
+            # There must be a better way of doing this
+            try:
+                ride_rider = ride.rideriders_set.get(user = request.user)
+            except:
+                ride_rider = None
+
+            if ride_rider:
+                return render(request, 'sales/checkout.html', {'ride': ride, 'signed_up': True})
+            else:
+                return render(request, 'sales/checkout.html', {'ride': ride, 'form': SalePaymentForm()})
         else:
             return render(request, 'sales/checkout.html', {'error': "Nothing to checkout!"})
 
@@ -43,7 +53,7 @@ def checkout(request):
             success, instance = sale.charge(request.user, ride.price, number, exp_month, exp_year, cvc)
 
             if not success:
-                return HttpResponse("Error: %s" % instance.message)
+                return render(request, 'sales/error.html', {'error': instance.message})
             else:
                 instance.save()
 
@@ -57,7 +67,11 @@ def checkout(request):
 
                 pass
 
-            return HttpResponse("Success! We've charged your card.")
+            return redirect('/sales/success')
 
         else:
             return render(request, 'sales/checkout.html', {'ride': ride, 'form': form})
+
+
+def success(request):
+    return render(request, 'sales/success.html')

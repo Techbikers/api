@@ -72,8 +72,7 @@ def register(request):
                 user = authenticate(username=email, password=password)
                 auth_login(request, user)
 
-                # go to the CC form for payment
-                return redirect('/charge')
+                return redirect('/')
             else:
                 # Errors in the form so return with the errors
                 return render(request, 'riders/register.html', {"form": form})

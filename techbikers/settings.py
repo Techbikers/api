@@ -26,7 +26,8 @@ DATABASES = {
     }
 }
 
-ACCOUNT_ACTIVATION_DAYS = 7 # One-week activation window;
+LOGIN_URL = '/riders/login'
+LOGOUT_URL = '/riders/logout'
 LOGIN_REDIRECT_URL = '/account'
 
 # Hosts/domain names that are valid for this site; required if DEBUG is False

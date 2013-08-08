@@ -3,8 +3,23 @@
 {% load currency %}
 
 {% block content %}
+<div class="content">
+  <section>
+    <header>
+      <h1>Ride Signup - Checkout</h1>
+    </header>
 
-    You are about to sign up for {{ ride.name }} at a cost of {{ ride.price|currency }}
+    {% if signed_up %}
+
+    <p>
+        You have already signed up for the {{ ride.name }} ride. No need to pay for it again!
+    </p>
+
+    {% else %}
+
+    <p>
+        You are about to sign up for {{ ride.name }} at a cost of {{ ride.price|currency }}
+    </p>
 
     <form method="post">
         {% csrf_token %}
@@ -28,5 +43,9 @@
 
         <button type="submit">Let's go!</button>
     </form>
+
+    {% endif %}
+  </section>
+</div>
 
 {% endblock %}

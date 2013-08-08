@@ -5,6 +5,8 @@
   <form method="post">
   {% csrf_token %}
 
+    {{ form.errors }}
+
     <div class="row">
       <div class="span2 offset1">
         {{ form.firstname }}

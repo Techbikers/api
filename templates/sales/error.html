@@ -1,0 +1,24 @@
+{% extends "shared/_base.html" %}
+
+{% block content %}
+<div class="content">
+    <section>
+        <header>
+            <h1>Something went wrong</h1>
+        </header>
+
+        <p>
+            Something went wrong:
+        </p>
+
+        <p>
+            {{ error }}
+        </p>
+
+        <p>
+            Don't worry though. You can try again if you like.
+        </p>
+
+    </section>
+</div>
+{% endblock %}
