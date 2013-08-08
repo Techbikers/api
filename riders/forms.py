@@ -5,8 +5,7 @@ class RiderRegistration(forms.Form):
     firstname = forms.CharField(max_length=60, label="First name", widget=forms.TextInput(attrs={
         "placeholder": "First name",
         "data-val": "true",
-        "data-val-required": "You can't leave this empty",
-        "data-tooltip": "We like people at Knodium to be on name terms"
+        "data-val-required": "You can't leave this empty"
     }))
     lastname = forms.CharField(max_length=60, label="Last name", widget=forms.TextInput(attrs={
         "placeholder": "Last name",
@@ -18,17 +17,15 @@ class RiderRegistration(forms.Form):
         "data-val": "true",
         "data-val-required": "You can't leave this empty",
         "data-val-regex": "Please enter a valid email address",
-        "data-val-regex-pattern": "^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$",
-        "data-val-remote": "This email address has already been registered",
-        "data-val-remote-url": "/ajax/users/signup/checkemail"
+        "data-val-regex-pattern": "^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$"
     }))
-    company = forms.CharField(label="Company", widget=forms.TextInput(attrs={
+    company = forms.CharField(label="Company", required=False, widget=forms.TextInput(attrs={
         "placeholder": "Company"
     }))
-    website = forms.CharField(label="Website", widget=forms.TextInput(attrs={
+    website = forms.CharField(label="Website", required=False, widget=forms.TextInput(attrs={
         "placeholder": "Website"
     }))
-    twitter = forms.CharField(label="Twitter", widget=forms.TextInput(attrs={
+    twitter = forms.CharField(label="Twitter", required=False, widget=forms.TextInput(attrs={
         "placeholder": "Twitter"
     }))
     password1 = forms.CharField(label="Password", widget=forms.PasswordInput(attrs={
