@@ -27,6 +27,7 @@ DATABASES = {
 }
 
 ACCOUNT_ACTIVATION_DAYS = 7 # One-week activation window;
+LOGIN_REDIRECT_URL = '/account'
 
 # Hosts/domain names that are valid for this site; required if DEBUG is False
 # See https://docs.djangoproject.com/en/1.5/ref/settings/#allowed-hosts
@@ -145,6 +146,7 @@ INSTALLED_APPS = (
     'rides',
     'chapters',
     'sales',
+    'account',
 )
 
 # A sample logging configuration. The only tangible logging

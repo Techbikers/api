@@ -12,6 +12,7 @@ urlpatterns = patterns('',
     url(r'^about/$', 'techbikers.views.about', name="about"),
 
     # Riders
+    url(r'^account/', include('account.urls')),
     url(r'^riders/', include('riders.urls')),
     url(r'^rides/', include('rides.urls')),
     url(r'^sales/', include('sales.urls')),
