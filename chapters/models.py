@@ -6,6 +6,9 @@ class Chapter(models.Model):
 
     # Linked Entities
 
+    def __unicode__(self):
+        return self.name
+
     class Meta:
         db_table    = 'chapters'
         app_label   = 'chapters'

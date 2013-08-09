@@ -27,6 +27,9 @@ class Ride(models.Model):
 
     spaces_left = property(get_spaces_left)
 
+    def __unicode__(self):
+        return self.name
+
     class Meta:
         db_table    = 'rides'
         app_label   = 'rides'

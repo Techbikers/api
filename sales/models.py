@@ -13,6 +13,9 @@ class Sale(models.Model):
 
     def __init__(self, *args, **kwargs):
         super(Sale, self).__init__(*args, **kwargs)
+
+    def __unicode__(self):
+        return self.charge_id
  
     def charge(self, user, price_in_cents, number, exp_month, exp_year, cvc):
         """
