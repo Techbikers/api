@@ -25,7 +25,7 @@ class Sale(models.Model):
         """
 
         # stripe API key (hard-coded for testing, just noticed we should eventually pick this up via settings/your env instead)
-        stripe.api_key = "sk_test_o6TUf6WqoPoMJmFl9BPjZl8i"
+        stripe.api_key = "sk_test_PlMz1QQXWtkxnJdE4QFu6lZe"
  
         if self.charge_id: # don't let this be charged twice!
             return False, Exception(message="Already charged.")

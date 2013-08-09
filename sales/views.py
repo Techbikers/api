@@ -50,7 +50,7 @@ def checkout(request):
             sale = Sale()
 
             # Get the ride price, pass user so we can store the user id and charge id in a sale record
-            success, instance = sale.charge(request.user, ride.price, number, exp_month, exp_year, cvc)
+            success, instance = sale.charge(request.user, int(ride.price*100), number, exp_month, exp_year, cvc)
 
             if not success:
                 return render(request, 'sales/error.html', {'error': instance.message})

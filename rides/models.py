@@ -15,7 +15,7 @@ class Ride(models.Model):
 
     # Details to sign up riders
     rider_capacity = models.IntegerField(default = 0)
-    price          = models.IntegerField(default = 0)
+    price          = models.DecimalField(default = 0.00, max_digits = 6, decimal_places = 2)
 
     # Linked Entities
     chapter        = models.ForeignKey('chapters.Chapter', null=True, blank=True)

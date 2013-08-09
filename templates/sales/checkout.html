@@ -18,7 +18,7 @@
     {% else %}
 
     <p>
-        You are about to sign up for {{ ride.name }} at a cost of {{ ride.price|currency }}
+        You are about to sign up for {{ ride.name }} at a cost of £{{ ride.price|floatformat:2 }}
     </p>
 
     <form method="post">
