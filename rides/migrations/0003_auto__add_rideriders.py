@@ -8,6 +8,9 @@ from django.db import models
 class Migration(SchemaMigration):
 
     def forwards(self, orm):
+        # Removing M2M table for field riders on 'Ride'
+        db.delete_table(db.shorten_name('rides_riders'))
+
         # Adding model 'RideRiders'
         db.create_table('rides_riders', (
             (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
@@ -18,9 +21,6 @@ class Migration(SchemaMigration):
             ('paid', self.gf('django.db.models.fields.BooleanField')(default=False)),
         ))
         db.send_create_signal('rides', ['RideRiders'])
-
-        # Removing M2M table for field riders on 'Ride'
-        db.delete_table(db.shorten_name('rides_riders'))
 
 
     def backwards(self, orm):
