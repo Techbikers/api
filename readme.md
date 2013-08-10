@@ -35,7 +35,7 @@ First build the database.
 
 Then start your server!
 
-    python manage.py runserver 8000
+    python manage.py runserver 8000 --settings=techbikers.settings.local
 
 
 Contributing
