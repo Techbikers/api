@@ -1,13 +1,14 @@
 from django.shortcuts import render, redirect
 from django.views.decorators.http import require_POST, require_GET
+from django.contrib.auth.decorators import login_required
 from django.conf import settings
 
 from rides.models import Ride, RideRiders
 from sales.models import Sale
-from sales.forms import SalePaymentForm
 
 
 @require_GET
+@login_required()
 def checkout(request):
     # Get the ride id from the POST data
     ride_id = request.GET.get('ride', None)
@@ -35,6 +36,7 @@ def checkout(request):
 
 
 @require_POST
+@login_required()
 def charge(request):
     # Get the form data
     token = request.POST.get('stripeToken')
