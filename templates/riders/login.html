@@ -3,23 +3,35 @@
 {% block title %}Login{% endblock %}
 
 {% block content %}
-<form id="loginform" method='post' novalidate="novalidate">
-    {% csrf_token %}
-    <div class="field">
-        <label for="Email">Email:</label>
-        <input type="text" name="email" value="" id="Email"
-               data-val="true"
-               data-val-required="Please enter your email address"
-               data-val-regex="Email Format is wrong"
-               data-val-regex-pattern="^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$" >
+    <div class="content">
+        <section>
+            <header>
+                <h1>Login</h1>
+            </header>
+
+            <form id="loginform" method='post' novalidate="novalidate">
+                {% csrf_token %}
+                <div class="field">
+                    <label for="Email">Email:</label>
+                    <input type="text" name="email" value="" id="Email"
+                           data-val="true"
+                           data-val-required="Please enter your email address"
+                           data-val-regex="Email Format is wrong"
+                           data-val-regex-pattern="^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$" >
+                </div>
+                <div class="field">
+                    <label for="password">Password:</label>
+                    <input type="password" name="password" value="" id="Password"
+                           data-val="true"
+                           data-val-required="Please enter your password" >
+                </div>
+                <input type="submit" value="Log On"/>
+                <input type="hidden" name="next" value="{{ next }}"/>
+            </form>
+
+            <p>
+                Don't have an account yet? <a href="{% url "rider_registration" %}?{{ request.GET.urlencode }}">Create one!</a>
+            </p>
+        </section>
     </div>
-    <div class="field">
-        <label for="password">Password:</label>
-        <input type="password" name="password" value="" id="Password"
-               data-val="true"
-               data-val-required="Please enter your password" >
-    </div>
-    <input type="submit" value="Log On"/>
-    <input type="hidden" name="next" value="{{ next }}"/>
-</form>
 {% endblock %}

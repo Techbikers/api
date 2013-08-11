@@ -19,7 +19,7 @@ def login(request):
             if request.user.is_authenticated():
                 return redirect('riders.views.index')
 
-            return render(request, 'riders/login.html')
+            return render(request, 'riders/login.html', {'next': request.GET.get('next')})
 
         elif request.method == 'POST':
             username = request.POST['email']
@@ -28,7 +28,13 @@ def login(request):
             if user is not None:
                 if user.is_active:
                     auth_login(request, user)
-                    return redirect('riders.views.index')
+
+                    # See if the user needs redirecting
+                    next_page = request.POST.get('next', None)
+                    if next_page:
+                        return redirect(next_page)
+                    else:
+                        return redirect('riders.views.index')
                 else:
                     return render(request, 'riders/login.html', {'errors': 'Account disabled'})
             else:
@@ -47,7 +53,7 @@ def register(request):
         if request.method == "GET":
             # Initialise the signup form
             form = RiderRegistration(auto_id=True)
-            return render(request, 'riders/register.html', {"form": form})
+            return render(request, 'riders/register.html', {"form": form, 'next': request.GET.get('next')})
 
         elif request.method == "POST":
             form = RiderRegistration(request.POST)
@@ -72,7 +78,12 @@ def register(request):
                 user = authenticate(username=email, password=password)
                 auth_login(request, user)
 
-                return redirect('/')
+                # See if the user needs redirecting
+                next_page = request.POST.get('next', None)
+                if next_page:
+                    return redirect(next_page)
+                else:
+                    return redirect('/')
             else:
                 # Errors in the form so return with the errors
                 return render(request, 'riders/register.html', {"form": form})

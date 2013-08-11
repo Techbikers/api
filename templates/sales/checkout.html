@@ -65,7 +65,7 @@
     {% else %}
 
     <p>
-        You are about to sign up for {{ ride.name }} at a cost of £{{ ride.price|floatformat:2 }}
+        You are about to sign up for <strong>{{ ride.name }}</strong> at a cost of <strong>£{{ ride.price|floatformat:2 }}</strong>.<br/>
     </p>
 
     <form action="/sales/charge/" method="POST" id="payment-form">
@@ -117,7 +117,7 @@
             </div>
         </div>
 
-        <button type="submit">Let's go!</button>
+        <button type="submit">Charge my card</button>
     </form>
 
     {% endif %}
