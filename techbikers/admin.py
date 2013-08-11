@@ -62,10 +62,10 @@ admin.site.register(Chapter, ChapterAdmin)
 
 class SaleAdmin(admin.ModelAdmin):
     ordering = ['-sale_date']
-    list_display = ('sale_date', 'rider', 'charge_id')
+    list_display = ('sale_date', 'rider', 'amount', 'livemode', 'charge_id')
     list_filter = ('sale_date',)
-    readonly_fields = ('sale_date', 'charge_id', 'rider_link')
-    fields = ('sale_date', 'charge_id', 'rider_link')
+    readonly_fields = ('sale_date', 'charge_id', 'card', 'amount', 'livemode', 'rider_link')
+    fields = ('sale_date', 'charge_id', 'card', 'amount', 'livemode', 'rider_link')
 
     def rider_link(self, obj):
         change_url = urlresolvers.reverse('admin:auth_user_change', args=(obj.rider.id,))

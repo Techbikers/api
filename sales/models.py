@@ -5,11 +5,13 @@ from django.contrib.auth.models import User
 
 
 class Sale(models.Model):
-    sale_date = models.DateTimeField(default=datetime.now())
-    # store the stripe charge id for this sale
-    charge_id = models.CharField(max_length=32)
+    sale_date   = models.DateTimeField(default=datetime.now())
+    charge_id   = models.CharField(max_length=32) # store the stripe charge id for this sale
+    amount      = models.IntegerField(max_length=6, null=True, blank=True)
+    livemode    = models.BooleanField()
+    card        = models.CharField(blank=True, null=True, max_length=255)
     # also store the rider id
-    rider = models.ForeignKey(User)
+    rider       = models.ForeignKey(User)
 
     def __init__(self, *args, **kwargs):
         super(Sale, self).__init__(*args, **kwargs)
@@ -52,6 +54,9 @@ class Sale(models.Model):
                 description='Thank you for your purchase!')
  
             self.charge_id = response.id
+            self.amount = response.amount
+            self.livemode = response.livemode
+            self.card = response.card.id
             self.rider_id = user.id
             self.save()
  
