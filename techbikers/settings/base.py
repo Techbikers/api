@@ -17,7 +17,8 @@ MANAGERS = ADMINS
 
 BASE = os.path.abspath(os.path.dirname(__name__))
 
-
+STRIPE_PUBLIC_KEY = "pk_test_Dy00yvbzCz5pXEGqxAvjlJKm"
+STRIPE_SECRET_KEY = "sk_test_PlMz1QQXWtkxnJdE4QFu6lZe"
 
 LOGIN_URL = '/riders/login'
 LOGOUT_URL = '/riders/logout'

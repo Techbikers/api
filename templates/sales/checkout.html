@@ -2,8 +2,49 @@
 
 {% load currency %}
 
+{% block head %}
+<!-- The required Stripe lib -->
+<script type="text/javascript" src="https://js.stripe.com/v1/"></script>
+{% endblock %}
+
 {% block content %}
 <div class="content">
+
+    <script type="text/javascript">
+        // This identifies your website in the createToken call below
+        Stripe.setPublishableKey('{{ key }}');
+
+        var stripeResponseHandler = function(status, response) {
+          var $form = $('#payment-form');
+
+          if (response.error) {
+            // Show the errors on the form
+            $form.find('.payment-errors').text(response.error.message);
+            $form.find('button').prop('disabled', false);
+          } else {
+            // token contains id, last4, and card type
+            var token = response.id;
+            // Insert the token into the form so it gets submitted to the server
+            $form.append($('<input type="hidden" name="stripeToken" />').val(token));
+            // and re-submit
+            $form.get(0).submit();
+          }
+        };
+
+        jQuery(function($) {
+          $('#payment-form').submit(function(e) {
+            var $form = $(this);
+
+            // Disable the submit button to prevent repeated clicks
+            $form.find('button').prop('disabled', true);
+
+            Stripe.createToken($form, stripeResponseHandler);
+
+            // Prevent the form from submitting with the default action
+            return false;
+          });
+        });
+    </script>
   <section>
     <header>
       <h1>Ride Signup - Checkout</h1>
@@ -27,25 +68,54 @@
         You are about to sign up for {{ ride.name }} at a cost of £{{ ride.price|floatformat:2 }}
     </p>
 
-    <form method="post">
+    <form action="/sales/charge/" method="POST" id="payment-form">
+        <span class="payment-errors"></span>
+
         {% csrf_token %}
 
         <input type="hidden" name="ride" value="{{ ride.id }}">
 
-        {% for field in form %}
-          <div class="field-wrapper">
-
+        <div class="field-wrapper">
             <div class="field-label">
-              {{ field.label_tag }}:
+              <label>Card Number</label>
             </div>
 
             <div class="field-field">
-              {{ field }}
-              {{ field.errors }}
+              <input type="text" size="20" data-stripe="number"/>
+            </div>
+        </div>
+
+        <div class="field-wrapper">
+            <div class="field-label">
+              <label>Name on Card</label>
             </div>
 
-          </div>
-        {% endfor %}
+            <div class="field-field">
+              <input type="text" size="20" data-stripe="name"/>
+            </div>
+        </div>
+
+        <div class="field-wrapper">
+            <div class="field-label">
+              <label>CVC</label>
+            </div>
+
+            <div class="field-field">
+              <input type="text" size="20" data-stripe="cvc"/>
+            </div>
+        </div>
+
+        <div class="field-wrapper">
+            <div class="field-label">
+              <label>Expiration (MM/YYYY)</label>
+            </div>
+
+            <div class="field-field">
+                <input type="text" size="2" data-stripe="exp-month" placeholder="MM"/>
+                <span> / </span>
+                <input type="text" size="4" data-stripe="exp-year" placeholder="YYYY"/>
+            </div>
+        </div>
 
         <button type="submit">Let's go!</button>
     </form>

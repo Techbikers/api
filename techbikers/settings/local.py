@@ -15,9 +15,6 @@ ALLOWED_HOSTS = []
 
 STATIC_ROOT = ''
 
-STRIPE_PUBLIC_KEY = os.environ.get("STRIPE_PUBLIC_KEY", "<your publishable test key>")
-STRIPE_SECRET_KEY = os.environ.get("STRIPE_SECRET_KEY", "<your secret test key>")
-
 DATABASES = {
     'default': {
          # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.

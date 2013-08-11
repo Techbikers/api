@@ -39,7 +39,3 @@ DEFAULT_FROM_EMAIL = 'admin@techbikers.com'
 
 STATIC_ROOT = '/home/django/techbikers.com/static'
 
-
-STRIPE_PUBLIC_KEY = os.environ.get("STRIPE_PUBLIC_KEY", "<your publishable test key>")
-STRIPE_SECRET_KEY = os.environ.get("STRIPE_SECRET_KEY", "<your secret test key>")
-

@@ -2,6 +2,7 @@ import stripe
 from datetime import datetime
 from django.db import models
 from django.contrib.auth.models import User
+from django.conf import settings
 
 
 class Sale(models.Model):
@@ -19,7 +20,7 @@ class Sale(models.Model):
     def __unicode__(self):
         return self.charge_id
  
-    def charge(self, user, price_in_cents, number, exp_month, exp_year, cvc):
+    def charge(self, user, price_in_cents, token):
         """
         Takes a the price and credit card details: number, exp_month,
         exp_year, cvc.
@@ -29,8 +30,8 @@ class Sale(models.Model):
         instance.
         """
 
-        # stripe API key (hard-coded for testing, just noticed we should eventually pick this up via settings/your env instead)
-        stripe.api_key = "sk_test_PlMz1QQXWtkxnJdE4QFu6lZe"
+        # stripe API key
+        stripe.api_key = settings.STRIPE_SECRET_KEY
  
         if self.charge_id: # don't let this be charged twice!
             return False, Exception(message="Already charged.")
@@ -39,19 +40,8 @@ class Sale(models.Model):
             response = stripe.Charge.create(
                 amount = price_in_cents,
                 currency = "gbp",
-                card = {
-                    "number" : number,
-                    "exp_month" : exp_month,
-                    "exp_year" : exp_year,
-                    "cvc" : cvc,
- 
-                    #### it is recommended to include the address!
-                    #"address_line1" : self.address1,
-                    #"address_line2" : self.address2,
-                    #"daddress_zip" : self.zip_code,
-                    #"address_state" : self.state,
-                },
-                description='Thank you for your purchase!')
+                card = token,
+                description = user.email)
  
             self.charge_id = response.id
             self.amount = response.amount
