@@ -1,13 +1,21 @@
 {% extends "shared/_base.html" %}
 
 {% block content %}
+<div class="content">
+    <section>
+        <header>
+            <h1>Your Account</h1>
+        </header>
 
-    <h2>Account</h2>
-
-    <ul>
-    {% for ride in rides %}
-        <li>{{ ride.ride.name }}</li>
-    {% endfor %}
-    </ul>
-
+        You are currently signed up for the following rides:
+        <ul>
+        {% if not rides %}
+            <li>You aren't signed up for any rides yet</li>
+        {% endif %}
+        {% for ride in rides %}
+            <li>{{ ride.ride.name }}</li>
+        {% endfor %}
+        </ul>
+    </section>
+</div>
 {% endblock %}

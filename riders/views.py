@@ -8,7 +8,8 @@ from riders.models import RiderProfile
 
 
 def index(request):
-    return render(request, 'riders/index.html')
+    #return render(request, 'riders/index.html')
+    raise Http404
 
 
 def login(request):

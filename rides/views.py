@@ -9,8 +9,10 @@ from rides.models import Ride
 
 def index(request):
     rides = Ride.objects.all()
-    return render(request, 'rides/index.html', {'rides': rides})
+    #return render(request, 'rides/index.html', {'rides': rides})
+    raise Http404
 
 def details(request, slug = None):
-    ride = Ride.objects.get(slug = slug)
-    return render(request, 'rides/details.html', {'ride': ride})
+    #ride = Ride.objects.get(slug = slug)
+    #return render(request, 'rides/details.html', {'ride': ride})
+    raise Http404
