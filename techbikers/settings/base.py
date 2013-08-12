@@ -23,6 +23,7 @@ STRIPE_SECRET_KEY = "sk_test_PlMz1QQXWtkxnJdE4QFu6lZe"
 LOGIN_URL = '/riders/register'
 LOGOUT_URL = '/riders/logout'
 LOGIN_REDIRECT_URL = '/account'
+LOGOUT_REDIRECT_URL = '/'
 
 # Hosts/domain names that are valid for this site; required if DEBUG is False
 # See https://docs.djangoproject.com/en/1.5/ref/settings/#allowed-hosts

@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.template.defaultfilters import slugify
 from django.http import Http404
+from django.conf import settings
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login as auth_login, logout as auth_logout
 from riders.forms import RiderRegistration
@@ -20,7 +21,7 @@ def login(request):
             if request.user.is_authenticated():
                 return redirect('riders.views.index')
 
-            return render(request, 'riders/login.html', {'next': request.GET.get('next')})
+            return render(request, 'riders/login.html', {'next': request.GET.get('next', '')})
 
         elif request.method == 'POST':
             username = request.POST['email']
@@ -35,7 +36,7 @@ def login(request):
                     if next_page:
                         return redirect(next_page)
                     else:
-                        return redirect('riders.views.index')
+                        return redirect(settings.LOGIN_REDIRECT_URL)
                 else:
                     return render(request, 'riders/login.html', {'errors': 'Account disabled'})
             else:
@@ -44,7 +45,7 @@ def login(request):
 
 def logout(request):
     auth_logout(request)
-    return redirect('riders.views.index')
+    return redirect(settings.LOGOUT_REDIRECT_URL)
 
 
 def register(request):
