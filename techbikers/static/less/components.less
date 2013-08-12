@@ -112,4 +112,56 @@
 
 }
 
+// Our credit card form
+.creditCard {
+  width: 400px;
+  margin: @baseLineHeight auto; padding: 20px;
+  border: 2px solid @fontColor;
+  .border-radius(4px);
 
+  .infoRow {
+    height: 80px;
+    text-align: center;
+
+    img {
+      width: 60px;
+    }
+  }
+
+  .topRow {
+    .clearfix();
+  }
+
+  .bottomRow {
+    margin-top: 40px;
+    .clearfix();
+  }
+
+  .longNumber {
+    float: left;
+    width: 65%;
+  }
+
+  .cvc {
+    float: right;
+    width: 20%;
+  }
+
+  .nameOnCard {
+    float: left;
+    width: 55%;
+  }
+
+  .date {
+    float: right;
+  }
+
+  .month {
+    width: 36px;
+  }
+
+  .year {
+    margin-left: 4px;
+    width: 50px;
+  }
+}

@@ -1,6 +1,7 @@
 {% extends "shared/_base.html" %}
 
 {% load currency %}
+{% load staticfiles %}
 
 {% block head %}
 <!-- The required Stripe lib -->
@@ -19,7 +20,7 @@
 
           if (response.error) {
             // Show the errors on the form
-            $form.find('.payment-errors').text(response.error.message);
+            $form.find('.field-validation-error').text(response.error.message);
             $form.find('button').prop('disabled', false);
           } else {
             // token contains id, last4, and card type
@@ -45,10 +46,28 @@
           });
         });
     </script>
+
   <section>
     <header>
-      <h1>Ride Signup - Checkout</h1>
+      <h1>Register for Techbikers 2013</h1>
     </header>
+
+    <ol class="steps">
+      <li>
+        <span>1</span>
+        <span>Join Techbikers</span>
+      </li>
+
+      <li class="active">
+        <span>2</span>
+        <span>Pay the ride fee</span>
+      </li>
+
+      <li>
+        <span>3</span>
+        <span>Registration Complete!</span>
+      </li>
+    </ol>
 
     {% if signed_up %}
 
@@ -69,55 +88,41 @@
     </p>
 
     <form action="/sales/charge/" method="POST" id="payment-form">
-        <span class="payment-errors"></span>
+        <span class="field-validation-error centerText"></span>
 
         {% csrf_token %}
 
         <input type="hidden" name="ride" value="{{ ride.id }}">
 
-        <div class="field-wrapper">
-            <div class="field-label">
-              <label>Card Number</label>
+        <div class="creditCard">
+
+            <div class="infoRow">
+                <img src="{% static "img/icons/amex.png" %}" />
+                <img src="{% static "img/icons/diners.png" %}" />
+                <img src="{% static "img/icons/discover.png" %}" />
+                <img src="{% static "img/icons/jcb.png" %}" />
+                <img src="{% static "img/icons/mastercard.png" %}" />
+                <img src="{% static "img/icons/visa.png" %}" />
             </div>
 
-            <div class="field-field">
-              <input type="text" size="20" data-stripe="number"/>
-            </div>
-        </div>
-
-        <div class="field-wrapper">
-            <div class="field-label">
-              <label>Name on Card</label>
+            <div class="topRow">
+                <input class="longNumber" type="text" size="20" data-stripe="number" placeholder="XXXX XXXX XXXX XXXX"/>
+                <input class="cvc" type="text" size="20" data-stripe="cvc" placeholder="CVC" />
             </div>
 
-            <div class="field-field">
-              <input type="text" size="20" data-stripe="name"/>
-            </div>
-        </div>
+            <div class="bottomRow">
+                <input class="nameOnCard" type="text" size="20" data-stripe="name" placeholder="Name on card"/>
 
-        <div class="field-wrapper">
-            <div class="field-label">
-              <label>CVC</label>
-            </div>
-
-            <div class="field-field">
-              <input type="text" size="20" data-stripe="cvc"/>
+                <div class="date">
+                    <input class="month" type="text" size="2" data-stripe="exp-month" placeholder="MM"/>
+                    <input class="year" type="text" size="4" data-stripe="exp-year" placeholder="YYYY"/>
+                </div>
             </div>
         </div>
 
-        <div class="field-wrapper">
-            <div class="field-label">
-              <label>Expiration (MM/YYYY)</label>
-            </div>
-
-            <div class="field-field">
-                <input type="text" size="2" data-stripe="exp-month" placeholder="MM"/>
-                <span> / </span>
-                <input type="text" size="4" data-stripe="exp-year" placeholder="YYYY"/>
-            </div>
-        </div>
-
-        <button type="submit">Charge my card</button>
+        <p class="centerText">
+            <input class="btn" type="submit" value="Charge my card £200" />
+        </p>
     </form>
 
     {% endif %}

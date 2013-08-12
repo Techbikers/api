@@ -613,7 +613,7 @@ input[type="radio"],
 input[type="checkbox"] {
   width: auto;
 }
-input + .field-validation-error {
+.field-validation-error {
   font-size: 16px;
   display: block;
   color: #f14646;
@@ -874,4 +874,67 @@ input + .field-validation-error {
   color: white;
   background: #74C354;
   border-color: #74C354;
+}
+.creditCard {
+  width: 400px;
+  margin: 26px auto;
+  padding: 20px;
+  border: 2px solid #333333;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+}
+.creditCard .infoRow {
+  height: 80px;
+  text-align: center;
+}
+.creditCard .infoRow img {
+  width: 60px;
+}
+.creditCard .topRow {
+  *zoom: 1;
+}
+.creditCard .topRow:before,
+.creditCard .topRow:after {
+  display: table;
+  content: "";
+  line-height: 0;
+}
+.creditCard .topRow:after {
+  clear: both;
+}
+.creditCard .bottomRow {
+  margin-top: 40px;
+  *zoom: 1;
+}
+.creditCard .bottomRow:before,
+.creditCard .bottomRow:after {
+  display: table;
+  content: "";
+  line-height: 0;
+}
+.creditCard .bottomRow:after {
+  clear: both;
+}
+.creditCard .longNumber {
+  float: left;
+  width: 65%;
+}
+.creditCard .cvc {
+  float: right;
+  width: 20%;
+}
+.creditCard .nameOnCard {
+  float: left;
+  width: 55%;
+}
+.creditCard .date {
+  float: right;
+}
+.creditCard .month {
+  width: 36px;
+}
+.creditCard .year {
+  margin-left: 4px;
+  width: 50px;
 }
