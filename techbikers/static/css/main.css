@@ -802,3 +802,51 @@ input[type="checkbox"] {
   opacity: 0.65;
   filter: alpha(opacity=65);
 }
+.callout {
+  background: #FDEC18;
+  margin: 26px 0;
+  padding: 26px;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+}
+.callout h1,
+.callout h2,
+.callout p {
+  text-align: center;
+}
+/**
+ * Registration steps
+ */
+.steps {
+  margin: 52px 0;
+  padding: 0;
+  text-align: center;
+}
+.steps li {
+  display: inline-block;
+  width: 200px;
+  color: #aaa;
+}
+.steps li span {
+  display: block;
+  margin: auto;
+  text-align: center;
+}
+.steps li span:first-child {
+  width: 40px;
+  height: 40px;
+  line-height: 40px;
+  border: 2px solid #aaa;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  border-radius: 50%;
+}
+.steps li.active {
+  color: #46832e;
+}
+.steps li.active span:first-child {
+  color: white;
+  background: #74C354;
+  border-color: #74C354;
+}

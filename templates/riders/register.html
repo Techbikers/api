@@ -2,39 +2,62 @@
 
 {% block content %}
 <div class="content">
-  <form method="post">
-  {% csrf_token %}
+  <section>
+    <header>
+      <h1>Register for Techbikers 2013</h1>
+    </header>
 
-    {{ form.errors }}
+    <ol class="steps">
+      <li class="active">
+        <span>1</span>
+        <span>Join Techbikers</span>
+      </li>
 
-    <div class="row">
-      <div class="span2 offset1">
-        {{ form.firstname }}
-        <span class="field-validation-valid" data-valmsg-for="firstname" data-valmsg-replace="true"></span>
+      <li>
+        <span>2</span>
+        <span>Pay the ride fee</span>
+      </li>
 
-        {{ form.lastname }}
-        <span class="field-validation-valid" data-valmsg-for="lastname" data-valmsg-replace="true"></span>
+      <li>
+        <span>3</span>
+        <span>Registration Complete!</span>
+      </li>
+    </ol>
 
-        {{ form.email }}
-        <span class="field-validation-valid" data-valmsg-for="email" data-valmsg-replace="true"></span>
+    <form method="post">
+    {% csrf_token %}
 
-        {{ form.company }}
+      {{ form.errors }}
+
+      <div class="row">
+        <div class="span2 offset1">
+          {{ form.firstname }}
+          <span class="field-validation-valid" data-valmsg-for="firstname" data-valmsg-replace="true"></span>
+
+          {{ form.lastname }}
+          <span class="field-validation-valid" data-valmsg-for="lastname" data-valmsg-replace="true"></span>
+
+          {{ form.email }}
+          <span class="field-validation-valid" data-valmsg-for="email" data-valmsg-replace="true"></span>
+
+          {{ form.company }}
+        </div>
+
+        <div class="span2">
+          {{ form.website }}
+          {{ form.twitter }}
+          {{ form.password1 }}
+          <span class="field-validation-valid" data-valmsg-for="password1" data-valmsg-replace="true"></span>
+          {{ form.password2 }}
+          <span class="field-validation-valid" data-valmsg-for="password2" data-valmsg-replace="true"></span>
+
+        </div>
       </div>
-
-      <div class="span2">
-        {{ form.website }}
-        {{ form.twitter }}
-        {{ form.password1 }}
-        <span class="field-validation-valid" data-valmsg-for="password1" data-valmsg-replace="true"></span>
-        {{ form.password2 }}
-        <span class="field-validation-valid" data-valmsg-for="password2" data-valmsg-replace="true"></span>
-
-      </div>
-    </div>
-    <input type="hidden" name="next" value="{{ next }}"/>
-    <p class="centerText">
-      <input type="submit" value="Sign Up" class="btn" />
-    </p>
-  </form>
+      <input type="hidden" name="next" value="{{ next }}"/>
+      <p class="centerText">
+        <input type="submit" value="Sign Up" class="btn" />
+      </p>
+    </form>
+  </section>
 </div>
 {% endblock content %}
