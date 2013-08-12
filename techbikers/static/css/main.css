@@ -726,7 +726,7 @@ input[type="checkbox"] {
 }
 .hero {
   *zoom: 1;
-  background: #FDEC18;
+  background: url('/static/img/background.jpg');
   background-size: cover;
   padding: 100px 0;
 }
