@@ -36,5 +36,6 @@
       <input type="submit" value="Sign Up" class="btn" />
     </p>
   </form>
+    <a href="{% url "auth_login" %}?next={{ next }}">Already have an account?</a>
 </div>
 {% endblock content %}

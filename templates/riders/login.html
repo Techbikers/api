@@ -30,7 +30,7 @@
             </form>
 
             <p>
-                Don't have an account yet? <a href="{% url "rider_registration" %}?{{ request.GET.urlencode }}">Create one!</a>
+                Don't have an account yet? <a href="{% url "rider_registration" %}?next={{ next }}">Create one!</a>
             </p>
         </section>
     </div>
