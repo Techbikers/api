@@ -52,6 +52,20 @@
       <h1>Register for Techbikers 2013</h1>
     </header>
 
+    {% if signed_up %}
+
+    <p>
+        You have already signed up for the {{ ride.name }} ride. No need to pay for it again!
+    </p>
+
+    {% elif full %}
+
+    <p>
+        Dang... This ride is full!
+    </p>
+
+    {% else %}
+
     <ol class="steps">
       <li>
         <span>1</span>
@@ -68,20 +82,6 @@
         <span>Registration Complete!</span>
       </li>
     </ol>
-
-    {% if signed_up %}
-
-    <p>
-        You have already signed up for the {{ ride.name }} ride. No need to pay for it again!
-    </p>
-
-    {% elif full %}
-
-    <p>
-        Dang... This ride is full!
-    </p>
-
-    {% else %}
 
     <p>
         You are about to sign up for <strong>{{ ride.name }}</strong> at a cost of <strong>£{{ ride.price|floatformat:2 }}</strong>.<br/>

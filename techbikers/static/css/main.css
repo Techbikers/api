@@ -718,6 +718,12 @@ input[type="checkbox"] {
   padding: 130px 0;
   color: #F5EFEA;
 }
+[role="footer"] a {
+  color: #FDEC18;
+}
+[role="footer"] nav {
+  list-style: none;
+}
 .hero {
   *zoom: 1;
   background: #FDEC18;
