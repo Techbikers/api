@@ -729,6 +729,7 @@ input[type="checkbox"] {
   background: url('/static/img/background.jpg');
   background-size: cover;
   padding: 100px 0;
+  color: white;
 }
 .hero:before,
 .hero:after {
@@ -740,6 +741,7 @@ input[type="checkbox"] {
   clear: both;
 }
 .hero .strapline {
+  text-shadow: 0px 0px 2px black;
   text-transform: uppercase;
   font-weight: bold;
   text-align: center;
@@ -775,6 +777,15 @@ input[type="checkbox"] {
   margin-top: 14px;
   font-size: 24px;
   line-height: 1.3;
+}
+.hero .btn {
+  border-color: rgba(255, 255, 255, 0.8);
+  color: rgba(255, 255, 255, 0.8);
+}
+.hero .btn:hover {
+  border-color: white;
+  background: white;
+  color: #333333;
 }
 /**
  * components.less
