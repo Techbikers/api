@@ -87,5 +87,7 @@ def migrate():
     
 def restart_webserver():
     "Restart the web server"
-    run("supervisorctl restart techbikers.com")
+    run("supervisorctl stop techbikers.com")
+    run("pkill django")
+    run("supervisorctl start techbikers.com")
     
