@@ -8,7 +8,7 @@
             <header>
                 <h1>Login</h1>
             </header>
-
+            <br/>
             <form id="loginform" method='post' novalidate="novalidate">
                 {% csrf_token %}
                 <div class="row centerText">
@@ -28,7 +28,7 @@
                     <input type="submit" value="Login" class="btn" />
                   </p>
                   <p class="centerText">
-                      Don't have an account yet? <a href="{% url "rider_registration" %}?next={{ next }}">Create one!</a>
+                      Don't have an account yet? <a href="{% url "rider_registration" %}{% if next %}?next={{ next }}{% endif %}">Create one!</a>
                   </p>
                 </div>
                 <input type="hidden" name="next" value="{{ next }}"/>

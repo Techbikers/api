@@ -55,7 +55,7 @@ def register(request):
         if request.method == "GET":
             # Initialise the signup form
             form = RiderRegistration(auto_id=True)
-            return render(request, 'riders/register.html', {"form": form, 'next': request.GET.get('next')})
+            return render(request, 'riders/register.html', {"form": form, 'next': request.GET.get('next', '')})
 
         elif request.method == "POST":
             form = RiderRegistration(request.POST)
