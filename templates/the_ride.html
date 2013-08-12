@@ -8,6 +8,15 @@
       <h2>September 26th ~ 29th, 2013</h2>
     </header>
 
+    {% if ride.space_left == 0 %}
+    <div class="callout">
+      <h2>Registration for the 2013 Paris &rarr; London ride is closed</h2>
+
+      <p>
+        Unfortunately all {{ ride.rider_capacity }} spaces have been taken but keep checking <a href="http://twitter.com/techbikers" target="_blank">Twitter</a> in case we release more spaces!
+      </p>
+    </div>
+    {% else %}
     <div class="callout">
       <h2>Registration for the 2013 Paris &rarr; London ride is now open!</h2>
       <h2>
@@ -18,6 +27,7 @@
         (only {{ ride.spaces_left }} of {{ ride.rider_capacity }} spaces left)
       </p>
     </div>
+    {% endif %}
 
     <p>
       The ride will be three days and 200 miles of cycling picturesque villages in France and England.
