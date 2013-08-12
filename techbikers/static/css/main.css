@@ -574,6 +574,25 @@ input[type="color"]:focus,
   /* IE6-9 */
 
 }
+textarea.input-validation-error,
+input[type="text"].input-validation-error,
+input[type="password"].input-validation-error,
+input[type="datetime"].input-validation-error,
+input[type="datetime-local"].input-validation-error,
+input[type="date"].input-validation-error,
+input[type="month"].input-validation-error,
+input[type="time"].input-validation-error,
+input[type="week"].input-validation-error,
+input[type="number"].input-validation-error,
+input[type="email"].input-validation-error,
+input[type="url"].input-validation-error,
+input[type="search"].input-validation-error,
+input[type="tel"].input-validation-error,
+input[type="color"].input-validation-error,
+.uneditable-input.input-validation-error {
+  border-color: #f14646;
+  margin-bottom: 4px;
+}
 input[type="radio"],
 input[type="checkbox"] {
   margin: 4px 0 0;
@@ -593,6 +612,12 @@ input[type="button"],
 input[type="radio"],
 input[type="checkbox"] {
   width: auto;
+}
+input + .field-validation-error {
+  font-size: 16px;
+  display: block;
+  color: #f14646;
+  margin: -4px 0 26px 0;
 }
 /**
  * layout.less

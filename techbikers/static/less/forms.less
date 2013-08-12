@@ -111,6 +111,11 @@ input[type="color"],
     outline: 0;
     outline: thin dotted \9; /* IE6-9 */
   }
+
+  &.input-validation-error {
+    border-color: lighten(#EE1616, 10%);
+    margin-bottom: 4px;
+  }
 }
 
 // Position radios and checkboxes better
@@ -130,4 +135,12 @@ input[type="button"],
 input[type="radio"],
 input[type="checkbox"] {
   width: auto; // Override of generic input selector
+}
+
+// Django style error messages on input field
+input + .field-validation-error {
+  font-size: @baseFontSize - 2;
+  display: block;
+  color: lighten(#EE1616, 10%);
+  margin: -4px 0 @baseLineHeight 0;
 }
