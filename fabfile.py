@@ -35,6 +35,7 @@ def deploy():
     install_requirements()
     symlink_current_release()
     migrate()
+    update_static_files()
     restart_webserver()
     
 def deploy_version(version):
@@ -85,9 +86,17 @@ def migrate():
     run('cd %(path)s/releases/current; source ../../bin/activate; python manage.py syncdb --noinput' % env, pty=True)
     run('cd %(path)s/releases/current; source ../../bin/activate; python manage.py migrate' % env, pty=True)
     
+def update_static_files():
+    "Deploying static files"
+    run("cd %(path)s/releases/current; mkdir static" % env, pty=True)
+    run("cd %(path)s/releases/current; source ../../bin/activate; python manage.py collectstatic --noinput" % env, pty=True)
+
 def restart_webserver():
     "Restart the web server"
     run("supervisorctl stop techbikers.com")
-    run("pkill django")
+    with settings(warn_only=True):
+        run("pkill python")
+        run("pkill django")
+        run("pkill gunicorn")
     run("supervisorctl start techbikers.com")
     
