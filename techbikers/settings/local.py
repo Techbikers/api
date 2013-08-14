@@ -29,6 +29,9 @@ DATABASES = {
     }
 }
 
+EMAIL_HOST = 'localhost'
+EMAIL_PORT = 1025
+
 MIDDLEWARE_CLASSES += (
 #    'debug_toolbar.middleware.DebugToolbarMiddleware',
 )
