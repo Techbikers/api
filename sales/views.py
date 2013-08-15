@@ -26,7 +26,7 @@ def checkout(request):
 
         if ride_rider:
             return render(request, 'sales/checkout.html', {'ride': ride, 'signed_up': True})
-        elif ride.spaces_left == 0:
+        elif ride.spaces_left < 1:
             # If the ride is full then don't let them pay for it
             return render(request, 'sales/checkout.html', {'ride': ride, 'full': True})
         else:
