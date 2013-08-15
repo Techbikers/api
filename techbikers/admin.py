@@ -32,7 +32,7 @@ class RideRidersAdmin(admin.ModelAdmin):
     list_filter = ('ride__name',)
     search_fields = ('user__first_name', 'user__last_name', 'user__email')
     readonly_fields = ('user_link', 'ride_link', 'sale_link', 'signup_date')
-    fields = ('user_link', 'ride_link', 'signup_date', 'pending', 'paid', 'sale_link')
+    fields = ('user_link', 'user', 'ride_link', 'ride', 'signup_date', 'pending', 'paid', 'sale_link')
 
     def user_link(self, obj):
         change_url = urlresolvers.reverse('admin:auth_user_change', args=(obj.user.id,))
