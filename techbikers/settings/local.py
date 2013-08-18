@@ -32,6 +32,9 @@ DATABASES = {
 EMAIL_HOST = 'localhost'
 EMAIL_PORT = 1025
 
+# Make this unique, and don't share it with anybody.
+SECRET_KEY = 'i-xhck&#!-t!m+i9%@_1$g$a=rcv1whu+awzguuz-%lv@-+t4s'
+
 MIDDLEWARE_CLASSES += (
 #    'debug_toolbar.middleware.DebugToolbarMiddleware',
 )
