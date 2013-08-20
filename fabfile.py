@@ -3,7 +3,7 @@
 
 from fabric.api import *
 
-env.hosts = ['spoke.techbikers.com']
+env.hosts = ['techbikers.com']
 env.user = 'django'
 env.project_name = 'techbikers.com'
 env.path = '~/%(project_name)s' % env
