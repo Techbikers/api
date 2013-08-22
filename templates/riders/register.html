@@ -59,7 +59,7 @@
       <input type="submit" value="Sign Up" class="btn" />
     </p>
     <p class="centerText">
-      <a href="{% url "auth_login" %}{% if next %}?next={{ next }}{% endif %}">Already have an account?</a>
+      <a href="{% url "auth_login" %}?next={{ request.REQUEST.next|urlencode }}">Already have an account?</a>
     </p>
   </form>
 </div>

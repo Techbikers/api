@@ -28,7 +28,7 @@
                     <input type="submit" value="Login" class="btn" />
                   </p>
                   <p class="centerText">
-                      Don't have an account yet? <a href="{% url "rider_registration" %}{% if next %}?next={{ next }}{% endif %}">Create one!</a>
+                      Don't have an account yet? <a href="{% url "rider_registration" %}?next={{ request.REQUEST.next|urlencode }}">Create one!</a>
                       <br/>
                       <a href="{% url "reset_password" %}">Forgotten your password?</a>
                   </p>
