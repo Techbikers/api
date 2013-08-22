@@ -26,6 +26,9 @@ def checkout(request):
 
         if ride_rider:
             return render(request, 'sales/checkout.html', {'ride': ride, 'signed_up': True})
+        elif request.GET.get('key', None) == settings.SECRET_SALES_KEY:
+            # If the user has the secret key then they can register regardless of spaces left
+            return render(request, 'sales/checkout.html', {'ride': ride, 'key': settings.STRIPE_PUBLIC_KEY})
         elif ride.spaces_left < 1:
             # If the ride is full then don't let them pay for it
             return render(request, 'sales/checkout.html', {'ride': ride, 'full': True})
