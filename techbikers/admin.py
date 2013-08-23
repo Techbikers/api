@@ -28,7 +28,7 @@ admin.site.register(Ride, RideAdmin)
 
 
 class RideRidersAdmin(admin.ModelAdmin):
-    list_display = ('ride', 'user', 'paid', 'signup_date')
+    list_display = ('ride', 'user_link', 'user', 'paid', 'signup_date')
     list_filter = ('ride__name',)
     search_fields = ('user__first_name', 'user__last_name', 'user__email')
     readonly_fields = ('user_link', 'ride_link', 'sale_link', 'signup_date')
@@ -36,7 +36,7 @@ class RideRidersAdmin(admin.ModelAdmin):
 
     def user_link(self, obj):
         change_url = urlresolvers.reverse('admin:auth_user_change', args=(obj.user.id,))
-        return '<a href="%s">%s</a>' % (change_url, obj.user.email)
+        return '<a href="%s">%s %s</a>' % (change_url, obj.user.first_name, obj.user.last_name)
     user_link.short_description = 'User'
     user_link.allow_tags = True
 
