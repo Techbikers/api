@@ -965,3 +965,7 @@ input[type="checkbox"] {
 .media .img {float:left; margin-right: 10px;}
 .media .img img{display:block;}
 .media .imgExt{float:right; margin-left: 10px;}
+
+.text--centre{
+  text-align: center;
+}
