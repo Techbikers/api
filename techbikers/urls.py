@@ -11,6 +11,7 @@ urlpatterns = patterns('',
     url(r'^the_charity/$', 'techbikers.views.the_charity', name="the_charity"),
     url(r'^about/$', 'techbikers.views.about', name="about"),
     url(r'^sponsors/$', 'techbikers.views.sponsors', name="sponsors"),
+    url(r'^events/$', 'techbikers.views.events', name="events"),
 
     # Riders
     url(r'^account/', include('account.urls')),
