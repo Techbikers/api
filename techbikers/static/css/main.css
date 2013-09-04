@@ -999,3 +999,7 @@ input[type="checkbox"] {
 .gap--big{
   margin-bottom: 33px;
 }
+
+.sponsors h3{
+  margin-top: 0;
+}
