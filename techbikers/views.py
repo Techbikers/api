@@ -15,3 +15,6 @@ def the_charity(request):
 
 def about(request):
     return render(request, 'about.html')
+
+def events(request):
+    return render(request, 'events.html')
