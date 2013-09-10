@@ -23,7 +23,7 @@ class Ride(models.Model):
 
     # Calculated properties (not stored in the db)
     def get_spaces_left(self):
-        return self.rider_capacity - self.riders.count()
+        return max(0, self.rider_capacity - self.riders.count())
 
     spaces_left = property(get_spaces_left)
 
