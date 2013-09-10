@@ -72,15 +72,20 @@
     </div>
   </section>
 
-  <section class=text--centre>
-    <header>
+  <section class="text--centre sponsor-logos">
+    <header class=gap--big>
       <h1>Our Sponsors</h1>
     </header>
 
-    <ul class="list--secret" class="yellow-jersey">
-      <li>
+    <ul class="list--secret list--inline" class="yellow-jersey">
+      <li class=nudge>
         <a href="{% url "sponsors" %}#ms">
           <img src="/static/img/sponsors/msventures2.png" alt="Microsoft Ventures logo" />
+        </a> 
+      </li>
+      <li>
+        <a href="{% url "sponsors" %}#yandex">
+          <img src="/static/img/sponsors/yandex.png" alt="Yandex logo" />
         </a> 
       </li>
     </ul>

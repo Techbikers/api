@@ -961,6 +961,14 @@ input[type="checkbox"] {
   list-style: none;
 }
 
+.list--inline li {
+  display: inline-block;
+}
+
+.nudge {
+  margin-right: 30px;
+}
+
 .sponsors ul { padding: 0}
 
 .media, .bd {overflow:hidden; _overflow:visible; zoom:1;}
@@ -975,7 +983,7 @@ input[type="checkbox"] {
 .jersey--parent{
   position: relative;
   padding-left: 60px;
-  margin-bottom: 30px;
+  margin-bottom: 33px;
 }
 
 .jersey {
