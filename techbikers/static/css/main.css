@@ -1011,3 +1011,19 @@ input[type="checkbox"] {
 .sponsors h3{
   margin-top: 0;
 }
+
+.inkind{
+  text-align: center;
+  margin-top: 20px;
+}
+
+.inkind .img{
+  display: block;
+  margin:0 20px 20px;
+  width:205px;
+  height:154px;
+}
+
+.inkind .img > img{
+  width:205px;
+}
