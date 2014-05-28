@@ -19,7 +19,7 @@ class RideAdmin(admin.ModelAdmin):
     list_display = ('name', 'start_date', 'end_date', 'price', 'currency', 'rider_capacity', 'spaces_left')
     list_filter = ('start_date',)
     readonly_fields = ('get_riders',)
-    fields = ('name', 'slug', 'description', 'start_location', 'end_location', ('start_date', 'end_date'), 'rider_capacity', 'price', 'currency', 'chapter', 'get_riders')
+    fields = ('name', 'slug', 'description', 'start_location', 'end_location', ('start_date', 'end_date'), 'rider_capacity', 'price', 'currency', 'chapter', 'terms_and_conditions', 'get_riders')
 
     def get_riders(self, obj):
         return "\n".join([rider.email for rider in obj.riders.all()])

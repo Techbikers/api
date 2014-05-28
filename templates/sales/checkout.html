@@ -11,9 +11,10 @@
 {% block content %}
 <div class="content">
 
+    {% if not form.stripe_token.value %}
     <script type="text/javascript">
         // This identifies your website in the createToken call below
-        Stripe.setPublishableKey('{{ key }}');
+        Stripe.setPublishableKey('{{ ride.chapter.get_pub_key }}');
 
         var stripeResponseHandler = function(status, response) {
           var $form = $('#payment-form');
@@ -26,7 +27,7 @@
             // token contains id, last4, and card type
             var token = response.id;
             // Insert the token into the form so it gets submitted to the server
-            $form.append($('<input type="hidden" name="stripeToken" />').val(token));
+            $form.find('#id_stripe_token').val(token);
             // and re-submit
             $form.get(0).submit();
           }
@@ -46,6 +47,7 @@
           });
         });
     </script>
+    {% endif %}
 
   <section>
     <header>
@@ -83,18 +85,19 @@
       </li>
     </ol>
 
-    <p>
+    <p class="centerText">
         You are about to sign up for <strong>{{ ride.name }}</strong> at a cost of <strong>{{ ride.currency|upper }} {{ ride.price|floatformat:2 }}</strong>.<br/>
     </p>
 
-    <form action="/sales/charge/" method="POST" id="payment-form">
-        <span class="field-validation-error centerText"></span>
+    <form method="POST" id="payment-form">
+        <span class="field-validation-error centerText">{{ form.non_field_errors }}</span>
 
         {% csrf_token %}
         <input type="hidden" name="NO_CHROME" value="{{ NO_CHROME }}">
 
-        <input type="hidden" name="ride" value="{{ ride.id }}">
+        {{ form.stripe_token }}
 
+        {% if not form.stripe_token.value %}
         <div class="creditCard">
 
             <div class="infoRow">
@@ -120,6 +123,17 @@
                 </div>
             </div>
         </div>
+        {% endif %}
+
+        {% if 'tnc' in form.fields %}
+        {% for error in form.tnc.errors %}
+        <p class="field-validation-error centerText">{{ error }}</p>
+        {% endfor %}
+        <p class="centerText">
+            {{ form.tnc }}
+            <label for="id_tnc">I agree to the <a href="{% url 'sales.views.tnc' ride.id %}">Terms and Conditions</a> of this ride.</label>
+        </p>
+        {% endif %}
 
         <p class="centerText">
             <input class="btn" type="submit" value="Charge my card {{ ride.currency|upper }} {{ ride.price|floatformat:2 }}" />

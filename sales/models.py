@@ -4,7 +4,6 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.conf import settings
 
-
 class Sale(models.Model):
     sale_date   = models.DateTimeField(default=datetime.now())
     charge_id   = models.CharField(max_length=32) # store the stripe charge id for this sale
@@ -20,42 +19,36 @@ class Sale(models.Model):
 
     def __unicode__(self):
         return self.charge_id
- 
-    def charge(self, user, price_in_cents, currency, token, priv_key):
+
+    @classmethod
+    def charge(cls, user, ride, token):
         """
         Takes a the price and a Stripe token.
  
-        Returns a tuple: (Boolean, Class) where the boolean is if
-        the charge was successful, and the class is response (or error)
-        instance.
+        Raises a stripe.CardError on errors.
         """
 
-        # stripe API key
-        stripe.api_key = priv_key
- 
-        if self.charge_id: # don't let this be charged twice!
-            return False, Exception(message="Already charged.")
- 
+        instance = cls()
+
+        stripe.api_key = ride.chapter.get_priv_key()
+
         try:
             response = stripe.Charge.create(
-                amount = price_in_cents,
-                currency = currency,
+                amount = int(ride.price * 100), # in cents
+                currency = ride.currency,
                 card = token,
-                description = user.email)
+                description = "{}: {}".format(ride.name, user.email))
+        except stripe.CardError:
+            raise # Just be explicit about what we are raising
 
-            self.charge_id = response.id
-            self.amount = response.amount
-            self.currency = response.currency
-            self.livemode = response.livemode
-            self.card = response.card.id
-            self.rider_id = user.id
-            self.save()
+        instance.charge_id = response.id
+        instance.amount = response.amount
+        instance.currency = response.currency
+        instance.livemode = response.livemode
+        instance.card = response.card.id
+        instance.rider_id = user.id
  
-        except stripe.CardError, ce:
-            # charge failed
-            return False, ce
- 
-        return True, response
+        return instance
         
     class Meta:
         db_table    = 'sales'
