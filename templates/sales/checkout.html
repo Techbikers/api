@@ -91,6 +91,7 @@
         <span class="field-validation-error centerText"></span>
 
         {% csrf_token %}
+        <input type="hidden" name="NO_CHROME" value="{{ NO_CHROME }}">
 
         <input type="hidden" name="ride" value="{{ ride.id }}">
 

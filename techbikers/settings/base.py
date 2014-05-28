@@ -97,6 +97,7 @@ TEMPLATE_LOADERS = (
 
 TEMPLATE_CONTEXT_PROCESSORS = TCP + (
     'django.core.context_processors.request',
+    'techbikers.context_processors.no_chrome'
 )
 
 
