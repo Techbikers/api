@@ -16,6 +16,7 @@ def checkout(request):
     if ride_id:
         # Get the ride info
         ride = Ride.objects.get(id = ride_id)
+        pub_key = ride.chapter.get_pub_key()
 
         # Check to see if the rider is already signed up to this ride
         # There must be a better way of doing this
@@ -28,12 +29,12 @@ def checkout(request):
             return render(request, 'sales/checkout.html', {'ride': ride, 'signed_up': True})
         elif request.GET.get('key', None) == settings.SECRET_SALES_KEY:
             # If the user has the secret key then they can register regardless of spaces left
-            return render(request, 'sales/checkout.html', {'ride': ride, 'key': settings.STRIPE_PUBLIC_KEY})
+            return render(request, 'sales/checkout.html', {'ride': ride, 'key': pub_key})
         elif ride.spaces_left < 1:
             # If the ride is full then don't let them pay for it
             return render(request, 'sales/checkout.html', {'ride': ride, 'full': True})
         else:
-            return render(request, 'sales/checkout.html', {'ride': ride, 'key': settings.STRIPE_PUBLIC_KEY})
+            return render(request, 'sales/checkout.html', {'ride': ride, 'key': pub_key})
     else:
         return render(request, 'sales/error.html', {'error': "You did not specify a ride!"})
 
@@ -49,12 +50,13 @@ def charge(request):
 
     # Get the ride info
     ride = Ride.objects.get(id = ride_id)
+    priv_key = ride.chapter.get_priv_key()
 
     # Create a new sale record
     sale = Sale()
 
     # Get the ride price, pass user so we can store the user id and charge id in a sale record
-    success, instance = sale.charge(request.user, int(ride.price*100), ride.currency, token)
+    success, instance = sale.charge(request.user, int(ride.price*100), ride.currency, token, priv_key)
 
     if success:
         instance.save()

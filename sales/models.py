@@ -21,7 +21,7 @@ class Sale(models.Model):
     def __unicode__(self):
         return self.charge_id
  
-    def charge(self, user, price_in_cents, currency, token):
+    def charge(self, user, price_in_cents, currency, token, priv_key):
         """
         Takes a the price and a Stripe token.
  
@@ -31,7 +31,7 @@ class Sale(models.Model):
         """
 
         # stripe API key
-        stripe.api_key = settings.STRIPE_SECRET_KEY
+        stripe.api_key = priv_key
  
         if self.charge_id: # don't let this be charged twice!
             return False, Exception(message="Already charged.")

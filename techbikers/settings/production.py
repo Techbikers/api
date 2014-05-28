@@ -38,8 +38,7 @@ with open('../../production.json') as configFile:
     EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER',email.get('user'))
     EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD', email.get('password'))
     stripe = config.get('stripe')
-    STRIPE_PUBLIC_KEY = stripe.get('public_key')
-    STRIPE_SECRET_KEY = stripe.get('secret_key')
+    STRIPE_ENVIRONMENT = 'live'
 
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
