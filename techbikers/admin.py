@@ -16,10 +16,10 @@ admin.site.register(RiderProfile, RiderProfileAdmin)
 
 class RideAdmin(admin.ModelAdmin):
     ordering = ['-start_date']
-    list_display = ('name', 'start_date', 'end_date', 'price', 'rider_capacity', 'spaces_left')
+    list_display = ('name', 'start_date', 'end_date', 'price', 'currency', 'rider_capacity', 'spaces_left')
     list_filter = ('start_date',)
     readonly_fields = ('get_riders',)
-    fields = ('name', 'slug', 'description', 'start_location', 'end_location', ('start_date', 'end_date'), 'rider_capacity', 'price', 'chapter', 'get_riders')
+    fields = ('name', 'slug', 'description', 'start_location', 'end_location', ('start_date', 'end_date'), 'rider_capacity', 'price', 'currency', 'chapter', 'get_riders')
 
     def get_riders(self, obj):
         return "\n".join([rider.email for rider in obj.riders.all()])
@@ -62,10 +62,10 @@ admin.site.register(Chapter, ChapterAdmin)
 
 class SaleAdmin(admin.ModelAdmin):
     ordering = ['-sale_date']
-    list_display = ('sale_date', 'rider', 'amount', 'livemode', 'charge_id')
+    list_display = ('sale_date', 'rider', 'amount', 'currency', 'livemode', 'charge_id')
     list_filter = ('sale_date',)
-    readonly_fields = ('sale_date', 'charge_id', 'card', 'amount', 'livemode', 'rider_link')
-    fields = ('sale_date', 'charge_id', 'card', 'amount', 'livemode', 'rider_link')
+    readonly_fields = ('sale_date', 'charge_id', 'card', 'amount', 'currency', 'livemode', 'rider_link')
+    fields = ('sale_date', 'charge_id', 'card', 'amount', 'currency', 'livemode', 'rider_link')
 
     def rider_link(self, obj):
         change_url = urlresolvers.reverse('admin:auth_user_change', args=(obj.rider.id,))

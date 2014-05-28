@@ -7,7 +7,7 @@
 <div class="content">
   <section>
     <header>
-      <h1>You are Registered for Techbikers 2013!</h1>
+      <h1>You are Registered for {{ ride.name }}!</h1>
     </header>
 
     <ol class="steps">
@@ -31,6 +31,7 @@
       We have successfully charged your card and signed you up for the ride. Time to get fundraising!
     </p>
 
+{% comment %}
     <h2>Now it’s time to start your fundraising for Room to Read.</h2>
 
     <p>
@@ -46,6 +47,7 @@
     <p class="centerText">
       <a class="btn" href="https://believe.in/fundraising/start?event_id=1&amount=60000" target="_blank">Get me setup to fundraise!</a>
     </p>
+{% endcomment %}
 
   </section>
 </div>

@@ -49,7 +49,7 @@
 
   <section>
     <header>
-      <h1>Register for Techbikers 2013</h1>
+      <h1>Register for {{ ride.name }}</h1>
     </header>
 
     {% if signed_up %}
@@ -84,7 +84,7 @@
     </ol>
 
     <p>
-        You are about to sign up for <strong>{{ ride.name }}</strong> at a cost of <strong>£{{ ride.price|floatformat:2 }}</strong>.<br/>
+        You are about to sign up for <strong>{{ ride.name }}</strong> at a cost of <strong>{{ ride.currency|upper }} {{ ride.price|floatformat:2 }}</strong>.<br/>
     </p>
 
     <form action="/sales/charge/" method="POST" id="payment-form">
@@ -121,7 +121,7 @@
         </div>
 
         <p class="centerText">
-            <input class="btn" type="submit" value="Charge my card £{{ ride.price|floatformat:2 }}" />
+            <input class="btn" type="submit" value="Charge my card {{ ride.currency|upper }} {{ ride.price|floatformat:2 }}" />
         </p>
     </form>
 

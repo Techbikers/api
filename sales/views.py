@@ -35,7 +35,7 @@ def checkout(request):
         else:
             return render(request, 'sales/checkout.html', {'ride': ride, 'key': settings.STRIPE_PUBLIC_KEY})
     else:
-        return render(request, 'sales/checkout.html', {'error': "Nothing to checkout!"})
+        return render(request, 'sales/error.html', {'error': "You did not specify a ride!"})
 
 
 @require_POST
@@ -54,11 +54,9 @@ def charge(request):
     sale = Sale()
 
     # Get the ride price, pass user so we can store the user id and charge id in a sale record
-    success, instance = sale.charge(request.user, int(ride.price*100), token)
+    success, instance = sale.charge(request.user, int(ride.price*100), ride.currency, token)
 
-    if not success:
-        return render(request, 'sales/error.html', {'error': instance.message})
-    else:
+    if success:
         instance.save()
 
         # So we've now successfully charged the user so lets make sure they are signed up to the ride
@@ -69,10 +67,6 @@ def charge(request):
         ride_rider.sale = sale
         ride_rider.save()
 
-        pass
+        return render(request, 'sales/success.html', {'ride': ride})
 
-    return redirect('/sales/success')
-
-
-def success(request):
-    return render(request, 'sales/success.html')
+    return render(request, 'sales/error.html', {'error': instance.message, 'ride': ride})

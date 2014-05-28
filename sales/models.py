@@ -9,6 +9,7 @@ class Sale(models.Model):
     sale_date   = models.DateTimeField(default=datetime.now())
     charge_id   = models.CharField(max_length=32) # store the stripe charge id for this sale
     amount      = models.IntegerField(max_length=6, null=True, blank=True)
+    currency    = models.CharField(max_length = 3, choices=(('gbp', 'GBP'), ('usd', 'USD'), ('eur', 'EUR')), default = 'gbp')
     livemode    = models.BooleanField()
     card        = models.CharField(blank=True, null=True, max_length=255)
     # also store the rider id
@@ -20,10 +21,9 @@ class Sale(models.Model):
     def __unicode__(self):
         return self.charge_id
  
-    def charge(self, user, price_in_cents, token):
+    def charge(self, user, price_in_cents, currency, token):
         """
-        Takes a the price and credit card details: number, exp_month,
-        exp_year, cvc.
+        Takes a the price and a Stripe token.
  
         Returns a tuple: (Boolean, Class) where the boolean is if
         the charge was successful, and the class is response (or error)
@@ -39,12 +39,13 @@ class Sale(models.Model):
         try:
             response = stripe.Charge.create(
                 amount = price_in_cents,
-                currency = "gbp",
+                currency = currency,
                 card = token,
                 description = user.email)
- 
+
             self.charge_id = response.id
             self.amount = response.amount
+            self.currency = response.currency
             self.livemode = response.livemode
             self.card = response.card.id
             self.rider_id = user.id

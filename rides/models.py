@@ -16,6 +16,7 @@ class Ride(models.Model):
     # Details to sign up riders
     rider_capacity = models.IntegerField(default = 0)
     price          = models.DecimalField(default = 0.00, max_digits = 6, decimal_places = 2)
+    currency       = models.CharField(max_length = 3, choices=(('gbp', 'GBP'), ('usd', 'USD'), ('eur', 'EUR')), default = 'gbp')
 
     # Linked Entities
     chapter        = models.ForeignKey('chapters.Chapter', null=True, blank=True)

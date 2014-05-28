@@ -34,6 +34,8 @@ EMAIL_PORT = 1025
 
 # Make this unique, and don't share it with anybody.
 SECRET_KEY = 'i-xhck&#!-t!m+i9%@_1$g$a=rcv1whu+awzguuz-%lv@-+t4s'
+STRIPE_PUBLIC_KEY = 'pk_test_Dy00yvbzCz5pXEGqxAvjlJKm'
+STRIPE_SECRET_KEY = 'sk_test_PlMz1QQXWtkxnJdE4QFu6lZe'
 
 MIDDLEWARE_CLASSES += (
 #    'debug_toolbar.middleware.DebugToolbarMiddleware',

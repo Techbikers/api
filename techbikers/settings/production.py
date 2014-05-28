@@ -40,7 +40,6 @@ with open('../../production.json') as configFile:
     stripe = config.get('stripe')
     STRIPE_PUBLIC_KEY = stripe.get('public_key')
     STRIPE_SECRET_KEY = stripe.get('secret_key')
-    
 
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
