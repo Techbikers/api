@@ -4,7 +4,7 @@
 <div class="content">
   <section>
     <header>
-      <h1>Register for Techbikers 2013</h1>
+      <h1>Register for Techbikers</h1>
     </header>
 
     <ol class="steps">
@@ -26,6 +26,7 @@
 
     <form method="post">
     {% csrf_token %}
+    <input type="hidden" name="NO_CHROME" value="{{ NO_CHROME }}">
 
       {{ form.errors }}
 

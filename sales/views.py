@@ -5,63 +5,54 @@ from django.conf import settings
 
 from rides.models import Ride, RideRiders
 from sales.models import Sale
+from sales.forms import RideCheckoutForm
 
+import stripe
 
-@require_GET
 @login_required()
-def checkout(request):
-    # Get the ride id from the POST data
-    ride_id = request.GET.get('ride', None)
-
-    if ride_id:
+def checkout(request, ride_id):
+    try:
         # Get the ride info
         ride = Ride.objects.get(id = ride_id)
+    except Ride.DoesNotExist:
+        return render(request, 'sales/error.html', {'error': "You did not specify a ride!"})
 
-        # Check to see if the rider is already signed up to this ride
-        # There must be a better way of doing this
+    if request.method == "POST":
+        form = RideCheckoutForm(request.POST)
+    else:
+        form = RideCheckoutForm()
+
+    # If the user has the secret key then they can register regardless of spaces left
+    has_sales_key = request.GET.get('key', None) == settings.SECRET_SALES_KEY
+    full = ride.spaces_left < 1 and not has_sales_key
+
+    variables  = {
+        'ride': ride,
+        'form': form,
+        'signed_up': False,
+        'full': full
+    }
+
+    # Check to see if the rider is already signed up to this ride
+    # There must be a better way of doing this
+    try:
+        ride.rideriders_set.get(user = request.user)
+        variables['signed_up'] = True
+    except RideRiders.DoesNotExist:
+        pass
+
+    if not full and request.method == "POST" and form.is_valid():
+        token = form.cleaned_data['stripe_token']
+
         try:
-            ride_rider = ride.rideriders_set.get(user = request.user)
-        except:
-            ride_rider = None
+            sale = Sale.charge(request.user, ride, token)
+            sale.save()
+        except stripe.CardError:
+            return render(request, 'sales/error.html',
+                {'error': 'Something went wrong when processing your payment. Please get in touch with us!'})
 
-        if ride_rider:
-            return render(request, 'sales/checkout.html', {'ride': ride, 'signed_up': True})
-        elif request.GET.get('key', None) == settings.SECRET_SALES_KEY:
-            # If the user has the secret key then they can register regardless of spaces left
-            return render(request, 'sales/checkout.html', {'ride': ride, 'key': settings.STRIPE_PUBLIC_KEY})
-        elif ride.spaces_left < 1:
-            # If the ride is full then don't let them pay for it
-            return render(request, 'sales/checkout.html', {'ride': ride, 'full': True})
-        else:
-            return render(request, 'sales/checkout.html', {'ride': ride, 'key': settings.STRIPE_PUBLIC_KEY})
-    else:
-        return render(request, 'sales/checkout.html', {'error': "Nothing to checkout!"})
-
-
-@require_POST
-@login_required()
-def charge(request):
-    # Get the form data
-    token = request.POST.get('stripeToken')
-
-    # Get the ride id from the POST data
-    ride_id = request.POST.get('ride', None)
-
-    # Get the ride info
-    ride = Ride.objects.get(id = ride_id)
-
-    # Create a new sale record
-    sale = Sale()
-
-    # Get the ride price, pass user so we can store the user id and charge id in a sale record
-    success, instance = sale.charge(request.user, int(ride.price*100), token)
-
-    if not success:
-        return render(request, 'sales/error.html', {'error': instance.message})
-    else:
-        instance.save()
-
-        # So we've now successfully charged the user so lets make sure they are signed up to the ride
+        # So we've now successfully charged the user so lets make sure they are
+        # signed up to the ride
         ride_rider = RideRiders()
         ride_rider.user = request.user
         ride_rider.ride = ride
@@ -69,10 +60,16 @@ def charge(request):
         ride_rider.sale = sale
         ride_rider.save()
 
-        pass
+        return render(request, 'sales/success.html', {'ride': ride})
+    else:
+        return render(request, 'sales/checkout.html', variables)
 
-    return redirect('/sales/success')
+@login_required
+def tnc(request, ride_id):
+    try:
+        # Get the ride info
+        ride = Ride.objects.get(id = ride_id)
+    except Ride.DoesNotExist:
+        return render(request, 'sales/error.html', {'error': "You did not specify a ride!"})
 
-
-def success(request):
-    return render(request, 'sales/success.html')
+    return render(request, 'sales/tnc.html', {'ride': ride})

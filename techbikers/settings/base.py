@@ -97,6 +97,7 @@ TEMPLATE_LOADERS = (
 
 TEMPLATE_CONTEXT_PROCESSORS = TCP + (
     'django.core.context_processors.request',
+    'techbikers.context_processors.no_chrome'
 )
 
 
@@ -118,6 +119,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'suit', # Admin interface
     'django.contrib.admin',
+    'django.contrib.markup',
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
     'south',
