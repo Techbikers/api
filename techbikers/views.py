@@ -7,7 +7,7 @@ def index(request):
 
 def the_ride(request):
     # Get the ride - harcoded for the first run of this site.
-    ride = Ride.objects.get(id = 1)
+    ride = Ride.objects.get(id = 2)
     return render(request, 'the_ride.html', {'ride': ride})
 
 def the_charity(request):

@@ -4,26 +4,25 @@
 <div class="content">
   <section>
     <header>
-      <h1>Paris &rarr; London</h1>
-      <h2>September 27th ~ 29th, 2013</h2>
+      <h1>Copehange &rarr; Berlin</h1>
+      <h2>Thursday 24th ~ 27th, 2014</h2>
     </header>
 
     {% if ride.spaces_left < 1 %}
     <div class="callout">
-      <h2>Registration for the 2013 Paris &rarr; London ride is FULL</h2>
+      <h2>Registration for the 2014 Copehange &rarr; Berlin ride is FULL</h2>
 
       <p>
-        Thanks for your interest but this year's ride is fully booked. You can support us by <a href="https://believe.in/techbikers" target="_blank">donating</a> and keep checking <a href="http://twitter.com/techbikers" target="_blank">Twitter</a> and <a href="http://facebook.com/techbikers" target="_blank">Facebook</a> for regular updates.
+        Thanks for your interest but this year's ride is fully booked. You can keep checking <a href="http://twitter.com/TechBikersDE" target="_blank">Twitter</a> and <a href="http://facebook.com/TechBikersDE" target="_blank">Facebook</a> for regular updates.
       </p>
     </div>
     {% else %}
     <div class="callout">
-      <h2>Registration for the 2013 Paris &rarr; London ride is now open!</h2>
-      <p>
-        There is a £200 registration fee for the ride and you will have a target of £600 in donations for Room to Read. Remember, this is a charity event not a holiday (although it'll be a lot of fun!)
+      <h2>Registration for the 2014 Copehange &rarr; Berlin ride is now open!</h2>
+      <p>There is a 499€ registration fee for the ride and you will have a target of 750€ in donations for World Bicycle Relief. Remember, this is a charity event not a holiday (although it'll be a lot of fun!)
       </p>
       <h2>
-        <a class="btn" href="{% url "checkout" %}?ride={{ ride.id }}">Register Now</a>
+        <a class="btn" href="{% url 'checkout' ride.id %}">Register Now</a>
       </h2>
 
       <p>
@@ -31,76 +30,33 @@
       </p>
     </div>
     {% endif %}
+    <div id="main" role="main">
+        <article class="post" id="post-117">
+        <header>
+          <h2>The 2014 Ride</h2>
+        </header>
 
-    <p>
-      The ride will be three days and 200 miles of cycling picturesque villages in France and England.
-    </p>
+        <p>Our 2014 ride again sets new standards for us. At 430km in three days it is longer that any route we have attempted so far. But do not worry: the terrain is largely flat, making for comfortable and speedy cycling. We start Thursday 24th of July, and arrive in Berlin on Sunday the 27th July in the evening.</p>
+    <h1 dir="ltr">LOGISTICS</h1>
+    <h3 dir="ltr">Day 0 – Thursday</h3>
+    <p dir="ltr"><strong>Berlin to Copehange</strong></p>
+    <p dir="ltr">All TechBikers will meet in Berlin at Admiralspalast on Thursday 24th of July, around noon. From here we’ll take the TechBikers bus to Copehagen, where we have the first networking opportunity and time to get prepared for the ride.</p>
+    <h3 dir="ltr">Day 1 – Friday</h3>
+    <p dir="ltr"><strong>Copehagen to Nykobing Falster</strong> – 145 km</p>
+    <p dir="ltr">The ride kicks off from the modern <a href="https://www.wakeupcopenhagen.com/" target="_blank">WakeUp hotel in Copenhagen</a>, near the Tivoli Gardens and Christiansborg Palace. We will mainly follow minor main roads and country roads out of Copenhagen, heading south and following the coast. From there we will take a&nbsp;circuitous route into the peaceful Danish countryside, and finally cross the Storstrøm into Falster Island via a causeway bridge. The perfect spot for a quick rest and photos! At the end of the day, we will stay in <a href="http://www.hotel-falster.dk/" target="_blank">Hotel Falster</a> for our well deserved dinner and drinks.</p>
+    <h3 dir="ltr">Day 2 – Saturday</h3>
+    <p dir="ltr"><strong>Nykobing Falster to Klink on Lake Müritz</strong> -&nbsp;135km</p>
+    <p dir="ltr">Saturday will start early, with the first 25km on Falster Island towards the ferry port of Gedser, where we will catch the 9 am ferry to Rostock. Arriving at 11 am, we will cycle to the town of Laage to have lunch. The quiet countryside will lead us into a beautiful area of many lakes, where we will stay in Klink on the shore of Lake Müritz. Our hotel will be the <a href="http://www.mueritz-hotel.de/" target="_blank">Müritz Hotel</a>, with the Müritz National Park just around the corner.</p>
+    <h3 dir="ltr">Day 3 –Sunday</h3>
+    <p dir="ltr"><strong>Lake Müritz to Berlin</strong> – 150km</p>
+    <p>Our most demanding day, which again warrants an early start. We will briskly cycle along good country roads and traffic free cycling roads following parts of the popular Copenhagen – Berlin Cycle Route. Through the Müritz National Park – a land of forests, lakes and wildlife – we will pass the delightful small towns of Wesenberg, Fürstenberg, Zehdenick, Liebenwalde, and Summt, before crossing the Berlin Ring Road into Greater Berlin. We have found a fairly countrified route through North Berlin suburbs except for the last 10km to the Brandenburg Gate.</p>
+    <h1>Map</h1>
+    <p>Please note that this is not the exact route, but should give you a good idea of what you can expect.</p>
+    <p><iframe src="http://www.komoot.de/tour/techbikers-germany-copenhagen-to-berlin/2853133?embed" height="358" width="740" frameborder="0" marginwidth="0" marginheight="0" scrolling="no"></iframe></p>
 
-    <p>
-      This year we will be arriving in Paris the evening before to allow us to ride Central paris on Friday morning and soak in all the beautiful sites as we start the ride.
-    </p>
 
-    <p>
-      Based on last year, here's an example of what the ride could look like:
-    </p>
+      </article>
 
-    <h2>Friday 27th September 2013 - 60 miles cycling Versaille to Vernon</h2>
-
-    <ul>
-      <li>
-        Take Eurostar from St Pancras International at 7am – arr Paris Gar du Nord at 10.15am – transfer to Versailles and meet up with bikes transported by van the previous day.
-      </li>
-      <li>
-        Commence cycling at 12 noon in Versaille after a snack.
-      </li>
-      <li>
-        Our route takes us out of Paris (Versaille) to Saint Germain –en- Laye and then on to Poissy and after a climb at Chanteloup to the Foret Domaniale
-      </li>
-      <li>
-        Here we have a late picnic lunch in a delightful spot.
-      </li>
-      <li>
-        It’s now just 35 miles to our stop for the 1st night at Vernon passing through Hardicourt, the wide open landscapes of the plateau around Sailly and finally back to the Seine at Vetheuil and the majestic castle at La-Roche-Guyon for a break.
-      </li>
-      <li>
-        The final section is all along a very peaceful and stunning section of the Seine away from the main road until the famous gardens of Givernay are reached.
-      </li>
-      <li>
-        We stay at the Kyriad Hotel in St Marcel near Vernon which we expect to reach at 19.00. Dinner in this delightful hotel will be at approx. 20.30.
-      </li>
-    </ul>
-
-    <h2>Saturday 28th September 2013 - 70 miles cycling Vernon to Newhaven via Dieppe</h2>
-    <ul>
-      <li>
-        We follow the Seine to the attractive town of Les Andelys and have a welcome break by the river with spectacular views of the limestone cliffs and the castle.
-      </li>
-      <li>
-        Now commences a steep climb out of the Seine Valley onto the plateau for another rest stop around Charleville.
-      </li>
-      <li>
-        Lunch is a little further on in the depths of the countryside at a quiet picnic spot near the market town of Buchy.
-      </li>
-      <li>
-        Now we remain on the plateau until the bustling town of St Saens after which it is a gentle downward gradient through the valley on quiet straight roads towards the sea at Dieppe.
-      </li>
-      <li>
-        We aim to arrive in Dieppe at 5pm and take the 6pm ferry to Newhaven – a 4 hour cruise. We will eat on the ferry and arrive at Newhaven at 9pm local time and check into a hotel.
-      </li>
-    </ul>
-
-    <h2>Sunday 29th September 2013 65 miles cycling Newhaven to London East End</h2>
-    <ul>
-      <li>
-        The route from Newhaven takes us across the South Downs through Lewis and then along country lanes to the North Downs following part of the famous London to Brighton cycle route.
-      </li>
-      <li>
-        A slight deviation takes us to Greenwich for a view of London from the Observatory and then to the Cutty Sark with a finale on the cycle track on the S side of the River Thames, crossing the Thames at Tower Bridge.
-      </li>
-      <li>
-        It’s then just a short ride to our destination in Shoreditch where we expect to arrive by 5pm for a celebration reception and dinner.
-      </li>
-    </ul>
   </section>
 </div>
 {% endblock content %}
