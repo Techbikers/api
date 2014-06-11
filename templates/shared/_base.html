@@ -46,9 +46,9 @@
 
 {% block content %}{% endblock content %}
 
+{% if not NO_CHROME %}
 <div role="footer">
   {% block footer %}
-  {% if not NO_CHROME %}
   <div class="content">
     <div class="row">
       <div class="span2">
@@ -74,9 +74,9 @@
       <a href="http://twitter.com/techbikers" target="_blank">Twitter</a>
     </p>
   </div>
-  {% endif %}
   {% endblock %}
 </div>
+{% endif %}
 <script type="text/javascript">
 
   var _gaq = _gaq || [];
