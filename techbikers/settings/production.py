@@ -12,6 +12,8 @@ INSTALLED_APPS += (
     "gunicorn",
 )
 
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTOCOL', 'https')
+
 DEFAULT_DB_ALIAS = 'default'
 
 DATABASES = {
