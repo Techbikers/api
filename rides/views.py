@@ -8,9 +8,9 @@ from rides.models import Ride
 
 
 def index(request):
-    rides = Ride.objects.all()
-    #return render(request, 'rides/index.html', {'rides': rides})
-    raise Http404
+    # Get the ride - harcoded for the first run of this site.
+    ride = Ride.objects.get(id = 2)
+    return render(request, 'rides/index.html', {'ride': ride})
 
 def details(request, slug = None):
     #ride = Ride.objects.get(slug = slug)
