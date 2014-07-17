@@ -38,15 +38,16 @@
   .topNavigation {
     position: relative;
     text-align: left;
-    height: 200px;
+    height: 140px;
+    overflow: hidden;
 
     a {
       display: inline-block;
       @include transition(color .3s linear);
       margin: 0 30px 0 0;
       vertical-align: middle;
-      height: 200px;
-      line-height: 200px;
+      height: 140px;
+      line-height: 140px;
 
       color: #666;
       text-decoration: none;
