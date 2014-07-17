@@ -6,32 +6,32 @@
 // Butons!
 .btn {
   display: inline-block;
-  .ie7-inline-block();
+  @include ie7-inline-block();
 
   padding: 10px 40px;
   margin-bottom: 0; // For input.btn
-  border: 3px solid @fontColor;
-  .border-radius(6px);
+  border: 3px solid $fontColor;
+  @include border-radius(6px);
 
-  color: @fontColor;
+  color: $fontColor;
   font-weight: bold;
   text-align: center;
-  font-size: @baseFontSize;
-  line-height: @baseLineHeight;
+  font-size: $baseFontSize;
+  line-height: $baseLineHeight;
   vertical-align: middle;
   cursor: pointer;
   background: transparent;
   text-decoration: none;
 
-  .transition(all 50ms linear);
+  @include transition(all 50ms linear);
 
 
   // Hover/focus state
   &:hover,
   &:focus {
     text-decoration: none;
-    background: lighten(@fontColor, 10%);
-    border-color: lighten(@fontColor, 10%);
+    background: lighten($fontColor, 10%);
+    border-color: lighten($fontColor, 10%);
     color: white;
   }
 
@@ -46,8 +46,8 @@
   &:active {
     background-image: none;
     outline: 0;
-    .translate(0px, 3px);
-    .box-shadow(none);
+    @include translate(0px, 3px);
+    @include box-shadow(none);
   }
 
   // Disabled state
@@ -55,7 +55,7 @@
   &[disabled] {
     cursor: default;
     background-image: none;
-    .opacity(65);
+    @include opacity(65);
   }
 }
 
@@ -63,8 +63,8 @@
 // Get some attention!
 .callout {
   background: #FDEC18;
-  margin: @baseLineHeight 0; padding: @baseLineHeight;
-  .border-radius(4px);
+  margin: $baseLineHeight 0; padding: $baseLineHeight;
+  @include border-radius(4px);
 
   h1, h2, p {
     text-align: center;
@@ -76,7 +76,7 @@
  * Registration steps
  */
 .steps {
-  margin: 2 * @baseLineHeight 0; padding: 0;
+  margin: 2 * $baseLineHeight 0; padding: 0;
   text-align: center;
 
   li {
@@ -94,7 +94,7 @@
         height: 40px;
         line-height: 40px;
         border: 2px solid #aaa;
-        .border-radius(50%);
+        @include border-radius(50%);
       }
     }
   }
@@ -115,9 +115,9 @@
 // Our credit card form
 .creditCard {
   width: 400px;
-  margin: @baseLineHeight auto; padding: 20px;
-  border: 2px solid @fontColor;
-  .border-radius(4px);
+  margin: $baseLineHeight auto; padding: 20px;
+  border: 2px solid $fontColor;
+  @include border-radius(4px);
 
   .infoRow {
     height: 80px;
@@ -129,12 +129,12 @@
   }
 
   .topRow {
-    .clearfix();
+    @include clearfix();
   }
 
   .bottomRow {
     margin-top: 40px;
-    .clearfix();
+    @include clearfix();
   }
 
   .longNumber {

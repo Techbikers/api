@@ -5,7 +5,7 @@
  */
 
 form {
-  margin: 0 0 @baseLineHeight;
+  margin: 0 0 $baseLineHeight;
 }
 
 fieldset {
@@ -18,16 +18,16 @@ legend {
   display: block;
   width: 100%;
   padding: 0;
-  margin-bottom: @baseLineHeight;
-  font-size: @baseFontSize * 1.5;
-  line-height: @baseLineHeight * 2;
-  color: lighten(@fontColor, 10%);
+  margin-bottom: $baseLineHeight;
+  font-size: $baseFontSize * 1.5;
+  line-height: $baseLineHeight * 2;
+  color: lighten($fontColor, 10%);
   border: 0;
   border-bottom: 1px solid #e5e5e5;
 
   // Small
   small {
-    font-size: @baseLineHeight * .75;
+    font-size: $baseLineHeight * .75;
   }
 }
 
@@ -36,9 +36,9 @@ input,
 button,
 select,
 textarea {
-  font-size: @baseFontSize;
+  font-size: $baseFontSize;
   font-weight: normal;
-  line-height: @baseLineHeight;
+  line-height: $baseLineHeight;
 }
 input,
 button,
@@ -65,13 +65,13 @@ input[type="tel"],
 input[type="color"],
 .uneditable-input {
   display: inline-block;
-  height: @baseLineHeight;
+  height: $baseLineHeight;
   padding: 4px 6px;
-  margin-bottom: @baseLineHeight / 2;
-  font-size: @baseFontSize;
-  line-height: @baseLineHeight;
-  color: @fontColor;
-  .border-radius(4px);
+  margin-bottom: $baseLineHeight / 2;
+  font-size: $baseFontSize;
+  line-height: $baseLineHeight;
+  color: $fontColor;
+  @include border-radius(4px);
   vertical-align: middle;
 }
 
@@ -103,7 +103,7 @@ input[type="color"],
 .uneditable-input {
   background-color: white;
   border: 2px solid #999;
-  .transition(~"border linear .05s");
+  @include transition(border linear .05s);
 
   // Focus state
   &:focus {
@@ -139,8 +139,8 @@ input[type="checkbox"] {
 
 // Django style error messages on input field
 .field-validation-error {
-  font-size: @baseFontSize - 2;
+  font-size: $baseFontSize - 2;
   display: block;
   color: lighten(#EE1616, 10%);
-  margin: -4px 0 @baseLineHeight 0;
+  margin: -4px 0 $baseLineHeight 0;
 }

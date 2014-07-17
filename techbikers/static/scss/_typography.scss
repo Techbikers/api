@@ -4,19 +4,19 @@
  */
 
 body {
-  color: @fontColor;
-  font-family: 'Lato', sans-serif;
-  font-size: @baseFontSize;
-  line-height: @baseLineHeight;
+  color: $fontColor;
+  font-family: 'latolight', "Helvetica Neue", Arial, Helvetica, sans-serif;;
+  font-size: $baseFontSize;
+  line-height: $baseLineHeight;
 }
 
 // Links
 a {
-  color: @linkColor;
+  color: $linkColor;
   text-decoration: none;
 
   &:hover {
-    color: @linkColorHover;
+    color: $linkColorHover;
     text-decoration: underline;
   }
 
@@ -27,33 +27,35 @@ a {
 
 // Body
 p {
-  margin: @baseLineHeight 0;
+  margin: $baseLineHeight 0;
 }
 
 // Headings
 h1, h2, h3, h4, h5, h6 {
   font-weight: normal;
-  margin: @baseLineHeight 0 0 0;
+  margin: $baseLineHeight 0 0 0;
 
   & + p {
-    margin-top: @baseLineHeight / 2;
+    margin-top: $baseLineHeight / 2;
   }
 }
 
 h1 {
-  font-size: @baseFontSize * 2;
-  line-height: @baseLineHeight * 2;
+  font-family: "aleolight", "Helvetica Neue", Arial, Helvetica, sans-serif;
+  font-size: $baseFontSize * 2;
+  line-height: $baseLineHeight * 2;
 }
 
 h2 {
+  font-family: "aleolight", "Helvetica Neue", Arial, Helvetica, sans-serif;
   font-size: 24px;
-  line-height: @baseLineHeight * 1.5;
+  line-height: $baseLineHeight * 1.5;
 }
 
 // Copy typography
 section > header {
-  background: url('../img/divider.png') bottom center no-repeat;
-  padding-bottom: @baseLineHeight;
+  background: image_url('divider.png') bottom center no-repeat;
+  padding-bottom: $baseLineHeight;
 
   & > h1 {
     text-align: center;
@@ -78,7 +80,7 @@ section {
 
 // Stats
 .stat {
-  margin-top: @baseLineHeight;
+  margin-top: $baseLineHeight;
   text-align: center;
   font-size: 80px;
   font-weight: bold;

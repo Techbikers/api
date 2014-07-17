@@ -1,0 +1,95 @@
+/**
+ * main.scss
+ * Compilation of styles for TechBikers.com
+ */
+
+@import "compass";
+
+// Setup
+@import "variables";
+@import "mixins";
+@import "normalize";
+
+// Typography
+@import "fonts";
+@import "typography";
+@import "forms";
+
+// Layout
+@import "layout";
+
+// Components and Widgets
+@import "components";
+
+
+/* Styles for sponsor page */
+.list--secret {
+  list-style: none;
+}
+
+.list--inline li {
+  display: inline-block;
+}
+
+.nudge {
+  margin-right: 30px;
+}
+
+.sponsors ul { padding: 0}
+
+.media, .bd {overflow:hidden; _overflow:visible; zoom:1;}
+.media .img {float:left; margin-right: 20px;}
+.media .img img{display:block;}
+.media .imgExt{float:right; margin-left: 20px;}
+
+.text--centre{
+  text-align: center;
+}
+
+.jersey--parent{
+  position: relative;
+  padding-left: 60px;
+  margin-bottom: 33px;
+}
+
+.jersey {
+  height:60px;
+  width:44px;
+  display: inline-block;
+  position: absolute;
+  background: image_url('yellow_jersey.png') bottom center no-repeat;
+  left:0;
+  top: -8px;
+}
+
+.jersey--green{
+  background: image_url('green_jersey.png') bottom center no-repeat;
+}
+
+.jersey--kotm{
+  background: image_url('koth_jersey.png') bottom center no-repeat;
+}
+
+.gap--big{
+  margin-bottom: 33px;
+}
+
+.sponsors h3{
+  margin-top: 0;
+}
+
+.inkind{
+  text-align: center;
+  margin-top: 20px;
+}
+
+.inkind .img{
+  display: block;
+  margin:0 20px 20px;
+  width:205px;
+  height:154px;
+}
+
+.inkind .img > img{
+  width:205px;
+}

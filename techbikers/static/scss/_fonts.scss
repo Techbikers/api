@@ -1,0 +1,15 @@
+/**
+ * fonts.scss
+ */
+
+@include font-face("aleolight",
+    font-files("Aleo-Light.eot", "Aleo-Light.svg", "Aleo-Light.woff", "Aleo-Light.ttf"), "Aleo-Light.eot", normal, normal);
+
+@include font-face("aleoregular",
+    font-files("Aleo-Regular.eot", "Aleo-Regular.svg", "Aleo-Regular.woff", "Aleo-Regular.ttf"), "Aleo-Regular.eot", normal, normal);
+
+@include font-face("Lato",
+    font-files("Lato-Regular.eot", "Lato-Regular.svg", "Lato-Regular.woff", "Lato-Regular.ttf"), "Lato-Regular.eot", normal, normal);
+
+@include font-face("latolight",
+    font-files("Lato-Light.eot", "Lato-Light.svg", "Lato-Light.woff", "Lato-Light.ttf"), "Lato-Light.eot", normal, normal);
