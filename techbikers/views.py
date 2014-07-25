@@ -13,6 +13,3 @@ def about(request):
 
 def sponsors(request):
 	return render(request, 'sponsors.html')
-
-def events(request):
-    return render(request, 'events.html')
