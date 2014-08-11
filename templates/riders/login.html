@@ -9,6 +9,13 @@
                 <h1>Login</h1>
             </header>
             <br/>
+
+            {% if errors %}
+                <div class="row centerText">
+                    {{ errors }}
+                </div>
+            {% endif %}
+
             <form id="loginform" method='post' novalidate="novalidate">
                 {% csrf_token %}
                 <div class="row centerText">
