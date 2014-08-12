@@ -65,11 +65,11 @@ def checkout(request, ride_id):
         return render(request, 'sales/checkout.html', variables)
 
 @login_required
-def tnc(request, ride_id):
+def terms(request, ride_id):
     try:
         # Get the ride info
         ride = Ride.objects.get(id = ride_id)
     except Ride.DoesNotExist:
         return render(request, 'sales/error.html', {'error': "You did not specify a ride!"})
 
-    return render(request, 'sales/tnc.html', {'ride': ride})
+    return render(request, 'sales/terms.html', {'ride': ride})

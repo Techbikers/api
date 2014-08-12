@@ -131,7 +131,7 @@
         {% endfor %}
         <p class="centerText">
             {{ form.tnc }}
-            <label for="id_tnc">I agree to the <a href="{% url 'sales.views.tnc' ride.id %}">Terms and Conditions</a> of this ride.</label>
+            <label for="id_tnc">I agree to the <a href="{% url 'sales.views.terms' ride.id %}">Terms and Conditions</a> of this ride.</label>
         </p>
         {% endif %}
 
