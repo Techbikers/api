@@ -1,4 +1,6 @@
-{% load staticfiles %}
+{% load staticfiles flatpages %}
+{% get_flatpages as flatpages %}
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -25,13 +27,16 @@
   {% if not NO_CHROME %}
   <header role="header" class="content">
     <nav class="topNavigation">
-      <a id="logo" href="{% url "home" %}" />
+      <a id="logo" href="/" />
         <img src="{% static 'img/logo@2x.png' %}" alt="TechBikers" width="125"/>
       </a>
+
       <a href="{% url "rides" %}">Rides</a>
-      <a href="{% url "the_charity" %}">Charity</a>
-      <a href="{% url "sponsors" %}">Sponsors</a>
-      <a href="{% url "about" %}">About</a>
+      {% for page in flatpages %}
+          {% if page.url != "/" %}
+            <a href="{{ page.url }}">{{ page.title }}</a>
+          {% endif %}
+      {% endfor %}
       <a href="http://blog.techbikers.com/">Blog</a>
       {% if user.is_authenticated %}
       <a class="userAuth" href="{% url 'auth_logout' %}">Log out</a>

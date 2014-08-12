@@ -1,4 +1,5 @@
 from django.conf.urls import patterns, include, url
+from django.contrib.flatpages import views
 
 # Uncomment the next two lines to enable the admin:
 from django.contrib import admin
@@ -6,10 +7,7 @@ admin.autodiscover()
 
 urlpatterns = patterns('',
     # Top level pages
-    url(r'^$', 'techbikers.views.index', name="home"),
-    url(r'^the_charity/$', 'techbikers.views.the_charity', name="the_charity"),
-    url(r'^about/$', 'techbikers.views.about', name="about"),
-    url(r'^sponsors/$', 'techbikers.views.sponsors', name="sponsors"),
+    url(r'^$', include('django.contrib.flatpages.urls')),
 
     # Riders
     url(r'^account/', include('account.urls')),
@@ -22,4 +20,7 @@ urlpatterns = patterns('',
 
     # Uncomment the next line to enable the admin:
     url(r'^admin/', include(admin.site.urls)),
+
+    # flatpages
+    url(r'^(?P<url>.*/)$', views.flatpage),
 )
