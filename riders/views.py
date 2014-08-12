@@ -15,7 +15,12 @@ def index(request):
 
 def login(request):
     if request.user.is_authenticated():
-        return redirect('riders.views.index')
+        # See if the user needs redirecting
+        next_page = request.GET.get('next', None)
+        if next_page:
+            return redirect(next_page)
+        else:
+            return redirect(settings.LOGIN_REDIRECT_URL)
     else:
         if request.method == 'GET':
             if request.user.is_authenticated():
@@ -50,7 +55,12 @@ def logout(request):
 
 def register(request):
     if request.user.is_authenticated():
-        return redirect("riders.views.index")
+        # See if the user needs redirecting
+        next_page = request.GET.get('next', None)
+        if next_page:
+            return redirect(next_page)
+        else:
+            return redirect(settings.LOGIN_REDIRECT_URL)
     else:
         if request.method == "GET":
             # Initialise the signup form
