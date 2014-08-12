@@ -1,5 +1,9 @@
+from django.db import models
 from django.contrib import admin
 from django.core import urlresolvers
+from django.contrib.flatpages.admin import FlatpageForm, FlatPageAdmin
+from django.contrib.flatpages.models import FlatPage
+from codemirror import CodeMirrorTextarea
 
 from riders.models import RiderProfile
 from rides.models import Ride, RideRiders
@@ -19,7 +23,10 @@ class RideAdmin(admin.ModelAdmin):
     list_display = ('name', 'start_date', 'end_date', 'price', 'currency', 'rider_capacity', 'spaces_left')
     list_filter = ('start_date',)
     readonly_fields = ('get_riders',)
-    fields = ('name', 'slug', 'description', 'start_location', 'end_location', ('start_date', 'end_date'), 'rider_capacity', 'price', 'currency', 'chapter', 'terms_and_conditions', 'get_riders')
+    fields = (('name', 'slug'), ('start_location', 'end_location'), ('start_date', 'end_date'), 'rider_capacity', ('price', 'currency'), 'chapter', 'description', 'terms_and_conditions', 'get_riders')
+    formfield_overrides = {
+        models.TextField: {'widget': CodeMirrorTextarea(mode='markdown', config={'lineWrapping': True, 'lineNumbers': False})},
+    }
 
     def get_riders(self, obj):
         return "\n".join([rider.email for rider in obj.riders.all()])
@@ -73,3 +80,21 @@ class SaleAdmin(admin.ModelAdmin):
     rider_link.short_description = 'Ride'
     rider_link.allow_tags = True
 admin.site.register(Sale, SaleAdmin)
+
+
+class FlatPageAdminForm(FlatpageForm):
+    class Meta:
+        model = FlatPage
+        widgets = {
+            'content': CodeMirrorTextarea(mode='htmlmixed', config={'lineWrapping': True}, dependencies=("xml", "javascript", "css"))
+        }
+
+
+class FlatPageAdmin(FlatPageAdmin):
+    form = FlatPageAdminForm
+    fieldsets = (
+        (None, {'fields': ('url', 'title', 'content', 'sites')}),
+    )
+
+admin.site.unregister(FlatPage)
+admin.site.register(FlatPage, FlatPageAdmin)

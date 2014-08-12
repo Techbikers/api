@@ -7,3 +7,4 @@ south==0.8.1
 django-suit==0.2.3
 django-debug-toolbar==0.9.4
 gunicorn
+django-codemirror-widget==0.4.0

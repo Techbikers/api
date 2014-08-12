@@ -100,7 +100,7 @@ TEMPLATE_CONTEXT_PROCESSORS = TCP + (
     'techbikers.context_processors.no_chrome'
 )
 
-
+CODEMIRROR_PATH = 'js/codemirror'
 
 ROOT_URLCONF = 'techbikers.urls'
 
@@ -130,6 +130,7 @@ INSTALLED_APPS = (
     'chapters',
     'sales',
     'account',
+    'codemirror',
 )
 
 MIDDLEWARE_CLASSES = (
