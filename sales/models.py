@@ -37,6 +37,7 @@ class Sale(models.Model):
                 amount = int(ride.price * 100), # in cents
                 currency = ride.currency,
                 card = token,
+                receipt_email = user.email,
                 description = "{}: {}".format(ride.name, user.email))
         except stripe.CardError:
             raise # Just be explicit about what we are raising
