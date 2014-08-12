@@ -4,8 +4,12 @@
 <div class="content">
   <section>
     <header>
-      <h1>Register for Techbikers</h1>
+      <h1>Confirm your Techbikers place</h1>
     </header>
+
+    <p class="centerText">
+        Please pay the registration fee to confirm your place on the 2014 Techbikers Paris to London ride. (Apologies for asking for some of the same info again!)
+    </p>
 
     <ol class="steps">
       <li class="active">
@@ -60,7 +64,7 @@
       <input type="submit" value="Sign Up" class="btn" />
     </p>
     <p class="centerText">
-      <a href="{% url "auth_login" %}?next={{ request.REQUEST.next|urlencode }}">Already have an account?</a>
+      <a href="{% url "auth_login" %}?next={{ request.REQUEST.next|urlencode }}">Already have an account from a previous ride?</a>
     </p>
   </form>
 </div>
