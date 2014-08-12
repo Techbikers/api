@@ -9,5 +9,15 @@
     {% gravatar profile.email 130 %}
 
     <h2>{{ profile.get_full_name }}</h2>
+
+    {{ profile.first_name }}'s rides:
+    <ul>
+    {% if not rides %}
+        <li>This user has not signed up for any rides yet</li>
+    {% endif %}
+    {% for ride in rides %}
+        <li>{{ ride.ride.name }}</li>
+    {% endfor %}
+    </ul>
 </section>
 {% endblock content %}

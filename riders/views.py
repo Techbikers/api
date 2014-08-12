@@ -6,6 +6,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login as auth_login, logout as auth_logout
 from riders.forms import RiderRegistration
 from riders.models import RiderProfile
+from rides.models import RideRiders
 
 
 def index(request):
@@ -119,4 +120,7 @@ def profile(request, id, slug = None):
     if slug != user_slug:
         raise Http404
 
-    return render(request, "riders/profile.html", {"profile": user})
+    # Get all the rides the user has done/is signed up for
+    rides = RideRiders.objects.select_related().filter(user = user).order_by('signup_date')
+
+    return render(request, "riders/profile.html", {"profile": user, "rides": rides})
