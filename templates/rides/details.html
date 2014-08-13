@@ -7,6 +7,7 @@
         <section>
             <header>
                 <h1>{{ ride.name }}</h1>
+                <h3>Part of the <a href="{% url 'chapter' ride.chapter.name.lower %}">{{ ride.chapter.name }}</a> chapter</h3>
             </header>
 
             {% if ride.spaces_left < 1 %}
@@ -38,7 +39,7 @@
                     <li><a href="/riders/{{ rider.id }}">{{ rider.get_full_name }}</a></li>
                 {% endfor %}
                 </ul>
-            
+
         </section>
     </div>
 {% endblock %}

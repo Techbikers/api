@@ -11,6 +11,7 @@ urlpatterns = patterns('',
 
     # Riders
     url(r'^account/', include('account.urls')),
+    url(r'^chapters/', include('chapters.urls')),
     url(r'^riders/', include('riders.urls')),
     url(r'^rides/', include('rides.urls')),
     url(r'^sales/', include('sales.urls')),
