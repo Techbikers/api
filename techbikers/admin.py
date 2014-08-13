@@ -29,8 +29,13 @@ class RideAdmin(admin.ModelAdmin):
     }
 
     def get_riders(self, obj):
-        return "\n".join([rider.email for rider in obj.riders.all()])
+        def build_list_item(rider):
+            change_url = urlresolvers.reverse('admin:auth_user_change', args=(rider.id,))
+            return '<li><a href="%s">%s %s (%s)</a></li>' % (change_url, rider.first_name, rider.last_name, rider.email)
+
+        return '<ul>%s</ul>' % (''.join([build_list_item(rider) for rider in obj.riders.all()]))
     get_riders.short_description = 'Riders'
+    get_riders.allow_tags = True
 admin.site.register(Ride, RideAdmin)
 
 
