@@ -1,9 +1,44 @@
 {% extends 'shared/_base.html' %}
 
+{% load markup %}
+
 {% block content %}
+    <div class="content">
+        <section>
+            <header>
+                <h1>{{ ride.name }}</h1>
+            </header>
 
-    <h2>{{ ride.name }}</h2>
+            {% if ride.spaces_left < 1 %}
+            <div class="callout">
+                <h2>Registration for this ride is FULL</h2>
+                <p>
+                    Thanks for your interest but this year's ride is fully booked.
+                </p>
+            </div>
+            {% else %}
+            <div class="callout">
+              <h2>Register for the {{ ride.name }} ride!</h2>
+              <h2>
+                <a class="btn" href="{% url 'checkout' ride.id %}">Register Now</a>
+              </h2>
 
-    <a href="/sales/checkout/{{ ride.id }}/">Sign up for the ride!</a> (only {{ ride.spaces_left }} of {{ ride.rider_capacity }} spaces left)
+              <p>
+                (only {{ ride.spaces_left }} of {{ ride.rider_capacity }} spaces left)
+              </p>
+            </div>
+            {% endif %}
 
+            {{ ride.description|markdown:"safe" }}
+
+            <h3>Who's doing it?</h3>
+
+                <ul>
+                {% for rider in ride.riders.all %}
+                    <li><a href="/riders/{{ rider.id }}">{{ rider.get_full_name }}</a></li>
+                {% endfor %}
+                </ul>
+            
+        </section>
+    </div>
 {% endblock %}
