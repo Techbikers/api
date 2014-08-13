@@ -70,6 +70,12 @@ section > header {
   }
 }
 
+section > .content {
+  > h1, > h2, > h3 {
+    text-align: center;
+  }
+}
+
 section {
   // This is a bit experimental as any special grid
   // layout might break it, but I like the tighter

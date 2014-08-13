@@ -1,45 +1,63 @@
 {% extends 'shared/_base.html' %}
 
-{% load markup %}
+{% load markup gravatar %}
 
 {% block content %}
-    <div class="content">
-        <section>
+    <div id="ride">
+        <section id="header">
             <header>
                 <h1>{{ ride.name }}</h1>
                 <h3>Part of the <a href="{% url 'chapter' ride.chapter.name.lower %}">{{ ride.chapter.name }}</a> chapter</h3>
             </header>
+        </section>
 
-            {% if ride.spaces_left < 1 %}
-            <div class="callout">
-                <h2>Registration for this ride is FULL</h2>
-                <p>
-                    Thanks for your interest but this year's ride is fully booked.
-                </p>
+        <section id="registration">
+            <div class="content">
+                {% if ride.spaces_left < 1 %}
+                <div class="callout">
+                    <h2>Registration for this ride is FULL</h2>
+                    <p>
+                        Thanks for your interest but this year's ride is fully booked.
+                    </p>
+                </div>
+                {% else %}
+                <div class="callout">
+                  <h2>Register for the {{ ride.name }} ride!</h2>
+                  <h2>
+                    <a class="btn" href="{% url 'checkout' ride.id %}">Register Now</a>
+                  </h2>
+
+                  <p>
+                    (only {{ ride.spaces_left }} of {{ ride.rider_capacity }} spaces left)
+                  </p>
+                </div>
+                {% endif %}
             </div>
-            {% else %}
-            <div class="callout">
-              <h2>Register for the {{ ride.name }} ride!</h2>
-              <h2>
-                <a class="btn" href="{% url 'checkout' ride.id %}">Register Now</a>
-              </h2>
+        </section>
 
-              <p>
-                (only {{ ride.spaces_left }} of {{ ride.rider_capacity }} spaces left)
-              </p>
+        <section id="description">
+            <div class="content">
+                {{ ride.description|markdown:"safe" }}
             </div>
-            {% endif %}
+        </section>
 
-            {{ ride.description|markdown:"safe" }}
-
-            <h3>Who's doing it?</h3>
+        <section id="riders">
+            <div class="content">
+                <h2>The Riders</h2>
 
                 <ul>
                 {% for rider in ride.riders.all %}
-                    <li><a href="/riders/{{ rider.id }}">{{ rider.get_full_name }}</a></li>
+                    <li class="rider">
+                        <a href="/riders/{{ rider.id }}">
+                            {% gravatar rider.email 60 %}
+                            <div class="rider-name">
+                                <h4>{{ rider.get_full_name }}</h4>
+                            </div>
+                        </a>
+                    </li>
                 {% endfor %}
                 </ul>
-
+            </div>
         </section>
     </div>
 {% endblock %}
