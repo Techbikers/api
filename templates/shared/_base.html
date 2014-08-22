@@ -33,7 +33,7 @@
 
       <a href="{% url "rides" %}">Rides</a>
       {% for page in flatpages %}
-          {% if page.url != "/" %}
+          {% if page.url != "/" and "/temp/" not in page.url %}
             <a href="{{ page.url }}">{{ page.title }}</a>
           {% endif %}
       {% endfor %}
