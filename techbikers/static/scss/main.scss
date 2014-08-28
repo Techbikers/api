@@ -94,6 +94,7 @@
   width:205px;
 }
 
+
 // Styling for ride details page
 #ride {
   #riders {
@@ -156,5 +157,23 @@
         }
       }
     }
+  }
+}
+
+// Styling for rider profile page
+#rider-profile {
+  #description {
+    textarea {
+      width: 100%;
+      text-align: center;
+    }
+  }
+
+  #rides {
+    border: {
+      top: 1px solid #e2e2e2;
+      bottom: 1px solid #e2e2e2;
+    }
+    background: #f5f5f5;
   }
 }

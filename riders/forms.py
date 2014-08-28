@@ -82,6 +82,7 @@ class ChangePassword(forms.Form):
                 raise forms.ValidationError("The two password fields didn't match.")
         return self.cleaned_data
 
+
 class RiderDetails(forms.Form):
     firstname = forms.CharField(max_length=60, label="First name:", widget=forms.TextInput(attrs={
         "placeholder": "First name",
@@ -94,22 +95,20 @@ class RiderDetails(forms.Form):
         "data-val": "true",
         "data-val-required": "You can't leave this empty"
     }))
-    newpassword1 = forms.CharField(label="New Password", widget=forms.PasswordInput(attrs={
-        "placeholder": "New password",
-        "data-val": "true",
-        "data-val-required": "You can't leave this empty"
+    company = forms.CharField(label="Company", required=False, widget=forms.TextInput(attrs={
+        "placeholder": "Company"
     }))
-    newpassword2 = forms.CharField(label="Confirm new password", widget=forms.PasswordInput(attrs={
-        "placeholder": "Confirm new password",
-        "data-val": "true",
-        "data-val-required": "You can't leave this empty",
-        "data-val-equalto": "Passwords must match",
-        "data-val-equalto-other": "newpassword1"
+    website = forms.CharField(label="Website", required=False, widget=forms.TextInput(attrs={
+        "placeholder": "Website"
     }))
-
-    def clean(self):
-        # Verifiy that the values entered into the two password fields match.
-        if 'newpassword1' in self.cleaned_data and 'newpassword2' in self.cleaned_data:
-            if self.cleaned_data['newpassword1'] != self.cleaned_data['newpassword2']:
-                raise forms.ValidationError("The two password fields didn't match.")
-        return self.cleaned_data
+    twitter = forms.CharField(label="Twitter", required=False, widget=forms.TextInput(attrs={
+        "placeholder": "Twitter"
+    }))
+    biography = forms.CharField(label="About", required=False, widget=forms.Textarea(attrs={
+        "placeholder": "Tell people a little about yourself",
+        "rows": 6
+    }))
+    statement = forms.CharField(label="Why Techbikers?", required=False, widget=forms.Textarea(attrs={
+        "placeholder": "Tell people why you're doing Techbikers",
+        "rows": 6
+    }))

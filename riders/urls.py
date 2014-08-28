@@ -7,6 +7,7 @@ urlpatterns = patterns('riders.views',
     url(r'^register', 'register', name='rider_registration'),
     url(r'^(?P<id>(\d+))/$', 'profile'),
     url(r'^(?P<id>(\d+))/(?P<slug>(.+))/$', 'profile'),
+    url(r'^(?P<id>(\d+))/(?P<slug>(.+))/edit', 'profile', {"action": "edit"}),
 )
 
 urlpatterns += patterns('',

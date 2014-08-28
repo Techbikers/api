@@ -1,23 +1,83 @@
 {% extends "shared/_base.html" %}
 
-{% load gravatar %}
+{% load gravatar markup %}
 
-{% block title %}{{ profile.get_full_name }} - Techbikers{% endblock %}
+{% block title %}{{ user.get_full_name }} - Techbikers{% endblock %}
 
 {% block content %}
-<section>
-    {% gravatar profile.email 130 %}
-
-    <h2>{{ profile.get_full_name }}</h2>
-
-    {{ profile.first_name }}'s rides:
-    <ul>
-    {% if not rides %}
-        <li>This user has not signed up for any rides yet</li>
+    {% if action == "edit" %}
+        <form method="post">
+        {% csrf_token %}
     {% endif %}
-    {% for ride in rides %}
-        <li>{{ ride.ride.name }}</li>
-    {% endfor %}
-    </ul>
-</section>
+
+<div id="rider-profile">
+    {% if action == "edit" %}
+        <section class="toolbar">
+            {{ form.errors }}
+            <button class="btn" type="submit">Save Changes</button>
+            <a href="/riders/{{ user.id }}">Cancel</a>
+        </section>
+    {% endif %}
+
+    <section id="header">
+        <header class="centerText">
+            <div class="avatar avatar-130">
+                {% gravatar user.email 130 %}
+            </div>
+
+            {% if action == "edit" %}
+                <h1>{{ form.firstname }} {{ form.lastname }}</h1>
+            {% else %}
+                <h1>{{ user.get_full_name }}</h1>
+                {% if action == "can_edit" %}
+                    <a class="btn" href="edit">Edit Profile</a>
+                {% endif %}
+            {% endif %}
+        </header>
+    </section>
+
+    {{ test }}
+
+    <section id="description">
+        <div class="content centerText">
+            <p>
+                {% if action == "edit" %}
+                    {{ form.biography }}
+                {% else %}
+                    {{ user.profile.biography }}
+                {% endif %}
+            </p>
+
+            {% if action == "edit" or user.profile.statement %}
+                <h2>Why am i doing Techbikers?</h2>
+            {% endif %}
+
+            <p>
+                {% if action == "edit" %}
+                    {{ form.statement }}
+                {% else %}
+                    {{ user.profile.statement }}
+                {% endif %}
+            </p>
+        </div>
+    </section>
+
+    <section id="rides">
+        <div class="content centerText">
+            <h2>{{ user.first_name }}'s rides:</h2>
+
+            <ul class="list-unstyled">
+                {% if not rides %}
+                    <li>This user has not signed up for any rides yet</li>
+                {% endif %}
+                {% for ride in rides %}
+                    <li><a href="{% url 'ride' ride.ride.id %}">{{ ride.ride.name }}</a></li>
+                {% endfor %}
+            </ul>
+        </div>
+    </section>
+</div>
+
+{% if action == "edit" %}
+    </form>{% endif %}
 {% endblock content %}

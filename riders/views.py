@@ -1,10 +1,11 @@
 from django.shortcuts import render, redirect
+from django.forms.models import model_to_dict
 from django.template.defaultfilters import slugify
 from django.http import Http404
 from django.conf import settings
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login as auth_login, logout as auth_logout
-from riders.forms import RiderRegistration
+from riders.forms import RiderRegistration, RiderDetails
 from riders.models import RiderProfile
 from rides.models import RideRiders
 
@@ -102,7 +103,7 @@ def register(request):
                 return render(request, 'riders/register.html', {"form": form})
 
 
-def profile(request, id, slug = None):
+def profile(request, id, slug = None, action = None):
     # Try and get the user from the id
     try:
         user = User.objects.get(id = id)
@@ -120,7 +121,54 @@ def profile(request, id, slug = None):
     if slug != user_slug:
         raise Http404
 
+    # Are we in editing mode and if so, is the user allowed to edit this profile?
+    form = None
+    if action == "edit":
+        if not request.user.is_authenticated() or request.user.id != user.id:
+            return redirect("/riders/%s/%s" % (user.id, user_slug))
+        else:
+            form = RiderDetails(initial={
+                "firstname": user.first_name,
+                "lastname": user.last_name,
+                "biography": user.profile.biography,
+                "statement": user.profile.statement
+            })
+    else:
+        if request.user.id == user.id:
+            action = "can_edit"
+
     # Get all the rides the user has done/is signed up for
     rides = RideRiders.objects.select_related().filter(user = user).order_by('signup_date')
 
-    return render(request, "riders/profile.html", {"profile": user, "rides": rides})
+    if request.method == "GET":
+        return render(request, "riders/profile.html", {
+            "user": user,
+            "rides": rides,
+            "action": action,
+            "form": form
+        })
+    elif request.method == "POST":
+        form = RiderDetails(request.POST)
+        if form.is_valid():
+            user.first_name = form.cleaned_data["firstname"]
+            user.last_name = form.cleaned_data["lastname"]
+            user.save()
+
+            user_profile = RiderProfile.objects.get(user = user)
+            user_profile.biography = form.cleaned_data["biography"]
+            user_profile.statement = form.cleaned_data["statement"]
+            user_profile.save()
+
+            # Update user_slug just in case they changed their name
+            user_slug = slugify(user.get_full_name())
+
+            return redirect("/riders/%s/%s" % (user.id, user_slug))
+
+        else:
+            # Errors in the form so return with the errors
+            return render(request, "riders/profile.html", {
+                "user": user,
+                "rides": rides,
+                "action": action,
+                "form": form
+            })

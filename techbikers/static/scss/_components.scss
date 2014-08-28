@@ -71,6 +71,28 @@
   }
 }
 
+.toolbar {
+  background: #FDEC18;
+  text-align: center;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+// Avatars
+.avatar {
+  margin: 0 auto;
+  overflow: hidden;
+  @include border-radius(100%);
+
+  img {
+    display: block;
+  }
+
+  &.avatar-130 {
+    width: 130px;
+  }
+}
+
 
 /**
  * Registration steps

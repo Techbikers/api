@@ -40,12 +40,6 @@ textarea {
   font-weight: normal;
   line-height: $baseLineHeight;
 }
-input,
-button,
-select,
-textarea {
-  font-family: 'Lato', sans-serif;
-}
 
 select,
 textarea,
@@ -83,6 +77,15 @@ textarea,
 
 textarea {
   height: auto;
+}
+
+input[type="text"],
+textarea {
+  h1 & {
+    font-size: $baseFontSize * 2;
+    line-height: $baseLineHeight * 2;
+    height: $baseLineHeight * 2;
+  }
 }
 
 textarea,
