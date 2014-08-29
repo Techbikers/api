@@ -14,9 +14,15 @@ def index(request):
 
 
 def details(request, id, slug = None):
+    variables = {
+        "ride": False,
+        "signed_up": False
+    }
+
     # Try and get the ride details from the id
     try:
         ride = Ride.objects.get(id = id)
+        variables["ride"] = ride
     except Ride.DoesNotExist:
         raise Http404
 
@@ -28,4 +34,13 @@ def details(request, id, slug = None):
     if slug != ride.slug:
         raise Http404
 
-    return render(request, 'rides/details.html', {'ride': ride})
+    # Check if the current user is already a rider
+    try:
+        ride.rideriders_set.get(user = request.user)
+        variables["signed_up"] = True
+    except:
+        pass
+
+
+
+    return render(request, 'rides/details.html', variables)

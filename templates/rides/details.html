@@ -19,7 +19,9 @@
             <section id="registration">
                 <div class="content">
                     <div class="callout">
-                        {% if ride.spaces_left < 1 %}
+                        {% if signed_up %}
+                            <h2>Good job {{ request.user.first_name }}! You're signed up for this ride!</h2>
+                        {% elif ride.spaces_left < 1 %}
                             <h2>Registration for this ride is FULL</h2>
                             <p>
                                 Thanks for your interest but this year's ride is fully booked.
