@@ -129,6 +129,9 @@ def profile(request, id, slug = None, action = None):
             form = RiderDetails(initial={
                 "firstname": user.first_name,
                 "lastname": user.last_name,
+                "company": user.profile.company,
+                "website": user.profile.website,
+                "twitter": user.profile.twitter,
                 "biography": user.profile.biography,
                 "statement": user.profile.statement
             })
