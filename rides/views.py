@@ -1,3 +1,4 @@
+from datetime import datetime
 from django.shortcuts import render, redirect
 from django.template.defaultfilters import slugify
 from django.http import Http404
@@ -8,9 +9,15 @@ from rides.models import Ride
 
 
 def index(request):
-    # Get the ride - harcoded for the first run of this site.
-    ride = Ride.objects.get(id = 2)
-    return render(request, 'rides/index.html', {'ride': ride})
+    # Get the list of rides
+    rides = Ride.objects.all()
+
+    # Split them into current and past rides
+    variables = {
+        "current_rides": rides.filter(end_date__gte=datetime.now()),
+        "past_rides": rides.filter(end_date__lte=datetime.now())
+    }
+    return render(request, 'rides/index.html', variables)
 
 
 def details(request, id, slug = None):

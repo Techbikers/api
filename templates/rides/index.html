@@ -1,103 +1,65 @@
 {% extends "shared/_base.html" %}
 
+{% load gravatar %}
+
 {% block content %}
-<div class="content">
-  <section>
-    <header>
-      <h1>Paris &rarr; London</h1>
-      <h2>19th – 21st September 2014<erest/h2>
-    </header>
+    <div class="content">
+        <section id="rides">
+            <header>
+                <h1>Current Rides</h1>
+            </header>
 
-      <div id="main" role="main" style="margin: 20px 0;">
-          <div class="callout">
-        <p>
-            Pre-registration for Paris to London 2014 is now open. Once registration has closed we'll inform those riders that have been selected to join.
-        </p>
-        <h2>
-          <a class="btn" href="https://techbikers.typeform.com/to/xQtf4t">Pre-Register Now</a>
-        </h2>
-              </div>
+            <ul class="ride-list">
+                {% for ride in current_rides %}
+                    <li class="ride-card">
+                            <a href="{% url "ride" ride.id %}">
+                                <header>
+                                    <h2>{{ ride.name }}</h2>
+                                    <h4>{{ ride.start_date }} to {{ ride.end_date }}</h4>
+                                    <h4>Part of the {{ ride.chapter }} chapter</h4>
+                                </header>
+                                <div class="riders">
+                                    <ul>
+                                        {% for rider in ride.riders.all|slice:":24" %}
+                                            <li class="rider">
+                                                {% gravatar rider.email 60 %}
+                                            </li>
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                            </a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </section>
 
-          <h2>Key Ride Information:</h2>
-          <ul>
-              <li>It is a mixed ability, fully supported ride with space for 70 cyclists</li>
-<li>The distance is 200 miles, over 3 days</li>
-<li>We raise money for <a href="/the_charity">Room To Read</a></li>
-<li>The subsidised entrance costs will be around £300</li>
-<li>You commit to raising as much as possible for charity, with a minimum of £500 (we'll give you lots of tips and help to reach and exceed this target)</li>
-          </ul>
+        <section id="rides">
+            <header>
+                <h1>Past Rides</h1>
+            </header>
+
+            <ul class="ride-list">
+                {% for ride in past_rides %}
+                    <li class="ride-card">
+                            <a href="{% url "ride" ride.id %}">
+                                <header>
+                                    <h2>{{ ride.name }}</h2>
+                                    <h4>{{ ride.start_date }} to {{ ride.end_date }}</h4>
+                                    <h4>Part of the {{ ride.chapter }} chapter</h4>
+                                </header>
+                                <div class="riders">
+                                    <ul>
+                                        {% for rider in ride.riders.all|slice:":24" %}
+                                            <li class="rider">
+                                                {% gravatar rider.email 60 %}
+                                            </li>
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                            </a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </section>
     </div>
-  </section>
-
-  <section>
-    <header>
-      <h1>Copenhagen &rarr; Berlin</h1>
-      <h2>Thursday 24th – 27th July, 2014</h2>
-    </header>
-
-    {% if ride.spaces_left < 1 %}
-    <div class="callout">
-      <h2>Registration for the 2014 Copenhagen &rarr; Berlin ride is FULL</h2>
-
-      <p>
-        Thanks for your interest but this year's ride is fully booked. You can keep checking <a href="http://twitter.com/TechBikersDE" target="_blank">Twitter</a> and <a href="http://facebook.com/TechBikersDE" target="_blank">Facebook</a> for regular updates.
-      </p>
-    </div>
-    {% else %}
-    <div class="callout">
-      <h2>Registration for the 2014 Copenhagen &rarr; Berlin ride is now open!</h2>
-      <p>There is a 499€ registration fee for the ride and you will have a target of 750€ in donations for World Bicycle Relief. Remember, this is a charity event not a holiday (although it'll be a lot of fun!)
-      </p>
-      <h2>
-        <a class="btn" href="{% url 'checkout' ride.id %}">Register Now</a>
-      </h2>
-
-      <p>
-        (only {{ ride.spaces_left }} of {{ ride.rider_capacity }} spaces left)
-      </p>
-    </div>
-    {% endif %}
-    <div id="main" role="main">
-        <article class="post" id="post-117">
-        <header>
-          <h2>The 2014 Ride</h2>
-        </header>
-
-        <p>Our 2014 ride again sets new standards for us. At 430km in three days it is longer that any route we have attempted so far. But do not worry: the terrain is largely flat, making for comfortable and speedy cycling. We start Thursday 24th of July, and arrive in Berlin on Sunday the 27th July in the evening.</p>
-    <h1 dir="ltr">LOGISTICS</h1>
-    <h3 dir="ltr">Day 0 – Thursday</h3>
-    <p dir="ltr"><strong>Berlin to Copenhagen</strong></p>
-    <p dir="ltr">All TechBikers will meet in Berlin at Admiralspalast on Thursday 24th of July, around noon. From here we’ll take the TechBikers bus to Copehagen, where we have the first networking opportunity and time to get prepared for the ride.</p>
-    <h3 dir="ltr">Day 1 – Friday</h3>
-    <p dir="ltr"><strong>Copehagen to Nykobing Falster</strong> – 145 km</p>
-    <p dir="ltr">The ride kicks off from the modern <a href="https://www.wakeupcopenhagen.com/" target="_blank">WakeUp hotel in Copenhagen</a>, near the Tivoli Gardens and Christiansborg Palace. We will mainly follow minor main roads and country roads out of Copenhagen, heading south and following the coast. From there we will take a&nbsp;circuitous route into the peaceful Danish countryside, and finally cross the Storstrøm into Falster Island via a causeway bridge. The perfect spot for a quick rest and photos! At the end of the day, we will stay in <a href="http://www.hotel-falster.dk/" target="_blank">Hotel Falster</a> for our well deserved dinner and drinks.</p>
-    <h3 dir="ltr">Day 2 – Saturday</h3>
-    <p dir="ltr"><strong>Nykobing Falster to Klink on Lake Müritz</strong> -&nbsp;135km</p>
-    <p dir="ltr">Saturday will start early, with the first 25km on Falster Island towards the ferry port of Gedser, where we will catch the 9 am ferry to Rostock. Arriving at 11 am, we will cycle to the town of Laage to have lunch. The quiet countryside will lead us into a beautiful area of many lakes, where we will stay in Klink on the shore of Lake Müritz. Our hotel will be the <a href="http://www.mueritz-hotel.de/" target="_blank">Müritz Hotel</a>, with the Müritz National Park just around the corner.</p>
-    <h3 dir="ltr">Day 3 –Sunday</h3>
-    <p dir="ltr"><strong>Lake Müritz to Berlin</strong> – 150km</p>
-    <p>Our most demanding day, which again warrants an early start. We will briskly cycle along good country roads and traffic free cycling roads following parts of the popular Copenhagen – Berlin Cycle Route. Through the Müritz National Park – a land of forests, lakes and wildlife – we will pass the delightful small towns of Wesenberg, Fürstenberg, Zehdenick, Liebenwalde, and Summt, before crossing the Berlin Ring Road into Greater Berlin. We have found a fairly countrified route through North Berlin suburbs except for the last 10km to the Brandenburg Gate.</p>
- <!--    <h1>Map</h1>
-    <p>Please note that this is not the exact route, but should give you a good idea of what you can expect.</p>
-    <p><iframe src="https://www.komoot.de/tour/techbikers-germany-copenhagen-to-berlin/2853133?embed" height="358" width="740" frameborder="0" marginwidth="0" marginheight="0" scrolling="no"></iframe></p> -->
-
-
-      </article>
-    <h1>What is included in the registration fee?</h1>
-    <p>
-Full transport from Berlin to our starting point in Copenhagen
-Full accommodation: 3 nights in 3-4*-hotels
-Full catering: all food and drinks (excluding alcoholics).
-Breakfast
-Lunch
-Dinners
-Snacks and drinks during the ride (nutrition stops will be provided all 30-40km)
-Professional bike guides and support vehicles that take care of your security during the ride
-Full support from bike mechanics during the ride
-Luggage transportation during the ride
-The limited 2014-Techbikers-bike-jersey
-Kickoff-event in Copenhagen on the first evening
-a great arrival-party in Berlin on Sunday evening (including barbecue and all drinks)</p>
-  </section>
-</div>
 {% endblock content %}
