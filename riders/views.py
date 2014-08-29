@@ -1,5 +1,4 @@
 from django.shortcuts import render, redirect
-from django.forms.models import model_to_dict
 from django.template.defaultfilters import slugify
 from django.http import Http404
 from django.conf import settings
@@ -7,7 +6,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login as auth_login, logout as auth_logout
 from riders.forms import RiderRegistration, RiderDetails
 from riders.models import RiderProfile
-from rides.models import RideRiders
+from rides.models import Ride
 
 
 def index(request):
@@ -138,7 +137,7 @@ def profile(request, id, slug = None, action = None):
             action = "can_edit"
 
     # Get all the rides the user has done/is signed up for
-    rides = RideRiders.objects.select_related().filter(user = user).order_by('signup_date')
+    rides = Ride.objects.filter(riders__id=user.id).order_by('start_date')
 
     if request.method == "GET":
         return render(request, "riders/profile.html", {

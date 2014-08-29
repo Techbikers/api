@@ -36,8 +36,6 @@
         </header>
     </section>
 
-    {{ test }}
-
     <section id="description">
         <div class="content centerText">
             <p>
@@ -71,7 +69,7 @@
                     <li>This user has not signed up for any rides yet</li>
                 {% endif %}
                 {% for ride in rides %}
-                    <li><a href="{% url 'ride' ride.ride.id %}">{{ ride.ride.name }}</a></li>
+                    <li><a href="{% url 'ride' ride.id %}">{{ ride.name }}</a></li>
                 {% endfor %}
             </ul>
         </div>
