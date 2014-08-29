@@ -13,6 +13,8 @@ class RiderProfile(models.Model):
     biography = models.TextField(null=True, blank=True)
     statement = models.TextField(null=True, blank=True)
 
+    donation_page = models.URLField(null=True, blank=True)
+
     def __unicode__(self):
         return self.user.username
 

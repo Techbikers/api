@@ -133,7 +133,8 @@ def profile(request, id, slug = None, action = None):
                 "website": user.profile.website,
                 "twitter": user.profile.twitter,
                 "biography": user.profile.biography,
-                "statement": user.profile.statement
+                "statement": user.profile.statement,
+                "donation_page": user.profile.donation_page
             })
     else:
         if request.user.id == user.id:
@@ -162,6 +163,7 @@ def profile(request, id, slug = None, action = None):
             user_profile.twitter = form.cleaned_data["twitter"]
             user_profile.biography = form.cleaned_data["biography"]
             user_profile.statement = form.cleaned_data["statement"]
+            user_profile.donation_page = form.cleaned_data["donation_page"]
             user_profile.save()
 
             # Update user_slug just in case they changed their name

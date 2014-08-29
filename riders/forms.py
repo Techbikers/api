@@ -112,3 +112,6 @@ class RiderDetails(forms.Form):
         "placeholder": "Tell people why you're doing Techbikers",
         "rows": 6
     }))
+    donation_page = forms.CharField(label="Donation Page", required=False, widget=forms.TextInput(attrs={
+        "placeholder": "Donation Page URL"
+    }))

@@ -27,8 +27,19 @@
 
             {% if action == "edit" %}
                 <h1>{{ form.firstname }} {{ form.lastname }}</h1>
+                <h3>
+                    {{ form.company }} | {{ form.website }} | @{{ form.twitter }}
+                </h3>
             {% else %}
                 <h1>{{ user.get_full_name }}</h1>
+                <h3>
+                    {% if user.profile.company %}
+                        {{ user.profile.company }}{% endif %}
+                    {% if user.profile.website %}
+                        | {{ user.profile.website|urlizetrunc:40 }}{% endif %}
+                    {% if user.profile.twitter %}
+                        | <a href="http://www.twitter.com/{{ user.profile.twitter }}">@{{ user.profile.twitter }}</a>{% endif %}
+                </h3>
                 {% if action == "can_edit" %}
                     <a class="btn" href="edit">Edit Profile</a>
                 {% endif %}
@@ -36,18 +47,13 @@
         </header>
         <div class="content text--centre">
             {% if action == "edit" %}
-                <h2>
-                    {{ form.company }} | {{ form.website }} | @{{ form.twitter }}
-                </h2>
-            {% else %}
-                <h2>
-                    {% if user.profile.company %}
-                        {{ user.profile.company }}{% endif %}
-                    {% if user.profile.website %}
-                        | {{ user.profile.website|urlizetrunc:40 }}{% endif %}
-                    {% if user.profile.twitter %}
-                        | <a href="http://www.twitter.com/{{ user.profile.twitter }}">@{{ user.profile.twitter }}</a>{% endif %}
-                </h2>
+                <p>
+                    {{ form.donation_page }}
+                </p>
+            {% elif user.profile.donation_page %}
+                <p>
+                    <a class="btn" href="{{ user.profile.donation_page }}">Sponsor {{ user.first_name }}</a>
+                </p>
             {% endif %}
         </div>
     </section>
