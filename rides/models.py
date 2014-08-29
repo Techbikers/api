@@ -13,6 +13,9 @@ class Ride(models.Model):
     start_date     = models.DateField()
     end_date       = models.DateField()
 
+    # Does this ride require pre-registration before signing up?
+    preregistration_required = models.BooleanField(default=False)
+
     # Details to sign up riders
     rider_capacity = models.IntegerField(default = 0)
     price          = models.DecimalField(default = 0.00, max_digits = 6, decimal_places = 2)

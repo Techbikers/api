@@ -23,7 +23,7 @@ class RideAdmin(admin.ModelAdmin):
     list_display = ('name', 'start_date', 'end_date', 'price', 'currency', 'rider_capacity', 'spaces_left')
     list_filter = ('start_date',)
     readonly_fields = ('get_riders',)
-    fields = (('name', 'slug'), ('start_location', 'end_location'), ('start_date', 'end_date'), 'rider_capacity', ('price', 'currency'), 'chapter', 'description', 'terms_and_conditions', 'get_riders')
+    fields = (('name', 'slug'), ('start_location', 'end_location'), ('start_date', 'end_date'), 'rider_capacity', 'preregistration_required', ('price', 'currency'), 'chapter', 'description', 'terms_and_conditions', 'get_riders')
     formfield_overrides = {
         models.TextField: {'widget': CodeMirrorTextarea(mode='markdown', config={'lineWrapping': True, 'lineNumbers': False})},
     }
