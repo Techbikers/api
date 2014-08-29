@@ -20,7 +20,7 @@ BASE = os.path.abspath(os.path.dirname(__name__))
 
 SECRET_SALES_KEY = 'green'
 
-LOGIN_URL = '/riders/register'
+LOGIN_URL = '/riders/login'
 LOGOUT_URL = '/riders/logout'
 LOGIN_REDIRECT_URL = '/account'
 LOGOUT_REDIRECT_URL = '/'

@@ -9,7 +9,7 @@ from sales.forms import RideCheckoutForm
 
 import stripe
 
-@login_required()
+@login_required(login_url="/riders/register")
 def checkout(request, ride_id):
     try:
         # Get the ride info
