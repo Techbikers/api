@@ -24,10 +24,14 @@ class Ride(models.Model):
     riders         = models.ManyToManyField(User, through='RideRiders', null=True, blank=True)
 
     # Calculated properties (not stored in the db)
-    def get_spaces_left(self):
+    @property
+    def spaces_left(self):
         return max(0, self.rider_capacity - self.riders.count())
 
-    spaces_left = property(get_spaces_left)
+    # Determine is the ride is over
+    @property
+    def is_over(self):
+        return self.end_date <= datetime.now().date()
 
     def __unicode__(self):
         return self.name
