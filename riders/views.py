@@ -157,6 +157,9 @@ def profile(request, id, slug = None, action = None):
             user.save()
 
             user_profile = RiderProfile.objects.get(user = user)
+            user_profile.company = form.cleaned_data["company"]
+            user_profile.website = form.cleaned_data["website"]
+            user_profile.twitter = form.cleaned_data["twitter"]
             user_profile.biography = form.cleaned_data["biography"]
             user_profile.statement = form.cleaned_data["statement"]
             user_profile.save()
