@@ -1,25 +1,36 @@
 {% extends "shared/_base.html" %}
 
 {% block content %}
-<div class="content">
     <section>
-        <header>
-            <h1>Your Account</h1>
-        </header>
-    
-        <ul>
-            <li><a href="{% url "changepassword" %}">Change your password</a> </li>
-        </ul>
+        <div class="content text--centre">
+            <header>
+                <h1>Hi {{ user.first_name }}!</h1>
+            </header>
 
-        You are currently signed up for the following rides:
-        <ul>
-        {% if not rides %}
-            <li>You aren't signed up for any rides yet</li>
-        {% endif %}
-        {% for ride in rides %}
-            <li>{{ ride.ride.name }}</li>
-        {% endfor %}
-        </ul>
+            <ul class="list-unstyled">
+                <li><a class="btn" href="{% url "profile" user.id %}">View/Edit your Rider Profile</a></li>
+                <li><a class="btn" href="{% url "changepassword" %}">Change your password</a></li>
+            </ul>
+
+            <h2>Your upcoming rides:</h2>
+            <ul class="list-unstyled">
+                {% if current_rides %}
+                    {% for ride in current_rides %}
+                        <li><a href="{% url "ride" ride.id %}">{{ ride.name }}</a></li>
+                    {% endfor %}
+                {% else %}
+                    <li>You haven't signed up for any rides yet</li>
+                {% endif %}
+            </ul>
+
+            {% if past_rides %}
+                <h2>Your past rides:</h2>
+                <ul class="list-unstyled">
+                    {% for ride in past_rides %}
+                        <li><a href="{% url "ride" ride.id %}">{{ ride.name }}</a></li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        </div>
     </section>
-</div>
 {% endblock %}

@@ -40,6 +40,7 @@
       <a href="http://blog.techbikers.com/">Blog</a>
       {% if user.is_authenticated %}
       <a class="userAuth" href="{% url 'auth_logout' %}">Log out</a>
+      <a class="userAuth" href="{% url 'account' %}">Account</a>
       {% else %}
       <a class="userAuth" href="{% url 'auth_login' %}">Login</a>
       {% endif %}

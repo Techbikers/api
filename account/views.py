@@ -1,16 +1,23 @@
+from datetime import datetime
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponse, Http404
-from django.utils import simplejson
 from rides.models import Ride, RideRiders
 from account.forms import ChangePassword
 
 @login_required()
 def index(request):
-    # Get all the rides the user has done/is signed up for
-    rides = RideRiders.objects.select_related().filter(user = request.user).order_by('signup_date')
+    user = request.user
 
-    return render(request, 'account/index.html', {'rides': rides})
+    # Get all the rides the user has done/is signed up for
+    rides = Ride.objects.filter(riders__id=user.id)
+    current_rides = rides.filter(end_date__gte=datetime.now()).order_by('start_date')
+    past_rides = rides.filter(end_date__lte=datetime.now()).order_by('start_date')
+
+    return render(request, 'account/index.html', {
+        'user': user,
+        'current_rides': current_rides,
+        'past_rides': past_rides
+    })
 
 
 @login_required()
