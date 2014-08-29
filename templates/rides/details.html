@@ -7,6 +7,7 @@
         <section id="header">
             <header>
                 <h1>{{ ride.name }}</h1>
+                <h3><b>{{ ride.start_date }} to {{ ride.end_date }}</b></h3>
                 <h3>Part of the <a href="{% url 'chapter' ride.chapter.name.lower %}">{{ ride.chapter.name }}</a> chapter</h3>
             </header>
         </section>
