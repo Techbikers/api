@@ -27,27 +27,13 @@
       </li>
     </ol>
 
-    <p>
-      We have successfully charged your card and signed you up for the ride. Time to get fundraising!
+    <p class="text--centre">
+      Awesome! You're all signed you up for the ride. Time to get fundraising!
     </p>
 
-{% comment %}
-    <h2>Now it’s time to start your fundraising for Room to Read.</h2>
-
-    <p>
-      Believe.in is part of the London startup community and is proud to power donations and fundraising for TechBikers and Room to Read. With Believe.in 100% of every donation and 100% of Gift Aid goes directly to charity. Set up your fundraiser now using the link below to be added to the TechBikers event page and to see how much the team can raise!
-    </p>
-
-    <p class="centerText">
-      <a href="https://believe.in/fundraising/start?event_id=1&amount=60000" target="_blank">
-        <img src="{% static 'img/believeinShot.jpg' %}" alt="TechBikers on Belive.in" />
-      </a>
-    </p>
-
-    <p class="centerText">
-      <a class="btn" href="https://believe.in/fundraising/start?event_id=1&amount=60000" target="_blank">Get me setup to fundraise!</a>
-    </p>
-{% endcomment %}
+      <p class="text--centre">
+          <a class="btn" href="{% url "profile" request.user.id %}">Update your Rider Profile</a>
+      </p>
 
   </section>
 </div>
