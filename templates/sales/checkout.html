@@ -52,7 +52,7 @@
     </p>
 
 
-    {% if ride.price < 0 %}
+    {% if ride.price > 0 %}
 
         {% if not form.stripe_token.value %}
         <script type="text/javascript">
