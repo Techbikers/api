@@ -42,14 +42,19 @@ def checkout(request, ride_id):
         pass
 
     if not full and request.method == "POST" and form.is_valid():
-        token = form.cleaned_data['stripe_token']
+        # If the ride costs something then attempt to create a sale object
+        # and charge the user for the ride.
+        if ride.price > 0:
+            token = form.cleaned_data['stripe_token']
 
-        try:
-            sale = Sale.charge(request.user, ride, token)
-            sale.save()
-        except stripe.CardError:
-            return render(request, 'sales/error.html',
-                {'error': 'Something went wrong when processing your payment. Please get in touch with us!'})
+            try:
+                sale = Sale.charge(request.user, ride, token)
+                sale.save()
+            except stripe.CardError:
+                return render(request, 'sales/error.html',
+                    {'error': 'Something went wrong when processing your payment. Please get in touch with us!'})
+        else:
+            sale = False
 
         # So we've now successfully charged the user so lets make sure they are
         # signed up to the ride
@@ -57,7 +62,8 @@ def checkout(request, ride_id):
         ride_rider.user = request.user
         ride_rider.ride = ride
         ride_rider.paid = True
-        ride_rider.sale = sale
+        if sale:
+            ride_rider.sale = sale
         ride_rider.save()
 
         return render(request, 'sales/success.html', {'ride': ride})
