@@ -28,13 +28,14 @@
                             </p>
                         {% else %}
                             <h2>Register for the {{ ride.name }} ride!</h2>
+                            <p>There is a  {{ ride.currency|upper }} {{ ride.price|floatformat:2 }} fee for this ride.</p>
                             <h2>
                                 <a class="btn" href="{% url 'checkout' ride.id %}">Register Now</a>
                             </h2>
                             {% if ride.preregistration_required %}
                                 <p>
                                     If you have previously registered for this ride and have received confirmation that
-                                    you have been accepted into TechBikers 2014, please click the link to complete your
+                                    you have been accepted into TechBikers, please click the link to complete your
                                     registration and to pay your rider fees.
                                 </p>
                             {% else %}
