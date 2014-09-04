@@ -80,7 +80,7 @@ section > .content {
   // This is a bit experimental as any special grid
   // layout might break it, but I like the tighter
   // sendtences this give us.
-  & > p, & ul {
+  & > p, & > ul {
     padding-left: 0;
     margin-left: 80px;
     margin-right: 80px;
