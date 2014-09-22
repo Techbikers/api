@@ -10,8 +10,8 @@ def index(request):
 
     # Get all the rides the user has done/is signed up for
     rides = Ride.objects.filter(riders__id=user.id)
-    current_rides = rides.filter(end_date__gte=datetime.now()).order_by('start_date')
-    past_rides = rides.filter(end_date__lte=datetime.now()).order_by('start_date')
+    current_rides = rides.filter(end_date__gte=datetime.now()).order_by('-start_date')
+    past_rides = rides.filter(end_date__lte=datetime.now()).order_by('-start_date')
 
     return render(request, 'account/index.html', {
         'user': user,

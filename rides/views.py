@@ -14,8 +14,8 @@ def index(request):
 
     # Split them into current and past rides
     variables = {
-        "current_rides": rides.filter(end_date__gte=datetime.now()),
-        "past_rides": rides.filter(end_date__lte=datetime.now())
+        "current_rides": rides.filter(end_date__gte=datetime.now()).order_by("-start_date"),
+        "past_rides": rides.filter(end_date__lte=datetime.now()).order_by("-start_date")
     }
     return render(request, 'rides/index.html', variables)
 

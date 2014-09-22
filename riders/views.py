@@ -149,7 +149,7 @@ def profile(request, id, slug = None, action = None):
             variables["action"] = "can_edit"
 
     # Get all the rides the user has done/is signed up for
-    rides = variables["rides"] = Ride.objects.filter(riders__id=user.id).order_by('start_date')
+    rides = variables["rides"] = Ride.objects.filter(riders__id=user.id).order_by('-start_date')
 
     # If the user is looking at someone elses profile, have they done rides together before?
     if request.user.is_authenticated() and request.user.id != user.id:
