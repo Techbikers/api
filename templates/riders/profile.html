@@ -45,6 +45,7 @@
                 {% endif %}
             {% endif %}
         </header>
+
         <div class="content text--centre">
             {% if action == "edit" %}
                 <p>
@@ -59,6 +60,19 @@
     </section>
 
     <section id="description">
+
+        {% if ridden_together %}
+            <div class="content">
+                <div class="callout">
+                    <h2>You've both signed up for rides together!</h2>
+                    <p>
+                        Stay in touch with {{ user.first_name }} using the details below:<br/>
+                        email: <a href="mailto:{{ user.email }}">{{ user.email }}</a>
+                    </p>
+                </div>
+            </div>
+        {% endif %}
+
         <div class="content centerText">
             <p>
                 {% if action == "edit" %}

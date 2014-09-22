@@ -120,13 +120,21 @@ def profile(request, id, slug = None, action = None):
     if slug != user_slug:
         raise Http404
 
+    # Set up the variables to pass through
+    variables = {
+        "user": user,
+        "rides": None,
+        "action": action,
+        "form": None,
+        "ridden_together": False
+    }
+
     # Are we in editing mode and if so, is the user allowed to edit this profile?
-    form = None
     if action == "edit":
         if not request.user.is_authenticated() or request.user.id != user.id:
             return redirect("/riders/%s/%s" % (user.id, user_slug))
         else:
-            form = RiderDetails(initial={
+            variables["form"] = RiderDetails(initial={
                 "firstname": user.first_name,
                 "lastname": user.last_name,
                 "company": user.profile.company,
@@ -138,20 +146,21 @@ def profile(request, id, slug = None, action = None):
             })
     else:
         if request.user.id == user.id:
-            action = "can_edit"
+            variables["action"] = "can_edit"
 
     # Get all the rides the user has done/is signed up for
-    rides = Ride.objects.filter(riders__id=user.id).order_by('start_date')
+    rides = variables["rides"] = Ride.objects.filter(riders__id=user.id).order_by('start_date')
+
+    # If the user is looking at someone elses profile, have they done rides together before?
+    if request.user.is_authenticated() and request.user.id != user.id:
+        for ride in rides:
+            if ride.riders.filter(id=request.user.id).__len__() > 0:
+                variables["ridden_together"] = True
 
     if request.method == "GET":
-        return render(request, "riders/profile.html", {
-            "user": user,
-            "rides": rides,
-            "action": action,
-            "form": form
-        })
+        return render(request, "riders/profile.html", variables)
     elif request.method == "POST":
-        form = RiderDetails(request.POST)
+        form = variables["form"] = RiderDetails(request.POST)
         if form.is_valid():
             user.first_name = form.cleaned_data["firstname"]
             user.last_name = form.cleaned_data["lastname"]
@@ -173,9 +182,4 @@ def profile(request, id, slug = None, action = None):
 
         else:
             # Errors in the form so return with the errors
-            return render(request, "riders/profile.html", {
-                "user": user,
-                "rides": rides,
-                "action": action,
-                "form": form
-            })
+            return render(request, "riders/profile.html", variables)
