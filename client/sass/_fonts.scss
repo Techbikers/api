@@ -1,0 +1,11 @@
+/**
+ * fonts.scss
+ */
+
+@import url(http://fonts.googleapis.com/css?family=Lato:300,700);
+
+@include font-face("aleolight",
+    font-files("Aleo-Light.eot", "Aleo-Light.svg", "Aleo-Light.woff", "Aleo-Light.ttf"), "Aleo-Light.eot", normal, normal);
+
+@include font-face("aleoregular",
+    font-files("Aleo-Regular.eot", "Aleo-Regular.svg", "Aleo-Regular.woff", "Aleo-Regular.ttf"), "Aleo-Regular.eot", normal, normal);

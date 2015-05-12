@@ -1,0 +1,36 @@
+{
+  "name": "techbikers.com",
+  "version": "2.0.0",
+  "author": "Michael Willmott",
+  "private": true,
+  "repository": {
+    "type": "git",
+    "url": "git@bitbucket.org:mwillmott/mwillmott.co.git"
+  },
+  "dependencies": {
+    "debug": "^2.2.0",
+    "jwt-decode": "^1.1.0",
+    "lodash": "^3.8.0",
+    "marty": "^0.10.4",
+    "moment": "^2.10.3",
+    "newforms": "^0.12.1",
+    "react": "^0.13.2",
+    "react-document-title": "latest",
+    "react-router": "^0.13.3",
+    "superagent": "^1.2.0"
+  },
+  "devDependencies": {
+    "babelify": "^6.0.2",
+    "browserify": "latest",
+    "bulk-require": "^0.2.1",
+    "bulkify": "^1.1.1",
+    "grunt": "latest",
+    "grunt-browserify": "latest",
+    "grunt-cli": "latest",
+    "grunt-contrib-compass": "latest",
+    "grunt-contrib-jshint": "latest",
+    "grunt-contrib-uglify": "latest",
+    "grunt-contrib-watch": "latest",
+    "grunt-react": "latest"
+  }
+}

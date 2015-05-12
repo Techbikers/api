@@ -1,0 +1,119 @@
+/**
+ * typography.less
+ * Basic typograhpy for the site
+ */
+
+body {
+  color: $fontColor;
+  font-family: 'Lato', 'Helvetica Neue', Arial, Helvetica, sans-serif;;
+  font-size: $baseFontSize;
+  line-height: $baseLineHeight;
+  font-weight: 300;
+}
+
+// Links
+a {
+  color: $linkColor;
+  text-decoration: none;
+
+  &:hover {
+    color: $linkColorHover;
+    text-decoration: underline;
+  }
+
+  &:active {
+
+  }
+}
+
+// Body
+p {
+  margin: $baseLineHeight 0;
+}
+
+// Headings
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 300;
+  margin: $baseLineHeight 0 0 0;
+
+  & + p {
+    margin-top: $baseLineHeight / 2;
+  }
+}
+
+h1 {
+  font-family: "aleolight", "Helvetica Neue", Arial, Helvetica, sans-serif;
+  font-size: $baseFontSize * 2;
+  line-height: $baseLineHeight * 2;
+}
+
+h2 {
+  font-family: "aleolight", "Helvetica Neue", Arial, Helvetica, sans-serif;
+  font-size: 24px;
+  line-height: $baseLineHeight * 1.5;
+}
+
+// Copy typography
+section > header {
+  background: image_url('divider.png') bottom center no-repeat;
+  padding-bottom: $baseLineHeight;
+  margin-bottom: $baseLineHeight;
+
+  & > h1 {
+    text-align: center;
+  }
+  & > h2 {
+    text-align: center;
+    margin-top: 0;
+  }
+  & > h3 {
+    text-align: center;
+    margin-top: 0;
+  }
+}
+
+section > .content {
+  > h1, > h2, > h3 {
+    text-align: center;
+  }
+}
+
+.content {
+  // This is a bit experimental as any special grid
+  // layout might break it, but I like the tighter
+  // sendtences this give us.
+  & > p, & > ul {
+    padding-left: 0;
+    margin-left: 80px;
+    margin-right: 80px;
+  }
+}
+
+
+// Stats
+.stat {
+  margin-top: $baseLineHeight;
+  text-align: center;
+  font-size: 80px;
+  font-weight: bold;
+  line-height: 1;
+
+  small {
+    display: block;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+  }
+}
+.statText {
+  text-align: center;
+}
+
+// Utility classes
+.centerText {
+  text-align: center;
+}
+
+.list-unstyled {
+  list-style: none;
+}
