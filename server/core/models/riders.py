@@ -21,5 +21,16 @@ class RiderProfile(models.Model):
     def __unicode__(self):
         return self.user.username
 
+    @receiver(post_save, sender=User)
+    def create_profile_for_user(sender, instance=None, created=False, **kwargs):
+        if created:
+            RiderProfile.objects.get_or_create(user=instance)
+
+    @receiver(pre_delete, sender=User)
+    def delete_profile_for_user(sender, instance=None, **kwargs):
+        if instance:
+            rider_profile = RiderProfile.objects.get(user=instance)
+            rider_profile.delete()
+
     class Meta:
         db_table    = "riders_profiles"
