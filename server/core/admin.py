@@ -7,6 +7,7 @@ from server.core.models.riders import RiderProfile
 from server.core.models.rides import Ride, RideRiders
 from server.core.models.chapters import Chapter
 from server.core.models.sales import Sale
+from server.core.models.memberships import Membership
 
 
 class RiderProfileAdmin(admin.ModelAdmin):
@@ -68,6 +69,33 @@ class ChapterAdmin(admin.ModelAdmin):
     ordering = ['name']
     list_display = ('name',)
 admin.site.register(Chapter, ChapterAdmin)
+
+
+class MembershipAdmin(admin.ModelAdmin):
+    list_display = ('chapter', 'user_link', 'user', 'start_date', 'end_date', 'expired')
+    list_filter = ('chapter__name',)
+    search_fields = ('user__first_name', 'user__last_name', 'user__email')
+    readonly_fields = ('user_link', 'chapter_link', 'start_date', 'sale_link')
+    fields = ('user_link', 'user', 'chapter_link', 'chapter', 'start_date', 'end_date', 'sale_link')
+
+    def user_link(self, obj):
+        change_url = urlresolvers.reverse('admin:auth_user_change', args=(obj.user.id,))
+        return '<a href="%s">%s %s</a>' % (change_url, obj.user.first_name, obj.user.last_name)
+    user_link.short_description = 'User'
+    user_link.allow_tags = True
+
+    def chapter_link(self, obj):
+        change_url = urlresolvers.reverse('admin:core_chapter_change', args=(obj.chapter.id,))
+        return '<a href="%s">%s</a>' % (change_url, obj.chapter.name)
+    chapter_link.short_description = 'Chapter'
+    chapter_link.allow_tags = True
+
+    def sale_link(self, obj):
+        change_url = urlresolvers.reverse('admin:core_sale_change', args=(obj.sale.id,))
+        return '<a href="%s">%s</a>' % (change_url, obj.sale.charge_id)
+    sale_link.short_description = 'Sale'
+    sale_link.allow_tags = True
+admin.site.register(Membership, MembershipAdmin)
 
 
 class SaleAdmin(admin.ModelAdmin):

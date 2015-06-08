@@ -15,6 +15,7 @@ class RiderSerializer(serializers.ModelSerializer):
     statement = serializers.CharField(source='profile.statement', required=False, allow_blank=True)
     donation_page = serializers.URLField(source='profile.donation_page', required=False, allow_blank=True)
     rides = serializers.SerializerMethodField(source='get_rides', read_only=True)
+    is_member = serializers.BooleanField(source='profile.is_member', read_only=True)
 
     def get_gravatar_url(self, rider):
         return "https://www.gravatar.com/avatar/" + hashlib.md5(rider.email.lower()).hexdigest()
@@ -75,6 +76,6 @@ class RiderSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ('id', 'email', 'password', 'name', 'first_name', 'last_name', 'avatar', 'company',
-                  'website', 'twitter', 'biography', 'statement', 'donation_page', 'rides')
+                  'website', 'twitter', 'biography', 'statement', 'donation_page', 'is_member', 'rides')
         write_only_fields = ('password',)
         read_only_fields = ('id',)

@@ -1,7 +1,7 @@
 from django.conf.urls import patterns, url, include
 from .views.rides import RidesList, RideDetails, RideRidersList, RideRiderDetails, RideRiderCharge
 from .views.riders import RidersList, RiderProfile, RiderRides
-from .views.chapters import ChaptersList, ChapterDetails
+from .views.chapters import ChaptersList, ChapterDetails, ChapterMembersList
 from .views.auth import PasswordChange
 
 
@@ -26,6 +26,7 @@ rider_urls = patterns('',
 )
 
 chapter_urls = patterns('',
+    url(r'^/(?P<id>\d+)/members$', ChapterMembersList.as_view(), name='chapter-members'),
     url(r'^/(?P<id>\d+)$', ChapterDetails.as_view(), name='chapter-details'),
     url(r'^$', ChaptersList.as_view(), name='chapters-list')
 )
