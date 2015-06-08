@@ -14,6 +14,7 @@ import Ride         from './components/ride.jsx';
 import RiderProfile from './components/riderProfile.jsx';
 import Chapter      from './components/chapter.jsx';
 import NotFound     from './components/404.jsx';
+import Signup       from './components/signup.jsx';
 
 export default (
   // # Main App handler
@@ -28,6 +29,7 @@ export default (
 
     // ## Authentication and Account
     <Route path="/login"           name="login"    handler={Login} />
+    <Route path="/signup"          name="signup"   handler={Signup} />
     <Route path="/account"         name="account"  handler={Account} />
 
     // ## Ride Routing

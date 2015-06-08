@@ -69,7 +69,7 @@ class Login extends Component {
                   <input type="submit" value="Login" className="btn" onClick={this.login.bind(this)} />
                 </div>
                 <div className="span6">
-                  Don't have an account yet? <a href="">Create one!</a>
+                  Don't have an account yet? <Link to="signup" query={{next: this.props.query.next}}>Create one!</Link>
                   <br/>
                   <a href="">Forgotten your password?</a>
                 </div>

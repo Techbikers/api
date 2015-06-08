@@ -28,13 +28,23 @@ class RiderHttpAPI extends HttpStateSource {
     return this.post({
       url: '/api/riders',
       body: rider
+    }).then(res => {
+      if (!res.ok) {
+        throw Error(res.status);
+      }
+      return res.json();
     });
   }
 
   updateRider(rider) {
-    return this.post({
+    return this.patch({
       url: format('/api/riders/%d', rider.id),
       body: rider
+    }).then(res => {
+      if (!res.ok) {
+        throw Error(res.status);
+      }
+      return res.json();
     });
   }
 }

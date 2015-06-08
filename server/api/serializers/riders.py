@@ -8,12 +8,12 @@ from server.core.models.riders import RiderProfile
 class RiderSerializer(serializers.ModelSerializer):
     name = serializers.CharField(source='get_full_name', read_only=True)
     avatar = serializers.SerializerMethodField(method_name='get_gravatar_url', read_only=True)
-    company = serializers.CharField(source='profile.company')
-    website = serializers.URLField(source='profile.website')
-    twitter = serializers.CharField(source='profile.twitter')
-    biography = serializers.CharField(source='profile.biography')
-    statement = serializers.CharField(source='profile.statement')
-    donation_page = serializers.URLField(source='profile.donation_page')
+    company = serializers.CharField(source='profile.company', required=False, allow_blank=True)
+    website = serializers.URLField(source='profile.website', required=False, allow_blank=True)
+    twitter = serializers.CharField(source='profile.twitter', required=False, allow_blank=True)
+    biography = serializers.CharField(source='profile.biography', required=False, allow_blank=True)
+    statement = serializers.CharField(source='profile.statement', required=False, allow_blank=True)
+    donation_page = serializers.URLField(source='profile.donation_page', required=False, allow_blank=True)
     rides = serializers.PrimaryKeyRelatedField(source='ride_set', many=True, read_only=True)
 
     def get_gravatar_url(self, rider):
@@ -29,6 +29,45 @@ class RiderSerializer(serializers.ModelSerializer):
             data.pop("email")
 
         return data
+
+    def create(self, validated_data):
+        email = validated_data.get("email", None)
+        password = validated_data.get("password", None)
+        profile = validated_data.get("profile", {})
+        # Create the new user
+        new_user = User.objects.create_user(email, email, password)
+        new_user.first_name = validated_data.get("first_name", None)
+        new_user.last_name = validated_data.get("last_name", None)
+        new_user.save()
+
+        new_user.profile.company = profile.get("company", None)
+        new_user.profile.website = profile.get("website", None)
+        new_user.profile.twitter = profile.get("twitter", None)
+        new_user.profile.biography = profile.get("biography", None)
+        new_user.profile.statement = profile.get("statement", None)
+        new_user.profile.donation_page = profile.get("donation_page", None)
+        new_user.profile.save()
+
+        return new_user
+
+    def update(self, instance, validated_data):
+        email = validated_data.get("email", instance.email)
+        profile = validated_data.get("profile", {})
+        instance.username = email
+        instance.email = email
+        instance.first_name = validated_data.get("first_name", instance.first_name)
+        instance.last_name = validated_data.get("last_name", instance.last_name)
+        instance.save()
+
+        instance.profile.company = profile.get("company", instance.profile.company)
+        instance.profile.website = profile.get("website", instance.profile.website)
+        instance.profile.twitter = profile.get("twitter", instance.profile.twitter)
+        instance.profile.biography = profile.get("biography", instance.profile.biography)
+        instance.profile.statement = profile.get("statement", instance.profile.statement)
+        instance.profile.donation_page = profile.get("donation_page", instance.profile.donation_page)
+        instance.profile.save()
+
+        return instance
 
     class Meta:
         model = User
