@@ -2,7 +2,7 @@ import hashlib
 
 from django.contrib.auth.models import User
 from rest_framework import serializers
-from server.core.models.riders import RiderProfile
+from server.core.models.rides import RideRiders
 
 
 class RiderSerializer(serializers.ModelSerializer):
@@ -14,10 +14,13 @@ class RiderSerializer(serializers.ModelSerializer):
     biography = serializers.CharField(source='profile.biography', required=False, allow_blank=True)
     statement = serializers.CharField(source='profile.statement', required=False, allow_blank=True)
     donation_page = serializers.URLField(source='profile.donation_page', required=False, allow_blank=True)
-    rides = serializers.PrimaryKeyRelatedField(source='ride_set', many=True, read_only=True)
+    rides = serializers.SerializerMethodField(source='get_rides', read_only=True)
 
     def get_gravatar_url(self, rider):
         return "https://www.gravatar.com/avatar/" + hashlib.md5(rider.email.lower()).hexdigest()
+
+    def get_rides(self, rider):
+        return rider.ride_set.filter(rideriders__status=RideRiders.REGISTERED).values_list('id', flat=True)
 
     def to_representation(self, instance):
         # Instantiate the superclass normally

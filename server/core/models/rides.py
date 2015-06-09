@@ -1,4 +1,4 @@
-import markdown
+import markdown, jsonfield
 from datetime import datetime
 from django.db import models
 from django.contrib.auth.models import User
@@ -31,12 +31,16 @@ class Ride(models.Model):
 
     # Calculated properties (not stored in the db)
     @property
+    def registered_riders(self):
+        return self.riders.filter(rideriders__status=RideRiders.REGISTERED)
+
+    @property
     def description_html(self):
         return markdown.markdown(self.description, safe_mode='escape')
 
     @property
     def spaces_left(self):
-        return max(0, self.rider_capacity - self.riders.count())
+        return max(0, self.rider_capacity - self.registered_riders.count())
 
     # Determine is the ride is over
     @property
@@ -54,11 +58,39 @@ class RideRiders(models.Model):
     user = models.ForeignKey(User)
     ride = models.ForeignKey(Ride)
 
-    # Other information we might want to know about a user signing up to a ride
-    signup_date = models.DateTimeField(default=datetime.now())
-    pending     = models.BooleanField() # is the spot reserved for them before paying?
-    paid        = models.BooleanField() # have they completed payment for the ride?
-    sale        = models.ForeignKey(Sale, blank=True, null=True) # what is the sale that this transaction happened through?
+    # Define the different states this record can be in
+    PENDING = 'PEN'     # waiting to be accepted onto the ride
+    ACCEPTED = 'ACC'    # accepted and waiting to complete registration
+    REGISTERED = 'REG'  # fully registered and on the ride
+    REJECTED = 'REJ'    # rejected from the ride (usually due to capacity issues)
+    STATUS_CHOICES = (
+        (PENDING, 'Pending'),
+        (ACCEPTED, 'Accepted'),
+        (REGISTERED, 'Registered'),
+        (REJECTED, 'Rejected'),
+    )
+
+    # Status of the registration
+    status = models.CharField(max_length=3, choices=STATUS_CHOICES, default=PENDING)
+    # When they signed up for the ride
+    signup_date = models.DateField(auto_now_add=True)
+    # When their opportunity to complete registration expires (optional)
+    signup_expires = models.DateField(blank=True, null=True)
+    # Payload contains any other information we might have asked the user for during registration
+    payload = jsonfield.JSONField()
+    # Whether they have paid for the ride
+    paid = models.BooleanField()
+    # If they paid, link to the sale transaction record
+    sale = models.ForeignKey(Sale, blank=True, null=True)
+
+    @property
+    def owner(self):
+        return self.user
+
+    @property
+    def expired(self):
+        return self.signup_expires is not None and self.signup_expires <= datetime.now().date()
 
     class Meta:
-        db_table    = 'rides_riders'
+        db_table = 'rides_riders'
+        unique_together = ('user', 'ride')

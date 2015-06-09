@@ -38,11 +38,11 @@ admin.site.register(Ride, RideAdmin)
 
 
 class RideRidersAdmin(admin.ModelAdmin):
-    list_display = ('ride', 'user_link', 'user', 'paid', 'signup_date')
-    list_filter = ('ride__name',)
+    list_display = ('ride', 'user_link', 'user', 'status', 'paid', 'signup_date')
+    list_filter = ('ride__name', 'status')
     search_fields = ('user__first_name', 'user__last_name', 'user__email')
     readonly_fields = ('user_link', 'ride_link', 'sale_link', 'signup_date')
-    fields = ('user_link', 'user', 'ride_link', 'ride', 'signup_date', 'pending', 'paid', 'sale_link')
+    fields = ('user_link', 'user', 'ride_link', 'ride', 'signup_date', 'status', 'paid', 'sale_link')
 
     def user_link(self, obj):
         change_url = urlresolvers.reverse('admin:auth_user_change', args=(obj.user.id,))
@@ -51,13 +51,13 @@ class RideRidersAdmin(admin.ModelAdmin):
     user_link.allow_tags = True
 
     def ride_link(self, obj):
-        change_url = urlresolvers.reverse('admin:rides_ride_change', args=(obj.ride.id,))
+        change_url = urlresolvers.reverse('admin:core_ride_change', args=(obj.ride.id,))
         return '<a href="%s">%s</a>' % (change_url, obj.ride.name)
     ride_link.short_description = 'Ride'
     ride_link.allow_tags = True
 
     def sale_link(self, obj):
-        change_url = urlresolvers.reverse('admin:sales_sale_change', args=(obj.sale.id,))
+        change_url = urlresolvers.reverse('admin:core_sale_change', args=(obj.sale.id,))
         return '<a href="%s">%s</a>' % (change_url, obj.sale.charge_id)
     sale_link.short_description = 'Sale'
     sale_link.allow_tags = True

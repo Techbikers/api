@@ -6,7 +6,7 @@ from server.core.models.rides import Ride
 
 class RideSerializer(serializers.ModelSerializer):
     chapter = ChapterSerializer()
-    riders = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
+    riders = serializers.PrimaryKeyRelatedField(source='registered_riders', many=True, read_only=True)
 
     class Meta:
         model = Ride

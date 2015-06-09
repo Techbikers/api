@@ -1,6 +1,6 @@
 from rest_framework import generics
 from django.contrib.auth.models import User
-from server.core.models.rides import Ride
+from server.core.models.rides import Ride, RideRiders
 from server.api.serializers.rides import RideSerializer
 from server.api.serializers.riders import RiderSerializer
 
@@ -18,9 +18,11 @@ class RideDetails(generics.RetrieveUpdateAPIView):
     lookup_field = 'id'
 
 
-class RideRiders(generics.ListAPIView):
+class RideRidersList(generics.ListAPIView):
     model = User
     serializer_class = RiderSerializer
 
     def get_queryset(self):
-        return User.objects.filter(ride__id=self.kwargs.get('id'))
+        return User.objects.filter(
+            ride__id=self.kwargs.get('id'),
+            rideriders__status=RideRiders.REGISTERED)
