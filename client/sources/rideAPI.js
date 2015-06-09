@@ -15,6 +15,19 @@ class RideHttpAPI extends HttpStateSource {
     });
   }
 
+  getRideRegistrationDetails(rideId, riderId) {
+    return this.get(format('/api/rides/%d/riders/%d', rideId, riderId)).then(res => {
+      if (!res.ok) {
+        if (res.status === 404) {
+          return {};
+        }
+
+        throw Error(res.status);
+      }
+      return res.json();
+    });
+  }
+
   getRidesForRider(riderId) {
     return this.get(format('/api/riders/%d/rides', riderId)).then(res => {
       return res.json();

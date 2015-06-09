@@ -26,6 +26,7 @@ class Application extends Marty.Application {
 
     this.register('authStore', require('./stores/authStore.js'));
     this.register('chaptersStore', require('./stores/chaptersStore.js'));
+    this.register('rideRegistrationsStore', require('./stores/rideRegistrationsStore.js'));
     this.register('ridersStore', require('./stores/ridersStore.js'));
     this.register('ridesStore', require('./stores/ridesStore.js'));
 

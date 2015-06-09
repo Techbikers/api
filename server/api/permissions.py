@@ -1,4 +1,6 @@
 from rest_framework import permissions
+from rest_framework.exceptions import PermissionDenied
+from server.core.models.rides import RideRiders
 
 
 class IsOwner(permissions.BasePermission):
@@ -28,3 +30,13 @@ class IsOwnerOrReadOnly(permissions.BasePermission):
         # Instance must be the user themselves or have an attribute
         # named `owner` that matches the current user.
         return obj == request.user or (hasattr(obj, 'owner') and obj.owner == request.user)
+
+
+class RiderIsAccepted(permissions.BasePermission):
+    def has_object_permission(self, request, view, obj):
+        if obj.status == RideRiders.ACCEPTED:
+            return True
+        elif obj.status == RideRiders.REGISTERED:
+            raise PermissionDenied("You are already registered for the ride.")
+        else:
+            raise PermissionDenied("You don't have permission to complete registration for this ride.")

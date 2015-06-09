@@ -20,6 +20,16 @@ class RideQueries extends Marty.Queries {
       this.dispatch(ActionConstants.RECEIVE_RIDES, rides);
     });
   }
+
+  getRideRegistrationDetails(rideId, riderId) {
+    return this.app.rideAPI.getRideRegistrationDetails(rideId, riderId).then(
+      registration => {
+        this.dispatch(ActionConstants.RECEIVE_RIDE_REGISTRATION, rideId, registration);
+      },
+      error => {
+        this.dispatch(ActionConstants.RECEIVE_RIDE_REGISTRATION_FAILED, rideId, error);
+      });
+  }
 }
 
 export default RideQueries;
