@@ -16,6 +16,7 @@
     "newforms": "^0.12.1",
     "react": "^0.13.2",
     "react-document-title": "latest",
+    "react-intl": "^1.2.0",
     "react-router": "^0.13.3",
     "superagent": "^1.2.0"
   },

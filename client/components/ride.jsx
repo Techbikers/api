@@ -7,6 +7,7 @@ import RideUtils from "../utils/rideUtils"
 
 import RiderCard from "./riderCard.jsx";
 import Timestamp from "./timestamp.jsx";
+import RideRegistration from "./rideRegistration.jsx";
 
 class Ride extends Component {
 
@@ -25,7 +26,7 @@ class Ride extends Component {
             </header>
           </section>
 
-          {this.renderRegistration()}
+          <RideRegistration {...this.props} />
 
           <section id="riders">
             <div className="content">
@@ -46,38 +47,6 @@ class Ride extends Component {
         </div>
       </DocumentTitle>
     );
-  }
-
-  renderRegistration() {
-    let { ride } = this.props;
-    if (!ride.is_over) {
-      return (
-        <section id="registration">
-          <div className="content">
-            {this.props.auth.loggedIn && RideUtils.signedUp(this.props.currentRider, ride) ?
-              <div className="callout">
-                <h2>Good job {this.props.currentRider.first_name}! You're signed up for this ride!</h2>
-              </div>
-            : ride.spaces_left < 1 ?
-              <div className="callout">
-                <h2>Registration for this ride is FULL</h2>
-                <p>Thanks for your interest but this year's ride is fully booked.</p>
-              </div>
-            :
-              <div className="callout">
-                <h2>Register for the {ride.name} ride!</h2>
-                <p>There is a {ride.currency} {ride.price} fee for this ride.</p>
-                <h2>
-                  <a className="btn" href="">Register Now</a>
-                </h2>
-              </div>
-            }
-          </div>
-        </section>
-      );
-    } else {
-      return "";
-    }
   }
 }
 

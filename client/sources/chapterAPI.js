@@ -20,6 +20,19 @@ class ChapterHttpAPI extends HttpStateSource {
       return res.json();
     });
   }
+
+  // Joins the logged in user to the chapter as a member
+  // and charges their card using the given Stripe token.
+  join(id, token) {
+    return this.post({
+      url: format('/api/chapters/%d/members', id),
+      body: {
+        token: token
+      }
+    }).then(res => {
+      return res.json();
+    });
+  }
 }
 
 export default ChapterHttpAPI;

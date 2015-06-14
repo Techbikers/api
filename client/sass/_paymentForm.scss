@@ -1,0 +1,97 @@
+// Our credit card form
+.payment-form {
+  width: 420px;
+  padding: 15px 0 0 0;
+  margin: 0;
+  background: #f5f5f5;
+}
+
+.payment-form--credit-card {
+  padding: 0 35px;
+
+  .infoRow {
+    margin: 10px 0;
+    text-align: center;
+
+    img {
+      width: 52px;
+      margin-right: 6px;
+    }
+  }
+
+  .row {
+    margin: 20px 0;
+    @include clearfix();
+  }
+
+  .longNumber {
+    position: relative;
+    float: left;
+    width: 70%;
+
+    .form-field {
+      width: 100%;
+    }
+  }
+
+  .cvc {
+    float: right;
+    width: 20%;
+  }
+
+  span.card-type {
+    position: absolute;
+    top: 9px;
+    right: 9px;
+    display: block;
+    width: 32px;
+    height: 20px;
+    z-index: 20;
+    pointer-events: none;
+    background-repeat: no-repeat;
+    background-size: 32px 20px;
+
+    &.amex {
+      background-image: image_url("/static/img/icons/amex.png");
+    }
+    &.diners {
+      background-image: image_url("/static/img/icons/diners.png");
+    }
+    &.discover {
+      background-image: image_url("/static/img/icons/discover.png");
+    }
+    &.jcb {
+      background-image: image_url("/static/img/icons/jcb.png");
+    }
+    &.mastercard {
+      background-image: image_url("icons/mastercard.png");
+    }
+    &.visa {
+      background-image: image_url("/static/img/icons/visa.png");
+    }
+  }
+
+  .nameOnCard {
+    float: left;
+    width: 60%;
+  }
+
+  .date {
+    float: right;
+  }
+
+  .month {
+    width: 52px;
+  }
+
+  .year {
+    margin-left: 4px;
+    width: 66px;
+  }
+}
+
+.payment-form--submit {
+  padding: 15px;
+  background: #e2e2e2;
+  @include border-bottom-radius(3px);
+}

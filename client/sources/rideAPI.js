@@ -33,6 +33,22 @@ class RideHttpAPI extends HttpStateSource {
       return res.json();
     });
   }
+
+  registerRider(rideId, payload=null, token=null) {
+    return this.post({
+      url: format('/api/rides/%d/riders', rideId),
+      body: {
+        ride: rideId,
+        payload: payload,
+        token: token
+      }
+    }).then(res => {
+      if (!res.ok) {
+        throw Error(res.status);
+      }
+      return res.json();
+    });
+  }
 }
 
 export default RideHttpAPI;

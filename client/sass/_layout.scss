@@ -3,6 +3,10 @@
  * Major section layouts
  */
 
+* {
+  @include box-sizing(border-box);
+}
+
 // Basic containers
 .content {
   width: $pageWidth;

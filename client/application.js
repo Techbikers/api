@@ -9,7 +9,6 @@ class Application extends Marty.Application {
 
     // Register Dependencies
     this.register('authActions', require('./actions/authActions.js'));
-    this.register('chapterActions', require('./actions/chapterActions.js'));
     this.register('navigationActions', require('./actions/navigationActions.js'));
     this.register('rideActions', require('./actions/rideActions.js'));
     this.register('riderActions', require('./actions/riderActions.js'));
