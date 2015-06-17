@@ -10,3 +10,5 @@ django-suit==0.2.3
 django-debug-toolbar==0.9.4
 gunicorn==19.3.0
 django-codemirror-widget==0.4.0
+user-agents
+django-user-agents

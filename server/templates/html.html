@@ -18,6 +18,11 @@
 
         <link rel="stylesheet" href="{% static 'css/main.css' %}">
 
+        {% if "safari" in request.user_agent.browser.family.lower %}
+        <script type="text/javascript" src="{% static 'js/intl.min.js'%}"></script>
+        <script type="text/javascript" src="{% static 'js/intl-locale-en.min.js'%}"></script>
+        {% endif %}
+
         <script type="text/javascript" src="{% static 'js/libs.js' %}"></script>
         <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
     </head>
