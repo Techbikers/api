@@ -34,6 +34,10 @@ class AuthActions extends ActionCreators {
     this.dispatch(ActionConstants.AUTH_USER_LOGOUT);
     this.app.navigationActions.navigateToLogin();
   }
+
+  updatePartialUser(object) {
+    this.dispatch(ActionConstants.RECEIVE_PARTIAL_USER, object);
+  }
 }
 
 export default AuthActions;

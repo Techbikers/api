@@ -10,12 +10,15 @@ class AuthStore extends Store {
     this.state = {
       error: null,
       token: false,
-      user: false
+      user: false,
+      partialUser: {}
     };
     this.handlers = {
       login: ActionConstants.AUTH_USER_LOGIN,
       loginFailed: ActionConstants.AUTH_USER_LOGIN_FAILED,
-      logout: ActionConstants.AUTH_USER_LOGOUT
+      logout: ActionConstants.AUTH_USER_LOGOUT,
+      updatePartialUser: ActionConstants.RECEIVE_PARTIAL_USER,
+      clearPartialUser: ActionConstants.AUTH_USER_LOGIN
     };
   }
 
@@ -41,12 +44,31 @@ class AuthStore extends Store {
     });
   }
 
+  updatePartialUser(user) {
+    let partialUser = _.pick(
+      _.extend(this.state.partialUser, user),
+      ['first_name', 'last_name', 'email', 'company', 'twitter', 'website']);
+    this.setState({
+      partialUser: partialUser
+    });
+  }
+
+  clearPartialUser() {
+    this.setState({
+      partialUser: {}
+    });
+  }
+
   isLoggedIn() {
     return !!this.state.user;
   }
 
   get user() {
     return this.state.user;
+  }
+
+  get partialUser() {
+    return this.state.partialUser;
   }
 
   get token() {

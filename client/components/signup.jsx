@@ -30,7 +30,10 @@ class Signup extends Component {
   constructor(options) {
     super(options);
     this.state = {
-      form: new NewRiderForm({onChange: this.onFormChange.bind(this)})
+      form: new NewRiderForm({
+        data: this.app.authStore.partialUser,
+        onChange: this.onFormChange.bind(this)
+      })
     };
   }
 

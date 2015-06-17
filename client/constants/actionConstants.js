@@ -4,6 +4,8 @@ var Constants = Marty.createConstants([
   'AUTH_USER_LOGIN',
   'AUTH_USER_LOGOUT',
 
+  'RECEIVE_PARTIAL_USER',
+
   'RECEIVE_RIDES',
 
   'RECEIVE_RIDE_REGISTRATION',
