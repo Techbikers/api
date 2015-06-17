@@ -12,7 +12,7 @@
   cd $ROOT
   source ../../bin/activate
   test -d $LOGDIR || mkdir -p $LOGDIR
-  newrelic-admin run-program python manage.py run_gunicorn \
+  newrelic-admin run-program gunicorn server.wsgi\
     --workers $NUM_WORKERS \
     --user=$USER \
     --group=$GROUP \

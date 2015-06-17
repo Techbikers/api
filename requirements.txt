@@ -8,5 +8,5 @@ stripe==1.22.2
 django-jsonfield==0.9.13
 django-suit==0.2.3
 django-debug-toolbar==0.9.4
-gunicorn
+gunicorn==19.3.0
 django-codemirror-widget==0.4.0

@@ -25,8 +25,8 @@ def setup():
 
 def deploy():
     """
-    Deploy the latest version of the site to the servers, 
-    install any required third party modules, 
+    Deploy the latest version of the site to the servers,
+    install any required third party modules,
     install the virtual host and then restart the webserver
     """
     import time
@@ -37,7 +37,7 @@ def deploy():
     migrate()
     update_static_files()
     restart_webserver()
-    
+
 def deploy_version(version):
     "Specify a specific version to be made live"
     env.version = version
@@ -45,7 +45,7 @@ def deploy_version(version):
         run('rm releases/previous; mv releases/current releases/previous;', pty=True)
         run('ln -s %(version)s releases/current' % env, pty=True)
     restart_webserver()
-    
+
 def rollback():
     """
     Limited rollback capability. Simple loads the previously current
@@ -55,8 +55,8 @@ def rollback():
         run('mv releases/current releases/_previous;', pty=True)
         run('mv releases/previous releases/current;', pty=True)
         run('mv releases/_previous releases/previous;', pty=True)
-    restart_webserver()    
-    
+    restart_webserver()
+
 # Helpers. These are called by other functions rather than directly
 
 def upload_tar_from_git():
@@ -67,25 +67,24 @@ def upload_tar_from_git():
     put('%(release)s.tar.gz' % env, '%(path)s/packages/' % env)
     run('cd %(path)s/releases/%(release)s && tar zxf ../../packages/%(release)s.tar.gz' % env, pty=True)
     local('rm %(release)s.tar.gz' % env)
-    
-    
+
+
 def install_requirements():
     "Install the required packages from the requirements file using pip"
     require('release', provided_by=[deploy, setup])
     run('cd %(path)s; source ./bin/activate; pip install -r ./releases/%(release)s/requirements.txt' % env, pty=True)
-    
+
 def symlink_current_release():
     "Symlink our current release"
     require('release', provided_by=[deploy, setup])
     with cd(env.path):
         run('rm releases/previous; mv releases/current releases/previous;')
         run('ln -s %(release)s releases/current' % env)
-    
+
 def migrate():
     "Update the database"
-    run('cd %(path)s/releases/current; source ../../bin/activate; python manage.py syncdb --noinput' % env, pty=True)
     run('cd %(path)s/releases/current; source ../../bin/activate; python manage.py migrate' % env, pty=True)
-    
+
 def update_static_files():
     "Deploying static files"
     run("cd %(path)s/releases/current; mkdir static" % env, pty=True)
@@ -99,4 +98,4 @@ def restart_webserver():
         run("pkill django")
         run("pkill gunicorn")
     run("supervisorctl start techbikers.com")
-    
+
