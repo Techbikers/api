@@ -123,7 +123,7 @@ class RideRegistration extends Component {
     return (
       <div className="ride-registration--container ride-registration--popdown">
         <header className="header-btn">
-          <a className="btn btn-grey" onClick={this.toggleRegistrationState.bind(this)}>Ride Preregistration</a>
+          <a className="btn btn-grey" onClick={this.toggleRegistrationState.bind(this)}>Apply to join the ride</a>
         </header>
         <div className="ride-registration--content">
           <PreRegistrationForm {...this.props} />

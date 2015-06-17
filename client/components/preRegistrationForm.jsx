@@ -5,19 +5,20 @@ import { FormattedNumber } from "react-intl";
 import forms, { Form, RenderForm } from 'newforms';
 
 import FormField from "./formField.jsx";
+import Timestamp from "./timestamp.jsx";
 
 const DetailsForm = Form.extend({
-  biography: forms.CharField({
-    label: "Tell us a bit about yourself",
-    widget: forms.Textarea
-  }),
   statement: forms.CharField({
     label: "Why do you want to do Techbikers?",
     widget: forms.Textarea
   }),
   ideas: forms.CharField({
-    label: "How can you help out? Fundraising ideas? Organising community events?",
+    label: "What's your best fundraising idea to reach your Techbikers funding goal?",
     widget: forms.Textarea
+  }),
+  ability: forms.ChoiceField({
+    label: "What's your cycling level?",
+    choices: [[1, 'Beginner'], [2, 'Confident'], [3, 'Intermediate'], [4, 'Advanced'], [5, 'Lycra Goddess/God']]
   })
 });
 
@@ -42,11 +43,9 @@ class RideRegistrationForm extends Component {
   // Register the current user for the ride
   register(e) {
     e.preventDefault();
-    let { ride, currentRider } = this.props;
     let form = this.state.form;
     if (form.validate()) {
-      this.app.riderActions.updateRider(_.extend(currentRider, form.cleanedData));
-      this.app.rideActions.registerRider(ride, {ideas: form.cleanedData.ideas});
+      this.app.rideActions.registerRider(this.props.ride, form.cleanedData);
     }
   }
 
@@ -73,18 +72,21 @@ class RideRegistrationForm extends Component {
           </li>
         </ol>
         <div className="ride-registration--details">
-          <h3>There is a <FormattedNumber style="currency" currency={ride.currency} value={ride.price} /> fee for this ride</h3>
           <p>
-            We're thrilled you want to join the ride! Demand is high so pre-registration is required. Fill out the
-            following form & we'll get back to you soon!</p>
+            We're thrilled you want to join this year's ride from Paris to London. To make sure we've
+            got a great mix of people in the peloton, we've got a short application form below.</p>
+          <p>
+            Please bear in mind: If you're selected, you will have to pay a minimum contribution
+            of <FormattedNumber style="currency" currency={ride.currency} value={ride.price} /> to the ride
+            cost to secure your spot. You can of course contribute more so more money is left for Room to Read!</p>
         </div>
         <form className="payment-form">
-          <FormField field={fields.biography} />
           <FormField field={fields.statement} />
           <FormField field={fields.ideas} />
+          <FormField field={fields.ability} />
           <div className="payment-form--submit">
             <button className="btn btn-blue" type="submit" onClick={this.register.bind(this)}>
-              Register Interest!
+              Apply for TechBikers <Timestamp value={ride.start_date} format="YYYY" />
             </button>
           </div>
         </form>

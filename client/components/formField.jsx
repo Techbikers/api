@@ -18,8 +18,14 @@ class FormField extends Component {
            <label>{field.render()} {field.label}</label>
         </div>
       );
-    }
-    else {
+    } else if (field.field instanceof forms.ChoiceField) {
+      return (
+        <div className={this.props.className + " form-field " + field.status()}>
+          <label>{field.label}</label><br/>
+          {field.render()}
+        </div>
+      );
+    } else {
       return (
         <div className={this.props.className + " form-field " + field.status()}>
           {field.render({attrs: {placeholder: field.label}})}
