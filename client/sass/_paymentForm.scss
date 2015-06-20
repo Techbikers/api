@@ -1,9 +1,13 @@
 // Our credit card form
 .payment-form {
   width: 420px;
-  padding: 15px 0 0 0;
+  padding: 20px;
   margin: 0;
   background: #f5f5f5;
+
+  .form-field {
+    width: 100%;
+  }
 }
 
 .payment-form--credit-card {
@@ -92,6 +96,7 @@
 
 .payment-form--submit {
   padding: 15px;
+  margin: 0 -20px -20px -20px;
   background: #e2e2e2;
   @include border-bottom-radius(3px);
 }
