@@ -11,6 +11,7 @@ class AuthStore extends Store {
       error: null,
       token: false,
       user: false,
+      passwordReset: false,
       partialUser: {}
     };
     this.handlers = {
@@ -18,8 +19,28 @@ class AuthStore extends Store {
       loginFailed: ActionConstants.AUTH_USER_LOGIN_FAILED,
       logout: ActionConstants.AUTH_USER_LOGOUT,
       updatePartialUser: ActionConstants.RECEIVE_PARTIAL_USER,
-      clearPartialUser: ActionConstants.AUTH_USER_LOGIN
+      clearPartialUser: ActionConstants.AUTH_USER_LOGIN,
+      setPasswordReset: ActionConstants.AUTH_PASSWORD_RESET,
+      setError: [
+        ActionConstants.AUTH_PASSWORD_RESET_FAILED,
+        ActionConstants.AUTH_USER_LOGIN_FAILED],
+      clearError: [
+        ActionConstants.AUTH_CLEAR_ERROR,
+        ActionConstants.AUTH_PASSWORD_RESET_STARTING,
+        ActionConstants.AUTH_USER_LOGIN_STARTING]
     };
+  }
+
+  setError(error) {
+    this.setState({
+      error: error
+    });
+  }
+
+  clearError() {
+    this.setState({
+      error: null
+    });
   }
 
   login(token) {
@@ -41,6 +62,12 @@ class AuthStore extends Store {
     this.replaceState({
       token: null,
       user: null
+    });
+  }
+
+  setPasswordReset(value) {
+    this.setState({
+      passwordReset: value
     });
   }
 
@@ -77,6 +104,10 @@ class AuthStore extends Store {
 
   get error() {
     return this.state.error;
+  }
+
+  get passwordReset() {
+    return this.state.passwordReset;
   }
 }
 

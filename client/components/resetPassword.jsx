@@ -6,17 +6,17 @@ import DocumentTitle from "react-document-title";
 import forms, { Form, RenderForm } from 'newforms';
 
 import FormField from "./formField.jsx";
+import ProgressButton from "./progressButton.jsx";
 
-const LoginForm = Form.extend({
-  email: forms.EmailField(),
-  password: forms.CharField({widget: forms.PasswordInput}),
+const SendResetLinkForm = Form.extend({
+  email: forms.EmailField()
 });
 
-class Login extends Component {
+class ResetPassword extends Component {
   constructor(options) {
     super(options);
     this.state = {
-      form: new LoginForm({onChange: this.onFormChange.bind(this)})
+      form: new SendResetLinkForm({onChange: this.onFormChange.bind(this)})
     };
   }
 
@@ -24,12 +24,22 @@ class Login extends Component {
     if (this.props.isLoggedIn) {
       this.navigateAway();
     }
+    if (this.props.reset) {
+      this.refs.submitButton.success();
+    }
+    if (!this.props.reset && this.props.resetError) {
+      this.refs.submitButton.error();
+    }
   }
 
   componentWillMount() {
     if (this.props.isLoggedIn) {
       this.navigateAway();
     }
+  }
+
+  componentWillUnmount() {
+    this.app.authActions.clearError();
   }
 
   navigateAway() {
@@ -41,22 +51,26 @@ class Login extends Component {
     this.forceUpdate();
   }
 
-  login(e) {
-    e.preventDefault();
+  sendResetLink() {
     if (this.state.form.validate()) {
-      this.app.authActions.login(this.state.form.cleanedData.email, this.state.form.cleanedData.password);
+      this.refs.submitButton.loading();
+      this.app.authActions.emailResetPasswordLink(this.state.form.cleanedData.email);
     }
   }
 
   render() {
     return (
-      <DocumentTitle title="Login – Techbikers">
-        <section id="login">
+      <DocumentTitle title="Reset Password – Techbikers">
+        <section>
           <header>
-            <h1>Login</h1>
+            <h1>Forgotten Your Password?</h1>
           </header>
           <div className="content">
-            <form id="loginform" role="form">
+            <p className="centerText">
+              No problem! Just enter the email address you used to register your account with, click continue,
+              and we'll send an email to that address with a link to reset your password.
+            </p>
+            <form id="resetpassword" role="form">
               <div className="row centerText">
                 {_.map(this.state.form.boundFieldsObj(), (field) => {
                   return (
@@ -66,12 +80,7 @@ class Login extends Component {
               </div>
               <div className="row centerText">
                 <div className="span6">
-                  <input type="submit" value="Login" className="btn" onClick={this.login.bind(this)} />
-                </div>
-                <div className="span6">
-                  Don't have an account yet? <Link to="signup" query={{next: this.props.query.next}}>Create one!</Link>
-                  <br/>
-                  <Link to="password-reset">Forgotten your password?</Link>
+                  <ProgressButton ref="submitButton" type="submit" onClick={this.sendResetLink.bind(this)}>Continue</ProgressButton>
                 </div>
               </div>
             </form>
@@ -82,13 +91,16 @@ class Login extends Component {
   }
 }
 
-Login = Marty.createContainer(Login, {
+ResetPassword = Marty.createContainer(ResetPassword, {
   listenTo: ['authStore'],
   fetch: {
-    isLoggedIn() {
-      return this.app.authStore.isLoggedIn();
+    reset() {
+      return this.app.authStore.passwordReset;
+    },
+    resetError() {
+      return this.app.authStore.error;
     }
   }
 });
 
-export default Login;
+export default ResetPassword;

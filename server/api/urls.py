@@ -2,13 +2,15 @@ from django.conf.urls import patterns, url, include
 from .views.rides import RidesList, RideDetails, RideRidersList, RideRiderDetails, RideRiderCharge
 from .views.riders import RidersList, RiderProfile, RiderRides
 from .views.chapters import ChaptersList, ChapterDetails, ChapterMembersList
-from .views.auth import PasswordChange
+from .views.auth import PasswordChange, PasswordReset, PasswordResetConfirm
 
 
 auth_urls = patterns('',
     url(r'^/token-refresh', 'rest_framework_jwt.views.refresh_jwt_token'),
     url(r'^/token', 'rest_framework_jwt.views.obtain_jwt_token'),
     url(r'^/password-change', PasswordChange.as_view(), name='password-change')
+    url(r'^/password/reset$', PasswordReset.as_view(), name='password-reset'),
+    url(r'^/password/reset/confirm$', PasswordResetConfirm.as_view(), name='password_reset_confirm'),
 )
 
 ride_urls = patterns('',

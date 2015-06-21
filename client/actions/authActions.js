@@ -35,8 +35,34 @@ class AuthActions extends ActionCreators {
     this.app.navigationActions.navigateToLogin();
   }
 
+  emailResetPasswordLink(email) {
+    this.dispatch(ActionConstants.AUTH_PASSWORD_RESET_STARTING);
+    this.app.authAPI.emailResetPasswordLink(email).then(
+      res => {
+        this.dispatch(ActionConstants.AUTH_PASSWORD_RESET, true);
+      },
+      error => {
+        this.dispatch(ActionConstants.AUTH_PASSWORD_RESET_FAILED, error);
+      });
+  }
+
+  resetPassword(uid, token, password1, password2) {
+    this.dispatch(ActionConstants.AUTH_PASSWORD_RESET_STARTING);
+    this.app.authAPI.resetPassword(uid, token, password1, password2).then(
+      res => {
+        this.dispatch(ActionConstants.AUTH_PASSWORD_RESET, true);
+      },
+      error => {
+        this.dispatch(ActionConstants.AUTH_PASSWORD_RESET_FAILED, error);
+      });
+  }
+
   updatePartialUser(object) {
     this.dispatch(ActionConstants.RECEIVE_PARTIAL_USER, object);
+  }
+
+  clearError() {
+    this.dispatch(ActionConstants.AUTH_CLEAR_ERROR);
   }
 }
 

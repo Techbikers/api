@@ -15,6 +15,8 @@ import RiderProfile from './components/riderProfile.jsx';
 import Chapter      from './components/chapter.jsx';
 import NotFound     from './components/404.jsx';
 import Signup       from './components/signup.jsx';
+import PasswordReset  from './components/resetPassword.jsx';
+import PasswordResetConfirm from './components/confirmResetPassword.jsx';
 
 export default (
   // # Main App handler
@@ -31,6 +33,8 @@ export default (
     <Route path="/login"           name="login"    handler={Login} />
     <Route path="/signup"          name="signup"   handler={Signup} />
     <Route path="/account"         name="account"  handler={Account} />
+    <Route path="/password/reset"  name="password-reset" handler={PasswordReset} />
+    <Route path="/password/reset/:uid/:token" name="password-reset-confirm"  handler={PasswordResetConfirm} />
 
     // ## Ride Routing
     <Route path="/rides"           name="rides"    handler={Rides} />

@@ -3,6 +3,8 @@ import Marty from "marty";
 var Constants = Marty.createConstants([
   'AUTH_USER_LOGIN',
   'AUTH_USER_LOGOUT',
+  'AUTH_PASSWORD_RESET',
+  'AUTH_CLEAR_ERROR',
 
   'RECEIVE_PARTIAL_USER',
 
