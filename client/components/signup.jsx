@@ -12,18 +12,28 @@ const NewRiderForm = Form.extend({
   last_name: forms.CharField(),
   email: forms.EmailField(),
   company: forms.CharField({required: false}),
-  website: forms.CharField({required: false}),
+  website: forms.URLField({required: false}),
   twitter: forms.CharField({required: false}),
   password: forms.CharField({label: "Password", widget: forms.PasswordInput}),
   password_confirm: forms.CharField({label: "Confirm password", widget: forms.PasswordInput}),
 
-  clean: ['password', 'password_confirm', function() {
+  cleanWebsite() {
+    // Add a protocol if there isn't already one
+    let url =  this.cleanedData.website;
+    if (!/^(?:f|ht)tps?\:\/\//.test(url)) {
+        url = "http://" + url;
+    }
+    return url;
+  },
+
+  clean() {
+    // Check that the passwords match
     if (this.cleanedData.password !== this.cleanedData.password_confirm) {
       let message = "Passwords don't match.";
       this.addError('password_confirm', message);
       throw forms.ValidationError(message);
     }
-  }]
+  }
 });
 
 class Signup extends Component {
