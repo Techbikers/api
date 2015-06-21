@@ -10,8 +10,8 @@ class ProgressButton extends Component {
   }
 
   static defaultProps = {
-    durationError: 1200,
-    durationSuccess: 500,
+    durationError: 3000,
+    durationSuccess: 3000,
     onClick: function() {}
   }
 
@@ -81,16 +81,23 @@ class ProgressButton extends Component {
 
   success(callback, remove) {
     this.setState({
-      disabled: false,
       currentState: "success"
     });
     this._timeout = setTimeout(function() {
       callback = callback || this.props.onSuccess;
       if (callback && typeof callback === "function") {
         callback();
-        if (remove) { this.setState({currentState: ''}); }
+        if (remove) {
+          this.setState({
+            disabled: false,
+            currentState: ''
+          });
+        }
       } else {
-        this.setState({currentState: ''});
+        this.setState({
+          disabled: false,
+          currentState: ''
+        });
       }
     }.bind(this), this.props.durationSuccess);
   }

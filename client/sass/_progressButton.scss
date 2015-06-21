@@ -20,6 +20,7 @@
   }
 
   &.loading {
+    height: 52px;
     border: none;
     background: none;
 
@@ -38,6 +39,7 @@
   }
 
   &.success {
+    height: 52px;
     border-color: #A0D468;
     background-color: #A0D468;
 
@@ -55,6 +57,7 @@
   }
 
   &.error {
+    height: 52px;
     border-color: #ED5565;
     background-color: #ED5565;
 
