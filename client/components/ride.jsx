@@ -8,6 +8,7 @@ import RideUtils from "../utils/rideUtils"
 import RiderCard from "./riderCard.jsx";
 import Timestamp from "./timestamp.jsx";
 import RideRegistration from "./rideRegistration.jsx";
+import Spinner from "./spinner.jsx";
 
 class Ride extends Component {
 
@@ -67,6 +68,9 @@ Ride = Marty.createContainer(Ride, {
         return null;
       }
     }
+  },
+  pending() {
+    return <Spinner message="loading ride details" />;
   }
 });
 

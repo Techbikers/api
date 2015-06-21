@@ -3,6 +3,7 @@ import React, { PropTypes, Component } from "react";
 import Marty from "marty";
 import DocumentTitle from "react-document-title";
 import RideCard from "./rideCard.jsx";
+import Spinner from "./spinner.jsx";
 
 class Rides extends Component {
   render() {
@@ -48,6 +49,9 @@ Rides = Marty.createContainer(Rides, {
     pastRides() {
       return this.app.ridesStore.getPastRides();
     }
+  },
+  pending() {
+    return <Spinner message="tracking down rides" />;
   }
 });
 
