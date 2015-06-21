@@ -5,6 +5,7 @@ import { Link } from 'react-router';
 import forms, { Form, RenderForm } from 'newforms';
 
 import FormField from "./formField.jsx";
+import ProgressButton from "./progressButton.jsx";
 
 const NewRiderForm = Form.extend({
   first_name: forms.CharField(),
@@ -58,9 +59,9 @@ class Signup extends Component {
     this.forceUpdate();
   }
 
-  createRider(e) {
-    e.preventDefault();
+  createRider() {
     if (this.state.form.validate()) {
+      this.refs.signupbtn.loading();
       this.app.riderActions.createRider(this.state.form.cleanedData);
     }
   }
@@ -83,7 +84,7 @@ class Signup extends Component {
               In order to sign up for one of our rides we need you to register an account.
           </p>
 
-          <form onSubmit={this.createRider.bind(this)}>
+          <form>
             <div className="row">
               <div className="span2 offset1">
                 {_.slice(fields, 0, 4)}
@@ -97,7 +98,9 @@ class Signup extends Component {
               <Link to="login" query={{next: this.props.query.next}}>Already have an account from a previous ride?</Link>
             </p>
             <p className="centerText">
-              <input type="submit" value="Sign Up" className="btn" />
+              <ProgressButton ref="signupbtn" type="submit" onClick={this.createRider.bind(this)}>
+                Sign Up
+              </ProgressButton>
             </p>
           </form>
         </div>
