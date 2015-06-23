@@ -17,6 +17,11 @@ class RiderSerializer(serializers.ModelSerializer):
     rides = serializers.SerializerMethodField(source='get_rides', read_only=True)
     is_member = serializers.BooleanField(source='profile.is_member', read_only=True)
 
+    def validate_email(self, value):
+        if User.objects.filter(email__iexact=value):
+            raise serializers.ValidationError("This email address is already in use.")
+        return value
+
     def get_gravatar_url(self, rider):
         return "https://www.gravatar.com/avatar/" + hashlib.md5(rider.email.lower()).hexdigest()
 

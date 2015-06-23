@@ -6,6 +6,7 @@ import forms, { Form, RenderForm } from 'newforms';
 
 import FormField from "./formField.jsx";
 import ProgressButton from "./progressButton.jsx";
+import Errors from "./errors.jsx";
 
 const NewRiderForm = Form.extend({
   first_name: forms.CharField(),
@@ -41,6 +42,7 @@ class Signup extends Component {
   constructor(options) {
     super(options);
     this.state = {
+      error: false,
       form: new NewRiderForm({
         data: this.app.authStore.partialUser,
         onChange: this.onFormChange.bind(this)
@@ -48,10 +50,11 @@ class Signup extends Component {
     };
   }
 
-  componentWillUpdate() {
-    if (this.app.authStore.isLoggedIn()) {
+  componentWillReceiveProps(nextProps) {
+    if (this.app.authStore.isLoggedIn())
       this.navigateAway();
-    }
+    if (this.props.error !== nextProps.error)
+      this.refs.signupbtn.error();
   }
 
   componentWillMount() {
@@ -108,6 +111,7 @@ class Signup extends Component {
               <Link to="login" query={{next: this.props.query.next}}>Already have an account from a previous ride?</Link>
             </p>
             <p className="centerText">
+              <Errors error={this.props.error} />
               <ProgressButton ref="signupbtn" type="submit" onClick={this.createRider.bind(this)}>
                 Sign Up
               </ProgressButton>
@@ -120,5 +124,10 @@ class Signup extends Component {
 }
 
 export default Marty.createContainer(Signup, {
-  listenTo: ['authStore']
+  listenTo: ['authStore', 'ridersStore'],
+  fetch: {
+    error() {
+      return this.app.ridersStore.error;
+    }
+  }
 });

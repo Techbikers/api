@@ -5,11 +5,19 @@ import ActionConstants from "../constants/actionConstants";
 class RidersStore extends Marty.Store {
   constructor(options) {
     super(options);
-    this.state = {};
+    this.state = {
+      error: null,
+      riders: {}
+    };
     this.handlers = {
       addRiders: ActionConstants.RECEIVE_RIDERS,
-      addRider: ActionConstants.CREATE_RIDER,
-      updateRider: ActionConstants.CREATE_RIDER_DONE
+      addRider: ActionConstants.CREATE_RIDER_DONE,
+      addRiderFailed: ActionConstants.CREATE_RIDER_FAILED,
+      updateRider: ActionConstants.UPDATE_RIDER_DONE,
+      clearError: [
+        ActionConstants.CHANGE_ROUTE,
+        ActionConstants.CREATE_RIDER_STARTING,
+        ActionConstants.UPDATE_RIDER_STARTING]
     };
   }
 
@@ -18,7 +26,7 @@ class RidersStore extends Marty.Store {
       id: 'all-riders',
       locally() {
         if (this.hasAlreadyFetched('all-riders')) {
-          return this.state;
+          return this.state.riders;
         }
       },
       remotely() {
@@ -31,7 +39,7 @@ class RidersStore extends Marty.Store {
     return this.fetch({
       id: id,
       locally() {
-        return this.state[id];
+        return this.state.riders[id];
       },
       remotely() {
         return this.app.riderQueries.getRider(id);
@@ -44,7 +52,7 @@ class RidersStore extends Marty.Store {
       id: rideId,
       locally() {
         if (this.hasAlreadyFetched(rideId) || this.hasAlreadyFetched('all-riders')) {
-          return _.filter(this.state, (rider) => {
+          return _.filter(this.state.riders, (rider) => {
             return _.includes(rider.rides, parseInt(rideId));
           });
         }
@@ -65,19 +73,35 @@ class RidersStore extends Marty.Store {
     }
 
     _.each(riders, (rider) => {
-      this.state[rider.id] = rider;
+      this.state.riders[rider.id] = rider;
     });
 
     this.hasChanged();
   }
 
+  addRiderFailed(rider, error) {
+    this.setState({
+      error: error
+    });
+  }
+
   updateRider(id, rider) {
-    var oldRider = this.state[id];
+    var oldRider = this.state.riders[id];
 
     if (oldRider) {
-      this.state[id] = _.extend(oldRider, rider);
+      this.state.riders[id] = _.extend(oldRider, rider);
       this.hasChanged();
     }
+  }
+
+  clearError() {
+    this.setState({
+      error: null
+    });
+  }
+
+  get error() {
+    return this.state.error;
   }
 }
 

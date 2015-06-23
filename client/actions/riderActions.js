@@ -3,22 +3,23 @@ import ActionConstants from '../constants/actionConstants';
 
 class RiderActions extends ActionCreators {
   createRider(rider, autoLogin=true) {
-    this.dispatch(ActionConstants.CREATE_RIDER, rider);
+    this.dispatch(ActionConstants.CREATE_RIDER_STARTING, rider);
 
     this.app.riderAPI.createRider(rider).then(
       newRider => {
-        this.dispatch(ActionConstants.CREATE_RIDER_DONE, rider.id, newRider);
+        this.dispatch(ActionConstants.CREATE_RIDER_DONE, newRider);
         if (autoLogin) {
           this.app.authActions.login(rider.email, rider.password);
         }
       },
       error => {
+        console.log(error);
         this.dispatch(ActionConstants.CREATE_RIDER_FAILED, rider, error);
       });
   }
 
   updateRider(rider) {
-    this.dispatch(ActionConstants.UPDATE_RIDER, rider);
+    this.dispatch(ActionConstants.UPDATE_RIDER_STARTING, rider);
 
     this.app.riderAPI.updateRider(rider).then(
       updatedRider => {
