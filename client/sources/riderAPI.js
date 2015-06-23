@@ -1,6 +1,7 @@
 import _ from "lodash";
 import { format } from "util";
 import Marty, { HttpStateSource } from "marty";
+import { ResponseError } from "../utils/customErrors";
 
 class RiderHttpAPI extends HttpStateSource {
   getAllRiders() {
@@ -30,9 +31,12 @@ class RiderHttpAPI extends HttpStateSource {
       body: rider
     }).then(res => {
       if (!res.ok) {
-        throw Error(res.status);
+        return res.json().then(details => {
+          throw new ResponseError("Failed to create new rider", res.status, details);
+        });
+      } else {
+        return res.json();
       }
-      return res.json();
     });
   }
 
@@ -42,7 +46,9 @@ class RiderHttpAPI extends HttpStateSource {
       body: rider
     }).then(res => {
       if (!res.ok) {
-        throw Error(res.status);
+        return res.json().then(details => {
+          throw new ResponseError("Failed to update rider", res.status, details);
+        });
       }
       return res.json();
     });
