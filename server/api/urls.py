@@ -8,9 +8,9 @@ from .views.auth import PasswordChange, PasswordReset, PasswordResetConfirm
 auth_urls = patterns('',
     url(r'^/token-refresh', 'rest_framework_jwt.views.refresh_jwt_token'),
     url(r'^/token', 'rest_framework_jwt.views.obtain_jwt_token'),
-    url(r'^/password-change', PasswordChange.as_view(), name='password-change')
+    url(r'^/password/change$', PasswordChange.as_view(), name='password-change'),
     url(r'^/password/reset$', PasswordReset.as_view(), name='password-reset'),
-    url(r'^/password/reset/confirm$', PasswordResetConfirm.as_view(), name='password_reset_confirm'),
+    url(r'^/password/reset/confirm$', PasswordResetConfirm.as_view(), name='password_reset_confirm')
 )
 
 ride_urls = patterns('',
