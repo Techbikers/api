@@ -2,6 +2,7 @@ import React, { PropTypes, Component } from 'react';
 import Router, { RouteHandler, Link } from 'react-router';
 import Marty from "marty";
 import _ from "lodash";
+import AnalyticsLoader from "./analytics.jsx";
 
 class App extends Component {
 
@@ -93,6 +94,7 @@ class App extends Component {
             </p>
           </div>
         </div>
+        <AnalyticsLoader gaTrackingId="UA-43866664-1" />
       </div>
     );
   }
