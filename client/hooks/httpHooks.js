@@ -32,8 +32,9 @@ Marty.HttpStateSource.addHook({
       return cookieValue;
     }
 
-    if (!this.app.authStore.isLoggedIn()) {
-      req.headers['X-CSRFToken'] = getCookie('csrftoken')
+    let csrftoken = getCookie('csrftoken');
+    if (!this.app.authStore.isLoggedIn() && csrftoken) {
+      req.headers['X-CSRFToken'] = csrftoken;
     }
   }
 });
