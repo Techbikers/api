@@ -108,7 +108,7 @@ class RideRegistration extends Component {
     return (
       <div className="ride-registration--container">
         <header className="header-btn">
-          <a className="btn btn-blue" onClick={this.toggleRegistrationState.bind(this)}>Want to take part?</a>
+          <a className="btn btn-green" onClick={this.toggleRegistrationState.bind(this)}>Sign up for the ride!</a>
         </header>
       </div>
     );
