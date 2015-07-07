@@ -11,3 +11,4 @@ gunicorn==19.3.0
 django-codemirror-widget==0.4.0
 user-agents==0.3.2
 django-user-agents==0.3.0
+djrill==1.4.0

@@ -35,18 +35,10 @@ with open('../../production.json') as configFile:
     config = json.load(configFile);
     SECRET_KEY = config.get('secret_key')
     email = config.get('email')
-    EMAIL_HOST = os.environ.get('EMAIL_HOST',email.get('host'))
-    EMAIL_PORT = os.environ.get('EMAIL_PORT', email.get('port'))
-    EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER',email.get('user'))
-    EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD', email.get('password'))
+    MANDRILL_API_KEY = os.environ.get('MANDRILL_API_KEY', email.get('mandrill_api_key'))
+    MANDRILL_SUBACCOUNT = os.environ.get('MANDRILL_SUBACCOUNT', email.get('mandrill_subaccount'))
     stripe = config.get('stripe')
     STRIPE_ENVIRONMENT = 'live'
-
-
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-
-EMAIL_USE_TLS = False
-DEFAULT_FROM_EMAIL = 'admin@techbikers.com'
 
 STATIC_ROOT = '/home/django/techbikers.com/static'
 

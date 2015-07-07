@@ -24,8 +24,8 @@ DATABASES = {
     }
 }
 
-EMAIL_HOST = 'localhost'
-EMAIL_PORT = 1025
+MANDRILL_API_KEY = ''
+MANDRILL_SUBACCOUNT = ""
 
 # Make this unique, and don't share it with anybody.
 SECRET_KEY = 'i-xhck&#!-t!m+i9%@_1$g$a=rcv1whu+awzguuz-%lv@-+t4s'

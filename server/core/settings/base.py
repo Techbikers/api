@@ -36,6 +36,9 @@ JWT_AUTH = {
     'JWT_EXPIRATION_DELTA': datetime.timedelta(hours=24),
 }
 
+EMAIL_BACKEND = 'djrill.mail.backends.djrill.DjrillBackend'
+DEFAULT_FROM_EMAIL = 'hello@techbikers.com'
+
 # Hosts/domain names that are valid for this site; required if DEBUG is False
 # See https://docs.djangoproject.com/en/1.5/ref/settings/#allowed-hosts
 
@@ -133,6 +136,7 @@ INSTALLED_APPS = (
     'server.core',
     'server.api',
     'codemirror',
+    'djrill'
 )
 
 MIDDLEWARE_CLASSES = (
