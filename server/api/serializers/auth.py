@@ -53,8 +53,8 @@ class PasswordResetSerializer(serializers.Serializer):
         # Set some values to trigger the send_email method.
         opts = {
             'use_https': request.is_secure(),
-            'email_template_name': 'email/password_reset_email.html',
-            'from_email': getattr(settings, 'DEFAULT_FROM_EMAIL'),
+            'email_template_name': 'email/password_reset_email.txt',
+            'html_email_template_name': 'email/password_reset_email.html',
             'request': request,
         }
         self.reset_form.save(**opts)
