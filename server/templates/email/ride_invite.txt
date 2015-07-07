@@ -1,0 +1,34 @@
+Hi {{ user.first_name }}
+
+Great news - we'd love to have you as part of the TechBikers 2015 ride. Congratulations! We can't wait to ride with you and raise money for Room to Read.
+
+To secure your place, please send through your ride contribution here *within the next 7 days*.
+
+If you haven't paid by then, we will release to the next batch, who might snap up your spot if you wait around.
+
+<link>
+
+To reiterate, the ride costs about £535 per rider. To help cover costs and get more money to Room to Read's aid projects, we're asking for a minimum contribution of £275.
+
+You are very very welcome to pay more than that if you're able to, you absolute star.
+
+In return, you get "stuff" worth well over £300, and that's excluding all of the ride planning, guiding, and networking you'll get in on!
+
+What goes into the £300+? Here's an extract:
+
+- Eurostar worth £80
+- Bus ride in Paris worth £10
+- Cycling jersey worth £50
+- Hotel night 1 £30
+- Hotel night 2 £30
+- Lunch x3 £30
+- Dinner x3 £30
+- Channel ferry £35
+- Boat ride on the Thames £15
+- Closing party £10
+
+Once you've confirmed your place, we'll follow up with more information very soon - all about how and where to set up your donations page, whether rental bikes are available (yes.), admin details etc.
+
+Excited to ride with you!
+
+Team TechBikers

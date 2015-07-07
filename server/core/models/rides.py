@@ -1,7 +1,10 @@
 import markdown, jsonfield
-from datetime import datetime
+from datetime import datetime, timedelta
 from django.db import models
 from django.contrib.auth.models import User
+from django.core.mail import EmailMultiAlternatives
+from django.template.loader import get_template
+from django.template import Context
 
 from server.core.models.chapters import Chapter
 from server.core.models.sales import Sale
@@ -90,6 +93,30 @@ class RideRiders(models.Model):
     @property
     def expired(self):
         return self.signup_expires is not None and self.signup_expires <= datetime.now().date()
+
+    def send_invite(self):
+        """
+        Send invite email and update record
+        This sends out an email to the user, updates their registration status from
+        pending to accepted and adds an expiry date to the registration.
+        """
+        if self.status == self.PENDING:
+            # Generate & send the email
+            context = Context({'user': self.user, 'ride': self.ride})
+            msg = EmailMultiAlternatives(
+                'Your Techbikers Invite!',
+                get_template('email/ride_invite.txt').render(context),
+                'hello@techbikers.com',
+                [self.user.email])
+            msg.attach_alternative(get_template('email/ride_invite.html').render(context), "text/html")
+            msg.send()
+
+            # Now update the registration record
+            self.signup_expires = datetime.date(datetime.now() + timedelta(days=7))
+            self.status = self.ACCEPTED
+            self.payload['invite_email'] = msg.mandrill_response
+
+            return self.save()
 
     class Meta:
         db_table = 'rides_riders'
