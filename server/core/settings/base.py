@@ -18,11 +18,6 @@ MANAGERS = ADMINS
 
 BASE = os.path.abspath(os.path.dirname(__name__))
 
-LOGIN_URL = '/riders/login'
-LOGOUT_URL = '/riders/logout'
-LOGIN_REDIRECT_URL = '/account'
-LOGOUT_REDIRECT_URL = '/'
-
 REST_FRAMEWORK = {
     'DEFAULT_RENDERER_CLASSES': (
         'rest_framework.renderers.JSONRenderer',
