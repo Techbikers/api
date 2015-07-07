@@ -1,7 +1,10 @@
+from django import forms
 from django.db import models
 from django.contrib import admin
+from django.contrib.auth.models import User
+from django.contrib.auth.admin import UserAdmin
 from django.core import urlresolvers
-from django.forms import TextInput, ModelForm
+from suit.widgets import LinkedSelect
 from codemirror import CodeMirrorTextarea
 
 from server.core.models.riders import RiderProfile
@@ -10,6 +13,23 @@ from server.core.models.chapters import Chapter
 from server.core.models.sales import Sale
 from server.core.models.memberships import Membership
 
+
+# USER ADMIN
+# ----------
+
+admin.site.unregister(User)
+
+
+@admin.register(User)
+class RiderAdmin(UserAdmin):
+    list_display = ('id', 'email', 'first_name', 'last_name')
+    ordering = ['id']
+
+
+
+
+# USER PROFILE ADMIN
+# ------------------
 
 @admin.register(RiderProfile)
 class RiderProfileAdmin(admin.ModelAdmin):
@@ -26,25 +46,64 @@ class RiderProfileAdmin(admin.ModelAdmin):
     user_link.allow_tags = True
 
 
+
+
+# RIDE ADMIN
+# ----------
+# This includes everything we need to display ride riders inline
+# as well as the ride details. It is broken up into tabs.
+
+class RiderInline(admin.TabularInline):
+    model = RideRiders
+    can_delete = False
+    suit_classes = 'suit-tab suit-tab-riders'
+    verbose_name_plural = ''
+
+    def has_add_permission(self, request):
+        return False
+
+    def get_readonly_fields(self, request, obj=None):
+        result = list(set(
+                [field.name for field in self.opts.local_fields] +
+                [field.name for field in self.opts.local_many_to_many]
+            ))
+        result.remove('id')
+        return result
+
+
 @admin.register(Ride)
 class RideAdmin(admin.ModelAdmin):
+    inlines = (RiderInline,)
     ordering = ['-start_date']
     list_display = ('name', 'start_date', 'end_date', 'price', 'currency', 'rider_capacity', 'spaces_left')
     list_filter = ('start_date',)
-    readonly_fields = ('get_riders',)
-    fields = (('name', 'slug'), ('start_location', 'end_location'), ('start_date', 'end_date'), 'rider_capacity', 'preregistration_required', ('price', 'currency'), 'chapter', 'description', 'terms_and_conditions', 'get_riders')
     formfield_overrides = {
-        models.TextField: {'widget': CodeMirrorTextarea(mode='markdown', config={'lineWrapping': True, 'lineNumbers': False})},
+        models.TextField: {'widget': CodeMirrorTextarea(mode='markdown', config={'lineWrapping': True, 'lineNumbers': False})}
     }
+    fieldsets = [
+        (None, {
+            'classes': ('suit-tab', 'suit-tab-details',),
+            'fields': ['name', 'slug', 'start_location', 'end_location', 'start_date', 'end_date', 'rider_capacity', 'preregistration_required', 'price', 'currency', 'chapter',]
+        }),
+        (None, {
+            'classes': ('suit-tab', 'suit-tab-description',),
+            'fields': ['description',]}),
+        (None, {
+            'classes': ('suit-tab', 'suit-tab-terms',),
+            'fields': ['terms_and_conditions']}),
+        (None, {
+            'classes': ('suit-tab', 'suit-tab-riders',),
+            'fields': []}),
+    ]
+    suit_form_tabs = (('details', 'Details'), ('description', 'Description'), ('terms', 'Terms & Conditions'), ('riders', 'Riders'))
 
-    def get_riders(self, obj):
-        def build_list_item(rider):
-            change_url = urlresolvers.reverse('admin:auth_user_change', args=(rider.id,))
-            return '<li><a href="%s">%s %s (%s)</a></li>' % (change_url, rider.first_name, rider.last_name, rider.email)
 
-        return '<ul>%s</ul>' % (''.join([build_list_item(rider) for rider in obj.registered_riders]))
-    get_riders.short_description = 'Confirmed Riders'
-    get_riders.allow_tags = True
+
+
+# RIDER ADMIN
+# -----------
+# Admin for ride riders as well as custom actions for inviting
+# riders to join a ride and sorting functions.
 
 
 @admin.register(RideRiders)
@@ -54,6 +113,13 @@ class RideRidersAdmin(admin.ModelAdmin):
     search_fields = ('user__first_name', 'user__last_name', 'user__email')
     readonly_fields = ('user_link', 'ride_link', 'sale_link', 'signup_date')
     fields = ('user_link', 'user', 'ride_link', 'ride', 'signup_date', 'signup_expires', 'status', 'paid', 'sale_link', 'payload')
+    actions = ['invite_rider']
+
+    def invite_rider(self, request, queryset):
+        for obj in queryset:
+            obj.send_invite()
+        self.message_user(request, "Invites sent")
+    invite_rider.short_description = "Send invites to selected riders"
 
     def view_edit(self, obj):
         return 'View / Edit'
@@ -78,11 +144,21 @@ class RideRidersAdmin(admin.ModelAdmin):
     sale_link.allow_tags = True
 
 
+
+
+# CHAPTER ADMIN
+# -------------
+
 @admin.register(Chapter)
 class ChapterAdmin(admin.ModelAdmin):
     ordering = ['name']
     list_display = ('name',)
 
+
+
+
+# CHAPTER MEMBERSHIP ADMIN
+# ------------------------
 
 @admin.register(Membership)
 class MembershipAdmin(admin.ModelAdmin):
@@ -110,6 +186,11 @@ class MembershipAdmin(admin.ModelAdmin):
     sale_link.short_description = 'Sale'
     sale_link.allow_tags = True
 
+
+
+
+# SALES ADMIN
+# -----------
 
 @admin.register(Sale)
 class SaleAdmin(admin.ModelAdmin):
