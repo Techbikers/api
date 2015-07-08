@@ -92,7 +92,7 @@ class RideRiders(models.Model):
 
     @property
     def expired(self):
-        return self.signup_expires is not None and self.signup_expires <= datetime.now().date()
+        return self.signup_expires is not None and datetime.now().date() > self.signup_expires
 
     def send_invite(self):
         """
