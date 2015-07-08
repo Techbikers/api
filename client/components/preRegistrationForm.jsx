@@ -7,6 +7,7 @@ import forms, { Form, RenderForm } from 'newforms';
 import FormField from "./formField.jsx";
 import Timestamp from "./timestamp.jsx";
 import Spinner from "./spinner.jsx";
+import RegistrationSteps from "./registrationSteps.jsx";
 
 const DetailsForm = Form.extend({
   statement: forms.CharField({
@@ -60,22 +61,7 @@ class RideRegistrationForm extends Component {
     if (!this.state.loading) {
       return (
         <div className="ride-registration--form">
-          <ol className="steps">
-            <li className="active">
-              <span>1</span>
-              <span>Register Interest</span>
-            </li>
-
-            <li>
-              <span>2</span>
-              <span>Invites Sent</span>
-            </li>
-
-            <li>
-              <span>3</span>
-              <span>Confirm & Pay</span>
-            </li>
-          </ol>
+          <RegistrationSteps step={1} />
           <div className="ride-registration--details">
             <p>
               We're thrilled you want to join this year's ride from Paris to London. To make sure we've

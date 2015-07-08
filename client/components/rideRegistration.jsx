@@ -10,6 +10,7 @@ import RidersStore from "../stores/ridersStore";
 
 import PreRegistrationForm from "./preRegistrationForm.jsx";
 import PaymentForm from "./paymentForm.jsx";
+import RegistrationSteps from "./registrationSteps.jsx";
 
 class RideRegistration extends Component {
   static propTypes = {
@@ -54,20 +55,7 @@ class RideRegistration extends Component {
           <a className="btn">Waiting for invite...</a>
         </header>
         <div className="ride-registration--content">
-          <ol className="steps">
-            <li className="done">
-              <span className="material-icons">done</span>
-              <span>Register Interest</span>
-            </li>
-            <li className="pending">
-              <span className="material-icons">schedule</span>
-              <span>Invites Sent</span>
-            </li>
-            <li>
-              <span>3</span>
-              <span>Confirm & Pay</span>
-            </li>
-          </ol>
+          <RegistrationSteps step={2} state="pending" />
           <div className="ride-registration--details">
             <p>
               We've received your application to join this ride. You'll hear from us soon
