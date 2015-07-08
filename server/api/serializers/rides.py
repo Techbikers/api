@@ -13,7 +13,7 @@ class RideSerializer(serializers.ModelSerializer):
     class Meta:
         model = Ride
         fields = ('id', 'name', 'slug', 'description_html', 'start_location', 'end_location', 'start_date', 'end_date',
-                  'chapter', 'rider_capacity', 'riders', 'spaces_left', 'price', 'currency', 'is_over')
+                  'chapter', 'rider_capacity', 'riders', 'spaces_left', 'price', 'full_cost', 'currency', 'is_over')
 
 
 class RideRiderSerializer(serializers.ModelSerializer):
