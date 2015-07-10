@@ -13,7 +13,6 @@ class RiderActions extends ActionCreators {
         }
       },
       error => {
-        console.log(error);
         this.dispatch(ActionConstants.CREATE_RIDER_FAILED, rider, error);
       });
   }
