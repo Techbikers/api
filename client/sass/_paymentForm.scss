@@ -11,7 +11,21 @@
 }
 
 .payment-form--credit-card {
-  padding: 0 35px;
+  height: 200px;
+  width: 350px;
+  padding: 10px 20px;
+  background: #DDD;
+  border-radius: 16px;
+  margin: 0 auto 20px auto;
+
+  .payment-form--title {
+    text-align: left;
+
+    h3 {
+      margin: 0;
+      margin-bottom: 10px;
+    }
+  }
 
   .infoRow {
     margin: 10px 0;
@@ -24,14 +38,14 @@
   }
 
   .row {
-    margin: 20px 0;
+    margin: 10px 0;
     @include clearfix();
   }
 
   .longNumber {
     position: relative;
     float: left;
-    width: 70%;
+    width: 78%;
 
     .form-field {
       width: 100%;
@@ -40,7 +54,7 @@
 
   .cvc {
     float: right;
-    width: 20%;
+    width: 18%;
   }
 
   span.card-type {
@@ -80,17 +94,31 @@
     width: 60%;
   }
 
-  .date {
+  .exp {
     float: right;
-  }
-
-  .month {
-    width: 52px;
+    width: 92px;
   }
 
   .year {
     margin-left: 4px;
     width: 66px;
+  }
+}
+
+.payment-form--amount {
+  margin-bottom: 10px;
+
+  h2 {
+    margin: 0;
+  }
+
+  .form-field {
+    width: 90px;
+
+    input {
+      margin: 0;
+      margin-bottom: 1px;
+    }
   }
 }
 
