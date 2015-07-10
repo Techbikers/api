@@ -15,6 +15,7 @@ class RideRegistrationsStore extends Marty.Store {
     this.state = {};
     this.handlers = {
       addRegistrationDetails: [ActionConstants.RECEIVE_RIDE_REGISTRATION, ActionConstants.CREATE_RIDE_REGISTRATION],
+      updateRegistrationDetails: ActionConstants.UPDATE_RIDE_REGISTRATION,
       clear: ActionConstants.AUTH_USER_LOGOUT
     };
   }
@@ -33,6 +34,11 @@ class RideRegistrationsStore extends Marty.Store {
 
   addRegistrationDetails(rideId, registration) {
     this.state[rideId] = registration;
+    this.hasChanged();
+  }
+
+  updateRegistrationDetails(rideId, registration) {
+    this.state[rideId] = _.extend(this.state[rideId], registration);
     this.hasChanged();
   }
 }

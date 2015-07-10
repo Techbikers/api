@@ -103,7 +103,7 @@ class RideRiders(models.Model):
         """
         if self.status == self.PENDING:
             # Generate & send the email
-            context = Context({'user': self.user, 'ride': self.ride})
+            context = Context({'user': self.user, 'ride': self.ride, 'registration': self})
             msg = EmailMultiAlternatives(
                 'Your Techbikers Invite!',
                 get_template('email/ride_invite.txt').render(context),

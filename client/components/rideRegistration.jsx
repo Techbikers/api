@@ -9,6 +9,7 @@ import AuthStore from "../stores/authStore";
 import RidersStore from "../stores/ridersStore";
 
 import PreRegistrationForm from "./preRegistrationForm.jsx";
+import CompleteRegistrationForm from "./completeRegistrationForm.jsx";
 import PaymentForm from "./paymentForm.jsx";
 import RegistrationSteps from "./registrationSteps.jsx";
 
@@ -69,7 +70,18 @@ class RideRegistration extends Component {
   renderExpiredRegistration() {
     return (
       <div className="ride-registration--container ride-registration--popdown">
-        <h2>Oh dear. You were invited to join the ride but your invite has now expired.</h2>
+        <header className="header-btn">
+          <a className="btn">Invite Expired</a>
+        </header>
+        <div className="ride-registration--content">
+          <RegistrationSteps step={2} state="failed"/>
+          <div className="ride-registration--details">
+            <p>
+              Unfortunately your invite to register for this ride has now expired. Demand for our rides
+              is always high so if you fail to accept the invite to register for the ride then we give
+              your spot to someone else on the waiting list.</p>
+          </div>
+        </div>
       </div>
     );
   }
@@ -77,7 +89,12 @@ class RideRegistration extends Component {
   renderCompleteRegistration() {
     return (
       <div className="ride-registration--container ride-registration--popdown">
-        <h2>Awesome news – you've been invited to take part on this ride!</h2>
+        <header className="header-btn">
+          <a className="btn btn-grey">Complete Registration</a>
+        </header>
+        <div className="ride-registration--content">
+          <CompleteRegistrationForm {...this.props} />
+        </div>
       </div>
     );
   }
@@ -85,7 +102,12 @@ class RideRegistration extends Component {
   renderCompletedRegistration() {
     return (
       <div className="ride-registration--container ride-registration--popdown">
-        <h2>Good job {this.props.currentRider.first_name}! You're signed up for this ride!</h2>
+        <header className="header-btn">
+          <a className="btn">You're signed up for the ride!</a>
+        </header>
+        <div className="ride-registration--content">
+          <RegistrationSteps step={4}/>
+        </div>
       </div>
     );
   }

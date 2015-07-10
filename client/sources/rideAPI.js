@@ -1,6 +1,7 @@
 import _ from "lodash";
 import { format } from "util";
 import Marty, { HttpStateSource } from "marty";
+import { ResponseError } from "../utils/customErrors";
 
 class RideHttpAPI extends HttpStateSource {
   getAllRides() {
@@ -45,6 +46,22 @@ class RideHttpAPI extends HttpStateSource {
     }).then(res => {
       if (!res.ok) {
         throw Error(res.status);
+      }
+      return res.json();
+    });
+  }
+
+  chargeRider(rideId, riderId, token=null, amount=null) {
+    return this.put({
+      url: `/api/rides/${rideId}/riders/${riderId}/charge`,
+      body: {
+        token: token,
+        amount: amount,
+        ride: rideId
+      }
+    }).then(res => {
+      if (!res.ok) {
+        throw ResponseError("Failed to charge card and complete registration", res.status, res);
       }
       return res.json();
     });

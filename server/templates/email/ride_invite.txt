@@ -2,13 +2,13 @@ Hi {{ user.first_name }}
 
 Great news - we'd love to have you as part of the TechBikers 2015 ride. Congratulations! We can't wait to ride with you and raise money for Room to Read.
 
-To secure your place, please send through your ride contribution here *within the next 7 days*.
+To secure your place, please complete registration and pay your ride contribution by {{ registration.signup_expires|date:"d F" }}
 
 If you haven't paid by then, we will release to the next batch, who might snap up your spot if you wait around.
 
-<link>
+https://techbikers.com/rides/{{ ride.id }}/{{ ride.slug }}
 
-To reiterate, the ride costs about £535 per rider. To help cover costs and get more money to Room to Read's aid projects, we're asking for a minimum contribution of £275.
+To reiterate, the ride costs about £{{ ride.full_cost }} per rider. To help cover costs and get more money to Room to Read's aid projects, we're asking for a minimum contribution of £{{ ride.price }}.
 
 You are very very welcome to pay more than that if you're able to, you absolute star.
 

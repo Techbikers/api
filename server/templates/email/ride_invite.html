@@ -1,38 +1,67 @@
 {% extends "email/_base.html" %}
 
+{% block header %}
+    <h1>You're invited to join the ride!</h1>
+{% endblock %}
+
 {% block content %}
-    Hi {{ user.first_name }}
+    <p>Hi {{ user.first_name }}</p>
 
-    Great news - we'd love to have you as part of the TechBikers 2015 ride. Congratulations! We can't wait to ride with you and raise money for Room to Read.
+    <p><b>
+        Great news - we'd love to have you as part of the TechBikers 2015 ride.</b> We can't
+        wait to ride with you and raise money for <a href="http://techbikers.com/the_charity">Room to Read.</a></p>
 
-    To secure your place, please send through your ride contribution here *within the next 7 days*.
+    <p>
+        To secure your place, <b>please complete registration and pay your ride contribution by
+        {{ registration.signup_expires|date:"d F" }}</b></p>
 
-    If you haven't paid by then, we will release to the next batch, who might snap up your spot if you wait around.
+    <p>
+        If you haven't paid by then, we will release to the next batch, who might snap up your
+        spot if you wait around.</p>
 
-    <link>
+    <table class="full-width">
+        <tr>
+            <td class="padding centerText">
+                <p><a href="https://techbikers.com/rides/{{ ride.id }}/{{ ride.slug }}" class="btn btn-blue">Complete Registration</a></p>
+            </td>
+        </tr>
+    </table>
 
-    To reiterate, the ride costs about £535 per rider. To help cover costs and get more money to Room to Read's aid projects, we're asking for a minimum contribution of £275.
+    <p>
+        To reiterate, the ride costs about £{{ ride.full_cost }} per rider. To help cover costs and get more money to
+        Room to Read's aid projects, we're asking for a minimum contribution of £{{ ride.price }}.</p>
 
-    You are very very welcome to pay more than that if you're able to, you absolute star.
+    <p>
+        You are very very welcome to pay more than that if you're able to, you absolute star.</p>
 
-    In return, you get "stuff" worth well over £300, and that's excluding all of the ride planning, guiding, and networking you'll get in on!
+    <p>
+        In return, you get "stuff" worth well over £300, and that's excluding all of the ride
+        planning, guiding, and networking you'll get in on!</p>
 
-    What goes into the £300+? Here's an extract:
+    <p>
+        What goes into the £300+? Here's an extract:
+        <ul>
+            <li>Eurostar worth £80</li>
+            <li>Bus ride in Paris worth £10</li>
+            <li>Cycling jersey worth £50</li>
+            <li>Hotel night 1 £30</li>
+            <li>Hotel night 2 £30</li>
+            <li>Lunch x3 £30</li>
+            <li>Dinner x3 £30</li>
+            <li>Channel ferry £35</li>
+            <li>Boat ride on the Thames £15</li>
+            <li>Closing party £10</li>
+        </ul>
+    </p>
 
-    - Eurostar worth £80
-    - Bus ride in Paris worth £10
-    - Cycling jersey worth £50
-    - Hotel night 1 £30
-    - Hotel night 2 £30
-    - Lunch x3 £30
-    - Dinner x3 £30
-    - Channel ferry £35
-    - Boat ride on the Thames £15
-    - Closing party £10
+    <p>
+        Once you've confirmed your place, we'll follow up with more information very soon -
+        all about how and where to set up your donations page, whether rental bikes are
+        available (yes.), admin details etc.</p>
 
-    Once you've confirmed your place, we'll follow up with more information very soon - all about how and where to set up your donations page, whether rental bikes are available (yes.), admin details etc.
+    <p>
+        Excited to ride with you!</p>
 
-    Excited to ride with you!
-
-    Team TechBikers
+    <p>
+        Team TechBikers</p>
 {% endblock %}

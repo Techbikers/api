@@ -16,6 +16,20 @@ class RideActions extends ActionCreators {
         this.dispatch(ActionConstants.CREATE_RIDE_REGISTRATION_FAILED, ride, error);
       });
   }
+
+  chargeRider(registration, token=null, amount=null) {
+    this.dispatch(ActionConstants.UPDATE_RIDE_REGISTRATION_STARTING, registration);
+
+    // Register the user for the ride (this will register them in the pending state
+    // so no charge is made to their card)
+    this.app.rideAPI.chargeRider(registration.ride, registration.user, token, amount).then(
+      result => {
+        this.dispatch(ActionConstants.UPDATE_RIDE_REGISTRATION, registration.ride, result);
+      },
+      error => {
+        this.dispatch(ActionConstants.UPDATE_RIDE_REGISTRATION_FAILED, registration.ride, registration, error);
+      });
+  }
 }
 
 export default RideActions;

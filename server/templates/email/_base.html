@@ -35,26 +35,11 @@ a {
 	color: #348eda;
 }
 
-.btn-primary {
-	text-decoration: none;
-	color: #FFF;
-	background-color: #348eda;
-	border: solid #348eda;
-	border-width: 10px 20px;
-	line-height: 2;
-	font-weight: bold;
-	margin-right: 10px;
-	text-align: center;
-	cursor: pointer;
-	display: inline-block;
-	border-radius: 25px;
-}
-
-.btn-secondary {
+.btn {
 	text-decoration: none;
 	color: #FFF;
 	background-color: #aaa;
-	border: solid #aaa;
+	border: 2px solid #aaa;
 	border-width: 10px 20px;
 	line-height: 2;
 	font-weight: bold;
@@ -62,7 +47,17 @@ a {
 	text-align: center;
 	cursor: pointer;
 	display: inline-block;
-	border-radius: 25px;
+	border-radius: 3px;
+}
+
+.btn-blue {
+	background-color: #4494c7;
+	border-color: #4494c7;
+}
+
+.btn-green {
+	background-color: #76c15a;
+	border-color: #76c15a;
 }
 
 .last {
@@ -75,6 +70,35 @@ a {
 
 .padding {
 	padding: 10px 0;
+}
+
+.full-width {
+	width: 100%;
+}
+
+.centerText {
+	text-align: center;
+}
+
+
+/* -------------------------------------
+		HEADER
+------------------------------------- */
+
+tr.header .container {
+	background-color: #76c15a;
+	border: 1px solid #76c15a;
+	border-radius: 10px 10px 0 0;
+}
+
+tr.header .content {
+	padding: 20px;
+}
+
+tr.header .content h1 {
+	margin: 0;
+	color: white;
+	font-weight: 100;
 }
 
 
@@ -179,6 +203,15 @@ ul li, ol li {
 
 <!-- body -->
 <table class="body-wrap" bgcolor="#f6f6f6">
+	<tr class="header">
+		<td></td>
+		<td class="container" bgcolor="#76c15a">
+			<div class="content centerText">
+				{% block header %}{% endblock %}
+			</div>
+		</td>
+		<td></td>
+	</tr>
 	<tr>
 		<td></td>
 		<td class="container" bgcolor="#FFFFFF">

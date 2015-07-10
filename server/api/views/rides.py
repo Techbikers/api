@@ -1,4 +1,6 @@
+import stripe
 from rest_framework import generics, serializers
+from rest_framework.exceptions import ValidationError
 from django.shortcuts import get_object_or_404
 from django.contrib.auth.models import User
 from server.core.models.rides import Ride, RideRiders
@@ -84,13 +86,25 @@ class RideRiderCharge(generics.UpdateAPIView):
         """
         request = self.request
         ride = Ride.objects.get(id=self.kwargs.get('id'))
+        amount = request.data.get('amount')
+        if amount is None:
+            amount = ride.price
+        else:
+            amount = float(amount)
+
+        if amount < ride.price:
+            raise ValidationError("The amount can't be less than the price of the ride.")
+
         if ride.price > 0:
-            sale = Sale.charge(
-                request.data.get('token'),
-                ride.chapter.private_key,
-                int(ride.price * 100),
-                ride.currency,
-                "Techbikers {0}: {1}".format(ride.name, request.user.email))
+            try:
+                sale = Sale.charge(
+                    request.data.get('token'),
+                    ride.chapter.private_key,
+                    int(amount * 100),
+                    ride.currency,
+                    "Techbikers {0}: {1}".format(ride.name, request.user.email))
+            except stripe.error.InvalidRequestError, e:
+                raise ValidationError(e.json_body['error']['message'])
             sale.rider_id = request.user.id
             sale.save()
 
