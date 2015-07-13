@@ -1,256 +1,308 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
+
 <head>
-<meta name="viewport" content="width=device-width" />
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<title>Really Simple HTML Email Template</title>
-<style>
-/* -------------------------------------
-		GLOBAL
-------------------------------------- */
-* {
-	margin: 0;
-	padding: 0;
-	font-family: "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
-	font-size: 100%;
-	line-height: 1.6;
-}
-
-img {
-	max-width: 100%;
-}
-
-body {
-	-webkit-font-smoothing: antialiased;
-	-webkit-text-size-adjust: none;
-	width: 100%!important;
-	height: 100%;
-}
-
-
-/* -------------------------------------
-		ELEMENTS
-------------------------------------- */
-a {
-	color: #348eda;
-}
-
-.btn {
-	text-decoration: none;
-	color: #FFF;
-	background-color: #aaa;
-	border: 2px solid #aaa;
-	border-width: 10px 20px;
-	line-height: 2;
-	font-weight: bold;
-	margin-right: 10px;
-	text-align: center;
-	cursor: pointer;
-	display: inline-block;
-	border-radius: 3px;
-}
-
-.btn-blue {
-	background-color: #4494c7;
-	border-color: #4494c7;
-}
-
-.btn-green {
-	background-color: #76c15a;
-	border-color: #76c15a;
-}
-
-.last {
-	margin-bottom: 0;
-}
-
-.first {
-	margin-top: 0;
-}
-
-.padding {
-	padding: 10px 0;
-}
-
-.full-width {
-	width: 100%;
-}
-
-.centerText {
-	text-align: center;
-}
-
-
-/* -------------------------------------
-		HEADER
+  <meta name="viewport" content="width=device-width" />
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <title>Really Simple HTML Email Template</title>
+  <style>
+  /* -------------------------------------
+    GLOBAL
 ------------------------------------- */
 
-tr.header .container {
-	background-color: #76c15a;
-	border: 1px solid #76c15a;
-	border-radius: 10px 10px 0 0;
-}
+  * {
+    margin: 0;
+    padding: 0;
+    font-family: "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif;
+    font-size: 100%;
+    line-height: 1.6;
+  }
 
-tr.header .content {
-	padding: 20px;
-}
+  img {
+    max-width: 100%;
+  }
 
-tr.header .content h1 {
-	margin: 0;
-	color: white;
-	font-weight: 100;
-}
-
-
-/* -------------------------------------
-		BODY
+  body {
+    -webkit-font-smoothing: antialiased;
+    -webkit-text-size-adjust: none;
+    width: 100%!important;
+    height: 100%;
+  }
+  /* -------------------------------------
+    ELEMENTS
 ------------------------------------- */
-table.body-wrap {
-	width: 100%;
-	padding: 20px;
-}
 
-table.body-wrap .container {
-	border: 1px solid #f0f0f0;
-}
+  a {
+    color: #348eda;
+  }
 
+  .btn {
+    text-decoration: none;
+    color: #FFF;
+    background-color: #aaa;
+    border: 2px solid #aaa;
+    border-width: 10px 20px;
+    line-height: 2;
+    font-weight: bold;
+    margin-right: 10px;
+    text-align: center;
+    cursor: pointer;
+    display: inline-block;
+    border-radius: 3px;
+  }
 
-/* -------------------------------------
-		FOOTER
+  .btn-blue {
+    background-color: #4494c7;
+    border-color: #4494c7;
+  }
+
+  .btn-green {
+    background-color: #76c15a;
+    border-color: #76c15a;
+  }
+
+  .last {
+    margin-bottom: 0;
+  }
+
+  .first {
+    margin-top: 0;
+  }
+
+  .padding {
+    padding: 10px 0;
+  }
+
+  .full-width {
+    width: 100%;
+  }
+
+  .centerText {
+    text-align: center;
+  }
+  /* -------------------------------------
+    HEADER
 ------------------------------------- */
-table.footer-wrap {
-	width: 100%;
-	clear: both!important;
-}
 
-.footer-wrap .container p {
-	font-size: 12px;
-	color: #666;
+  tr.header .container {
+    background-color: #76c15a;
+    border: 1px solid #76c15a;
+    border-radius: 10px 10px 0 0;
+  }
 
-}
+  tr.header .content {
+    padding: 20px;
+  }
 
-table.footer-wrap a {
-	color: #999;
-}
-
-
-/* -------------------------------------
-		TYPOGRAPHY
+  tr.header .content h1 {
+    margin: 0;
+    color: white;
+    font-weight: 100;
+  }
+  /* -------------------------------------
+    BODY
 ------------------------------------- */
-h1, h2, h3 {
-	font-family: "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
-	color: #000;
-	margin: 40px 0 10px;
-	line-height: 1.2;
-	font-weight: 200;
-}
 
-h1 {
-	font-size: 36px;
-}
-h2 {
-	font-size: 28px;
-}
-h3 {
-	font-size: 22px;
-}
+  table.body-wrap {
+    width: 100%;
+    padding: 20px;
+  }
 
-p, ul, ol {
-	margin-bottom: 10px;
-	font-weight: normal;
-	font-size: 14px;
-}
+  table.body-wrap .container {
+    border: 1px solid #f0f0f0;
+  }
+  /* -------------------------------------
+    FOOTER
+------------------------------------- */
 
-ul li, ol li {
-	margin-left: 5px;
-	list-style-position: inside;
-}
+  table.footer-wrap {
+    width: 100%;
+    clear: both!important;
+  }
 
-/* ---------------------------------------------------
-		RESPONSIVENESS
-		Nuke it from orbit. It's the only way to be sure.
+  .footer-wrap .container p {
+    font-size: 12px;
+    color: #666;
+  }
+
+  table.footer-wrap a {
+    color: #999;
+  }
+
+  table.footer-social {
+    width: 100%;
+    background: #ffffff;
+    padding: 5px;
+  }
+
+  table.footer-content {
+    width: 100%;
+    padding: 10px 0;
+  }
+  /* -------------------------------------
+    TYPOGRAPHY
+------------------------------------- */
+
+  h1,
+  h2,
+  h3 {
+    font-family: "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+    color: #000;
+    margin: 40px 0 10px;
+    line-height: 1.2;
+    font-weight: 200;
+  }
+
+  h1 {
+    font-size: 36px;
+  }
+
+  h2 {
+    font-size: 28px;
+  }
+
+  h3 {
+    font-size: 22px;
+  }
+
+  p,
+  ul,
+  ol {
+    margin-bottom: 10px;
+    font-weight: normal;
+    font-size: 14px;
+  }
+
+  ul li,
+  ol li {
+    margin-left: 5px;
+    list-style-position: inside;
+  }
+  /* ---------------------------------------------------
+    RESPONSIVENESS
+    Nuke it from orbit. It's the only way to be sure.
 ------------------------------------------------------ */
+  /* Set a max-width, and make it display as block so it will automatically stretch to that width, but will also shrink down on a phone or something */
 
-/* Set a max-width, and make it display as block so it will automatically stretch to that width, but will also shrink down on a phone or something */
-.container {
-	display: block!important;
-	max-width: 600px!important;
-	margin: 0 auto!important; /* makes it centered */
-	clear: both!important;
-}
+  .container {
+    display: block!important;
+    max-width: 600px!important;
+    margin: 0 auto!important;
+    /* makes it centered */
 
-/* Set the padding on the td rather than the div for Outlook compatibility */
-.body-wrap .container {
-	padding: 20px;
-}
+    clear: both!important;
+  }
+  /* Set the padding on the td rather than the div for Outlook compatibility */
 
-/* This should also be a block element, so that it will fill 100% of the .container */
-.content {
-	max-width: 600px;
-	margin: 0 auto;
-	display: block;
-}
+  .body-wrap .container,
+  .footer-wrap .container {
+    padding: 20px;
+  }
+  /* This should also be a block element, so that it will fill 100% of the .container */
 
-/* Let's make sure tables in the content area are 100% wide */
-.content table {
-	width: 100%;
-}
+  .content {
+    max-width: 600px;
+    margin: 0 auto;
+    display: block;
+  }
+  /* Let's make sure tables in the content area are 100% wide */
 
-</style>
+  .content table {
+    width: 100%;
+  }
+  </style>
 </head>
 
-<body bgcolor="#f6f6f6">
-
-<!-- body -->
-<table class="body-wrap" bgcolor="#f6f6f6">
-	<tr class="header">
-		<td></td>
-		<td class="container" bgcolor="#76c15a">
-			<div class="content centerText">
-				{% block header %}{% endblock %}
-			</div>
-		</td>
-		<td></td>
-	</tr>
-	<tr>
-		<td></td>
-		<td class="container" bgcolor="#FFFFFF">
-
-			<!-- content -->
-			<div class="content">
-			{% block content %}{% endblock %}
-			</div>
-			<!-- /content -->
-
-		</td>
-		<td></td>
-	</tr>
-</table>
-<!-- /body -->
-
-<!-- footer -->
-<table class="footer-wrap">
-	<tr>
-		<td></td>
-		<td class="container">
-
-			<!-- content -->
-			<div class="content">
-				<table>
-					<tr>
-						<td align="center">
-
-						</td>
-					</tr>
-				</table>
-			</div>
-			<!-- /content -->
-
-		</td>
-		<td></td>
-	</tr>
-</table>
-<!-- /footer -->
-
+<body bgcolor="#fff">
+  <!-- body -->
+  <table class="body-wrap" bgcolor="#fff">
+    <tr class="header">
+      <td></td>
+      <td align="center">
+        <img src="https://techbikers.com/static/img/logo@2x.png" width="120px" />
+      </td>
+      <td></td>
+    </tr>
+    <tr class="header">
+      <td></td>
+      <td class="container" bgcolor="#76c15a">
+        <div class="content centerText">
+          {% block header %}{% endblock %}
+        </div>
+      </td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td class="container" bgcolor="#FFFFFF">
+        <!-- content -->
+        <div class="content">
+          {% block content %}{% endblock %}
+        </div>
+        <!-- /content -->
+      </td>
+      <td></td>
+    </tr>
+  </table>
+  <!-- /body -->
+  <!-- footer -->
+  <table class="footer-wrap">
+    <tr>
+      <td></td>
+      <td valign="top" class="container" bgcolor="#e0e0e0">
+        <table class="footer-social">
+          <tr>
+            <td align="center">
+              <table>
+                <tr>
+                  <td align="center" valign="middle" width="24" class="mcnShareIconContent" style="mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
+                    <a href="http://www.facebook.com/sharer/sharer.php?u=https://www.techbikers.com" target="_blank" style="word-wrap: break-word;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;"><img src="http://cdn-images.mailchimp.com/icons/social-block-v2/color-facebook-48.png" style="display: block;border: 0;outline: none;text-decoration: none;-ms-interpolation-mode: bicubic;" height="24" width="24" class=""></a>
+                  </td>
+                  <td align="left" valign="middle" class="mcnShareTextContent" style="padding-left: 5px;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
+                    <a href="http://www.facebook.com/sharer/sharer.php?u=https://www.techbikers.com" target="" style="color: #505050;font-family: Arial;font-size: 12px;font-weight: normal;line-height: 100%;text-align: center;text-decoration: none;word-wrap: break-word;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">Share</a>
+                  </td>
+                </tr>
+              </table>
+            </td>
+            <td align="center">
+              <table>
+                <tr>
+                  <td align="center" valign="middle" width="24" class="mcnShareIconContent" style="mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
+                    <a href="http://twitter.com/intent/tweet?text=Want+to+join+TechBikers+this+year? https://www.techbikers.com" target="_blank" style="word-wrap: break-word;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;"><img src="http://cdn-images.mailchimp.com/icons/social-block-v2/color-twitter-48.png" style="display: block;border: 0;outline: none;text-decoration: none;-ms-interpolation-mode: bicubic;" height="24" width="24" class=""></a>
+                  </td>
+                  <td align="left" valign="middle" class="mcnShareTextContent" style="padding-left: 5px;mso-table-lspace: 0pt;mso-table-rspace: 0pt;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
+                    <a href="http://twitter.com/intent/tweet?text=Want+to+join+TechBikers+this+year? https://www.techbikers.com" target="" style="color: #505050;font-family: Arial;font-size: 12px;font-weight: normal;line-height: 100%;text-align: center;text-decoration: none;word-wrap: break-word;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">Tweet</a>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+        </table>
+        <table class="footer-content">
+          <tr>
+            <td style="color: #606060;font-size: 11px;text-align: center;">
+              <strong><em>Copyright © 2015 TechBikers, All rights reserved.</em></strong>
+              <br>
+                You're receiving this email because you've indicated an interest in TechBikers (which is great!). If that's not the case anymore, no hard feelings - just please unsubscribe instead of marking us as spam. Thanks!
+              <br>
+              <br>
+              <strong>Our mailing address is:</strong>
+              <br>
+                TechBikers
+              <br>
+                4-5 Bonhill Street
+              <br>
+                London, EC2A 4BX
+              <br>
+                United Kingdom
+            </td>
+          </tr>
+        </table>
+      </td>
+      <td></td>
+    </tr>
+  </table>
+  <!-- /footer -->
 </body>
+
 </html>
