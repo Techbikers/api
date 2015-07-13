@@ -102,19 +102,21 @@ class RideRiders(models.Model):
         pending to accepted and adds an expiry date to the registration.
         """
         if self.status == self.PENDING:
+            # Update the registration record
+            self.signup_expires = datetime.date(datetime.now() + timedelta(days=7))
+            self.status = self.ACCEPTED
+
             # Generate & send the email
-            context = Context({'user': self.user, 'ride': self.ride, 'registration': self})
+            context = Context({'user': self.user, 'ride': self.ride, 'invite_expires': self.signup_expires})
             msg = EmailMultiAlternatives(
                 'Your Techbikers Invite!',
                 get_template('email/ride_invite.txt').render(context),
-                'hello@techbikers.com',
+                'TechBikers <hello@techbikers.com>',
                 [self.user.email])
             msg.attach_alternative(get_template('email/ride_invite.html').render(context), "text/html")
             msg.send()
 
-            # Now update the registration record
-            self.signup_expires = datetime.date(datetime.now() + timedelta(days=7))
-            self.status = self.ACCEPTED
+            # Store some info about the invite email
             self.payload['invite_email'] = msg.mandrill_response
 
             return self.save()

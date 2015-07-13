@@ -2,7 +2,7 @@ Hi {{ user.first_name }}
 
 Great news - we'd love to have you as part of the TechBikers 2015 ride. Congratulations! We can't wait to ride with you and raise money for Room to Read.
 
-To secure your place, please complete registration and pay your ride contribution by {{ registration.signup_expires|date:"d F" }}
+To secure your place, please complete registration and pay your ride contribution by {{ invite_expires|date:"d F" }}
 
 If you haven't paid by then, we will release to the next batch, who might snap up your spot if you wait around.
 
