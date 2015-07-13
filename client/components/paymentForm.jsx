@@ -127,7 +127,7 @@ class PaymentForm extends Component {
       <form className="payment-form">
         {this.props.customAmount ?
           <div className="payment-form--amount row">
-            <h2>Amount: £<FormField field={fields.amount} /></h2>
+            <h2>I can contribute £<FormField field={fields.amount} /></h2>
           </div> : ""}
 
         <div className="payment-form--credit-card">

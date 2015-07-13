@@ -2,6 +2,7 @@ import _ from "lodash";
 import React, { Component } from "react";
 import Marty from "marty";
 import { FormattedNumber } from "react-intl";
+import { Link } from "react-router";
 
 import RideUtils from "../utils/rideUtils";
 import RideActions from "../actions/rideActions";
@@ -120,6 +121,10 @@ class RideRegistration extends Component {
         <header className="header-btn">
           <a className="btn btn-green" onClick={this.toggleRegistrationState.bind(this)}>Sign up for the ride!</a>
         </header>
+        {this.app.authStore.isLoggedIn() ? "" :
+          <span className="more-info">
+            <Link to="login" query={{"next": this.app.router.getCurrentPath()}}>Already have an account? Login</Link>
+          </span>}
       </div>
     );
   }

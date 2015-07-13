@@ -55,9 +55,9 @@ class CompleteRegistrationForm extends Component {
               <p>
                 Great news - we'd love to have you as part of the TechBikers 2015 ride.</p>}
             <p>
-              The ride costs about <FormattedNumber style="currency" currency={ride.currency} value={ride.full_cost} /> per rider.
-              We're asking for a minimum contribution of <FormattedNumber style="currency" currency={ride.currency} value={ride.price} />.
-              If you are able, we welcome you to pay more. This means more sponsor money goes directly to Room to Read!</p>
+              <b>The ride costs about <FormattedNumber style="currency" currency={ride.currency} value={ride.full_cost} /> per rider.
+              We're asking for a minimum contribution of <FormattedNumber style="currency" currency={ride.currency} value={ride.price} />.</b> If
+              you are able, we welcome you to pay more. This means more sponsor money goes directly to Room to Read!</p>
 
             <Errors error={this.state.error} />
           </div>
