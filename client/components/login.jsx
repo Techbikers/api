@@ -6,6 +6,7 @@ import DocumentTitle from "react-document-title";
 import forms, { Form, RenderForm } from 'newforms';
 
 import FormField from "./formField.jsx";
+import Errors from "./errors.jsx";
 
 const LoginForm = Form.extend({
   email: forms.EmailField(),
@@ -56,6 +57,7 @@ class Login extends Component {
             <h1>Login</h1>
           </header>
           <div className="content">
+            <Errors error={this.props.error} />
             <form id="loginform" role="form">
               <div className="row centerText">
                 {_.map(this.state.form.boundFieldsObj(), (field) => {
@@ -87,6 +89,9 @@ Login = Marty.createContainer(Login, {
   fetch: {
     isLoggedIn() {
       return this.app.authStore.isLoggedIn();
+    },
+    error() {
+      return this.app.authStore.error;
     }
   }
 });

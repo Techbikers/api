@@ -31,7 +31,7 @@ class AuthStore extends Store {
     };
   }
 
-  setError(error) {
+  setError(email, error) {
     this.setState({
       error: error
     });

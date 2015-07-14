@@ -1,6 +1,7 @@
 import _ from 'lodash';
 import format from "util";
 import Marty, { HttpStateSource } from 'marty';
+import { ResponseError } from "../utils/customErrors";
 
 class AuthHttpAPI extends HttpStateSource {
   login(email, password) {
@@ -11,6 +12,11 @@ class AuthHttpAPI extends HttpStateSource {
         password: password
       }
     }).then(res => {
+      if (!res.ok) {
+        return res.json().then(details => {
+          throw new ResponseError("Failed to login", res.status, details);
+        });
+      }
       return res.json();
     });
   }

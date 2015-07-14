@@ -3,13 +3,17 @@ import ActionConstants from '../constants/actionConstants';
 
 class AuthActions extends ActionCreators {
   login(email, password) {
-    this.app.authAPI.login(email, password).then(res => {
-      if (res.token) {
-        this.dispatch(ActionConstants.AUTH_USER_LOGIN, res.token);
-      } else {
-        this.dispatch(ActionConstants.AUTH_USER_LOGIN_FAILED, email, res);
-      }
-    });
+    this.app.authAPI.login(email, password).then(
+      res => {
+        if (res.token) {
+          this.dispatch(ActionConstants.AUTH_USER_LOGIN, res.token);
+        } else {
+          this.dispatch(ActionConstants.AUTH_USER_LOGIN_FAILED, email, res);
+        }
+      },
+      error => {
+        this.dispatch(ActionConstants.AUTH_USER_LOGIN_FAILED, email, error)
+      });
   }
 
   attemptReAuth() {
