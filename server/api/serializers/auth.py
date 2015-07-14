@@ -98,4 +98,4 @@ class PasswordResetConfirmSerializer(serializers.Serializer):
         return attrs
 
     def save(self):
-        self.set_password_form.save()
+        return self.set_password_form.save()

@@ -70,5 +70,8 @@ class PasswordResetConfirm(GenericAPIView):
         if not serializer.is_valid():
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-        serializer.save()
-        return Response({"success": "Password has been reset with the new password."})
+        user = serializer.save()
+        return Response({
+            "success": "Password has been reset with the new password.",
+            "email": user.email
+        })

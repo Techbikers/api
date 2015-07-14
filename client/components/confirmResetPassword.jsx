@@ -7,6 +7,7 @@ import forms, { Form, RenderForm } from 'newforms';
 
 import FormField from "./formField.jsx";
 import ProgressButton from "./progressButton.jsx";
+import Errors from "./errors.jsx";
 
 const ResetPasswordForm = Form.extend({
   password1: forms.CharField({
@@ -39,10 +40,7 @@ class ConfirmResetPassword extends Component {
     if (this.props.isLoggedIn) {
       this.navigateAway();
     }
-    if (this.props.passwordReset) {
-      this.refs.submitButton.success();
-    }
-    if (!this.props.passwordReset && this.props.resetError) {
+    if (this.props.error) {
       this.refs.submitButton.error();
     }
   }
@@ -86,6 +84,7 @@ class ConfirmResetPassword extends Component {
           </header>
           <div className="content">
             <form id="loginform" role="form">
+              <Errors error={this.props.error} />
               <div className="row centerText">
                 {_.map(this.state.form.boundFieldsObj(), (field) => {
                   return (
@@ -95,7 +94,6 @@ class ConfirmResetPassword extends Component {
               </div>
               <div className="row centerText">
                 <div className="span6">
-                  {this.props.resetError}
                   <ProgressButton ref="submitButton" type="submit" onClick={this.resetPassword.bind(this)}>Reset Password & Login</ProgressButton>
                 </div>
               </div>
@@ -110,10 +108,10 @@ class ConfirmResetPassword extends Component {
 ConfirmResetPassword = Marty.createContainer(ConfirmResetPassword, {
   listenTo: ['authStore'],
   fetch: {
-    reset() {
-      return this.app.authStore.passwordReset;
+    isLoggedIn() {
+      return this.app.authStore.isLoggedIn();
     },
-    resetError() {
+    error() {
       return this.app.authStore.error;
     }
   }

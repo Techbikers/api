@@ -54,7 +54,10 @@ class AuthActions extends ActionCreators {
     this.dispatch(ActionConstants.AUTH_PASSWORD_RESET_STARTING);
     this.app.authAPI.resetPassword(uid, token, password1, password2).then(
       res => {
-        this.dispatch(ActionConstants.AUTH_PASSWORD_RESET, true);
+        if (res.success) {
+          this.app.authActions.login(res.email, password1);
+          this.dispatch(ActionConstants.AUTH_PASSWORD_RESET, true);
+        }
       },
       error => {
         this.dispatch(ActionConstants.AUTH_PASSWORD_RESET_FAILED, error);
