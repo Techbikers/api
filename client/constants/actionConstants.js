@@ -22,6 +22,8 @@ var Constants = Marty.createConstants([
   'RECEIVE_CHAPTER_MEMBERSHIP',
   'CREATE_CHAPTER_MEMBERSHIP',
 
+  'RECEIVE_SPONSORS',
+
   'CHANGE_ROUTE'
 ]);
 

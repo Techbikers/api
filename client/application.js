@@ -16,11 +16,13 @@ class Application extends Marty.Application {
     this.register('chapterQueries', require('./queries/chapterQueries.js'));
     this.register('rideQueries', require('./queries/rideQueries.js'));
     this.register('riderQueries', require('./queries/riderQueries.js'));
+    this.register('sponsorQueries', require('./queries/sponsorQueries.js'));
 
     this.register('authAPI', require('./sources/authAPI.js'));
     this.register('chapterAPI', require('./sources/chapterAPI.js'));
     this.register('rideAPI', require('./sources/rideAPI.js'));
     this.register('riderAPI', require('./sources/riderAPI.js'));
+    this.register('sponsorAPI', require('./sources/sponsorAPI.js'));
     this.register('localStorage', require('./sources/localStorage.js'));
 
     this.register('authStore', require('./stores/authStore.js'));
@@ -28,6 +30,7 @@ class Application extends Marty.Application {
     this.register('rideRegistrationsStore', require('./stores/rideRegistrationsStore.js'));
     this.register('ridersStore', require('./stores/ridersStore.js'));
     this.register('ridesStore', require('./stores/ridesStore.js'));
+    this.register('sponsorsStore', require('./stores/sponsorsStore.js'));
 
     this.router = require('./router');
 
