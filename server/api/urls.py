@@ -1,8 +1,9 @@
 from django.conf.urls import patterns, url, include
-from .views.rides import RidesList, RideDetails, RideRidersList, RideRiderDetails, RideRiderCharge
+from .views.rides import RidesList, RideDetails, RideRidersList, RideRiderDetails, RideRiderCharge, RideSponsorsList
 from .views.riders import RidersList, RiderProfile, RiderRides
 from .views.chapters import ChaptersList, ChapterDetails, ChapterMembersList
 from .views.auth import PasswordChange, PasswordReset, PasswordResetConfirm
+from .views.sponsors import SponsorsList, SponsorDetails
 
 
 auth_urls = patterns('',
@@ -17,6 +18,7 @@ ride_urls = patterns('',
     url(r'^/(?P<id>\d+)/riders/(?P<rider_id>\d+)/charge$', RideRiderCharge.as_view(), name='ride-rider-charge'),
     url(r'^/(?P<id>\d+)/riders/(?P<rider_id>\d+)$', RideRiderDetails.as_view(), name='ride-rider-details'),
     url(r'^/(?P<id>\d+)/riders$', RideRidersList.as_view(), name='ride-riders'),
+    url(r'^/(?P<id>\d+)/sponsors$', RideSponsorsList.as_view(), name='ride-sponsors'),
     url(r'^/(?P<id>\d+)$', RideDetails.as_view(), name='ride-details'),
     url(r'^$', RidesList.as_view(), name='rides-list')
 )
@@ -33,10 +35,16 @@ chapter_urls = patterns('',
     url(r'^$', ChaptersList.as_view(), name='chapters-list')
 )
 
+sponsor_urls = patterns('',
+    url(r'^/(?P<id>\d+)$', SponsorDetails.as_view(), name='sponsor-details'),
+    url(r'^$', SponsorsList.as_view(), name='sponsor-list')
+)
+
 
 urlpatterns = patterns('',
     url(r'^auth', include(auth_urls)),
     url(r'^rides', include(ride_urls)),
     url(r'^riders', include(rider_urls)),
-    url(r'^chapters', include(chapter_urls))
+    url(r'^chapters', include(chapter_urls)),
+    url(r'^sponsors', include(sponsor_urls))
 )

@@ -15,7 +15,8 @@ SUIT_CONFIG = {
     'MENU': (
         {'label': 'Users', 'models': ('auth.user', {'model': 'core.riderprofile', 'label': 'Profiles'}, 'auth.group')},
         {'label': 'Rides & Riders', 'models': ('core.ride', {'model': 'core.rideriders', 'label': 'Riders'}, 'core.sale')},
-        {'label': 'Chapters', 'models': ('core.chapter', 'core.membership')}
+        {'label': 'Chapters', 'models': ('core.chapter', 'core.membership')},
+        {'label': 'Sponsors', 'models': ('core.sponsor', {'model': 'core.ridesponsor', 'label': 'Ride Sponsors'})}
     )
 }
 

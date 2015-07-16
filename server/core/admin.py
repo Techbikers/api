@@ -12,6 +12,7 @@ from server.core.models.rides import Ride, RideRiders
 from server.core.models.chapters import Chapter
 from server.core.models.sales import Sale
 from server.core.models.memberships import Membership
+from server.core.models.sponsors import Sponsor, RideSponsor
 
 
 # USER ADMIN
@@ -216,3 +217,32 @@ class SaleAdmin(admin.ModelAdmin):
         return '<a target="_blank" href="https://dashboard.stripe.com/%spayments/%s">%s</a>' % (test_link, obj.charge_id, obj.charge_id)
     charge_link.short_description = 'Stripe Charge'
     charge_link.allow_tags = True
+
+
+# SPONSOR ADMIN
+# ----------
+
+@admin.register(Sponsor)
+class SponsorAdmin(admin.ModelAdmin):
+    list_display = ('organisation',)
+
+@admin.register(RideSponsor)
+class RideSponsorAdmin(admin.ModelAdmin):
+    list_display = ('view_edit', 'ride_link', 'sponsor_link', 'sponsor_level')
+    list_filter = ('ride__name',)
+
+    def view_edit(self, obj):
+        return 'View / Edit'
+    view_edit.short_description = ""
+
+    def ride_link(self, obj):
+        change_url = urlresolvers.reverse('admin:core_ride_change', args=(obj.ride.id,))
+        return '<a href="%s">%s</a>' % (change_url, obj.ride.name)
+    ride_link.short_description = 'Ride'
+    ride_link.allow_tags = True
+
+    def sponsor_link(self, obj):
+        change_url = urlresolvers.reverse('admin:core_sponsor_change', args=(obj.sponsor.id,))
+        return '<a href="%s">%s</a>' % (change_url, obj.sponsor.organisation)
+    sponsor_link.short_description = 'Sponsor'
+    sponsor_link.allow_tags = True

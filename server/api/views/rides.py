@@ -5,8 +5,10 @@ from django.shortcuts import get_object_or_404
 from django.contrib.auth.models import User
 from server.core.models.rides import Ride, RideRiders
 from server.core.models.sales import Sale
+from server.core.models.sponsors import Sponsor
 from server.api.serializers.rides import RideSerializer, RideRiderSerializer
 from server.api.serializers.riders import RiderSerializer
+from server.api.serializers.sponsors import SponsorSerializer
 from server.api.permissions import IsOwner, RiderIsAccepted
 
 
@@ -111,3 +113,11 @@ class RideRiderCharge(generics.UpdateAPIView):
             serializer.save(status=RideRiders.REGISTERED, paid=True, sale=sale)
         else:
             serializer.save(status=RideRiders.REGISTERED)
+
+
+class RideSponsorsList(generics.ListAPIView):
+    model = Sponsor
+    serializer_class = SponsorSerializer
+
+    def get_queryset(self):
+        return Sponsor.objects.filter(rides__id=self.kwargs.get('id'))
