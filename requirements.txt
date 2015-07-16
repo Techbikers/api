@@ -12,3 +12,4 @@ django-codemirror-widget==0.4.0
 user-agents==0.3.2
 django-user-agents==0.3.0
 djrill==1.4.0
+Pillow==2.9.0
