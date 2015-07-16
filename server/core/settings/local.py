@@ -9,6 +9,7 @@ DEBUG = True
 ALLOWED_HOSTS = []
 
 STATIC_ROOT = ''
+MEDIA_ROOT = ''
 
 DATABASES = {
     'default': {

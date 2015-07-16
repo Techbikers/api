@@ -40,5 +40,6 @@ with open('../../production.json') as configFile:
     stripe = config.get('stripe')
     STRIPE_ENVIRONMENT = 'live'
 
+MEDIA_ROOT = '/home/django/techbikers.com/media'
 STATIC_ROOT = '/home/django/techbikers.com/static'
 
