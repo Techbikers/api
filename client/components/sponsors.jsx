@@ -29,7 +29,6 @@ class Sponsors extends Component {
   }
 
   render() {
-    console.log(this.filterSponsorsByLevel("gold"));
     return (
       <DocumentTitle title="Sponsors – Techbikers">
         <div className="content">

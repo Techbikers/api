@@ -4,7 +4,7 @@ import React, { Component } from "react";
 class RegistrationSteps extends Component {
   static propTypes = {
     step: React.PropTypes.number,
-    failed: React.PropTypes.boolean
+    failed: React.PropTypes.bool
   }
 
   static defaultProps = {
@@ -34,6 +34,9 @@ class RegistrationSteps extends Component {
     this.state = {
       steps: this.props.steps
     }
+  }
+
+  componentDidMount() {
     this.updateSteps();
   }
 
