@@ -9,11 +9,12 @@ import RiderCard from "./riderCard.jsx";
 import Timestamp from "./timestamp.jsx";
 import RideRegistration from "./rideRegistration.jsx";
 import Spinner from "./spinner.jsx";
+import SetupFundraising from "./setupFundraising.jsx";
 
 class Ride extends Component {
 
   render() {
-    const { ride, riders } = this.props;
+    let { ride, riders, currentRider } = this.props;
     return (
       <DocumentTitle title={ride.name + " - Techbikers"}>
         <div id="ride">
@@ -28,6 +29,8 @@ class Ride extends Component {
           </section>
 
           <RideRegistration {...this.props} />
+
+          <SetupFundraising {...this.props} />
 
           <section id="riders">
             <div className="content">

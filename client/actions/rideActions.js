@@ -30,6 +30,22 @@ class RideActions extends ActionCreators {
         this.dispatch(ActionConstants.UPDATE_RIDE_REGISTRATION_FAILED, registration.ride, registration, error);
       });
   }
+
+  createFundraisingPage(ride, rider, email = null, password = null) {
+    this.dispatch(ActionConstants.CREATE_FUNDRAISING_PAGE_STARTING);
+
+    this.app.rideAPI.createFundraisingPage(ride.id, rider.id, email, password).then(
+      result => {
+        this.dispatch(ActionConstants.CREATE_FUNDRAISING_PAGE, result);
+
+        // Update the rider fundraisers
+        rider.fundraisers.push(result);
+        this.dispatch(ActionConstants.UPDATE_RIDER_DONE, rider.id, rider);
+      },
+      error => {
+        this.dispatch(ActionConstants.CREATE_FUNDRAISING_PAGE_FAILED);
+      });
+  }
 }
 
 export default RideActions;

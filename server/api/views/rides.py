@@ -1,14 +1,20 @@
 import stripe
+import requests
+import json
 from rest_framework import generics, serializers
 from rest_framework.exceptions import ValidationError
 from django.shortcuts import get_object_or_404
 from django.contrib.auth.models import User
+from django.utils.text import slugify
+from django.conf import settings
 from server.core.models.rides import Ride, RideRiders
 from server.core.models.sales import Sale
 from server.core.models.sponsors import Sponsor
+from server.core.models.fundraisers import Fundraiser
 from server.api.serializers.rides import RideSerializer, RideRiderSerializer
 from server.api.serializers.riders import RiderSerializer
 from server.api.serializers.sponsors import SponsorSerializer
+from server.api.serializers.fundraisers import FundraiserSerializer
 from server.api.permissions import IsOwner, RiderIsAccepted
 
 
@@ -113,6 +119,51 @@ class RideRiderCharge(generics.UpdateAPIView):
             serializer.save(status=RideRiders.REGISTERED, paid=True, sale=sale)
         else:
             serializer.save(status=RideRiders.REGISTERED)
+
+
+class RideRiderFundraiser(generics.RetrieveAPIView, generics.CreateAPIView):
+    model = Fundraiser
+    serializer_class = FundraiserSerializer
+    lookup_field = 'user__id'
+    lookup_url_kwarg = 'rider_id'
+
+    def get_queryset(self):
+        return Fundraiser.objects.filter(ride__id=self.kwargs.get('id'))
+
+    def perform_create(self, serializer):
+        ride = Ride.objects.get(id=self.kwargs.get('id'))
+        user = self.request.user
+
+        # We want to make the api call first to create the
+        # fundraising page with virgin money giving.
+        title = '{0} - Techbikers {1}'.format(user.get_full_name(), ride.name)
+        pageShortName = slugify('techbikers {0} {1}'.format(ride.name, user.id))
+        payload = {
+            'charityId': settings.JUST_GIVING_CHARITY_ID,
+            'eventId': ride.just_giving_event_id,
+            'pageShortName': pageShortName,
+            'pageTitle': title,
+            'targetAmount': '500',
+            'justGivingOptIn': False,
+            'charityOptIn': False,
+            'charityFunded': False
+        }
+        url = '{0}/fundraising/pages'.format(settings.JUST_GIVING_API_URL)
+        response = requests.put('{0}/fundraising/pages'.format(settings.JUST_GIVING_API_URL),
+            auth=(serializer.initial_data.get('email'), serializer.initial_data.get('password')),
+            headers = {'x-api-key': settings.JUST_GIVING_API_KEY},
+            json=payload)
+        response.raise_for_status()
+
+        # Now let's create the fundraising record with the returned info
+        response_json = response.json()
+
+        serializer.save(
+            user=user,
+            ride=ride,
+            pageUrl='http://www.justgiving.com/{0}'.format(pageShortName),
+            pageId=response_json['pageId'],
+            signOnUrl=response_json['signOnUrl'])
 
 
 class RideSponsorsList(generics.ListAPIView):

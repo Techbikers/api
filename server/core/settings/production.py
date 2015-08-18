@@ -29,7 +29,10 @@ DATABASES = {
         'PORT': '',
     }
 }
+
 ALLOWED_HOSTS = ['techbikers.com','spoke.techbikers.com']
+
+STRIPE_ENVIRONMENT = 'live'
 
 with open('../../production.json') as configFile:
     config = json.load(configFile);
@@ -37,8 +40,8 @@ with open('../../production.json') as configFile:
     email = config.get('email')
     MANDRILL_API_KEY = os.environ.get('MANDRILL_API_KEY', email.get('mandrill_api_key'))
     MANDRILL_SUBACCOUNT = os.environ.get('MANDRILL_SUBACCOUNT', email.get('mandrill_subaccount'))
-    stripe = config.get('stripe')
-    STRIPE_ENVIRONMENT = 'live'
+    JUST_GIVING_API_URL = 'https://api.justgiving.com/v1'
+    JUST_GIVING_API_KEY = config.get('just_giving_api_key')
 
 MEDIA_ROOT = '/home/django/techbikers.com/media'
 STATIC_ROOT = '/home/django/techbikers.com/static'

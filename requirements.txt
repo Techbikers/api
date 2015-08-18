@@ -10,6 +10,7 @@ django-suit==0.2.13
 gunicorn==19.3.0
 django-codemirror-widget==0.4.0
 user-agents==0.3.2
+requests==2.7.0
 django-user-agents==0.3.0
 djrill==1.4.0
 Pillow==2.9.0

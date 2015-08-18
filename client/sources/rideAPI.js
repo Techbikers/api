@@ -66,6 +66,23 @@ class RideHttpAPI extends HttpStateSource {
       return res.json();
     });
   }
+
+  createFundraisingPage(rideId, riderId, email, password) {
+    return this.post({
+      url: `/api/rides/${rideId}/riders/${riderId}/fundraiser`,
+      body: {
+        ride: rideId,
+        user: riderId,
+        email: email,
+        password: password
+      }
+    }).then(res => {
+      if (!res.ok) {
+        throw ResponseError("Failed to create fundraising page", res.status, res);
+      }
+      return res.json();
+    });
+  }
 }
 
 export default RideHttpAPI;

@@ -1,5 +1,5 @@
 from django.conf.urls import patterns, url, include
-from .views.rides import RidesList, RideDetails, RideRidersList, RideRiderDetails, RideRiderCharge, RideSponsorsList
+from .views.rides import RidesList, RideDetails, RideRidersList, RideRiderDetails, RideRiderCharge, RideSponsorsList, RideRiderFundraiser
 from .views.riders import RidersList, RiderProfile, RiderRides
 from .views.chapters import ChaptersList, ChapterDetails, ChapterMembersList
 from .views.auth import PasswordChange, PasswordReset, PasswordResetConfirm
@@ -15,6 +15,7 @@ auth_urls = patterns('',
 )
 
 ride_urls = patterns('',
+    url(r'^/(?P<id>\d+)/riders/(?P<rider_id>\d+)/fundraiser$', RideRiderFundraiser.as_view(), name='ride-rider-fundraiser'),
     url(r'^/(?P<id>\d+)/riders/(?P<rider_id>\d+)/charge$', RideRiderCharge.as_view(), name='ride-rider-charge'),
     url(r'^/(?P<id>\d+)/riders/(?P<rider_id>\d+)$', RideRiderDetails.as_view(), name='ride-rider-details'),
     url(r'^/(?P<id>\d+)/riders$', RideRidersList.as_view(), name='ride-riders'),
