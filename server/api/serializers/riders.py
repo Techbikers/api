@@ -85,4 +85,4 @@ class RiderSerializer(serializers.ModelSerializer):
         fields = ('id', 'email', 'password', 'name', 'first_name', 'last_name', 'avatar', 'company',
                   'website', 'twitter', 'biography', 'statement', 'donation_page', 'is_member', 'rides', 'fundraisers')
         write_only_fields = ('password',)
-        read_only_fields = ('id',)
+        read_only_fields = ('id', 'donation_page')

@@ -19,10 +19,16 @@ class RiderProfile(models.Model):
     biography = models.TextField(null=True, blank=True)
     statement = models.TextField(null=True, blank=True)
 
-    donation_page = models.URLField(null=True, blank=True)
-
     def __unicode__(self):
         return self.user.username
+
+    @property
+    def donation_page(self):
+        fundraisers = self.user.fundraiser_set
+        if fundraisers.count() > 0:
+            return fundraisers.first().pageUrl
+        else:
+            return None
 
     @property
     def is_member(self):
