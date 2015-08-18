@@ -84,7 +84,7 @@ class RideAdmin(admin.ModelAdmin):
     fieldsets = [
         (None, {
             'classes': ('suit-tab', 'suit-tab-details',),
-            'fields': ['name', 'slug', 'start_location', 'end_location', 'start_date', 'end_date', 'rider_capacity', 'preregistration_required', 'price', 'full_cost', 'currency', 'chapter',]
+            'fields': ['name', 'slug', 'start_location', 'end_location', 'start_date', 'end_date', 'rider_capacity', 'preregistration_required', 'price', 'full_cost', 'currency', 'chapter', 'fundraising_target', 'just_giving_event_id',]
         }),
         (None, {
             'classes': ('suit-tab', 'suit-tab-description',),

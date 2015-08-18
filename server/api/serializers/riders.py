@@ -3,6 +3,7 @@ import hashlib
 from django.contrib.auth.models import User
 from rest_framework import serializers
 from server.core.models.rides import RideRiders
+from server.api.serializers.fundraisers import FundraiserSerializer
 
 
 class RiderSerializer(serializers.ModelSerializer):
@@ -16,6 +17,7 @@ class RiderSerializer(serializers.ModelSerializer):
     donation_page = serializers.URLField(source='profile.donation_page', required=False, allow_blank=True)
     rides = serializers.SerializerMethodField(source='get_rides', read_only=True)
     is_member = serializers.BooleanField(source='profile.is_member', read_only=True)
+    fundraisers = FundraiserSerializer(source='fundraiser_set', many=True)
 
     def validate_email(self, value):
         if User.objects.filter(email__iexact=value):
@@ -81,6 +83,6 @@ class RiderSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ('id', 'email', 'password', 'name', 'first_name', 'last_name', 'avatar', 'company',
-                  'website', 'twitter', 'biography', 'statement', 'donation_page', 'is_member', 'rides')
+                  'website', 'twitter', 'biography', 'statement', 'donation_page', 'is_member', 'rides', 'fundraisers')
         write_only_fields = ('password',)
         read_only_fields = ('id',)

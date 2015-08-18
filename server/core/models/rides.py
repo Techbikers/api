@@ -29,6 +29,10 @@ class Ride(models.Model):
     currency       = models.CharField(max_length = 3, choices=(('gbp', 'GBP'), ('usd', 'USD'), ('eur', 'EUR')), default = 'gbp')
     terms_and_conditions = models.TextField(null=True, blank = True, default='')
 
+    # Fundraising details
+    fundraising_target   = models.DecimalField(default=500.00, max_digits=6, decimal_places=2)
+    just_giving_event_id = models.IntegerField(null=True, blank=True)
+
     # Linked Entities
     chapter        = models.ForeignKey(Chapter, null=True, blank=True)
     riders         = models.ManyToManyField(User, through='RideRiders', blank=True)
