@@ -148,7 +148,6 @@ class RideRiderFundraiser(generics.RetrieveAPIView, generics.CreateAPIView):
             'charityOptIn': False,
             'charityFunded': False
         }
-        url = '{0}/fundraising/pages'.format(settings.JUST_GIVING_API_URL)
         response = requests.put('{0}/fundraising/pages'.format(settings.JUST_GIVING_API_URL),
             auth=(serializer.initial_data.get('email'), serializer.initial_data.get('password')),
             headers = {'x-api-key': settings.JUST_GIVING_API_KEY},
