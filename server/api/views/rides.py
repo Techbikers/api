@@ -1,3 +1,4 @@
+# encoding=utf8
 import stripe
 import requests
 import json
@@ -136,17 +137,36 @@ class RideRiderFundraiser(generics.RetrieveAPIView, generics.CreateAPIView):
 
         # We want to make the api call first to create the
         # fundraising page with virgin money giving.
-        title = '{0} - Techbikers {1}'.format(user.get_full_name(), ride.name)
         pageShortName = slugify('techbikers {0} {1}'.format(ride.name, user.id))
         payload = {
             'charityId': settings.JUST_GIVING_CHARITY_ID,
             'eventId': ride.just_giving_event_id,
             'pageShortName': pageShortName,
-            'pageTitle': title,
+            'pageTitle': "I'm doing TechBikers: Support my 260mi cycle for childhood literacy!",
             'targetAmount': '500',
             'justGivingOptIn': False,
             'charityOptIn': False,
-            'charityFunded': False
+            'charityFunded': False,
+            'pageSummaryWhat': 'I am cycling from Paris to London',
+            'pageSummaryWhy': 'world change starts with educated children',
+            'pageStory': "<p><b>Did you know that if every child received an education, 170 million people would be lifted out of poverty?</b></p><p>In September, as the weather turns cold and wet, I will be on a bike, cycling over 200 miles from Paris to London with TechBikers to raise money for Room to Read. </p><p><b>Please support me with however much you can give.</b></p><p>Why? To support Room to Read's work on a cause I strongly believe in: providing children with an education. </p><p>Focusing on childhood literacy is one of the most effective ways to improve living standards across the globe.</p><p><b>WHERE WILL MY DONATION GO?</b></p><p>All your donations will go straight to Room to Read, who have received the coveted Four Star Rating from Charity Navigator nine(!) years in a row. About £12,000 will be used to rebuild a school in Nepal that was built in 2013 using TechBikers funds. The rest will go where the need is greatest. </p><p><b>WHAT'S TECHBIKERS?</b></p><p>Techbikers brings together the London tech startup community to help children in need by supporting literacy charity Room to Read.  Since 2012, over 120 entrepreneurs, VCs, and other tech enthusiasts have cycled 960km to raise $265,000 for this fantastic charity, and built a school, a handful of libraries, and supported the education of over 3,000 girls.</p>",
+            'theme': {
+                'pageBackground': '#FFFFFF',
+                'buttonsThermometerFill': '#4494C7',
+                'linesThermometerBackground': '#76C15A'
+            },
+            'images': [
+                {
+                    'caption': '',
+                    'url': 'https://techbikers.com/static/img/techbikers_group.jpg',
+                    'isDefault': True
+                },
+                {
+                    'caption': '',
+                    'url': 'https://techbikers.com/static/img/classroom.jpg',
+                    'isDefault': False
+                }
+            ]
         }
         response = requests.put('{0}/fundraising/pages'.format(settings.JUST_GIVING_API_URL),
             auth=(serializer.initial_data.get('email'), serializer.initial_data.get('password')),
