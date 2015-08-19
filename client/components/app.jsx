@@ -66,7 +66,7 @@ class App extends Component {
 
             <a href="http://blog.techbikers.com/">Blog</a>
 
-            <a className="btn btn-green donate" href="http://donate.techbikers.com">Donate!</a>
+            <a className="btn btn-green donate" href="https://www.justgiving.com/search?q=techbikers" target="_blank">Donate!</a>
           </nav>
         </header>
 
