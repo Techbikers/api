@@ -14,10 +14,10 @@ class RiderSerializer(serializers.ModelSerializer):
     twitter = serializers.CharField(source='profile.twitter', required=False, allow_blank=True)
     biography = serializers.CharField(source='profile.biography', required=False, allow_blank=True)
     statement = serializers.CharField(source='profile.statement', required=False, allow_blank=True)
-    donation_page = serializers.URLField(source='profile.donation_page', required=False, allow_blank=True)
+    donation_page = serializers.URLField(source='profile.donation_page', read_only=True)
     rides = serializers.SerializerMethodField(source='get_rides', read_only=True)
     is_member = serializers.BooleanField(source='profile.is_member', read_only=True)
-    fundraisers = FundraiserSerializer(source='fundraiser_set', many=True)
+    fundraisers = FundraiserSerializer(source='fundraiser_set', many=True, read_only=True)
 
     def validate_email(self, value):
         if User.objects.filter(email__iexact=value):
@@ -56,7 +56,6 @@ class RiderSerializer(serializers.ModelSerializer):
         new_user.profile.twitter = profile.get("twitter", None)
         new_user.profile.biography = profile.get("biography", None)
         new_user.profile.statement = profile.get("statement", None)
-        new_user.profile.donation_page = profile.get("donation_page", None)
         new_user.profile.save()
 
         return new_user
@@ -75,7 +74,6 @@ class RiderSerializer(serializers.ModelSerializer):
         instance.profile.twitter = profile.get("twitter", instance.profile.twitter)
         instance.profile.biography = profile.get("biography", instance.profile.biography)
         instance.profile.statement = profile.get("statement", instance.profile.statement)
-        instance.profile.donation_page = profile.get("donation_page", instance.profile.donation_page)
         instance.profile.save()
 
         return instance
@@ -85,4 +83,4 @@ class RiderSerializer(serializers.ModelSerializer):
         fields = ('id', 'email', 'password', 'name', 'first_name', 'last_name', 'avatar', 'company',
                   'website', 'twitter', 'biography', 'statement', 'donation_page', 'is_member', 'rides', 'fundraisers')
         write_only_fields = ('password',)
-        read_only_fields = ('id', 'donation_page')
+        read_only_fields = ('id', 'donation_page', 'fundraisers')
