@@ -43,6 +43,10 @@ with open('../../production.json') as configFile:
     JUST_GIVING_API_URL = 'https://api.justgiving.com/v1'
     JUST_GIVING_API_KEY = config.get('just_giving_api_key')
 
+    social_auth = config.get('social_auth')
+    SOCIAL_AUTH_FACEBOOK_KEY = social_auth.get('facebook_key')
+    SOCIAL_AUTH_FACEBOOK_SECRET = social_auth.get('facebook_secret')
+
 MEDIA_ROOT = '/home/django/techbikers.com/media'
 STATIC_ROOT = '/home/django/techbikers.com/static'
 

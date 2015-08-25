@@ -2,11 +2,12 @@ from django.conf.urls import patterns, url, include
 from .views.rides import RidesList, RideDetails, RideRidersList, RideRiderDetails, RideRiderCharge, RideSponsorsList, RideRiderFundraiser
 from .views.riders import RidersList, RiderProfile, RiderRides
 from .views.chapters import ChaptersList, ChapterDetails, ChapterMembersList
-from .views.auth import PasswordChange, PasswordReset, PasswordResetConfirm
+from .views.auth import PasswordChange, PasswordReset, PasswordResetConfirm, TokenExchange
 from .views.sponsors import SponsorsList, SponsorDetails
 
 
 auth_urls = patterns('',
+    url(r'^/token-exchange', TokenExchange.as_view()),
     url(r'^/token-refresh', 'rest_framework_jwt.views.refresh_jwt_token'),
     url(r'^/token', 'rest_framework_jwt.views.obtain_jwt_token'),
     url(r'^/password/change$', PasswordChange.as_view(), name='password-change'),

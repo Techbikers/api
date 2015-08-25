@@ -99,3 +99,9 @@ class PasswordResetConfirmSerializer(serializers.Serializer):
 
     def save(self):
         return self.set_password_form.save()
+
+
+class TokenExchangeSerializer(serializers.Serializer):
+    backend = serializers.CharField()
+    code = serializers.CharField()
+    state = serializers.CharField(required=False)

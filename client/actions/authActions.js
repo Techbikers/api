@@ -16,6 +16,10 @@ class AuthActions extends ActionCreators {
       });
   }
 
+  loginWithToken(token) {
+    this.dispatch(ActionConstants.AUTH_USER_LOGIN, token);
+  }
+
   attemptReAuth() {
     let token = this.app.localStorage.getToken();
     if (token) {
