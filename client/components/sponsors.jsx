@@ -59,10 +59,10 @@ class Sponsors extends Component {
 
               <h2 id="inkind">Sponsors in kind</h2>
               <p>
-                The following sponsors have donated their products, time and energy to help TechBikers
-                reach their goal, we are very thankful for their support</p>
+                The following sponsors have donated their products, time, and energy to help TechBikers
+                reach their goal. We are very thankful for their support, and you should check them out.</p>
               <ul className="list--secret list--inline inkind">
-                {_.map(this.filterSponsorsByLevel("silver"), (sponsor) => {
+                {_.map(this.filterSponsorsByLevel("inkind"), (sponsor) => {
                   return (
                     <li>
                       <a href={sponsor.website} className="img" target="_blank">
