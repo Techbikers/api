@@ -23,6 +23,10 @@ class AuthComplete extends Component {
     const params = this.getParams(window.location.search),
           { backend } = this.props.params;
 
+    // Get the auth token from the parent window. This will return null
+    // if the user hasn't logged in yet.
+    const jwt_token = parent.getJWT();
+
     // Take the  OAuth2/OAuth1 server response and submit to our token
     // exchange API which gets the access token, then user details and
     // ultimately returns an auth token we can log the user in with (or
@@ -33,7 +37,8 @@ class AuthComplete extends Component {
         credentials: "same-origin",
         headers: {
           "Accept": "application/json",
-          "Content-Type": "application/json"
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${jwt_token}`
         },
         body: JSON.stringify({
           backend: backend,
@@ -41,16 +46,16 @@ class AuthComplete extends Component {
           state: params.state,
         })
       }).then(res => {
+        return res.json();
+      }).then(json => {
         // Send the reponse to the main window and close this window
-        res.json().then(obj => {
-          this.authCallback(parent, obj);
-        });
+        this.authCallback(parent, json);
       });
     }
   }
 
-  authCallback(parent, obj) {
-    parent.authCallback(obj);
+  authCallback(parent, json) {
+    parent.authCallback(json);
     this.closeWindow(window);
   }
 

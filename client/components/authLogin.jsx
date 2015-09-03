@@ -22,6 +22,7 @@ class AuthLogin extends Component {
   componentDidMount() {
     // Set the authCallback so that we can call it from the popup window.
     window.authCallback = this.authCallback.bind(this);
+    window.getJWT = this.getJWT.bind(this);
   }
 
   startAuth() {
@@ -41,9 +42,17 @@ class AuthLogin extends Component {
       popup.focus();
   }
 
-  authCallback(res) {
-    if (res.token)
-      this.app.authActions.loginWithToken(res.token);
+  getJWT() {
+    return this.props.authToken;
+  }
+
+  authCallback(json) {
+    if (json.token) {
+      this.app.authActions.loginWithToken(json.token);
+
+      if (this.props.onAuthSuccess)
+        this.props.onAuthSuccess();
+    }
   }
 
   render() {
@@ -55,6 +64,13 @@ class AuthLogin extends Component {
   }
 }
 
-AuthLogin = Marty.createContainer(AuthLogin);
+AuthLogin = Marty.createContainer(AuthLogin, {
+  listenTo: ['authStore'],
+  fetch: {
+    authToken() {
+      return this.app.authStore.token;
+    }
+  }
+});
 
 export default AuthLogin;
