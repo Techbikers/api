@@ -67,14 +67,12 @@ class RideHttpAPI extends HttpStateSource {
     });
   }
 
-  createFundraisingPage(rideId, riderId, email, password) {
+  createFundraisingPage(rideId, riderId) {
     return this.post({
       url: `/api/rides/${rideId}/riders/${riderId}/fundraiser`,
       body: {
         ride: rideId,
-        user: riderId,
-        email: email,
-        password: password
+        user: riderId
       }
     }).then(res => {
       if (!res.ok) {

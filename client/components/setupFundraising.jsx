@@ -6,11 +6,8 @@ import forms, { Form, RenderForm } from 'newforms';
 import FormField from "./formField.jsx";
 import ProgressButton from "./progressButton.jsx";
 import Spinner from "./spinner.jsx";
+import AuthLogin from "./authLogin.jsx";
 
-const LoginForm = Form.extend({
-  email: forms.EmailField({label: 'Just Giving Email Address'}),
-  password: forms.CharField({label: 'Just Giving Password', widget: forms.PasswordInput}),
-});
 
 class SetupFundraising extends Component {
 
@@ -18,8 +15,7 @@ class SetupFundraising extends Component {
     super(props);
     this.state = {
       created: false,
-      loading: false,
-      form: new LoginForm({onChange: this.onFormChange.bind(this)})
+      loading: false
     }
   }
 
@@ -41,14 +37,10 @@ class SetupFundraising extends Component {
     this.forceUpdate();
   }
 
-  createPage(e) {
-    e.preventDefault();
-    this.setState({loading: true});
-    this.app.rideActions.createFundraisingPage(
-      this.props.ride,
-      this.props.currentRider,
-      this.state.form.cleanedData.email,
-      this.state.form.cleanedData.password)
+  createPage() {
+    this.setState({loading: true}, () => {
+      this.app.rideActions.createFundraisingPage(this.props.ride, this.props.currentRider)
+    });
   }
 
   renderComplete() {
@@ -82,27 +74,11 @@ class SetupFundraising extends Component {
           <p>
             Time to setup a fundraising page. All donations are handled
             by <a href="https://home.justgiving.com" target="_blank">Just Giving</a> and
-            will go directly to Room to Read. <b>Enter your Just Giving email and
-            password</b> below and we'll handle the rest.</p>
-          <p><small>
-            Sorry to ask for your details. We don't think we should be either but
-            hey, that's how Just Giving have setup their API. We promise we don't
-            store these details or use them beyond creating this page for you.</small></p>
+            will go directly to Room to Read.</p>
         </div>
-        <form className="payment-form">
-          <p>
-            Don't have a Just Giving account? <a href="https://www.justgiving.com/signin?m=register" target="_blank">Create one</a></p>
-          <div>
-            {_.map(this.state.form.boundFieldsObj(), (field) => {
-              return (
-                <FormField key={field.htmlName} field={field} />
-              );
-            })}
-          </div>
-          <div className="payment-form--submit">
-            <button className="btn btn-blue" type="submit" onClick={this.createPage.bind(this)}>Create Fundraising Page</button>
-          </div>
-        </form>
+        <div className="payment-form">
+          <AuthLogin backend="justgiving" buttonText="Create Fundraising Page" onAuthSuccess={this.createPage.bind(this)} />
+        </div>
       </div>
     );
   }

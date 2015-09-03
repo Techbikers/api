@@ -47,6 +47,7 @@ JWT_AUTH = {
 }
 
 AUTHENTICATION_BACKENDS = (
+    'server.core.auth.backends.just_giving.JustGivingOAuth2',
     'social.backends.facebook.FacebookOAuth2',
     'django.contrib.auth.backends.ModelBackend'
 )

@@ -134,6 +134,7 @@ class RideRiderFundraiser(generics.RetrieveAPIView, generics.CreateAPIView):
     def perform_create(self, serializer):
         ride = Ride.objects.get(id=self.kwargs.get('id'))
         user = self.request.user
+        social_user = user.social_auth.filter(provider='justgiving')[0]
 
         # We want to make the api call first to create the
         # fundraising page with virgin money giving.
@@ -169,8 +170,10 @@ class RideRiderFundraiser(generics.RetrieveAPIView, generics.CreateAPIView):
             ]
         }
         response = requests.put('{0}/fundraising/pages'.format(settings.JUST_GIVING_API_URL),
-            auth=(serializer.initial_data.get('email'), serializer.initial_data.get('password')),
-            headers = {'x-api-key': settings.JUST_GIVING_API_KEY},
+            headers = {
+                'x-api-key': settings.SOCIAL_AUTH_JUSTGIVING_KEY,
+                'x-application-key': settings.SOCIAL_AUTH_JUSTGIVING_SECRET,
+                'Authorization': 'Bearer {0}'.format(social_user.extra_data['access_token'])},
             json=payload)
         response.raise_for_status()
 

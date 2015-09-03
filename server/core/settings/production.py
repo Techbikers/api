@@ -41,11 +41,12 @@ with open('../../production.json') as configFile:
     MANDRILL_API_KEY = os.environ.get('MANDRILL_API_KEY', email.get('mandrill_api_key'))
     MANDRILL_SUBACCOUNT = os.environ.get('MANDRILL_SUBACCOUNT', email.get('mandrill_subaccount'))
     JUST_GIVING_API_URL = 'https://api.justgiving.com/v1'
-    JUST_GIVING_API_KEY = config.get('just_giving_api_key')
 
     social_auth = config.get('social_auth')
     SOCIAL_AUTH_FACEBOOK_KEY = social_auth.get('facebook_key')
     SOCIAL_AUTH_FACEBOOK_SECRET = social_auth.get('facebook_secret')
+    SOCIAL_AUTH_JUSTGIVING_KEY = social_auth.get('justgiving_key')
+    SOCIAL_AUTH_JUSTGIVING_SECRET = social_auth.get('justgiving_secret')
 
 MEDIA_ROOT = '/home/django/techbikers.com/media'
 STATIC_ROOT = '/home/django/techbikers.com/static'

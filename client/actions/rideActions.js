@@ -31,10 +31,10 @@ class RideActions extends ActionCreators {
       });
   }
 
-  createFundraisingPage(ride, rider, email = null, password = null) {
+  createFundraisingPage(ride, rider) {
     this.dispatch(ActionConstants.CREATE_FUNDRAISING_PAGE_STARTING);
 
-    this.app.rideAPI.createFundraisingPage(ride.id, rider.id, email, password).then(
+    this.app.rideAPI.createFundraisingPage(ride.id, rider.id).then(
       result => {
         this.dispatch(ActionConstants.CREATE_FUNDRAISING_PAGE, result);
 
