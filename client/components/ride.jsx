@@ -4,6 +4,7 @@ import Marty from "marty";
 import _ from "lodash";
 import DocumentTitle from "react-document-title";
 import RideUtils from "../utils/rideUtils"
+import { FormattedNumber } from "react-intl";
 
 import RiderCard from "./riderCard.jsx";
 import Timestamp from "./timestamp.jsx";
@@ -26,6 +27,11 @@ class Ride extends Component {
               </h3>
               <h3>Part of the <Link to="chapter" params={{name: ride.chapter.name.toLowerCase()}} >{ride.chapter.name}</Link> chapter</h3>
             </header>
+
+            {ride.fundraising && ride.fundraising.raisedAmount &&
+              <div className="content">
+                <h2>We've raised <FormattedNumber style="currency" currency={ride.fundraising.currency} value={ride.fundraising.raisedAmount} maximumFractionDigits={0} />!</h2>
+              </div>}
           </section>
 
           <RideRegistration {...this.props} />
