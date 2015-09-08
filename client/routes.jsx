@@ -9,6 +9,7 @@ import About        from './components/about.jsx';
 import Account      from './components/account.jsx';
 import Charity      from './components/charity.jsx';
 import Sponsors     from './components/sponsors.jsx';
+import Leaderboard  from './components/leaderboard.jsx';
 import Login        from './components/login.jsx';
 import Rides        from './components/rides.jsx';
 import Ride         from './components/ride.jsx';
@@ -47,6 +48,9 @@ export default (
 
       // ## Rider Routing
       <Route path="/riders/:id"      name="rider"    handler={RiderProfile} />
+
+      // ## Fundraising
+      <Route path="/donate"          name="donate"   handler={Leaderboard} />
 
       // ## Chapter Routing
       <Route path="/chapters/:name"  name="chapter"  handler={Chapter} />
