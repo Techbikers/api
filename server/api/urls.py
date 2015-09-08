@@ -4,6 +4,7 @@ from .views.riders import RidersList, RiderProfile, RiderRides
 from .views.chapters import ChaptersList, ChapterDetails, ChapterMembersList
 from .views.auth import PasswordChange, PasswordReset, PasswordResetConfirm, TokenExchange
 from .views.sponsors import SponsorsList, SponsorDetails
+from .views.fundraisers import FundraisersList
 
 
 auth_urls = patterns('',
@@ -42,11 +43,15 @@ sponsor_urls = patterns('',
     url(r'^$', SponsorsList.as_view(), name='sponsor-list')
 )
 
+fundraiser_urls = patterns('',
+    url(r'^$', FundraisersList.as_view(), name='fundraiser-list')
+)
 
 urlpatterns = patterns('',
     url(r'^auth', include(auth_urls)),
     url(r'^rides', include(ride_urls)),
     url(r'^riders', include(rider_urls)),
     url(r'^chapters', include(chapter_urls)),
-    url(r'^sponsors', include(sponsor_urls))
+    url(r'^sponsors', include(sponsor_urls)),
+    url(r'^fundraisers', include(fundraiser_urls))
 )

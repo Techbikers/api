@@ -5,5 +5,6 @@ from server.core.models.fundraisers import Fundraiser
 class FundraiserSerializer(serializers.ModelSerializer):
     class Meta:
         model = Fundraiser
-        fields = ('user', 'ride', 'pageId', 'pageUrl', 'signOnUrl')
+        fields = ('id', 'user', 'ride', 'pageId', 'pageUrl', 'signOnUrl', 'pageStatus', 'currency', 'fundraisingTarget',
+                  'totalRaisedOffline', 'totalRaisedOnline', 'totalRaisedSms', 'totalRaised', 'giftAid')
         read_only_fields = ('pageUrl', 'pageId')
