@@ -1,10 +1,14 @@
 from django.conf.urls import patterns, include, url
+from django.views.generic.base import RedirectView
 
 # Uncomment the next two lines to enable the admin:
 from django.contrib import admin
 admin.autodiscover()
 
 urlpatterns = patterns('',
+
+    # Temporarily redirect from /donate
+    url(r'^donate$', RedirectView.as_view(url='https://www.justgiving.com/search?q=techbikers&i=fundraiser&limit=20&type=onesearch', permanent=True)),
 
     # Uncomment the next line to enable the admin:
     url(r'^admin/', include(admin.site.urls)),
