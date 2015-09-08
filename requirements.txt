@@ -15,3 +15,4 @@ django-user-agents==0.3.0
 djrill==1.4.0
 Pillow==2.9.0
 python-social-auth==0.2.12
+django-crontab==0.6.0

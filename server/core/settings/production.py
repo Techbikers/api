@@ -12,6 +12,14 @@ INSTALLED_APPS += (
     "gunicorn",
 )
 
+CRONJOBS = [
+    ('*/15 * * * *', 'server.core.cronjobs.update_fundraisers')
+]
+CRONTAB_COMMAND_PREFIX = 'cd /home/django/techbikers.com/releases/current;'
+CRONTAB_PYTHON_EXECUTABLE = '/home/django/techbikers.com/bin/python'
+CRONTAB_DJANGO_MANAGE_PATH = 'manage.py'
+CRONTAB_DJANGO_SETTINGS_MODULE = 'server.core.settings.production'
+
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTOCOL', 'https')
 
 DEFAULT_DB_ALIAS = 'default'

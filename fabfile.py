@@ -36,6 +36,7 @@ def deploy():
     symlink_current_release()
     migrate()
     update_static_files()
+    add_cron_jobs()
     restart_webserver()
 
 def deploy_version(version):
@@ -89,6 +90,10 @@ def update_static_files():
     "Deploying static files"
     run("cd %(path)s/releases/current; mkdir static" % env, pty=True)
     run("cd %(path)s/releases/current; source ../../bin/activate; python manage.py collectstatic --noinput" % env, pty=True)
+
+def add_cron_jobs():
+    "Add cron jobs"
+    run("cd %(path)s/releases/current; source ../../bin/activate; python manage.py crontab add" % env, pty=True)
 
 def restart_webserver():
     "Restart the web server"

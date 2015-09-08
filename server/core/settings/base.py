@@ -189,7 +189,8 @@ INSTALLED_APPS = (
     'server.core',
     'server.api',
     'codemirror',
-    'djrill'
+    'djrill',
+    'django_crontab'
 )
 
 MIDDLEWARE_CLASSES = (
