@@ -155,11 +155,11 @@ class RideRidersAdmin(admin.ModelAdmin):
 
 @admin.register(Fundraiser)
 class FundraisersAdmin(admin.ModelAdmin):
-    list_display = ('view_edit', 'ride_link', 'user_link', 'pageStatus', 'totalRaised', 'formatted_progress')
+    list_display = ('view_edit', 'ride_link', 'user_link', 'pageStatus', 'currency', 'totalRaised', 'formatted_progress')
     list_filter = ('ride__name', 'pageStatus')
     search_fields = ('user__first_name', 'user__last_name', 'user__email')
     readonly_fields = ('user_link', 'ride_link', 'formatted_progress')
-    fields = ('user_link', 'user', 'ride_link', 'ride', 'pageStatus', 'pageId', 'pageUrl', 'fundraisingTarget',
+    fields = ('user_link', 'user', 'ride_link', 'ride', 'pageStatus', 'pageId', 'pageUrl', 'currency', 'fundraisingTarget',
                 'totalRaisedOffline', 'totalRaisedOnline', 'totalRaisedSms', 'totalRaised', 'giftAid')
     actions = ['update_fundraisers']
 

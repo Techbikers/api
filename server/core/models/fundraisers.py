@@ -13,6 +13,7 @@ class Fundraiser(models.Model):
     pageStatus = models.BooleanField(default=True)
     pageUrl = models.URLField()
     signOnUrl = models.URLField(blank=True, null=True)
+    currency = models.CharField(max_length = 3, default = 'GBP')
 
     # Fundraising details
     fundraisingTarget = models.DecimalField(max_digits=6, decimal_places=2, blank=True, null=True)
@@ -49,6 +50,7 @@ class Fundraiser(models.Model):
 
             # Update the model with the results
             self.pageStatus = response_json.get("status", "Active") == "Active"
+            self.currency = response_json.get("currencyCode", self.currency)
             self.fundraisingTarget = response_json.get("fundraisingTarget", self.fundraisingTarget)
             self.totalRaisedOffline = response_json.get("totalRaisedOffline", self.totalRaisedOffline)
             self.totalRaisedOnline = response_json.get("totalRaisedOnline", self.totalRaisedOnline)
