@@ -13,6 +13,7 @@ from server.core.models.chapters import Chapter
 from server.core.models.sales import Sale
 from server.core.models.memberships import Membership
 from server.core.models.sponsors import Sponsor, RideSponsor
+from server.core.models.fundraisers import Fundraiser
 
 
 # USER ADMIN
@@ -143,6 +144,50 @@ class RideRidersAdmin(admin.ModelAdmin):
         return '<a href="%s">%s</a>' % (change_url, obj.sale.charge_id)
     sale_link.short_description = 'Sale'
     sale_link.allow_tags = True
+
+
+
+
+# FUNDRAISING ADMIN
+# -----------
+# Admin for rider fundraisers
+
+
+@admin.register(Fundraiser)
+class FundraisersAdmin(admin.ModelAdmin):
+    list_display = ('view_edit', 'ride_link', 'user_link', 'pageStatus', 'totalRaised', 'formatted_progress')
+    list_filter = ('ride__name', 'pageStatus')
+    search_fields = ('user__first_name', 'user__last_name', 'user__email')
+    readonly_fields = ('user_link', 'ride_link', 'formatted_progress')
+    fields = ('user_link', 'user', 'ride_link', 'ride', 'pageStatus', 'pageId', 'pageUrl', 'fundraisingTarget',
+                'totalRaisedOffline', 'totalRaisedOnline', 'totalRaisedSms', 'totalRaised', 'giftAid')
+    actions = ['update_fundraisers']
+
+    def update_fundraisers(self, request, queryset):
+        for obj in queryset:
+            obj.fetch_details()
+        self.message_user(request, "Updates Done")
+    update_fundraisers.short_description = "Update fundraisers with Just Giving results"
+
+    def formatted_progress(self, obj):
+        return format(obj.progress, ".0%")
+    formatted_progress.short_description = 'Progress'
+
+    def view_edit(self, obj):
+        return 'View / Edit'
+    view_edit.short_description = ""
+
+    def user_link(self, obj):
+        change_url = urlresolvers.reverse('admin:auth_user_change', args=(obj.user.id,))
+        return '<a href="%s">%s %s</a>' % (change_url, obj.user.first_name, obj.user.last_name)
+    user_link.short_description = 'User'
+    user_link.allow_tags = True
+
+    def ride_link(self, obj):
+        change_url = urlresolvers.reverse('admin:core_ride_change', args=(obj.ride.id,))
+        return '<a href="%s">%s</a>' % (change_url, obj.ride.name)
+    ride_link.short_description = 'Ride'
+    ride_link.allow_tags = True
 
 
 

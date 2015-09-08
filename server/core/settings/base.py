@@ -14,7 +14,7 @@ SUIT_CONFIG = {
     'ADMIN_NAME': 'Techbikers Admin',
     'MENU': (
         {'label': 'Users', 'models': ('auth.user', {'model': 'core.riderprofile', 'label': 'Profiles'}, 'auth.group')},
-        {'label': 'Rides & Riders', 'models': ('core.ride', {'model': 'core.rideriders', 'label': 'Riders'}, 'core.sale')},
+        {'label': 'Rides & Riders', 'models': ('core.ride', {'model': 'core.rideriders', 'label': 'Riders'}, {'model': 'core.fundraiser', 'label': 'Fundraisers'}, 'core.sale')},
         {'label': 'Chapters', 'models': ('core.chapter', 'core.membership')},
         {'label': 'Sponsors', 'models': ('core.sponsor', {'model': 'core.ridesponsor', 'label': 'Ride Sponsors'})}
     )
