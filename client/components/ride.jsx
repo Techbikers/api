@@ -28,10 +28,9 @@ class Ride extends Component {
               <h3>Part of the <Link to="chapter" params={{name: ride.chapter.name.toLowerCase()}} >{ride.chapter.name}</Link> chapter</h3>
             </header>
 
-            {ride.fundraising && ride.fundraising.raisedAmount &&
-              <div className="content">
-                <h2>We've raised <FormattedNumber style="currency" currency={ride.fundraising.currency} value={ride.fundraising.raisedAmount} maximumFractionDigits={0} />!</h2>
-              </div>}
+            <div className="content">
+              <h2>We've raised <FormattedNumber style="currency" currency={ride.currency} value={ride.fundraising_total} maximumFractionDigits={0} />!</h2>
+            </div>
           </section>
 
           <RideRegistration {...this.props} />

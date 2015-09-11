@@ -1,6 +1,7 @@
 import markdown, jsonfield
 from datetime import datetime, timedelta
 from django.db import models
+from django.utils.functional import  cached_property
 from django.contrib.auth.models import User
 from django.core.mail import EmailMultiAlternatives
 from django.template.loader import get_template
@@ -30,6 +31,12 @@ class Ride(models.Model):
     terms_and_conditions = models.TextField(null=True, blank = True, default='')
 
     # Fundraising details
+
+    def get_fundraising_total(self):
+        """Calculate the total amount raised for this ride"""
+        return self.fundraiser_set.aggregate(total=models.Sum('totalRaised'))['total']
+
+    fundraising_total    = cached_property(get_fundraising_total, name='fundraising_total')
     fundraising_target   = models.DecimalField(default=500.00, max_digits=6, decimal_places=2)
     just_giving_event_id = models.IntegerField(null=True, blank=True)
 
