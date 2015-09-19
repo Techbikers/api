@@ -7,7 +7,7 @@ from django.conf.global_settings import TEMPLATE_CONTEXT_PROCESSORS as TCP
 
 
 ADMINS = (
-    ('Michael Willmott', 'michael@knodium.com')
+    ('Michael Willmott', 'mwillmott@gmail.com')
 )
 
 SUIT_CONFIG = {
@@ -229,6 +229,10 @@ LOGGING = {
             'handlers': ['mail_admins'],
             'level': 'ERROR',
             'propagate': True,
+        },
+        'django_crontab.crontab': {
+            'handlers': ['mail_admins'],
+            'level': 'ERROR',
         },
     }
 }
