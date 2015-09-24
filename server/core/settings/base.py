@@ -22,6 +22,8 @@ SUIT_CONFIG = {
 
 MANAGERS = ADMINS
 
+SERVER_EMAIL = "admin@spoke.techbikers.com"
+
 BASE = os.path.abspath(os.path.dirname(__name__))
 
 # Just Giving API Details
