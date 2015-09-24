@@ -32,9 +32,13 @@ class Ride(models.Model):
 
     # Fundraising details
 
-    def get_fundraising_total(self):
+    def get_fundraising_total(self, include_giftaid = True):
         """Calculate the total amount raised for this ride"""
-        return self.fundraiser_set.aggregate(total=models.Sum('totalRaised'))['total']
+        totals = self.fundraiser_set.aggregate(total=models.Sum('totalRaised'), giftaid=models.Sum('giftAid'))
+        if include_giftaid:
+            return (totals['total'] or 0) + (totals['giftaid'] or 0)
+        else:
+            return totals['total'] or 0
 
     fundraising_total    = cached_property(get_fundraising_total, name='fundraising_total')
     fundraising_target   = models.DecimalField(default=500.00, max_digits=6, decimal_places=2)
