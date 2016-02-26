@@ -12,11 +12,11 @@ from server.core.models.sales import Sale
 
 
 class Ride(models.Model):
-    name           = models.CharField(max_length = '255')
-    slug           = models.CharField(max_length = '255', unique = True)
+    name           = models.CharField(max_length=255)
+    slug           = models.CharField(max_length=255, unique = True)
     description    = models.TextField(blank = True)
-    start_location = models.CharField(max_length = '255')
-    end_location   = models.CharField(max_length = '255')
+    start_location = models.CharField(max_length=255)
+    end_location   = models.CharField(max_length=255)
     start_date     = models.DateField()
     end_date       = models.DateField()
 

@@ -1,6 +1,8 @@
 from django.conf.urls import patterns, url
 
-urlpatterns = patterns('',
-    url(r'^complete/(?P<backend>[^/]+)$', 'server.core.auth.views.complete', name='complete'),
-    url(r'^login/(?P<backend>[^/]+)$', 'server.core.auth.views.auth', name='login')
-)
+from .views import complete, auth
+
+urlpatterns = [
+    url(r'^complete/(?P<backend>[^/]+)', complete, name='complete'),
+    url(r'^login/(?P<backend>[^/]+)', auth, name='login')
+]

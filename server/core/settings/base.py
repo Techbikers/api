@@ -163,9 +163,9 @@ TEMPLATE_LOADERS = (
 #     'django.template.loaders.eggs.Loader',
 )
 
-TEMPLATE_CONTEXT_PROCESSORS = TCP + (
-    'django.core.context_processors.request',
-)
+TEMPLATE_CONTEXT_PROCESSORS = TCP + [
+    'django.core.context_processors.request'
+]
 
 CODEMIRROR_PATH = 'js/codemirror'
 

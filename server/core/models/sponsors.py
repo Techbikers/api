@@ -13,7 +13,7 @@ def generate_filename(instance, filename):
 
 
 class Sponsor(models.Model):
-    organisation = models.CharField(max_length='255')
+    organisation = models.CharField(max_length=255)
     description = models.TextField(blank=True)
     logo = models.ImageField(upload_to=generate_filename)
     website = models.URLField(blank=True)
