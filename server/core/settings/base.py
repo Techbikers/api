@@ -183,6 +183,7 @@ INSTALLED_APPS = (
     'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'webpack_loader',
     'suit',  # Admin interface
     'django.contrib.admin',
     'django_user_agents',

@@ -25,6 +25,13 @@ DATABASES = {
     }
 }
 
+WEBPACK_LOADER = {
+    'DEFAULT': {
+        'BUNDLE_DIR_NAME': 'dist/',
+        'STATS_FILE': os.path.join(BASE, 'webpack-stats.json')
+    }
+}
+
 MANDRILL_API_KEY = ''
 MANDRILL_SUBACCOUNT = ""
 
