@@ -35,8 +35,6 @@ class Application extends Marty.Application {
     this.register('ridesStore', require('./stores/ridesStore.js'));
     this.register('sponsorsStore', require('./stores/sponsorsStore.js'));
 
-    this.router = require('./router');
-
     // Attempt to reauthenticate the user
     this.authActions.attemptReAuth();
   }

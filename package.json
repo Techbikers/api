@@ -36,11 +36,12 @@
     "marty": "^0.10.4",
     "moment": "^2.10.3",
     "newforms": "^0.12.1",
-    "react": "^0.13.2",
     "react-document-title": "latest",
     "react-intl": "^1.2.0",
-    "react-router": "^0.13.3",
     "superagent": "^1.2.0"
+    "react": "^0.14.7",
+    "react-dom": "^0.14.7",
+    "react-router": "^2.0.1",
   },
   "devDependencies": {
     "autoprefixer": "^6.2.3",
