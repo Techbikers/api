@@ -8,12 +8,12 @@
     <p>Hi {{ user.first_name }}</p>
 
     <p><b>
-        Great news - we'd love to have you as part of the TechBikers 2015 ride.</b> We can't
+        Great news - we'd love to have you as part of the TechBikers {{ ride.name }} ride.</b> We can't
         wait to ride with you and raise money for <a href="http://techbikers.com/the_charity">Room to Read.</a></p>
 
     <p>
-        To secure your place, <b>please complete registration and pay your ride contribution by
-        {{ invite_expires|date:"d F" }}</b></p>
+        <b>To secure your place, please complete registration and pay your ride contribution by
+        {{ invite_expires|date:"d F" }}</b>.</p>
 
     <p>
         If you haven't paid by then, we will release to the next batch, who might snap up your
@@ -30,9 +30,6 @@
     <p>
         To reiterate, the ride costs about £{{ ride.full_cost }} per rider. To help cover costs and get more money to
         Room to Read's aid projects, we're asking for a minimum contribution of £{{ ride.price }}.</p>
-
-    <p>
-        You are very very welcome to pay more than that if you're able to, you absolute star.</p>
 
     <p>
         In return, you get "stuff" worth well over £300, and that's excluding all of the ride
