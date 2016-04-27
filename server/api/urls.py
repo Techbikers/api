@@ -9,8 +9,8 @@ from .views.fundraisers import FundraisersList
 
 
 auth_urls = [
-    url(r'^token-exchange', TokenExchange.as_view()),
-    url(r'^token-refresh', refresh_jwt_token),
+    url(r'^token/exchange', TokenExchange.as_view()),
+    url(r'^token/refresh', refresh_jwt_token),
     url(r'^token', obtain_jwt_token),
     url(r'^password/change', PasswordChange.as_view(), name='password-change'),
     url(r'^password/reset', PasswordReset.as_view(), name='password-reset'),
