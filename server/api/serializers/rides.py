@@ -3,12 +3,13 @@ from django.conf import settings
 from rest_framework import serializers
 from rest_framework.validators import UniqueTogetherValidator
 from server.api.serializers.chapters import ChapterSerializer
+from .riders import RiderSerializer
 from server.core.models.rides import Ride, RideRiders
 
 
 class RideSerializer(serializers.ModelSerializer):
     chapter = ChapterSerializer()
-    riders = serializers.PrimaryKeyRelatedField(source='registered_riders', many=True, read_only=True)
+    riders = RiderSerializer(source='registered_riders', many=True, read_only=True)
 
     class Meta:
         model = Ride
