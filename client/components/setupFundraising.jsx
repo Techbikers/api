@@ -1,15 +1,13 @@
-import _ from "lodash";
-import Marty from "marty";
 import React, { Component } from "react";
 import forms, { Form, RenderForm } from 'newforms';
 
-import FormField from "./formField.jsx";
-import ProgressButton from "./progressButton.jsx";
-import Spinner from "./spinner.jsx";
-import AuthLogin from "./authLogin.jsx";
+import { requireAuthentication } from "../containers/requireAuthentication";
 
+import FormField from "./FormField";
+import ProgressButton from "./ProgressButton";
 
-class SetupFundraising extends Component {
+@requireAuthentication
+export default class SetupFundraising extends Component {
 
   constructor(props) {
     super(props);
@@ -59,14 +57,6 @@ class SetupFundraising extends Component {
     );
   }
 
-  renderLoading() {
-    return (
-      <div className="ride-registration--content">
-        <Spinner />
-      </div>
-    );
-  }
-
   renderForm() {
     return (
       <div className="ride-registration--content">
@@ -111,5 +101,3 @@ class SetupFundraising extends Component {
     }
   }
 }
-
-export default Marty.createContainer(SetupFundraising);

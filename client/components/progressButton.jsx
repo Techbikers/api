@@ -1,5 +1,6 @@
 import React, { Component } from "react";
-import Spinner from "./spinner.jsx";
+
+import Spinner from "./Spinner";
 
 class ProgressButton extends Component {
   static propTypes = {
@@ -7,13 +8,13 @@ class ProgressButton extends Component {
     onError: React.PropTypes.func,
     onSuccess: React.PropTypes.func,
     state: React.PropTypes.string
-  }
+  };
 
   static defaultProps = {
     durationError: 3000,
     durationSuccess: 3000,
     onClick: function() {}
-  }
+  };
 
   constructor(options) {
     super(options);

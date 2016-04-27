@@ -1,18 +1,16 @@
-import _ from "lodash";
 import React, { Component } from "react";
-import Marty from "marty";
 import { Link } from "react-router";
 import DocumentTitle from "react-document-title";
 import forms, { Form, RenderForm } from 'newforms';
 
-import FormField from "./formField.jsx";
-import ProgressButton from "./progressButton.jsx";
+import FormField from "./FormField";
+import ProgressButton from "./ProgressButton";
 
 const SendResetLinkForm = Form.extend({
   email: forms.EmailField()
 });
 
-class ResetPassword extends Component {
+export default class ResetPassword extends Component {
   constructor(options) {
     super(options);
     this.state = {
@@ -90,17 +88,3 @@ class ResetPassword extends Component {
     );
   }
 }
-
-ResetPassword = Marty.createContainer(ResetPassword, {
-  listenTo: ['authStore'],
-  fetch: {
-    reset() {
-      return this.app.authStore.passwordReset;
-    },
-    resetError() {
-      return this.app.authStore.error;
-    }
-  }
-});
-
-export default ResetPassword;

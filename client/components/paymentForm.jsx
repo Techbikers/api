@@ -1,36 +1,38 @@
-import _ from "lodash";
-import React, { Component } from "react";
-import forms, { Form, RenderForm, TextInput } from 'newforms';
+import React, { Component, PropTypes } from "react";
+import forms, { Form, RenderForm, TextInput } from "newforms";
+import { autobind } from "core-decorators";
+
 import PaymentUtils from "../utils/paymentUtils";
+import FormField from "./FormField";
 
-import FormField from "./formField.jsx";
-
-class PaymentForm extends Component {
+export default class PaymentForm extends Component {
   static propTypes = {
-    onSubmit: React.PropTypes.func.isRequired,
-    customAmount: React.PropTypes.boolean
-  }
+    onSubmit: PropTypes.func.isRequired,
+    customAmount: PropTypes.bool
+  };
 
   static defaultProps = {
     submitText: "Submit",
     customAmount: true,
     minAmount: 0
-  }
+  };
 
-  constructor(options) {
-    super(options);
+  constructor(props) {
+    super(props);
     this.state = {
       form: this.paymentDetailsForm()
     }
   }
 
   paymentDetailsForm() {
+    const { minAmount, customAmount } = this.props;
+
     const PaymentDetailsForm = Form.extend({
       amount: forms.DecimalField({
-        label: this.props.minAmount,
-        required: this.props.customAmount,
-        initial: this.props.minAmount,
-        minValue: this.props.minAmount,
+        label: minAmount,
+        required: customAmount,
+        initial: minAmount,
+        minValue: minAmount,
         maxDecimalPlaces: 2
       }),
       number: forms.CharField({
@@ -101,31 +103,37 @@ class PaymentForm extends Component {
       }),
       clean() {
         if (this.cleanedData.exp) {
-          let exp = PaymentUtils.getCardExpiryVal(this.cleanedData.exp);
-          this.cleanedData["exp_month"] = exp.month;
-          this.cleanedData["exp_year"] = exp.year;
+          const { month, year } = PaymentUtils.getCardExpiryVal(this.cleanedData.exp);
+          this.cleanedData["exp_month"] = month;
+          this.cleanedData["exp_year"] = year;
         }
       }
     });
-    return new PaymentDetailsForm({onChange: this.onFormChange.bind(this)});
+    return new PaymentDetailsForm({onChange: this.onFormChange});
   }
 
+  @autobind
   onFormChange() {
     this.forceUpdate();
   }
 
+  @autobind
   onFormSubmit(e) {
     e.preventDefault();
-    let form = this.state.form;
-    if (form.validate())
+    const { form } = this.state;
+
+    if (form.validate()) {
       this.props.onSubmit(form.cleanedData);
+    }
   }
 
   render() {
-    let fields = this.state.form.boundFieldsObj();
+    const fields = this.state.form.boundFieldsObj();
+    const { customAmount, submitText } = this.props;
+
     return (
       <form className="payment-form">
-        {this.props.customAmount ?
+        {customAmount ?
           <div className="payment-form--amount row">
             <h2>I can contribute £<FormField field={fields.amount} /></h2>
           </div> : ""}
@@ -152,13 +160,11 @@ class PaymentForm extends Component {
         </div>
 
         <div className="payment-form--submit">
-          <button className="btn btn-blue" type="submit" onClick={this.onFormSubmit.bind(this)}>
-            {this.props.submitText}
+          <button className="btn btn-blue" type="submit" onClick={this.onFormSubmit}>
+            {submitText}
           </button>
         </div>
       </form>
     );
   }
 }
-
-export default PaymentForm;

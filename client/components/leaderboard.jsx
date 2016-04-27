@@ -1,14 +1,20 @@
-import _ from "lodash";
 import React, { PropTypes, Component } from "react";
-import Marty from "marty";
+import { connect } from "react-redux";
 import DocumentTitle from "react-document-title";
 
-import Fundraiser from "./fundraiser.jsx";
-import Spinner from "./spinner.jsx";
+import Fundraiser from "./Fundraiser";
+import Spinner from "./Spinner";
 
-class Leaderboard extends Component {
+const mapStateToProps = (state) => {
+  return {
+    fundraisers: []
+  }
+}
+
+@connect(mapStateToProps)
+export default class Leaderboard extends Component {
   render() {
-    let fundraisers = _.sortByOrder(this.props.fundraisers, (fundraiser) => {
+    const fundraisers = _.sortByOrder(this.props.fundraisers, (fundraiser) => {
       return parseInt(fundraiser.totalRaised * 100);
     }, "desc");
 
@@ -21,7 +27,7 @@ class Leaderboard extends Component {
             </header>
 
             <ul className="leaderboard">
-              {_.map(fundraisers, (fundraiser, position) => {
+              {fundraisers.map((fundraiser, position) => {
                 return (
                   <li key={fundraiser.id}>
                     <Fundraiser fundraiser={fundraiser} position={position+1} />
@@ -35,17 +41,3 @@ class Leaderboard extends Component {
     );
   }
 }
-
-Leaderboard = Marty.createContainer(Leaderboard, {
-  listenTo: ['fundraisersStore'],
-  fetch: {
-    fundraisers() {
-      return this.app.fundraisersStore.getActiveFundraisers();
-    }
-  },
-  pending() {
-    return <Spinner message="fetching the fundraisers" />;
-  }
-});
-
-export default Leaderboard;

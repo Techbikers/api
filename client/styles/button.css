@@ -1,0 +1,71 @@
+@import "variables";
+
+.Button {
+  composes: grey from "./base/colors";
+
+  display: inline-block;
+  padding: 10px 40px;
+  border-width: 3px;
+  border-style: solid;
+  border-radius: 3px;
+
+  text-align: center;
+  font-size: $baseFontSize;
+  line-height: $baseLineHeight;
+  cursor: pointer;
+  text-decoration: none;
+
+  transition: all 50ms linear;
+
+  &,
+  &:hover,
+  &:active,
+  &:focus {
+    text-decoration: none;
+    outline: 0;
+    color: #fff;
+  }
+
+  &::-moz-focus-inner {
+    border: 0;
+    padding: 0;
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  &.block {
+    width: 100%;
+  }
+
+  &.noFill {
+    background: none;
+  }
+}
+
+.purple {
+  composes: purpleBorder from "./base/colors";
+  composes: purpleBackground from "./base/colors";
+}
+
+.red {
+  composes: redBorder from "./base/colors";
+  composes: redBackground from "./base/colors";
+}
+
+.blue {
+  composes: blueBorder from "./base/colors";
+  composes: blueBackground from "./base/colors";
+}
+
+.green {
+  composes: greenBorder from "./base/colors";
+  composes: greenBackground from "./base/colors";
+}
+
+.yellow {
+  composes: yellowBorder from "./base/colors";
+  composes: yellowBackground from "./base/colors";
+}

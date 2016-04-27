@@ -1,13 +1,12 @@
 import _ from "lodash";
 import React, { Component } from "react";
-import Marty from "marty";
 import { Link } from "react-router";
 import DocumentTitle from "react-document-title";
 import forms, { Form, RenderForm } from 'newforms';
 
-import FormField from "./formField.jsx";
-import ProgressButton from "./progressButton.jsx";
-import Errors from "./errors.jsx";
+import FormField from "./FormField";
+import ProgressButton from "./ProgressButton";
+import Errors from "./Errors";
 
 const ResetPasswordForm = Form.extend({
   password1: forms.CharField({
@@ -28,7 +27,7 @@ const ResetPasswordForm = Form.extend({
   }]
 });
 
-class ConfirmResetPassword extends Component {
+export default class ConfirmResetPassword extends Component {
   constructor(options) {
     super(options);
     this.state = {
@@ -104,17 +103,3 @@ class ConfirmResetPassword extends Component {
     );
   }
 }
-
-ConfirmResetPassword = Marty.createContainer(ConfirmResetPassword, {
-  listenTo: ['authStore'],
-  fetch: {
-    isLoggedIn() {
-      return this.app.authStore.isLoggedIn();
-    },
-    error() {
-      return this.app.authStore.error;
-    }
-  }
-});
-
-export default ConfirmResetPassword;

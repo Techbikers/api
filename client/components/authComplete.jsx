@@ -1,7 +1,7 @@
 import _ from "lodash";
 import React, { Component } from "react";
 
-import Spinner from "./spinner.jsx";
+import Spinner from "./Spinner";
 
 class AuthComplete extends Component {
   componentDidMount() {

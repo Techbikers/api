@@ -1,14 +1,14 @@
 import React, { Component } from "react";
-import forms from 'newforms';
+import forms from "newforms";
 
-class FormField extends Component {
+export default class FormField extends Component {
   static propTypes = {
     field: React.PropTypes.object.isRequired
-  }
+  };
 
   static defaultProps = {
     className: ""
-  }
+  };
 
   render() {
     let { field } = this.props;
@@ -34,5 +34,3 @@ class FormField extends Component {
     }
   }
 }
-
-export default FormField;

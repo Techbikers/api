@@ -1,7 +1,7 @@
-import moment from 'moment';
-import React, { Component } from 'react';
+import moment from "moment";
+import React, { Component } from "react";
 
-class Timestamp extends Component {
+export default class Timestamp extends Component {
 
   static propTypes = {
     value: React.PropTypes.oneOfType([
@@ -14,11 +14,11 @@ class Timestamp extends Component {
     format: React.PropTypes.string,
     titleFormat: React.PropTypes.string,
     locale: React.PropTypes.string
-  }
+  };
 
   static defaultProps = {
     titleFormat: 'YYYY-MM-DD HH:mm'
-  }
+  };
 
   render() {
     var { value } = this.props;
@@ -45,5 +45,3 @@ class Timestamp extends Component {
     }
   }
 }
-
-export default Timestamp;

@@ -1,24 +1,25 @@
-import React  from 'react';
+import React  from "react";
 import Router, { Route, IndexRoute } from "react-router";
 
-// # Components
-import App          from './components/app.jsx';
-import AuthComplete from './components/authComplete.jsx';
-import Index        from './components/index.jsx';
-import About        from './components/about.jsx';
-import Account      from './components/account.jsx';
-import Charity      from './components/charity.jsx';
-import Sponsors     from './components/sponsors.jsx';
-import Leaderboard  from './components/leaderboard.jsx';
-import Login        from './components/login.jsx';
-import Rides        from './components/rides.jsx';
-import Ride         from './components/ride.jsx';
-import RiderProfile from './components/riderProfile.jsx';
-import Chapter      from './components/chapter.jsx';
-import NotFound     from './components/404.jsx';
-import Signup       from './components/signup.jsx';
-import PasswordReset  from './components/resetPassword.jsx';
-import PasswordResetConfirm from './components/confirmResetPassword.jsx';
+// # Components & Containers
+import AuthComplete from "./components/authComplete";
+import IndexPage from "./components/IndexPage";
+import AboutPage from "./components/AboutPage";
+import CharityPage from "./components/CharityPage";
+import Leaderboard  from "./components/leaderboard";
+import NotFound     from "./components/NotFound";
+import PasswordReset  from "./components/resetPassword";
+import PasswordResetConfirm from "./components/confirmResetPassword";
+
+import Account from "./containers/Account";
+import AppContainer from "./containers/AppContainer";
+import ChapterPage from "./containers/ChapterPage";
+import LoginPage from "./containers/LoginPage";
+import RidePage from "./containers/RidePage";
+import RidesPage from "./containers/RidesPage";
+import RiderProfile from "./containers/RiderProfile";
+import SponsorsPage from "./containers/SponsorsPage";
+import SignupPage from "./containers/SignupPage";
 
 export default (
   <Route>
@@ -26,34 +27,42 @@ export default (
     <Route path="/auth/complete/:backend" component={AuthComplete} />
 
     // # Main App handler
-    <Route path="/" component={App}>
+    <Route path="/" component={AppContainer}>
       // ## Default route
-      <IndexRoute component={Index} />
+      <IndexRoute component={IndexPage} />
 
       // ## Static Page Routing
-      <Route path="/about" component={About} />
-      <Route path="/sponsors" component={Sponsors} />
-      <Route path="/the_charity" component={Charity} />
+      <Route path="about" component={AboutPage} />
+      <Route path="sponsors" component={SponsorsPage} />
+      <Route path="the_charity" component={CharityPage} />
 
       // ## Authentication and Account
-      <Route path="/login" component={Login} />
-      <Route path="/signup" component={Signup} />
-      <Route path="/account" component={Account} />
-      <Route path="/password/reset" component={PasswordReset} />
-      <Route path="/password/reset/:uid/:token" component={PasswordResetConfirm} />
+      <Route path="login" component={LoginPage} />
+      <Route path="signup" component={SignupPage} />
+      <Route path="account" component={Account} />
+      <Route path="password">
+        <Route path="reset">
+          <IndexRoute component={PasswordReset} />
+          <Route path=":uid/:token" component={PasswordResetConfirm} />
+        </Route>
+      </Route>
 
       // ## Ride Routing
-      <Route path="/rides" component={Rides} />
-      <Route path="/rides/:id/:slug" component={Ride} />
+      <Route path="rides">
+        <IndexRoute component={RidesPage} />
+        <Route path=":id(/:slug)" component={RidePage} />
+      </Route>
 
       // ## Rider Routing
-      <Route path="/riders/:id" component={RiderProfile} />
+      <Route path="riders/:id" component={RiderProfile} />
 
       // ## Fundraising
-      <Route path="/donate" component={Leaderboard} />
+      <Route path="donate" component={Leaderboard} />
 
       // ## Chapter Routing
-      <Route path="/chapters/:name" component={Chapter} />
+      <Route path="chapters">
+        <Route path=":name" component={ChapterPage} />
+      </Route>
 
       // ## Error handling
       <Route path="*" component={NotFound}/>

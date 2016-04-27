@@ -1,27 +1,28 @@
-import _ from "lodash";
 import React, { PropTypes, Component } from "react";
-import Marty from "marty";
 import DocumentTitle from "react-document-title";
 import { Link } from "react-router";
 import { FormattedNumber } from "react-intl";
 
-import Avatar from "./avatar.jsx";
-import Spinner from "./spinner.jsx";
+import Avatar from "./Avatar";
+import Spinner from "./Spinner";
 
-class Fundraiser extends Component {
+export default class Fundraiser extends Component {
   static propTypes = {
-    fundraiser: PropTypes.object.isRequired
-  }
+    ride: PropTypes.object,
+    user: PropTypes.object,
+    fundraiser: PropTypes.object
+  };
 
   render() {
-    let { fundraiser, rider, ride, position } = this.props;
+    const { fundraiser, rider, ride, position } = this.props;
+
     return (
       <div className="fundraiser">
         <span className={`fundraiser-position position-${position}`}>
           {position || ""}
         </span>
 
-        <Avatar rider={rider} />
+        <Avatar {...rider} />
 
         <div className="fundraiser-details">
           <h3>{rider.name}</h3>
@@ -39,20 +40,3 @@ class Fundraiser extends Component {
     );
   }
 }
-
-Fundraiser = Marty.createContainer(Fundraiser, {
-  listenTo: ['ridersStore', 'ridesStore'],
-  fetch: {
-    ride() {
-      return this.app.ridesStore.getRide(this.props.fundraiser.ride);
-    },
-    rider() {
-      return this.app.ridersStore.getRider(this.props.fundraiser.user);
-    }
-  },
-  pending() {
-    return <div style={{height: 100}}>Totting up the total</div>;
-  }
-});
-
-export default Fundraiser;

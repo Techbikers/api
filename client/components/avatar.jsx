@@ -1,20 +1,9 @@
-import React, { Component } from "react";
-import { Link } from "react-router";
+import React from "react";
 
-class Avatar extends Component {
-
-  static defaultProps = {
-    size: 80
-  }
-
-  render() {
-    const { rider } = this.props;
-    return (
-      <div className="rider-avatar">
-        <img title={rider.name} src={rider.avatar + "?s=" + this.props.size} />
-      </div>
-    );
-  }
-}
+const Avatar = ({name, avatar, size = 80}) => (
+  <div className="rider-avatar">
+    <img title={name} src={avatar + "?s=" + size} />
+  </div>
+);
 
 export default Avatar;

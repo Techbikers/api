@@ -17,7 +17,7 @@ class AuthLogin extends Component {
       width: 580,
       height: 500
     }
-  }
+  };
 
   componentDidMount() {
     // Set the authCallback so that we can call it from the popup window.
