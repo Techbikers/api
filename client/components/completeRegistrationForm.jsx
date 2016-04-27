@@ -48,12 +48,12 @@ class CompleteRegistrationForm extends Component {
           <div className="ride-registration--details">
             {currentRiderRegistration.signup_expires ?
               <p>
-              Great news - we'd love to have you as part of the TechBikers 2015 ride.
+              Great news - we'd love to have you as part of TechBikers ride.
               Congratulations! <b>You have until <Timestamp format="D MMM" value={currentRiderRegistration.signup_expires} /> to
               register.</b> After this you may lose your spot to someone else.</p>
             :
               <p>
-                Great news - we'd love to have you as part of the TechBikers 2015 ride.</p>}
+                Great news - we'd love to have you as part of TechBikers.</p>}
             <p>
               <b>The ride costs about <FormattedNumber style="currency" currency={ride.currency} value={ride.full_cost} /> per rider.
               We're asking for a minimum contribution of <FormattedNumber style="currency" currency={ride.currency} value={ride.price} />.</b> If
