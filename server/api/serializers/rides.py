@@ -23,7 +23,7 @@ class RideRiderSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = RideRiders
-        fields = ('ride', 'user', 'signup_date', 'signup_expires', 'status', 'paid', 'expired', 'payload')
+        fields = ('id', 'ride', 'user', 'signup_date', 'signup_expires', 'status', 'paid', 'expired', 'payload')
         validators = [
             UniqueTogetherValidator(
                 queryset=RideRiders.objects.all(),
