@@ -9,9 +9,7 @@ django-jsonfield==0.9.13
 django-suit==0.2.18
 gunicorn==19.4.5
 django-codemirror-widget==0.4.0
-user-agents==1.0.1
 requests==2.7.0
-django-user-agents==0.3.0
 sendgrid-django==2.0.0
 Pillow==2.9.0
 python-social-auth==0.2.14

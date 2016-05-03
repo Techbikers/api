@@ -186,7 +186,6 @@ INSTALLED_APPS = (
     'webpack_loader',
     'suit',  # Admin interface
     'django.contrib.admin',
-    'django_user_agents',
     'rest_framework',
     'social.apps.django_app.default',
     'server.core',
@@ -201,7 +200,6 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
-    'django_user_agents.middleware.UserAgentMiddleware',
     # Uncomment the next line for simple clickjacking protection:
     # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )

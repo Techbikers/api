@@ -12,11 +12,8 @@
         <title>{% block title %}Techbikers{% endblock %}</title>
 
         {% render_bundle 'vendor' %}
+        {% render_bundle 'sass' %}
 
-        {% if "safari" in request.user_agent.browser.family.lower %}
-        <script type="text/javascript" src="{% static 'js/intl.min.js'%}"></script>
-        <script type="text/javascript" src="{% static 'js/intl-locale-en.min.js'%}"></script>
-        {% endif %}
     </head>
 
     <body>

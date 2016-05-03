@@ -14,9 +14,21 @@ const history = syncHistoryWithStore(browserHistory, store);
 
 store.dispatch(init())
 
-render(
-  <Provider store={store}>
-    <Router history={history} children={routes} />
-  </Provider>,
-  document.getElementById('app')
-)
+if (!global.Intl) {
+  require.ensure(["intl", "intl/locale-data/jsonp/en.js"], (require) => {
+    require("intl");
+    require("intl/locale-data/jsonp/en.js");
+    renderApp();
+  });
+} else {
+  renderApp()
+}
+
+function renderApp() {
+  render(
+    <Provider store={store}>
+      <Router history={history} children={routes} />
+    </Provider>,
+    document.getElementById('app')
+  )
+}
