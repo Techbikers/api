@@ -131,9 +131,6 @@ class RideRiders(models.Model):
             msg.attach_alternative(get_template('email/ride_invite.html').render(context), "text/html")
             msg.send()
 
-            # Store some info about the invite email
-            self.payload['invite_email'] = msg.mandrill_response
-
             return self.save()
 
     class Meta:

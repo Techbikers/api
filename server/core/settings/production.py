@@ -46,8 +46,7 @@ with open('../../production.json') as configFile:
     config = json.load(configFile);
     SECRET_KEY = config.get('secret_key')
     email = config.get('email')
-    MANDRILL_API_KEY = os.environ.get('MANDRILL_API_KEY', email.get('mandrill_api_key'))
-    MANDRILL_SUBACCOUNT = os.environ.get('MANDRILL_SUBACCOUNT', email.get('mandrill_subaccount'))
+    SENDGRID_API_KEY = os.environ.get('SENDGRID_API_KEY', email.get('sendgrid_api_key'))
     JUST_GIVING_API_URL = 'https://api.justgiving.com/v1'
 
     social_auth = config.get('social_auth')

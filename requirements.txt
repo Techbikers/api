@@ -12,7 +12,7 @@ django-codemirror-widget==0.4.0
 user-agents==0.3.2
 requests==2.7.0
 django-user-agents==0.3.0
-djrill==1.4.0
+sendgrid-django==2.0.0
 Pillow==2.9.0
 python-social-auth==0.2.12
 django-crontab==0.6.0

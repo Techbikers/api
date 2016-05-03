@@ -102,7 +102,7 @@ SOCIAL_AUTH_FACEBOOK_PROFILE_EXTRA_PARAMS = {
 }
 
 
-EMAIL_BACKEND = 'djrill.mail.backends.djrill.DjrillBackend'
+EMAIL_BACKEND = 'sgbackend.SendGridBackend'
 DEFAULT_FROM_EMAIL = 'hello@techbikers.com'
 
 # Hosts/domain names that are valid for this site; required if DEBUG is False
@@ -189,7 +189,6 @@ INSTALLED_APPS = (
     'server.core',
     'server.api',
     'codemirror',
-    'djrill',
     'django_crontab'
 )
 
