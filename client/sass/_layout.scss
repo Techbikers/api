@@ -100,7 +100,7 @@
 // Hero
 .hero {
   @include clearfix();
-  background: image_url('background.jpg');
+  background-image: url("/static/img/background.jpg");
   background-size: cover;
   padding: 100px 0;
   color: white;
