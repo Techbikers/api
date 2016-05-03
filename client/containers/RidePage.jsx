@@ -55,7 +55,7 @@ export default class RidePage extends Component {
               </header>
 
               <div className="content">
-                <h2>We've raised <FormattedNumber style="currency" currency={ride.currency} value={ride.fundraising_total} maximumFractionDigits={0} />!</h2>
+                <h2>We've raised <FormattedNumber style="currency" currency={ride.currency} value={ride.fundraising_total} maximumFractionDigits={0} minimumFractionDigits={0} />!</h2>
               </div>
             </section>
 
