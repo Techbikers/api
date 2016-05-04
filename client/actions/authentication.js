@@ -1,3 +1,5 @@
+import { EventTypes } from "redux-segment";
+
 import { API_REQUEST } from "../middleware/api";
 
 export const AUTHENTICATION_REQUEST = "AUTHENTICATION_REQUEST";
@@ -22,6 +24,12 @@ export function authenticateAs(email, password) {
       requestActionType: AUTHENTICATION_REQUEST,
       successActionType: AUTHENTICATION_SUCCESS,
       errorActionType: AUTHENTICATION_FAILURE
+    },
+    meta: {
+      analytics: {
+        eventType: EventTypes.identify,
+        eventPayload: { userId: email }
+      }
     }
   }
 }

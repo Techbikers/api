@@ -1,4 +1,6 @@
 import { arrayOf } from "normalizr";
+import { EventTypes } from "redux-segment";
+
 import {
   API_REQUEST,
   rideSchema,
@@ -83,6 +85,14 @@ export function registerUserForRide(rideId, payload = null) {
       requestActionType: NEW_RIDE_REGISTRATION_REQUEST,
       successActionType: NEW_RIDE_REGISTRATION_RESPONSE,
       errorActionType: NEW_RIDE_REGISTRATION_ERROR
+    },
+    meta: {
+      analytics: {
+        eventType: EventTypes.track,
+        eventPayload: {
+          properties: { ride: rideId }
+        }
+      }
     }
   }
 }
@@ -110,6 +120,14 @@ export function chargeUserForRide(rideId, userId, token = null, amount = null) {
       requestActionType: RIDE_REGISTRATION_CHARGE_REQUEST,
       successActionType: RIDE_REGISTRATION_CHARGE_RESPONSE,
       errorActionType: RIDE_REGISTRATION_CHARGE_ERROR
+    },
+    meta: {
+      analytics: {
+        eventType: EventTypes.track,
+        eventPayload: {
+          properties: { ride: rideId, amount }
+        }
+      }
     }
   }
 }
@@ -120,7 +138,18 @@ export const CREATE_STRIPE_TOKEN_ERROR = "CREATE_STRIPE_TOKEN_ERROR";
 
 export function createTokenAndChargeUserForRide(rideId, userId, amount, cardDetails, publicKey) {
   function actionWith(type, response = {}) {
-    return { type, response };
+    return {
+      type,
+      response,
+      meta: {
+        analytics: {
+          eventType: EventTypes.track,
+          eventPayload: {
+            properties: { ride: rideId, amount }
+          }
+        }
+      }
+    };
   };
 
   return dispatch => {

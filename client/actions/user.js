@@ -1,4 +1,6 @@
 import { arrayOf } from "normalizr";
+import { EventTypes } from "redux-segment";
+
 import { API_REQUEST, userSchema } from "../middleware/api";
 import { authenticateAs } from "./authentication";
 
@@ -49,6 +51,11 @@ export function createUser(user) {
       requestActionType: CREATE_USER_REQUEST,
       successActionType: CREATE_USER_RESPONSE,
       errorActionType: CREATE_USER_ERROR
+    },
+    meta: {
+      analytics: {
+        eventType: EventTypes.track
+      }
     }
   }
 }
@@ -78,6 +85,11 @@ export function updateUser(user) {
       requestActionType: UPDATE_USER_REQUEST,
       successActionType: UPDATE_USER_RESPONSE,
       errorActionType: UPDATE_USER_ERROR
+    },
+    meta: {
+      analytics: {
+        eventType: EventTypes.track
+      }
     }
   }
 }

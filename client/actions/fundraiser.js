@@ -1,4 +1,6 @@
 import { arrayOf } from "normalizr";
+import { EventTypes } from "redux-segment";
+
 import { API_REQUEST, fundraiserSchema } from "../middleware/api";
 
 export const GET_FUNDRAISER_REQUEST = "GET_FUNDRAISER_REQUEST";
@@ -39,6 +41,14 @@ export function createFundraisingPage(rideId, userId) {
       requestActionType: NEW_FUNDRAISER_REQUEST,
       successActionType: NEW_FUNDRAISER_RESPONSE,
       errorActionType: NEW_FUNDRAISER_ERROR
+    },
+    meta: {
+      analytics: {
+        eventType: EventTypes.track,
+        eventPayload: {
+          properties: { ride: rideId }
+        }
+      }
     }
   }
 }
