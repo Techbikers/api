@@ -4,7 +4,7 @@ import forms, { Form, RenderForm } from "newforms";
 import { Link } from "react-router";
 
 import FormField from "./FormField";
-import Errors from "./Errors";
+import ErrorMessage from "./ErrorMessage";
 
 const LoginFormSchema = Form.extend({
   email: forms.EmailField(),
@@ -41,11 +41,11 @@ export default class LoginForm extends Component {
   }
 
   render() {
-    const { returnTo } = this.props;
+    const { returnTo, error } = this.props;
 
     return (
       <form id="loginform" role="form" onSubmit={this.handleSubmit}>
-        <Errors error={this.props.error} />
+        <ErrorMessage error={error} />
         <div className="row">
           {_.map(this.state.form.boundFieldsObj(), (field) => {
             return (

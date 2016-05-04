@@ -1,17 +1,17 @@
 import { CLEAR_ERRORS } from "../actions/error";
 
-export default function errors(state = {}, { type, error}) {
+export default function errors(state = null, { type, error }) {
   switch (type) {
     case CLEAR_ERRORS:
-      return {};
+      return null;
+
     default:
       if (error) {
-        return {
-          ...state,
-          ...error
-        }
+        return error;
       }
 
-      return state;
+      // Clear the errors every time we dispatch a
+      // new action that doesn't contain an error
+      return null;
   }
 }

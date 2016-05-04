@@ -8,10 +8,11 @@ import DocumentTitle from "react-document-title";
 import LoginForm from "../components/LoginForm";
 
 const mapStateToProps = (state, ownProps) => {
+  const { errors } = state;
   const { state: authState, authDidFail, failureReason } = state.authentication;
   const isAuthenticated = authState === "authenticated";
 
-  return { isAuthenticated, authDidFail, failureReason }
+  return { isAuthenticated, authDidFail, failureReason, errors }
 }
 
 @connect(mapStateToProps)
@@ -50,7 +51,7 @@ export default class LoginPage extends Component {
   }
 
   render() {
-    const { location } = this.props;
+    const { location, errors } = this.props;
     const redirectAfterLogin = location.state && location.state.returnTo || "/";
 
     return (
@@ -60,7 +61,7 @@ export default class LoginPage extends Component {
             <h1>Login</h1>
           </header>
           <div className="content">
-            <LoginForm onSubmit={this.handleSubmit} returnTo={redirectAfterLogin} />
+            <LoginForm onSubmit={this.handleSubmit} returnTo={redirectAfterLogin} error={errors} />
           </div>
         </section>
       </DocumentTitle>

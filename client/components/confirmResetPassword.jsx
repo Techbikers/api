@@ -6,7 +6,7 @@ import forms, { Form, RenderForm } from 'newforms';
 
 import FormField from "./FormField";
 import ProgressButton from "./ProgressButton";
-import Errors from "./Errors";
+import ErrorMessage from "./ErrorMessage";
 
 const ResetPasswordForm = Form.extend({
   password1: forms.CharField({
@@ -83,7 +83,7 @@ export default class ConfirmResetPassword extends Component {
           </header>
           <div className="content">
             <form id="loginform" role="form">
-              <Errors error={this.props.error} />
+              <ErrorMessage error={this.props.error} />
               <div className="row centerText">
                 {_.map(this.state.form.boundFieldsObj(), (field) => {
                   return (

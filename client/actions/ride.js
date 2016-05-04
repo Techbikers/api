@@ -137,10 +137,9 @@ export const CREATE_STRIPE_TOKEN_RESPONSE = "CREATE_STRIPE_TOKEN_RESPONSE";
 export const CREATE_STRIPE_TOKEN_ERROR = "CREATE_STRIPE_TOKEN_ERROR";
 
 export function createTokenAndChargeUserForRide(rideId, userId, amount, cardDetails, publicKey) {
-  function actionWith(type, response = {}) {
+  function actionWith(data) {
     return {
-      type,
-      response,
+      ...data,
       meta: {
         analytics: {
           eventType: EventTypes.track,
@@ -153,14 +152,14 @@ export function createTokenAndChargeUserForRide(rideId, userId, amount, cardDeta
   };
 
   return dispatch => {
-    dispatch(actionWith(CREATE_STRIPE_TOKEN_REQUEST));
+    dispatch(actionWith({ type: CREATE_STRIPE_TOKEN_REQUEST }));
     Stripe.setPublishableKey(publicKey);
     Stripe.card.createToken(cardDetails, (status, response) => {
       if (!response.error) {
-        dispatch(actionWith(CREATE_STRIPE_TOKEN_RESPONSE, response));
+        dispatch(actionWith({ type: CREATE_STRIPE_TOKEN_RESPONSE, response }));
         dispatch(chargeUserForRide(rideId, userId, response.id, amount));
       } else {
-        dispatch(actionWith(CREATE_STRIPE_TOKEN_ERROR, response));
+        dispatch(actionWith({ type: CREATE_STRIPE_TOKEN_ERROR, error: response.error }));
       }
     });
   }

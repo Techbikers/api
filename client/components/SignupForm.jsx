@@ -6,7 +6,7 @@ import { slice } from "lodash";
 
 import FormField from "./FormField";
 import ProgressButton from "./ProgressButton";
-import Errors from "./Errors";
+import ErrorMessage from "./ErrorMessage";
 
 const NewRiderForm = Form.extend({
   first_name: forms.CharField(),
@@ -97,7 +97,7 @@ export default class SignupForm extends Component {
           <Link to={{ pathname: "/login", state: {modal: true, returnTo}}}>Already have an account from a previous ride?</Link>
         </p>
         <p className="centerText">
-          <Errors error={error} />
+          <ErrorMessage error={error} />
           <ProgressButton ref="signupbtn" type="submit" onClick={this.createRider}>
             Sign Up
           </ProgressButton>

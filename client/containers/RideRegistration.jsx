@@ -17,13 +17,15 @@ import RegistrationSteps from "../components/RegistrationSteps";
 
 const mapStateToProps = (state) => {
   const { rideRegistrationModal } = state.page.ui;
+  const { errors } = state;
 
   return {
     ride: getCurrentRide(state),
     user: getAuthenticatedUser(state),
     chapter: getChapterForCurrentRide(state),
     registration: getRegistrationForCurrentRideAndUser(state),
-    rideRegistrationModal
+    rideRegistrationModal,
+    errors
   }
 }
 
