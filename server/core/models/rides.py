@@ -127,7 +127,8 @@ class RideRiders(models.Model):
                 'Your Techbikers Invite!',
                 get_template('email/ride_invite.txt').render(context),
                 'TechBikers <hello@techbikers.com>',
-                [self.user.email])
+                [self.user.email],
+                headers={'Categories': 'ride-invitation'})
             msg.attach_alternative(get_template('email/ride_invite.html').render(context), "text/html")
             msg.send()
 
