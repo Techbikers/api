@@ -4,14 +4,15 @@ import thunkMiddleware from "redux-thunk";
 import createLogger from "redux-logger";
 import { browserHistory } from "react-router";
 import { routerMiddleware } from "react-router-redux";
+import { createTracker } from "redux-segment";
 
 import apiMiddleware from "../middleware/api";
-import analyticsMiddleware from "../middleware/analytics";
 import rootReducer from "../reducers";
 
 export default function configureStore(initialState = {}) {
 
   const loggerMiddleware = createLogger();
+  const trackerMiddleware = createTracker();
 
   const authenticationSlicer = () => state => {
     const { state: authState } = state.authentication
@@ -33,6 +34,7 @@ export default function configureStore(initialState = {}) {
       apiMiddleware,
       thunkMiddleware,
       routerMiddleware(browserHistory),
+      trackerMiddleware,
       loggerMiddleware
     ),
     window.devToolsExtension ? window.devToolsExtension() : f => f

@@ -101,7 +101,10 @@ module.exports = function(options) {
   var plugins = [
     new webpack.NoErrorsPlugin(),
     new BundleTracker({ filename: options.production ? "./webpack-stats-prod.json" : "./webpack-stats.json" }),
-    new webpack.optimize.CommonsChunkPlugin("vendor", "vendor-[hash].js")
+    new webpack.optimize.CommonsChunkPlugin("vendor", "vendor-[hash].js"),
+    new webpack.DefinePlugin({
+      "process.env": { NODE_ENV: JSON.stringify(options.production ? "production" : "development") }
+    })
   ]
 
   Object.keys(stylesheetLoaders).forEach(function(ext) {
@@ -126,10 +129,7 @@ module.exports = function(options) {
   if (options.production) {
     plugins.push(
       new webpack.optimize.OccurenceOrderPlugin(),
-      new webpack.optimize.DedupePlugin(),
-      new webpack.DefinePlugin({
-        "process.env": { NODE_ENV: JSON.stringify("production") }
-      })
+      new webpack.optimize.DedupePlugin()
     );
   }
 

@@ -2,6 +2,7 @@ import React from "react";
 import { IntlProvider } from "react-intl";
 import Modal from "react-modal";
 
+import { SEGMENT_TRACKING_KEY } from "../config";
 import { modalStyles } from "../utils/modal";
 
 import AnalyticsLoader from "./AnalyticsLoader";
@@ -12,7 +13,7 @@ import AuthModal from "../containers/AuthModal";
 const App = ({children, modalChildren}) => (
   <IntlProvider locale="en">
     <div>
-      <AnalyticsLoader gaTrackingId="UA-43866664-1" />
+      <AnalyticsLoader segmentKey={SEGMENT_TRACKING_KEY} />
       <Header />
       {children}
       <Footer />
