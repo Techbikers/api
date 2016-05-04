@@ -2,21 +2,26 @@ import React, { PropTypes, Component } from "react";
 import { connect } from "react-redux";
 import DocumentTitle from "react-document-title";
 
-import Fundraiser from "./Fundraiser";
-import Spinner from "./Spinner";
+import { getLeaderboard } from "../selectors/fundraiser";
+import { getActiveFundraisers } from "../actions/fundraiser";
+
+import Fundraiser from "../containers/Fundraiser";
 
 const mapStateToProps = (state) => {
   return {
-    fundraisers: []
+    fundraisers: getLeaderboard(state)
   }
 }
 
 @connect(mapStateToProps)
 export default class Leaderboard extends Component {
+  componentWillMount() {
+    const { dispatch } = this.props;
+    dispatch(getActiveFundraisers());
+  }
+
   render() {
-    const fundraisers = _.sortByOrder(this.props.fundraisers, (fundraiser) => {
-      return parseInt(fundraiser.totalRaised * 100);
-    }, "desc");
+    const { fundraisers } = this.props;
 
     return (
       <DocumentTitle title="Donate – Techbikers">
@@ -30,7 +35,7 @@ export default class Leaderboard extends Component {
               {fundraisers.map((fundraiser, position) => {
                 return (
                   <li key={fundraiser.id}>
-                    <Fundraiser fundraiser={fundraiser} position={position+1} />
+                    <Fundraiser position={position+1} {...fundraiser} />
                   </li>
                 );
               })}
