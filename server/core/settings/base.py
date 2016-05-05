@@ -183,6 +183,7 @@ INSTALLED_APPS = (
     'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'raven.contrib.django.raven_compat',
     'webpack_loader',
     'suit',  # Admin interface
     'django.contrib.admin',

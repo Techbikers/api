@@ -1,12 +1,10 @@
 import os
 import json
-import sys
-
-from os.path import join, normpath
 
 from base import *
 
 DEBUG = False
+
 INSTALLED_APPS += (
     # other apps for production site
     "gunicorn",
@@ -26,13 +24,10 @@ DEFAULT_DB_ALIAS = 'default'
 
 DATABASES = {
     'default': {
-         # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': (os.path.join(BASE,'..','..','db','techbikers.sqlite')),
-        # The following settings are not used with sqlite3:
         'USER': '',
         'PASSWORD': '',
-        # Host is empty for localhost through domain sockets or '127.0.0.1' for localhost through TCP.
         'HOST': '',
         'PORT': '',
     }
@@ -61,6 +56,10 @@ with open('../../production.json') as configFile:
     SOCIAL_AUTH_FACEBOOK_SECRET = social_auth.get('facebook_secret')
     SOCIAL_AUTH_JUSTGIVING_KEY = social_auth.get('justgiving_key')
     SOCIAL_AUTH_JUSTGIVING_SECRET = social_auth.get('justgiving_secret')
+
+    RAVEN_CONFIG = {
+        'dsn': config.get('sentry_dsn')
+    }
 
 MEDIA_ROOT = '/home/django/techbikers.com/media'
 STATIC_ROOT = '/home/django/techbikers.com/static'

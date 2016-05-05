@@ -7,6 +7,7 @@ import { routerMiddleware } from "react-router-redux";
 import { createTracker } from "redux-segment";
 
 import apiMiddleware from "../middleware/api";
+import ravenMiddleware from "../middleware/raven";
 import rootReducer from "../reducers";
 
 export default function configureStore(initialState = {}) {
@@ -32,6 +33,7 @@ export default function configureStore(initialState = {}) {
     }),
     applyMiddleware(
       apiMiddleware,
+      ravenMiddleware,
       thunkMiddleware,
       routerMiddleware(browserHistory),
       trackerMiddleware,

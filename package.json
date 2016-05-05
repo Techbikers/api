@@ -41,6 +41,7 @@
     "moment": "^2.13.0",
     "newforms": "^0.12.1",
     "normalizr": "^2.0.0",
+    "raven-js": "^3.0.2",
     "react": "^0.14.8",
     "react-document-title": "^2.0.1",
     "react-dom": "^0.14.8",
