@@ -16,22 +16,40 @@ export function authenticateAs(email, password) {
     })
   };
 
-  return {
-    email,
-    [API_REQUEST]: {
-      endpoint: "/auth/token",
-      fetchOptions,
-      requestActionType: AUTHENTICATION_REQUEST,
-      successActionType: AUTHENTICATION_SUCCESS,
-      errorActionType: AUTHENTICATION_FAILURE
-    },
-    meta: {
-      analytics: {
-        eventType: EventTypes.identify,
-        eventPayload: { userId: email }
+  function authenticateApiRequest() {
+    return {
+      email,
+      [API_REQUEST]: {
+        endpoint: "/auth/token",
+        fetchOptions,
+        requestActionType: AUTHENTICATION_REQUEST,
+        successActionType: AUTHENTICATION_SUCCESS,
+        errorActionType: AUTHENTICATION_FAILURE
       }
     }
   }
+
+  function trackSuccessfulAuth(userId, firstName, lastName, email) {
+    return {
+      type: "LOGIN",
+      meta: {
+        analytics: {
+          eventType: EventTypes.identify,
+          eventPayload: {
+            userId,
+            traits: { firstName, lastName, email }
+          }
+        }
+      }
+    }
+  }
+
+  return dispatch => dispatch(authenticateApiRequest(email, password)).then(
+    response => {
+      const { userId, firstName, lastName } = response.response;
+      dispatch(trackSuccessfulAuth(userId, firstName, lastName));
+    }
+  );
 }
 
 export const REFRESH_AUTHENTICATION_REQUEST = "REFRESH_AUTHENTICATION_REQUEST";
@@ -131,5 +149,12 @@ export function confirmResetPassword(id, token, newpassword1, newpassword2) {
 export const LOGOUT = "LOGOUT";
 
 export function logout() {
-  return { type: LOGOUT }
+  return {
+    type: LOGOUT,
+    meta: {
+      analytics: {
+        eventType: EventTypes.track
+      }
+    }
+  }
 }

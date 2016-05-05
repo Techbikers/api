@@ -46,6 +46,7 @@ JWT_AUTH = {
     'JWT_AUTH_HEADER_PREFIX': 'Bearer',
     'JWT_ALLOW_REFRESH': True,
     'JWT_EXPIRATION_DELTA': datetime.timedelta(hours=24),
+    'JWT_RESPONSE_PAYLOAD_HANDLER': 'server.core.auth.handlers.jwt_response_payload_handler'
 }
 
 AUTHENTICATION_BACKENDS = (
