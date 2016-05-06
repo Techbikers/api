@@ -21,7 +21,7 @@ class Sale(models.Model):
         return self.charge_id
 
     @classmethod
-    def charge(cls, token, key, price, currency, description):
+    def charge(cls, token, key, price, currency, description, email):
         """
         Charges a users card using the Stripe token obtained and
         details of the transaction. If successful we pass back a
@@ -37,7 +37,7 @@ class Sale(models.Model):
 
         description: this will be sent to the customer so they
             can identify the transaction
- 
+
         Raises a stripe.CardError on errors.
         """
 
@@ -49,7 +49,8 @@ class Sale(models.Model):
                 amount=price,
                 currency=currency,
                 source=token,
-                description=description)
+                description=description,
+                receipt_email=email)
         except Exception, e:
             raise e
 
@@ -60,6 +61,6 @@ class Sale(models.Model):
         instance.card = response.card.id
 
         return instance
-        
+
     class Meta:
         db_table    = 'sales'

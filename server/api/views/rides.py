@@ -111,7 +111,8 @@ class RideRiderCharge(generics.UpdateAPIView):
                     ride.chapter.private_key,
                     int(amount * 100),
                     ride.currency,
-                    "Techbikers {0}: {1}".format(ride.name, request.user.email))
+                    "Techbikers {0}: {1}".format(ride.name, request.user.email),
+                    request.user.email)
             except stripe.error.InvalidRequestError, e:
                 raise ValidationError(e.json_body['error']['message'])
             sale.rider_id = request.user.id
