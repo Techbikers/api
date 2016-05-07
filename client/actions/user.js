@@ -62,7 +62,11 @@ export function createUser(user) {
 
 export function createUserAndAuthenticate(user) {
   return dispatch => dispatch(createUser(user)).then(
-    response => dispatch(authenticateAs(user.email, user.password))
+    response => {
+      if (!response.error) {
+        dispatch(authenticateAs(user.email, user.password));
+      }
+    }
   );
 }
 
