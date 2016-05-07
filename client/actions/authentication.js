@@ -46,8 +46,10 @@ export function authenticateAs(email, password) {
 
   return dispatch => dispatch(authenticateApiRequest(email, password)).then(
     response => {
-      const { userId, firstName, lastName } = response.response;
-      dispatch(trackSuccessfulAuth(userId, firstName, lastName, email));
+      if (!response.error) {
+        const { userId, firstName, lastName } = response.response;
+        dispatch(trackSuccessfulAuth(userId, firstName, lastName, email));
+      }
     }
   );
 }
