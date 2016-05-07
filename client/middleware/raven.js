@@ -29,7 +29,11 @@ export default store => next => action => {
       handleLogout();
       break
 
-    // no default
+    default:
+      if (action.error) {
+        Raven.captureMessage(action.error.message || action.error, { details: action.error, level: "info" });
+        break;
+      }
   }
 
   return result;
