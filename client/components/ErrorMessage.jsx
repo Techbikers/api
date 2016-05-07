@@ -2,31 +2,41 @@ import React, { Component } from "react";
 
 export default class ErrorMessage extends Component {
   render() {
-    const { error } = this.props;
+    const { errors } = this.props;
 
-    if (!error) {
+    if (!errors) {
       return null;
     }
 
     return (
       <div className="errors">
-        <span className="errors--message">{error.message}</span>
-        {this.errorDetails()}
+        {errors.detail &&
+          <span className="errors--message">{errors.detail}</span>}
+
+        {errors.non_field_errors &&
+          <span className="errors--message">
+            {errors.non_field_errors.map(error => <span>{error}</span>)}
+          </span>}
+
+        {this.fieldErrors()}
       </div>
     );
   }
 
-  errorDetails() {
-    const { error } = this.props;
+  fieldErrors() {
+    let { errors } = this.props;
 
-    if (!error.details) {
+    delete errors.detail;
+    delete errors.non_field_errors;
+
+    if (!errors) {
       return null;
     }
 
     return (
       <ul className="errors--details">
-        {error.details.map((errors, field) => {
-          return <li key={field}>{field}: {errors.map(error => { return error + " "; })}</li>
+        {Object.keys(errors).map(field => {
+          return <li key={field}>{field}: {errors[field].join(" ")}</li>
         })}
       </ul>
     );

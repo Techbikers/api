@@ -6,13 +6,15 @@ import DocumentTitle from "react-document-title";
 
 import { createUserAndAuthenticate } from "../actions/user";
 
+import ErrorMessage from "../components/ErrorMessage";
 import SignupForm from "../components/SignupForm";
 
 const mapStateToProps = (state, ownProps) => {
+  const { errors } = state;
   const { state: authState, authDidFail, failureReason } = state.authentication;
   const isAuthenticated = authState === "authenticated";
 
-  return { isAuthenticated }
+  return { isAuthenticated, errors }
 }
 
 @connect(mapStateToProps)
@@ -48,7 +50,7 @@ export default class SignupPage extends Component {
   }
 
   render() {
-    const { location } = this.props;
+    const { location, errors } = this.props;
     const redirectAfterLogin = location.state && location.state.returnTo || '/';
 
     return (
@@ -63,7 +65,9 @@ export default class SignupPage extends Component {
                 In order to sign up for one of our rides we need you to register an account.
             </p>
 
-            <SignupForm onSubmit={this.handleSubmit} returnTo={redirectAfterLogin} />
+            <ErrorMessage errors={errors} />
+
+            <SignupForm ref="signupForm" onSubmit={this.handleSubmit} returnTo={redirectAfterLogin} />
           </div>
         </section>
       </DocumentTitle>

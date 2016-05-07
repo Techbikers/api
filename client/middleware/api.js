@@ -74,9 +74,11 @@ export default store => next => action => {
         next({ type: UNEXPECTED_UNAUTHORIZED_API_RESPONSE })
       }
 
+      delete error["httpStatus"];
+
       return next(actionWith({
         type: errorActionType,
-        error: error.non_field_errors || "Something bad happened",
+        error: error || "Something bad happened",
         isNetworkError,
         httpStatus
       }))

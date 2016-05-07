@@ -6,7 +6,6 @@ import { slice } from "lodash";
 
 import FormField from "./FormField";
 import ProgressButton from "./ProgressButton";
-import ErrorMessage from "./ErrorMessage";
 
 const NewRiderForm = Form.extend({
   first_name: forms.CharField(),
@@ -47,12 +46,6 @@ export default class SignupForm extends Component {
     };
   }
 
-  componentWillReceiveProps(nextProps) {
-    if (this.props.error !== nextProps.error) {
-      this.refs.signupbtn.error();
-    }
-  }
-
   @autobind
   onFormChange() {
     this.forceUpdate();
@@ -63,12 +56,9 @@ export default class SignupForm extends Component {
     const { form } = this.state;
     const { onSubmit } = this.props;
 
-    if (form.validate()) {
+    if (form.validate() && typeof onSubmit === "function") {
       this.refs.signupbtn.loading();
-
-      if (typeof onSubmit === "function") {
-        onSubmit(form.cleanedData);
-      }
+      onSubmit(form.cleanedData);
     }
   }
 
@@ -97,8 +87,7 @@ export default class SignupForm extends Component {
           <Link to={{ pathname: "/login", state: {modal: true, returnTo}}}>Already have an account from a previous ride?</Link>
         </p>
         <p className="centerText">
-          <ErrorMessage error={error} />
-          <ProgressButton ref="signupbtn" type="submit" onClick={this.createRider}>
+          <ProgressButton type="submit" onClick={this.createRider}>
             Sign Up
           </ProgressButton>
         </p>

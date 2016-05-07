@@ -5,6 +5,7 @@ import { replace } from "react-router-redux";
 import { authenticateAs } from "../actions/authentication";
 import DocumentTitle from "react-document-title";
 
+import ErrorMessage from "../components/ErrorMessage";
 import LoginForm from "../components/LoginForm";
 
 const mapStateToProps = (state, ownProps) => {
@@ -61,6 +62,7 @@ export default class LoginPage extends Component {
             <h1>Login</h1>
           </header>
           <div className="content">
+            <ErrorMessage errors={errors} />
             <LoginForm onSubmit={this.handleSubmit} returnTo={redirectAfterLogin} error={errors} />
           </div>
         </section>
