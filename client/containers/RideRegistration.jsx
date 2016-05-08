@@ -39,15 +39,6 @@ export default class RideRegistration extends Component {
     }
   }
 
-  componentWillUpdate(nextProps) {
-    const { registration } = this.props;
-    const { dispatch, user, ride, registration: nextRegistration } = nextProps;
-
-    if (user && ride && !nextRegistration) {
-      dispatch(getRideRegistrationDetails(ride.id, user.id));
-    }
-  }
-
   renderRideFull() {
     return (
       <div className="ride-registration--container">
