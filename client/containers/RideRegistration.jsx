@@ -9,11 +9,13 @@ import {
 import {
   getAuthenticatedUser,
   getRegistrationForCurrentRideAndUser } from "../selectors/user";
+import { getFundraiserForCurrentRideAndUser } from "../selectors/fundraiser";
 import { getCurrentRide } from "../selectors/ride";
 import { getChapterForCurrentRide } from "../selectors/chapter";
 
 import RideRegistrationModal from "../components/RideRegistrationModal";
 import RegistrationSteps from "../components/RegistrationSteps";
+import SetupFundraising from "../components/SetupFundraising";
 
 const mapStateToProps = (state) => {
   const { rideRegistrationModal } = state.page.ui;
@@ -24,6 +26,7 @@ const mapStateToProps = (state) => {
     user: getAuthenticatedUser(state),
     chapter: getChapterForCurrentRide(state),
     registration: getRegistrationForCurrentRideAndUser(state),
+    fundraiser: getFundraiserForCurrentRideAndUser(state),
     rideRegistrationModal,
     errors
   }
@@ -137,6 +140,11 @@ export default class RideRegistration extends Component {
         </header>
         <div className="ride-registration--content">
           <RegistrationSteps step={4}/>
+          <div className="ride-registration--details">
+            <p>
+              <SetupFundraising {...this.props} />
+            </p>
+          </div>
         </div>
       </div>
     );

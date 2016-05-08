@@ -1,6 +1,9 @@
 import { sortByOrder } from "lodash";
 import { createSelector } from "reselect";
 
+import { getCurrentRide } from "./ride";
+import { getAuthenticatedUserId } from "./user";
+
 const fundraiserSelector = state => state.entities.fundraiser || {};
 
 export const getAllFundraisers = createSelector(
@@ -25,4 +28,9 @@ export const getLeaderboard = createSelector(
       return 0;
     }
   })
+)
+
+export const getFundraiserForCurrentRideAndUser = createSelector(
+  [getAllFundraisers, getCurrentRide, getAuthenticatedUserId],
+  (fundraisers, ride, userId) => fundraisers.find(fundraiser => fundraiser.ride === ride.id && fundraiser.user === userId)
 )
