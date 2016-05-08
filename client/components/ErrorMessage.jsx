@@ -10,6 +10,9 @@ export default class ErrorMessage extends Component {
 
     return (
       <div className="errors">
+        {errors.message &&
+          <span className="errors--message">{errors.message}</span>}
+
         {errors.detail &&
           <span className="errors--message">{errors.detail}</span>}
 
@@ -29,7 +32,7 @@ export default class ErrorMessage extends Component {
     delete errors.detail;
     delete errors.non_field_errors;
 
-    if (!errors) {
+    if (!errors || errors.message) {
       return null;
     }
 
