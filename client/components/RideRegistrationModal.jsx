@@ -13,10 +13,9 @@ import CompleteRegistrationForm from "./CompleteRegistrationForm";
 export default class RideRegistrationModal extends Component {
   static propTypes = {
     ride: PropTypes.object.isRequired,
-    user: PropTypes.object.isRequired,
     registration: PropTypes.object,
     dispatch: PropTypes.func.isRequired,
-    isOpen: PropTypes.bool
+    isOpen: PropTypes.bool.isRequired
   };
 
   static defaultProps = {

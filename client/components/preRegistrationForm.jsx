@@ -29,7 +29,6 @@ const DetailsForm = Form.extend({
 export default class RideRegistrationForm extends Component {
   static propTypes = {
     ride: PropTypes.object.isRequired,
-    user: PropTypes.object.isRequired,
     dispatch: PropTypes.func.isRequired
   };
 
@@ -57,7 +56,7 @@ export default class RideRegistrationForm extends Component {
   }
 
   render() {
-    const { ride, currentRider } = this.props;
+    const { ride } = this.props;
     const fields = this.state.form.boundFieldsObj();
 
     return (
@@ -85,7 +84,7 @@ export default class RideRegistrationForm extends Component {
             </div>
           </div>
           <div className="payment-form--submit">
-            <button className="btn btn-blue" type="submit" onClick={this.register.bind(this)}>
+            <button className="btn btn-blue" type="submit" onClick={this.register}>
               Apply for TechBikers <Timestamp value={ride.start_date} format="YYYY" />
             </button>
           </div>
