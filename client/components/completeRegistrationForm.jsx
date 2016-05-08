@@ -27,7 +27,7 @@ const CompleteRegistrationForm = ({dispatch, registration, ride, user, chapter, 
         We're asking for a minimum contribution of <FormattedNumber style="currency" currency={ride.currency} value={ride.price} />.</b> If
         you are able, we welcome you to pay more. This means more sponsor money goes directly to Room to Read!</p>
 
-      <ErrorMessage error={errors} />
+      <ErrorMessage errors={errors} />
 
       <PaymentForm
         submitText="Make payment & complete registration"
