@@ -42,6 +42,17 @@ export default class RideRegistration extends Component {
     }
   }
 
+  componentWillUpdate(nextProps) {
+    const { dispatch, user: prevUser } = this.props;
+    const { user, ride } = nextProps;
+
+    if (!prevUser && user) {
+      // The user has just logged in so we should fetch
+      // the registration record (if it exists)
+      dispatch(getRideRegistrationDetails(ride.id, user.id));
+    }
+  }
+
   renderRideFull() {
     return (
       <div className="ride-registration--container">
@@ -112,7 +123,7 @@ export default class RideRegistration extends Component {
   }
 
   renderCompleteRegistration() {
-    const { dispatch } = this.props;
+    const { dispatch, user } = this.props;
 
     return (
       <div className="ride-registration--container ride-registration--popdown">
@@ -123,7 +134,7 @@ export default class RideRegistration extends Component {
           <RegistrationSteps step={3} state="pending"/>
           <div className="ride-registration--details">
             <p>
-              Good news - you've been invited to join the ride. You now need to confirm
+              Good news, {user.first_name} - you've been invited to join the ride. You now need to confirm
               and pay the registration fee before your invite expires.</p>
           </div>
           <a className="btn btn-green" onClick={() => dispatch(openRideRegistrationModal())}>Complete Registration</a>
