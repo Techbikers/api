@@ -5,19 +5,21 @@ import { getCurrentRide, getRegistrationsForCurrentRide } from "./ride";
 
 const userSelector = state => state.entities.user || {};
 const rideSelector = state => state.entities.ride || {};
-const authenticatedUserId = state => {
-  const { state: authState, claims } = state.authentication;
-  return authState === "authenticated" ? claims.userId : null;
-}
+const authenticationSelector = state => state.authentication || {};
 const pageEntityIdSelector = state => state.page.entity.id || null;
 
 export const getAuthenticatedUserId = createSelector(
-  authenticatedUserId,
-  id => id
+  authenticationSelector,
+  authentication => authentication.state === "authenticated" ? authentication.claims.userId : null
+)
+
+export const getAuthenticationToken = createSelector(
+  authenticationSelector,
+  authentication => authentication.token
 )
 
 export const getAuthenticatedUser = createSelector(
-  [userSelector, authenticatedUserId],
+  [userSelector, getAuthenticatedUserId],
   (users, userId) => users[userId]
 )
 
@@ -37,6 +39,6 @@ export const getRidesForCurrentUser = createSelector(
 )
 
 export const getRegistrationForCurrentRideAndUser = createSelector(
-  [getRegistrationsForCurrentRide, authenticatedUserId],
+  [getRegistrationsForCurrentRide, getAuthenticatedUserId],
   (registrations, userId) => registrations.find(registration => registration.user === userId)
 )

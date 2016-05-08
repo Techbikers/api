@@ -54,6 +54,14 @@ export function authenticateAs(email, password) {
   );
 }
 
+export function authenticateWithToken(token, email = null) {
+  return {
+    type: AUTHENTICATION_SUCCESS,
+    email,
+    response: { token }
+  };
+}
+
 export const REFRESH_AUTHENTICATION_REQUEST = "REFRESH_AUTHENTICATION_REQUEST";
 export const REFRESH_AUTHENTICATION_SUCCESS = "REFRESH_AUTHENTICATION_SUCCESS";
 export const REFRESH_AUTHENTICATION_FAILURE = "REFRESH_AUTHENTICATION_FAILURE";
@@ -72,6 +80,29 @@ export function refreshAuthenticationToken(token) {
       requestActionType: REFRESH_AUTHENTICATION_REQUEST,
       successActionType: REFRESH_AUTHENTICATION_SUCCESS,
       errorActionType: REFRESH_AUTHENTICATION_FAILURE
+    }
+  }
+}
+
+export const EXCHANGE_AUTHENTICATION_TOKEN_REQUEST = "EXCHANGE_AUTHENTICATION_TOKEN_REQUEST";
+export const EXCHANGE_AUTHENTICATION_TOKEN_SUCCESS = "EXCHANGE_AUTHENTICATION_TOKEN_SUCCESS";
+export const EXCHANGE_AUTHENTICATION_TOKEN_FAILURE = "EXCHANGE_AUTHENTICATION_TOKEN_FAILURE";
+
+export function exchangeAuthenticationToken(backend, code, state) {
+  const fetchOptions = {
+    method: "POST",
+    credentials: "same-origin",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ backend, code, state })
+  };
+
+  return {
+    [API_REQUEST]: {
+      endpoint: "/auth/token/exchange",
+      fetchOptions,
+      requestActionType: EXCHANGE_AUTHENTICATION_TOKEN_REQUEST,
+      successActionType: EXCHANGE_AUTHENTICATION_TOKEN_SUCCESS,
+      errorActionType: EXCHANGE_AUTHENTICATION_TOKEN_FAILURE
     }
   }
 }

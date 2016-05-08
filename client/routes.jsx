@@ -2,7 +2,6 @@ import React  from "react";
 import Router, { Route, IndexRoute } from "react-router";
 
 // # Components & Containers
-import AuthComplete from "./components/authComplete";
 import IndexPage from "./components/IndexPage";
 import AboutPage from "./components/AboutPage";
 import CharityPage from "./components/CharityPage";
@@ -11,6 +10,7 @@ import PasswordReset  from "./components/resetPassword";
 import PasswordResetConfirm from "./components/confirmResetPassword";
 
 import Account from "./containers/Account";
+import AuthComplete from "./containers/AuthComplete";
 import AppContainer from "./containers/AppContainer";
 import ChapterPage from "./containers/ChapterPage";
 import Leaderboard  from "./containers/Leaderboard";

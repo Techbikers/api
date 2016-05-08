@@ -109,15 +109,17 @@ class TokenExchange(GenericAPIView):
         # The backend tries to get data from either request.POST
         # or request.GET. These are empty though as DRF uses
         # request.DATA. We need to assing request.POST.
-        request.POST = request.DATA
+        request._request.POST = request._request.POST.copy()
+        for key, value in request.data.items():
+            request._request.POST[key] = value
 
-        serializer = self.get_serializer(data=request.DATA)
+        serializer = self.get_serializer(data=request.data)
         if not serializer.is_valid():
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
         backend = serializer.data['backend']
         uri = reverse('auth:complete', args=(backend,))
-        strategy = load_strategy(request=request)
+        strategy = load_strategy(request=request._request)
 
         try:
             backend = load_backend(strategy, backend, uri)
