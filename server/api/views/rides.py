@@ -113,8 +113,8 @@ class RideRiderCharge(generics.UpdateAPIView):
                     ride.currency,
                     "Techbikers {0}: {1}".format(ride.name, request.user.email),
                     request.user.email)
-            except stripe.error.InvalidRequestError, e:
-                raise ValidationError(e.json_body['error']['message'])
+            except stripe.error.CardError, e:
+                raise ValidationError(e.json_body['error'])
             sale.rider_id = request.user.id
             sale.save()
 
