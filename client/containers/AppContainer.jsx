@@ -2,6 +2,7 @@ import React, { Component, PropTypes } from "react";
 import { connect } from "react-redux";
 import { isEqual } from "lodash";
 
+import { identifyUser } from "../actions/authentication";
 import { setPageEntity } from "../actions/page";
 import { getUserById } from "../actions/user";
 import { getAuthenticatedUserId, getAuthenticatedUser } from "../selectors/user";
@@ -36,7 +37,12 @@ export default class AppContainer extends Component {
     // If the user is logged in but we haven't yet fetched the
     // entity for that user, then get the user entity.
     if (isAuthenticated && authenticatedUserId && !authenticatedUser) {
-      dispatch(getUserById(authenticatedUserId))
+      dispatch(getUserById(authenticatedUserId)).then(
+        response => {
+          const user = response.response.entities.user[authenticatedUserId];
+          dispatch(identifyUser(authenticatedUserId, user.email, user.first_name, user.last_name));
+        }
+      );
     }
   }
 

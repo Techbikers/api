@@ -3,6 +3,23 @@ import { EventTypes } from "redux-segment";
 import { API_REQUEST } from "../middleware/api";
 import { getUserById } from "./user";
 
+export const IDENTIFY_USER = "IDENTIFY_USER";
+
+export function identifyUser(userId, email, firstName, lastName) {
+  return {
+    type: IDENTIFY_USER,
+    meta: {
+      analytics: {
+        eventType: EventTypes.identify,
+        eventPayload: {
+          userId,
+          traits: { firstName, lastName, email }
+        }
+      }
+    }
+  }
+}
+
 export const AUTHENTICATION_REQUEST = "AUTHENTICATION_REQUEST";
 export const AUTHENTICATION_SUCCESS = "AUTHENTICATION_SUCCESS";
 export const AUTHENTICATION_FAILURE = "AUTHENTICATION_FAILURE";
@@ -30,27 +47,12 @@ export function authenticateAs(email, password) {
     }
   }
 
-  function trackSuccessfulAuth(userId, firstName, lastName, email) {
-    return {
-      type: "LOGIN",
-      meta: {
-        analytics: {
-          eventType: EventTypes.identify,
-          eventPayload: {
-            userId,
-            traits: { firstName, lastName, email }
-          }
-        }
-      }
-    }
-  }
-
   return dispatch => dispatch(authenticateApiRequest(email, password)).then(
     response => {
       if (!response.error) {
         const { userId, firstName, lastName } = response.response;
         dispatch(getUserById(userId));
-        dispatch(trackSuccessfulAuth(userId, firstName, lastName, email));
+        dispatch(identifyUser(userId, email, firstName, lastName));
       }
     }
   );
