@@ -6,6 +6,7 @@ import { modalStyles } from "../utils/modal";
 import requireAuthentication from "../containers/requireAuthentication";
 import { closeRideRegistrationModal } from "../actions/ride";
 
+import SetupFundraising from "./SetupFundraising";
 import PreRegistrationForm from "./PreRegistrationForm";
 import CompleteRegistrationForm from "./CompleteRegistrationForm";
 
@@ -13,6 +14,8 @@ import CompleteRegistrationForm from "./CompleteRegistrationForm";
 export default class RideRegistrationModal extends Component {
   static propTypes = {
     ride: PropTypes.object.isRequired,
+    user: PropTypes.object.isRequired,
+    fundraiser: PropTypes.object,
     registration: PropTypes.object,
     dispatch: PropTypes.func.isRequired,
     isOpen: PropTypes.bool.isRequired
@@ -33,7 +36,7 @@ export default class RideRegistrationModal extends Component {
   }
 
   renderContents() {
-    const { dispatch, registration } = this.props;
+    const { dispatch, registration, fundraiser } = this.props;
 
     if (!registration) {
       return <PreRegistrationForm {...this.props} />;
@@ -56,16 +59,25 @@ export default class RideRegistrationModal extends Component {
         );
 
       case "REG":
-        return (
-          <div className="ride-registration--form">
-            <p>
-              You're all set! You've completed registration and we've received payment - all that's left
-              to do now is fundraise and train!</p>
-            <button className="btn btn-grey" onClick={() => dispatch(closeRideRegistrationModal())}>
-              Great!
-            </button>
-          </div>
-        );
+        if (!fundraiser) {
+          return (
+            <div className="ride-registration--form">
+              <p>
+                You're all set! You've completed registration and we've received payment - all that's left
+                to do now is to setup your fundraising page and train!</p>
+              <SetupFundraising {...this.props} />
+              <button className="btn btn-grey" style={{marginLeft: 10}} onClick={() => dispatch(closeRideRegistrationModal())}>Not right now</button>
+            </div>
+          );
+        } else {
+          return (
+            <div className="ride-registration--form">
+              <p>
+                Nice work - that's all from us. On your bike and let's change lives!</p>
+              <button className="btn btn-grey" onClick={() => dispatch(closeRideRegistrationModal())}>OK!</button>
+            </div>
+          );
+        }
     }
   }
 }
