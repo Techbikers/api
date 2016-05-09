@@ -57,7 +57,6 @@ export default class SignupForm extends Component {
     const { onSubmit } = this.props;
 
     if (form.validate() && typeof onSubmit === "function") {
-      this.refs.signupbtn.loading();
       onSubmit(form.cleanedData);
     }
   }
