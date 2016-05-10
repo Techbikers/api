@@ -41,13 +41,14 @@ export default class LoginForm extends Component {
 
   render() {
     const { returnTo } = this.props;
+    const fields = this.state.form.boundFieldsObj();
 
     return (
       <form id="loginform" role="form" onSubmit={this.handleSubmit}>
         <div className="row">
-          {_.map(this.state.form.boundFieldsObj(), (field) => {
+          {Object.keys(fields).map(key => {
             return (
-              <FormField key={field.htmlName} field={field} className="span2 offset2" />
+              <FormField key={fields[key].htmlName} field={fields[key]} className="span2 offset2" />
             );
           })}
         </div>
