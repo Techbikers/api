@@ -36,7 +36,7 @@ module.exports = function(options) {
   var entry = {
     app: ["./client/index.jsx"],
     sass: ["./client/sass/main.scss"],
-    vendor: ["lodash", "react", "react-router"]
+    vendor: ["react", "react-router", "react-redux", "react-router-redux", "newforms", "core-decorators", "moment"]
   };
 
   var devtool = options.production ? "source-map" : "cheap-module-eval-source-map";
