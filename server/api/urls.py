@@ -13,8 +13,8 @@ auth_urls = [
     url(r'^token/refresh', refresh_jwt_token),
     url(r'^token', obtain_jwt_token),
     url(r'^password/change', PasswordChange.as_view(), name='password-change'),
-    url(r'^password/reset', PasswordReset.as_view(), name='password-reset'),
-    url(r'^password/reset/confirm', PasswordResetConfirm.as_view(), name='password_reset_confirm')
+    url(r'^password/reset/confirm', PasswordResetConfirm.as_view(), name='password_reset_confirm'),
+    url(r'^password/reset', PasswordReset.as_view(), name='password-reset')
 ]
 
 ride_urls = [

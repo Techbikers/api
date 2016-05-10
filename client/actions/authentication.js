@@ -147,7 +147,7 @@ export function beginResetPassword(email) {
 
   return {
     [API_REQUEST]: {
-      endpoint: "/auth/token/password/reset",
+      endpoint: "/auth/password/reset",
       fetchOptions,
       requestActionType: BEGIN_PASSWORD_RESET_REQUEST,
       successActionType: BEGIN_PASSWORD_RESET_SUCCESS,
@@ -174,13 +174,23 @@ export function confirmResetPassword(id, token, newpassword1, newpassword2) {
 
   return {
     [API_REQUEST]: {
-      endpoint: "/auth/token/password/reset/confirm",
+      endpoint: "/auth/password/reset/confirm",
       fetchOptions,
       requestActionType: CONFIRM_PASSWORD_RESET_REQUEST,
       successActionType: CONFIRM_PASSWORD_RESET_SUCCESS,
       errorActionType: CONFIRM_PASSWORD_RESET_FAILURE
     }
   }
+}
+
+export function confirmResetPasswordAndAuthenticate(id, token, newpassword1, newpassword2) {
+  return dispatch => dispatch(confirmResetPassword(id, token, newpassword1, newpassword2)).then(
+    ({ response }) => {
+      if (response.success) {
+        dispatch(authenticateAs(response.email, newpassword1));
+      }
+    }
+  );
 }
 
 export const LOGOUT = "LOGOUT";

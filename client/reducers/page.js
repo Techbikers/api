@@ -1,7 +1,14 @@
 import { combineReducers } from "redux";
 
-import { SET_PAGE_ENTITY } from "../actions/page";
-import { OPEN_RIDE_REGISTRATION_MODAL, CLOSE_RIDE_REGISTRATION_MODAL } from "../actions/ride";
+import {
+  SET_PAGE_ENTITY,
+  CLEAR_UI_STATE } from "../actions/page";
+import {
+  OPEN_RIDE_REGISTRATION_MODAL,
+  CLOSE_RIDE_REGISTRATION_MODAL } from "../actions/ride";
+import {
+  BEGIN_PASSWORD_RESET_REQUEST,
+  BEGIN_PASSWORD_RESET_SUCCESS } from "../actions/authentication";
 
 export default combineReducers({
   entity,
@@ -17,13 +24,22 @@ export function entity(state = {}, { type, entity}) {
   }
 }
 
-export function ui(state = {}, { type }) {
-  switch (type) {
+export function ui(state = {}, action) {
+  switch (action.type) {
+    case CLEAR_UI_STATE:
+      return { ...state, [action.key]: null };
+
     case OPEN_RIDE_REGISTRATION_MODAL:
        return { ...state, rideRegistrationModal: true };
 
     case CLOSE_RIDE_REGISTRATION_MODAL:
        return { ...state, rideRegistrationModal: false };
+
+    case BEGIN_PASSWORD_RESET_REQUEST:
+      return { ...state, passwordResetStatus: "loading" };
+
+    case BEGIN_PASSWORD_RESET_SUCCESS:
+      return { ...state, passwordResetStatus: "emailed" };
 
     default:
       return state

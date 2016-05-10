@@ -8,3 +8,16 @@ export function setPageEntity(params) {
     }
   }
 }
+
+export const CLEAR_UI_STATE = "CLEAR_UI_STATE";
+
+export function clearUIState(stateKey) {
+  return {
+    type: CLEAR_UI_STATE,
+    key: stateKey
+  }
+}
+
+export function clearResetPasswordStatus() {
+  return clearUIState("passwordResetStatus");
+}

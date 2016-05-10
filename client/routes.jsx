@@ -6,8 +6,6 @@ import IndexPage from "./components/IndexPage";
 import AboutPage from "./components/AboutPage";
 import CharityPage from "./components/CharityPage";
 import NotFound     from "./components/NotFound";
-import PasswordReset  from "./components/resetPassword";
-import PasswordResetConfirm from "./components/confirmResetPassword";
 
 import Account from "./containers/Account";
 import AuthComplete from "./containers/AuthComplete";
@@ -20,6 +18,8 @@ import RidesPage from "./containers/RidesPage";
 import RiderProfile from "./containers/RiderProfile";
 import SponsorsPage from "./containers/SponsorsPage";
 import SignupPage from "./containers/SignupPage";
+import PasswordReset  from "./containers/PasswordReset";
+import PasswordResetConfirm from "./containers/PasswordResetConfirm";
 
 export default (
   <Route>
