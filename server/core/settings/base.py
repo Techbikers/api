@@ -1,7 +1,5 @@
 import os
 import datetime
-from os.path import abspath, basename, dirname, join, normpath
-from sys import path
 
 from django.conf.global_settings import TEMPLATE_CONTEXT_PROCESSORS as TCP
 

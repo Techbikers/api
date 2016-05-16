@@ -3,6 +3,8 @@ node_modules
 *.sublime*
 *.pyc
 *.sqlite
+client/config/local.js
+server/core/settings/local.py
 
 venv/
 build/

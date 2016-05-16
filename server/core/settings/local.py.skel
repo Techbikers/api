@@ -1,12 +1,12 @@
 import os
-from os.path import join, normpath
 
 from base import *
-
 
 DEBUG = True
 
 ALLOWED_HOSTS = []
+
+INTERNAL_IPS = ('127.0.0.1',)
 
 STATIC_ROOT = ''
 MEDIA_ROOT = ''
@@ -32,15 +32,12 @@ WEBPACK_LOADER = {
     }
 }
 
-MANDRILL_API_KEY = ''
-MANDRILL_SUBACCOUNT = ""
+# Sendgrid API key
+# This is used to handle all transactional mail
+SENDGRID_API_KEY = ''
 
 # Make this unique, and don't share it with anybody.
-SECRET_KEY = 'i-xhck&#!-t!m+i9%@_1$g$a=rcv1whu+awzguuz-%lv@-+t4s'
+SECRET_KEY = ''
+
+# Make sure we're using the test environment for Stripe
 STRIPE_ENVIRONMENT = 'test'
-
-MIDDLEWARE_CLASSES += (
-#    'debug_toolbar.middleware.DebugToolbarMiddleware',
-)
-
-INTERNAL_IPS = ('127.0.0.1',)
