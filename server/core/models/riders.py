@@ -26,7 +26,7 @@ class RiderProfile(models.Model):
     def donation_page(self):
         fundraisers = self.user.fundraiser_set
         if fundraisers.count() > 0:
-            return fundraisers.first().pageUrl
+            return fundraisers.last().pageUrl
         else:
             return None
 
