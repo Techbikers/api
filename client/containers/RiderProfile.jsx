@@ -40,15 +40,11 @@ export default class RiderProfile extends Component {
 
   componentWillMount() {
     const { dispatch, params } = this.props;
-    // Bit crude to fetch all the rides, this will in fact
-    // get us the required user as well. Probably a better
-    // way to do this but it'll do for now.
-    // dispatch(getUserById(params.id));
-    dispatch(getRides());
+    dispatch(getUserById(params.id));
   }
 
   render() {
-    const { user, canEdit } = this.props;
+    const { user, canEdit, params } = this.props;
     const { isEditing } = this.state;
 
     if (!user) {
@@ -96,7 +92,7 @@ export default class RiderProfile extends Component {
           <section id="rides">
             <div className="content centerText">
               <h2>{user.first_name}'s rides:</h2>
-              <UserRidesList />
+              <UserRidesList userId={params.id} />
             </div>
           </section>
         </div>
