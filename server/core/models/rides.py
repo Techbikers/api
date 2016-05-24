@@ -14,6 +14,7 @@ from server.core.models.sales import Sale
 class Ride(models.Model):
     name           = models.CharField(max_length=255)
     slug           = models.CharField(max_length=255, unique = True)
+    strapline      = models.CharField(max_length=255, blank=True)
     description    = models.TextField(blank = True)
     start_location = models.CharField(max_length=255)
     end_location   = models.CharField(max_length=255)

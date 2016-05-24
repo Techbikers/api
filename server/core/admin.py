@@ -89,7 +89,7 @@ class RideAdmin(admin.ModelAdmin):
         }),
         (None, {
             'classes': ('suit-tab', 'suit-tab-description',),
-            'fields': ['description',]}),
+            'fields': ['strapline', 'description',]}),
         (None, {
             'classes': ('suit-tab', 'suit-tab-terms',),
             'fields': ['terms_and_conditions']}),
