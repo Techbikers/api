@@ -6,6 +6,7 @@ import DocumentTitle from "react-document-title";
 import { FormattedNumber } from "react-intl";
 
 import { getRideById } from "../actions/ride";
+import { updatePageMeta } from "../actions/page";
 import { getUsersOnCurrentRide } from "../selectors/user";
 import { getCurrentRide } from "../selectors/ride";
 import { getChapterForCurrentRide } from "../selectors/chapter";
@@ -32,8 +33,27 @@ export default class RidePage extends Component {
   };
 
   componentWillMount() {
-    const { dispatch, params } = this.props;
+    const { dispatch, params, ride } = this.props;
     dispatch(getRideById(params.id));
+
+    if (ride) {
+      this.updatePageMetaForRide(ride);
+    }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const { dispatch, ride } = this.props;
+    if (!ride && nextProps.ride) {
+      this.updatePageMetaForRide(nextProps.ride);
+    }
+  }
+
+  updatePageMetaForRide(ride) {
+    const { dispatch } = this.props;
+    dispatch(updatePageMeta({
+      "og:title": `Techbikers - ${ride.name}`,
+      "og:description": ride.strapline
+    }));
   }
 
   render() {
@@ -44,12 +64,12 @@ export default class RidePage extends Component {
     } else {
       return (
         <DocumentTitle title={ride.name + " - Techbikers"}>
-          <div id="ride">
+          <div id="ride" itemScope itemType="http://schema.org/Event">
             <section id="header">
               <header>
-                <h1>{ride.name}</h1>
+                <h1 itemProp="name">{ride.name}</h1>
                 <h3>
-                  <Timestamp value={ride.start_date} format="D MMM" /> to <Timestamp value={ride.end_date} format="D MMM YYYY" />
+                  <Timestamp value={ride.start_date} format="D MMM" itemProp="startDate" /> to <Timestamp value={ride.end_date} format="D MMM YYYY" itemProp="endDate" />
                 </h3>
                 <h3>Part of the <Link to={`/chapters/${chapter.name.toLowerCase()}`} >{chapter.name}</Link> chapter</h3>
               </header>
