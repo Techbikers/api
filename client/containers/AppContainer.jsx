@@ -12,9 +12,11 @@ import App from "../components/App";
 const mapStateToProps = (state) => {
   const { state: authState } = state.authentication;
   const isAuthenticated = authState === "authenticated";
+  const pageMeta = state.page.meta || {};
 
   return {
     isAuthenticated,
+    pageMeta,
     authenticatedUserId: getAuthenticatedUserId(state),
     authenticatedUser: getAuthenticatedUser(state)
   }

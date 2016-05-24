@@ -1,7 +1,9 @@
+import { merge } from "lodash";
 import { combineReducers } from "redux";
 
 import {
   SET_PAGE_ENTITY,
+  UPDATE_META_INFO,
   CLEAR_UI_STATE } from "../actions/page";
 import {
   OPEN_RIDE_REGISTRATION_MODAL,
@@ -12,6 +14,7 @@ import {
 
 export default combineReducers({
   entity,
+  meta,
   ui
 });
 
@@ -21,6 +24,14 @@ export function entity(state = {}, { type, entity}) {
       return entity;
     default:
      return state;
+  }
+}
+
+export function meta(state = {}, { type, props}) {
+  if (type === UPDATE_META_INFO) {
+    return merge({}, state, props);
+  } else {
+    return state;
   }
 }
 

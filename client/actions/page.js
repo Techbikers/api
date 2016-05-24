@@ -21,3 +21,12 @@ export function clearUIState(stateKey) {
 export function clearResetPasswordStatus() {
   return clearUIState("passwordResetStatus");
 }
+
+export const UPDATE_META_INFO = "UPDATE_META_INFO";
+
+export function updatePageMeta(props) {
+  return {
+    type: UPDATE_META_INFO,
+    props
+  }
+}
