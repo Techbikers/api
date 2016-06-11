@@ -3,16 +3,15 @@ import { Link } from "react-router";
 
 import Timestamp from "./Timestamp";
 
-const RideCard = ({ ride }) => (
-  <li className="ride-card">
-    <Link to={`/rides/${ride.id}/${ride.slug}`}>
+const RideCard = ({ id, name, slug, start_date, end_date, chapter }) => (
+  <div className="ride-card">
+    <Link to={`/rides/${id}/${slug}`}>
         <header>
-          <h2>{ride.name}</h2>
-          <h4><Timestamp value={ride.start_date} format="D MMM" /> to <Timestamp value={ride.end_date} format="D MMM YYYY" /></h4>
-          <h4>Part of the {ride.chapter.name} chapter</h4>
+          <h2>{name}</h2>
+          <h4><Timestamp value={start_date} format="D MMM" /> to <Timestamp value={end_date} format="D MMM YYYY" /></h4>
         </header>
     </Link>
-  </li>
+  </div>
 );
 
 export default RideCard;

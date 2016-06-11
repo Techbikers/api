@@ -49,9 +49,11 @@ export default class Rides extends Component {
             </header>
 
             <ul className="ride-list">
-              {upcoming.map(ride => {
-                return <RideCard key={ride.id} ride={ride} />;
-              })}
+              {upcoming.map(ride => (
+                <li key={ride.id}>
+                  <RideCard {...ride} />
+                </li>
+              ))}
             </ul>
 
             <header>
@@ -59,9 +61,11 @@ export default class Rides extends Component {
             </header>
 
             <ul className="ride-list">
-              {past.map(ride => {
-                return <RideCard key={ride.id} ride={ride} />;
-              })}
+              {past.map(ride => (
+                <li key={ride.id}>
+                  <RideCard {...ride} />
+                </li>
+              ))}
             </ul>
           </section>
         </div>
