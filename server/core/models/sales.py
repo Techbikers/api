@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 from django.conf import settings
 
 class Sale(models.Model):
-    sale_date   = models.DateTimeField(default=datetime.now())
+    sale_date   = models.DateTimeField(editable=False)
     charge_id   = models.CharField(max_length=32) # store the stripe charge id for this sale
     amount      = models.IntegerField(null=True, blank=True)
     currency    = models.CharField(max_length = 3, choices=(('gbp', 'GBP'), ('usd', 'USD'), ('eur', 'EUR')), default = 'gbp')
@@ -50,7 +50,8 @@ class Sale(models.Model):
                 currency=currency,
                 source=token,
                 description=description,
-                receipt_email=email)
+                receipt_email=email,
+                sale_date=datetime.today())
         except Exception, e:
             raise e
 
