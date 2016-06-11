@@ -93,7 +93,7 @@ class RideRiders(models.Model):
     # Status of the registration
     status = models.CharField(max_length=3, choices=STATUS_CHOICES, default=PENDING)
     # When they signed up for the ride
-    signup_date = models.DateField(auto_now_add=True)
+    signup_date = models.DateField()
     # When their opportunity to complete registration expires (optional)
     signup_expires = models.DateField(blank=True, null=True)
     # Payload contains any other information we might have asked the user for during registration
@@ -111,6 +111,14 @@ class RideRiders(models.Model):
     def expired(self):
         return self.signup_expires is not None and datetime.now().date() > self.signup_expires
 
+    def save(self, *args, **kwargs):
+        """
+        On save, update timestamps
+        """
+        if not self.id:
+            self.signup_date = datetime.today()
+        return super(RideRiders, self).save(*args, **kwargs)
+
     def send_invite(self):
         """
         Send invite email and update record
@@ -119,7 +127,7 @@ class RideRiders(models.Model):
         """
         if self.status == self.PENDING:
             # Update the registration record
-            self.signup_expires = datetime.date(datetime.now() + timedelta(days=7))
+            self.signup_expires = datetime.date(datetime.today() + timedelta(days=7))
             self.status = self.ACCEPTED
 
             # Generate & send the email
