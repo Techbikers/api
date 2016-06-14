@@ -20,6 +20,7 @@ class RideSerializer(serializers.ModelSerializer):
 
 class RideRiderSerializer(serializers.ModelSerializer):
     user = serializers.PrimaryKeyRelatedField(read_only=True, default=serializers.CurrentUserDefault())
+    signup_date = serializers.DateTimeField(required=False)
 
     class Meta:
         model = RideRiders
