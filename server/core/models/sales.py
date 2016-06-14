@@ -50,8 +50,7 @@ class Sale(models.Model):
                 currency=currency,
                 source=token,
                 description=description,
-                receipt_email=email,
-                sale_date=datetime.today())
+                receipt_email=email)
         except Exception, e:
             raise e
 
@@ -60,6 +59,7 @@ class Sale(models.Model):
         instance.currency = response.currency
         instance.livemode = response.livemode
         instance.card = response.card.id
+        instance.sale_date = datetime.fromtimestamp(response.created)
 
         return instance
 
