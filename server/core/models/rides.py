@@ -83,11 +83,13 @@ class RideRiders(models.Model):
     ACCEPTED = 'ACC'    # accepted and waiting to complete registration
     REGISTERED = 'REG'  # fully registered and on the ride
     REJECTED = 'REJ'    # rejected from the ride (usually due to capacity issues)
+    WITHDRAWN = 'WIT'   # user has withdrawn from the ride having been accepted
     STATUS_CHOICES = (
         (PENDING, 'Pending'),
         (ACCEPTED, 'Accepted'),
         (REGISTERED, 'Registered'),
         (REJECTED, 'Rejected'),
+        (WITHDRAWN, 'Withdrawn'),
     )
 
     # Status of the registration
