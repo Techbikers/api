@@ -11,7 +11,8 @@ INSTALLED_APPS += (
 )
 
 CRONJOBS = [
-    ('*/15 * * * *', 'server.core.cronjobs.update_fundraisers')
+    ('*/15 * * * *', 'server.core.cronjobs.update_fundraisers'),
+    ('* */2 * * *', 'server.core.cronjobs.batch_update_mailchimp_list')
 ]
 CRONTAB_COMMAND_PREFIX = 'cd /home/django/techbikers.com/releases/current;'
 CRONTAB_PYTHON_EXECUTABLE = '/home/django/techbikers.com/bin/python'
@@ -47,9 +48,14 @@ STRIPE_ENVIRONMENT = 'live'
 with open('../../production.json') as configFile:
     config = json.load(configFile);
     SECRET_KEY = config.get('secret_key')
+
     email = config.get('email')
-    SENDGRID_API_KEY = os.environ.get('SENDGRID_API_KEY', email.get('sendgrid_api_key'))
-    JUST_GIVING_API_URL = 'https://api.justgiving.com/v1'
+    # Sendgrid API
+    SENDGRID_API_KEY = email.get('sendgrid_api_key')
+    # Mailchimp API
+    MAILCHIMP_API_URL = email.get('mailchimp_api_url')
+    MAILCHIMP_API_KEY = email.get('mailchimp_api_key')
+    MAILCHIMP_CORE_LIST_ID = email.get('mailchimp_core_list_id')
 
     social_auth = config.get('social_auth')
     SOCIAL_AUTH_FACEBOOK_KEY = social_auth.get('facebook_key')

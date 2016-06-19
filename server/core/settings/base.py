@@ -27,6 +27,7 @@ BASE = os.path.abspath(os.path.dirname(__name__))
 # Just Giving API Details
 # The only shared setting is the charity ID for Room to Read
 JUST_GIVING_CHARITY_ID = '181334'
+JUST_GIVING_API_URL = 'https://api.justgiving.com/v1'
 
 REST_FRAMEWORK = {
     'DEFAULT_RENDERER_CLASSES': (

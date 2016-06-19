@@ -31,6 +31,10 @@ class Ride(models.Model):
     currency       = models.CharField(max_length = 3, choices=(('gbp', 'GBP'), ('usd', 'USD'), ('eur', 'EUR')), default = 'gbp')
     terms_and_conditions = models.TextField(null=True, blank = True, default='')
 
+    # Mailchimp properties
+    # Helps us manage our Mailchimp lists
+    mailchimp_group_id = models.CharField(max_length=20, blank=True, null=True)
+
     # Fundraising details
 
     def get_fundraising_total(self, include_giftaid = True):

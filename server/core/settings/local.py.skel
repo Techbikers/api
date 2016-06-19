@@ -41,3 +41,8 @@ SECRET_KEY = ''
 
 # Make sure we're using the test environment for Stripe
 STRIPE_ENVIRONMENT = 'test'
+
+# Mailchimp API
+MAILCHIMP_API_URL = ''
+MAILCHIMP_API_KEY = ''
+MAILCHIMP_CORE_LIST_ID = ''
