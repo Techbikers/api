@@ -3,24 +3,19 @@ import React from "react";
 const CharityPage = () => (
   <section>
     <header>
-      <h1>The Charity</h1>
+      <h1>Techbikers is proud to support <a href="http://www.roomtoread.org" title="Room to Read" target="_blank">Room to Read</a></h1>
     </header>
     <div className="content">
       <p>
-        We have chosen to partner with the <a href="http://www.roomtoread.org" title="Room to Read" target="_blank">Room to Read</a>
-        organisation, a not for profit that strives for a world in which all children can pursue a quality education, reach their
-        full potential and contribute to their community and the world.
-      </p>
-
-      <blockquote>
-        “Over seven million children have benefited from Room to Read’s programs over the past ten years.”
-      </blockquote>
-
-      <p>
-        To achieve this goal, they focus on two areas for the greatest impact: literacy and gender equality in education.
-        They work in collaboration with communities and local governments across Asia and Africa to develop literacy skills
-        and a habit of reading among primary school children, and support girls to complete secondary school with the life
-        skills they’ll need to succeed in school and beyond.
+        Room to Read believes that World Change Starts with Educated Children. We
+        are an international nonprofit transforming the lives of millions of children
+        in low-income countries across Africa and Asia by focusing on literacy and
+        gender equality in education. Working in collaboration with local communities,
+        partner organisations and governments, we develop literacy skills and a
+        habit of reading among primary school children, and support girls to
+        complete secondary school with the relevant life skills to succeed in
+        school and beyond. In 2015 we reached our goal of impacting 10 million
+        children. By 2020 we anticipate reaching 15 million children.
       </p>
 
       <p style={{padding: "0 80px"}}>

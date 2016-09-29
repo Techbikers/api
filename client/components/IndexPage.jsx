@@ -25,7 +25,7 @@ const IndexPage = () => (
           </header>
 
           <p>
-            Techbikers is a collaboration of the London tech startup community to help children in need by supporting literacy charity Room to Read. Since 2012 over 100 tech professionals – including start-ups, venture capitalists and executives have cycled 960km in three Paris to London rides to raise money for this fantastic charity.
+            Techbikers is a collaboration of the London tech startup community to help children in need by supporting literacy charity Room to Read. Since 2012 nearly 200 tech professionals – including start-ups, venture capitalists and executives have cycled 960km in three Paris to London rides to raise money for this fantastic charity.
           </p>
         </section>
 
@@ -36,21 +36,21 @@ const IndexPage = () => (
 
           <div className="row">
             <div className="span6 stat">
-              120
+              190
               <small>cyclists</small>
             </div>
           </div>
 
           <div className="row">
             <div className="span6 stat">
-              £170,000
-              <small>raised</small>
+              £304,000
+              <small>raised since 2012</small>
             </div>
           </div>
 
           <div className="row">
             <div className="span6 stat">
-              960km
+              1600km
               <small>ridden</small>
             </div>
           </div>
