@@ -1,6 +1,8 @@
 import React from "react";
 import DocumentTitle from "react-document-title";
 
+import MailchimpForm from "./MailchimpForm"
+
 const IndexPage = () => (
   <DocumentTitle title="Techbikers">
     <div>
@@ -55,6 +57,8 @@ const IndexPage = () => (
             </div>
           </div>
         </section>
+
+        <MailchimpForm />
       </div>
     </div>
   </DocumentTitle>
