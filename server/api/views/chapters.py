@@ -3,8 +3,8 @@ from django.contrib.auth.models import User
 from django.utils import timezone
 from rest_framework import generics, filters, status
 from rest_framework.response import Response
-from server.core.models.chapters import Chapter
-from server.core.models.sales import Sale
+from server.models.chapters import Chapter
+from server.models.sales import Sale
 from server.api.serializers.chapters import ChapterSerializer
 from server.api.serializers.riders import RiderSerializer
 from server.api.serializers.memberships import MembershipSerializer

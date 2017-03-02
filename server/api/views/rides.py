@@ -9,10 +9,10 @@ from django.shortcuts import get_object_or_404
 from django.contrib.auth.models import User
 from django.utils.text import slugify
 from django.conf import settings
-from server.core.models.rides import Ride, RideRiders
-from server.core.models.sales import Sale
-from server.core.models.sponsors import Sponsor
-from server.core.models.fundraisers import Fundraiser
+from server.models.rides import Ride, RideRiders
+from server.models.sales import Sale
+from server.models.sponsors import Sponsor
+from server.models.fundraisers import Fundraiser
 from server.api.serializers.rides import RideSerializer, RideRiderSerializer
 from server.api.serializers.riders import RiderSerializer
 from server.api.serializers.sponsors import SponsorSerializer

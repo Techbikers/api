@@ -4,7 +4,7 @@ from rest_framework.permissions import AllowAny
 from server.api.permissions import IsOwnerOrReadOnly
 from server.api.serializers.riders import RiderSerializer
 from server.api.serializers.rides import RideSerializer
-from server.core.models.rides import Ride
+from server.models.rides import Ride
 
 
 class RidersList(generics.ListCreateAPIView):

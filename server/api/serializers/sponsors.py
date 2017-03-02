@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from server.core.models.sponsors import Sponsor, RideSponsor
+from server.models.sponsors import Sponsor, RideSponsor
 
 
 

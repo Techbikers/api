@@ -4,7 +4,7 @@ from rest_framework import serializers
 from rest_framework.validators import UniqueTogetherValidator
 from server.api.serializers.chapters import ChapterSerializer
 from .riders import RiderSerializer
-from server.core.models.rides import Ride, RideRiders
+from server.models.rides import Ride, RideRiders
 
 
 class RideSerializer(serializers.ModelSerializer):

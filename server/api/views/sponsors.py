@@ -1,5 +1,5 @@
 from rest_framework import generics
-from server.core.models.sponsors import Sponsor
+from server.models.sponsors import Sponsor
 from server.api.serializers.sponsors import SponsorSerializer
 
 

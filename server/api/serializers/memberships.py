@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from server.core.models.memberships import Membership
+from server.models.memberships import Membership
 
 
 class MembershipSerializer(serializers.ModelSerializer):

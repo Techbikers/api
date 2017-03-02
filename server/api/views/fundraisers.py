@@ -1,7 +1,7 @@
 from rest_framework import generics
 from rest_framework.permissions import AllowAny
 from server.api.serializers.fundraisers import FundraiserSerializer
-from server.core.models.fundraisers import Fundraiser
+from server.models.fundraisers import Fundraiser
 
 
 class FundraisersList(generics.ListAPIView):
