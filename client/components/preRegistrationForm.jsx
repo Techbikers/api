@@ -1,13 +1,12 @@
 import React, { Component, PropTypes } from "react";
 import { FormattedNumber } from "react-intl";
-import forms, { Form, RenderForm } from "newforms";
+import forms, { Form } from "newforms";
 import { autobind } from "core-decorators";
 
 import { registerUserForRide } from "../actions/ride";
 
 import FormField from "./FormField";
 import Timestamp from "./Timestamp";
-import Spinner from "./Spinner";
 import RegistrationSteps from "./RegistrationSteps";
 
 const DetailsForm = Form.extend({
@@ -22,7 +21,7 @@ const DetailsForm = Form.extend({
   ability: forms.ChoiceField({
     required: false,
     label: "What's your cycling level?",
-    choices: [[1, 'Beginner'], [2, 'Confident'], [3, 'Intermediate'], [4, 'Advanced'], [5, 'Lycra Goddess/God']]
+    choices: [[1, "Beginner"], [2, "Confident"], [3, "Intermediate"], [4, "Advanced"], [5, "Lycra Goddess/God"]]
   })
 });
 
@@ -35,8 +34,8 @@ export default class RideRegistrationForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      form: new DetailsForm({onChange: this.onFormChange})
-    }
+      form: new DetailsForm({ onChange: this.onFormChange })
+    };
   }
 
   @autobind
@@ -45,7 +44,7 @@ export default class RideRegistrationForm extends Component {
   }
 
   @autobind
-  register(e) {
+  handleRegistration(e) {
     e.preventDefault();
     const { form } = this.state;
     const { dispatch, ride } = this.props;
@@ -64,12 +63,14 @@ export default class RideRegistrationForm extends Component {
         <RegistrationSteps step={1} />
         <div className="ride-registration--details">
           <p>
-            We're thrilled you want to join this year's ride from Paris to London. To make sure we've
-            got a great mix of people in the peloton, we've got a short application form below.</p>
+            {`We're thrilled you want to take part in ${ride.name}. To make sure we've
+              got a great mix of people in the peloton, we've got a short application form below.`}
+          </p>
           <p>
             Please bear in mind: <b>If you're selected, you will have to pay a minimum contribution
             of <FormattedNumber style="currency" currency={ride.currency} value={ride.price} /></b> to the ride
-            cost to secure your spot. You can of course contribute more so more money is left for Room to Read!</p>
+            cost to secure your spot. You can of course contribute more so more money is left for Room to Read!
+          </p>
         </div>
         <form>
           <div className="row centerText">
@@ -83,10 +84,8 @@ export default class RideRegistrationForm extends Component {
               <FormField field={fields.ability} />
             </div>
           </div>
-          <div className="payment-form--submit">
-            <button className="btn btn-blue" type="submit" onClick={this.register}>
-              Apply for TechBikers <Timestamp value={ride.start_date} format="YYYY" />
-            </button>
+          <div className="payment-form--submit" style={{ textAlign: "center" }}>
+            <button className="btn btn-blue" type="submit" onClick={this.handleRegistration} children={`Apply for ${ride.name}`} />
           </div>
         </form>
       </div>
