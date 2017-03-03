@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import DocumentTitle from "react-document-title";
 
 const AboutPage = () => (
@@ -49,8 +49,8 @@ const AboutPage = () => (
             To get a flavour of the TechBikers challenge, see this video from the 2013 ride
         </p>
 
-        <p style={{"textAlign": "center"}}>
-            <iframe width="560" height="315" src="//www.youtube.com/embed/W-0JHYkoJUI?rel=0" frameBorder="0" allowFullScreen></iframe>
+        <p style={{ "textAlign": "center" }}>
+          <iframe width="560" height="315" src="//www.youtube.com/embed/W-0JHYkoJUI?rel=0" frameBorder="0" allowFullScreen />
         </p>
       </div>
     </section>

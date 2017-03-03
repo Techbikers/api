@@ -18,8 +18,8 @@ const CharityPage = () => (
         children. By 2020 we anticipate reaching 15 million children.
       </p>
 
-      <p style={{padding: "0 80px"}}>
-        <iframe width="480" height="360" src="//www.youtube.com/embed/9yMEIqyR3E8?rel=0" frameBorder="0" allowFullScreen></iframe>
+      <p style={{ padding: "0 80px" }}>
+        <iframe width="480" height="360" src="//www.youtube.com/embed/9yMEIqyR3E8?rel=0" frameBorder="0" allowFullScreen />
       </p>
 
       <blockquote>

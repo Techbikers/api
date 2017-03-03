@@ -1,6 +1,6 @@
 import React from "react";
 
-import AuthMenu from "../containers/AuthMenu";
+import AuthMenu from "techbikers/containers/AuthMenu";
 
 const Footer = () => (
   <div role="footer">
@@ -13,8 +13,7 @@ const Footer = () => (
           </nav>
         </div>
 
-        <div className="span2">
-        </div>
+        <div className="span2" />
 
         <AuthMenu />
 

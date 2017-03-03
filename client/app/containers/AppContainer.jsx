@@ -1,15 +1,16 @@
 import React, { Component, PropTypes } from "react";
 import { connect } from "react-redux";
+import { locationShape } from "react-router";
 import { isEqual } from "lodash";
 
-import { identifyUser } from "../actions/authentication";
-import { setPageEntity } from "../actions/page";
-import { getUserById } from "../actions/user";
-import { getAuthenticatedUserId, getAuthenticatedUser } from "../selectors/user";
+import { identifyUser } from "techbikers/actions/authentication";
+import { setPageEntity } from "techbikers/actions/page";
+import { getUserById } from "techbikers/actions/user";
+import { getAuthenticatedUserId, getAuthenticatedUser } from "techbikers/selectors/user";
 
-import App from "../components/App";
+import App from "techbikers/app/components/App";
 
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
   const { state: authState } = state.authentication;
   const isAuthenticated = authState === "authenticated";
   const pageMeta = state.page.meta || {};
@@ -19,11 +20,23 @@ const mapStateToProps = (state) => {
     pageMeta,
     authenticatedUserId: getAuthenticatedUserId(state),
     authenticatedUser: getAuthenticatedUser(state)
-  }
-}
+  };
+};
 
 @connect(mapStateToProps)
 export default class AppContainer extends Component {
+  static propTypes = {
+    children: PropTypes.node.isRequired,
+    dispatch: PropTypes.func.isRequired,
+    location: locationShape,
+    isAuthenticated: PropTypes.bool,
+    authenticatedUserId: PropTypes.number,
+    authenticatedUser: PropTypes.object, // eslint-disable-line react/forbid-prop-types
+    params: PropTypes.shape({
+      id: PropTypes.number,
+      slug: PropTypes.string
+    })
+  };
 
   componentWillMount() {
     const { dispatch,
@@ -60,7 +73,7 @@ export default class AppContainer extends Component {
     // next check if we're rendering a modal layer or not
     if (nextLocation.key !== location.key && nextLocation.state && nextLocation.state.modal) {
       // save the old children (just like animation)
-      this.previousChildren = this.props.children
+      this.previousChildren = this.props.children;
     }
   }
 

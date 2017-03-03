@@ -1,7 +1,7 @@
 import React from "react";
 import DocumentTitle from "react-document-title";
 
-import MailchimpForm from "./MailchimpForm"
+import MailchimpForm from "techbikers/components/MailchimpForm";
 
 const IndexPage = () => (
   <DocumentTitle title="Techbikers">

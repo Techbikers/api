@@ -5,9 +5,9 @@ import { Provider } from "react-redux";
 import { Router, browserHistory } from "react-router";
 import { syncHistoryWithStore } from "react-router-redux";
 
-import routes from "./routes";
-import configureStore from "./store"
-import { init } from "./actions/init"
+import routes from "techbikers/routes";
+import configureStore from "techbikers/store";
+import { init } from "techbikers/app/actions";
 
 const initialState = {
   page: {
@@ -23,16 +23,16 @@ const initialState = {
 const store = configureStore(initialState);
 const history = syncHistoryWithStore(browserHistory, store);
 
-store.dispatch(init())
+store.dispatch(init());
 
 if (!global.Intl) {
-  require.ensure(["intl", "intl/locale-data/jsonp/en.js"], (require) => {
+  require.ensure(["intl", "intl/locale-data/jsonp/en.js"], require => {
     require("intl");
     require("intl/locale-data/jsonp/en.js");
     renderApp();
   });
 } else {
-  renderApp()
+  renderApp();
 }
 
 function renderApp() {
@@ -40,6 +40,6 @@ function renderApp() {
     <Provider store={store}>
       <Router history={history} children={routes} />
     </Provider>,
-    document.getElementById('app')
-  )
+    document.getElementById("app")
+  );
 }

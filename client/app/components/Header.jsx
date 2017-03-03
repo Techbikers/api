@@ -3,7 +3,10 @@ import { Link } from "react-router";
 
 export default class Header extends Component {
   static propTypes = {
-    menu: PropTypes.array
+    menu: PropTypes.arrayOf(PropTypes.shape({
+      title: PropTypes.string.isRequired,
+      route: PropTypes.string.isRequired
+    }))
   };
 
   static defaultProps = {
@@ -32,9 +35,9 @@ export default class Header extends Component {
             <img src="/static/img/logo@2x.png" alt="TechBikers" width="125" />
           </Link>
 
-          {menu.map(item => {
-            return <Link key={item.route} to={item.route} className="menu-item" activeClassName="menu-item__active">{item.title}</Link>;
-          })}
+          {menu.map(item =>
+            <Link key={item.route} to={item.route} className="menu-item" activeClassName="menu-item__active">{item.title}</Link>
+          )}
 
           <a href="http://blog.techbikers.com/">Blog</a>
 

@@ -6,26 +6,25 @@ import { browserHistory } from "react-router";
 import { routerMiddleware } from "react-router-redux";
 import { createTracker } from "redux-segment";
 
-import apiMiddleware from "../middleware/api";
-import ravenMiddleware from "../middleware/raven";
-import rootReducer from "../reducers";
+import apiMiddleware from "techbikers/middleware/api";
+import ravenMiddleware from "techbikers/middleware/raven";
+import rootReducer from "techbikers/reducers";
 
 export default function configureStore(initialState = {}) {
-
   const loggerMiddleware = createLogger();
   const trackerMiddleware = createTracker();
 
   const authenticationSlicer = () => state => {
-    const { state: authState } = state.authentication
+    const { state: authState } = state.authentication;
 
     if (authState === "authenticated") {
       return {
         authentication: state.authentication
-      }
+      };
     } else {
-      return {}
+      return {};
     }
-  }
+  };
 
   const enhancer = compose(
     persistState(null, {
@@ -46,8 +45,8 @@ export default function configureStore(initialState = {}) {
 
   if (module.hot) {
     // Enable Webpack hot module replacement for reducers
-    module.hot.accept("../reducers", () => {
-      store.replaceReducer(require("../reducers").default)
+    module.hot.accept("techbikers/reducers", () => {
+      store.replaceReducer(require("techbikers/reducers").default);
     });
   }
 

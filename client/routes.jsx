@@ -1,24 +1,24 @@
-import React  from "react";
-import Router, { Route, IndexRoute } from "react-router";
+import React from "react";
+import { Route, IndexRoute } from "react-router";
 
-// # Components & Containers
-import IndexPage from "./components/IndexPage";
-import AboutPage from "./components/AboutPage";
-import CharityPage from "./components/CharityPage";
-import NotFound     from "./components/NotFound";
+// Base App
+import AppContainer from "techbikers/app/containers/AppContainer";
+import Home from "techbikers/app/components/pages/Home";
+import About from "techbikers/app/components/pages/About";
+import Charity from "techbikers/app/components/pages/Charity";
+import NotFound from "techbikers/app/components/pages/NotFound";
 
 import Account from "./containers/Account";
 import AuthComplete from "./containers/AuthComplete";
-import AppContainer from "./containers/AppContainer";
 import ChapterPage from "./containers/ChapterPage";
-import Leaderboard  from "./containers/Leaderboard";
+import Leaderboard from "./containers/Leaderboard";
 import LoginPage from "./containers/LoginPage";
 import RidePage from "./containers/RidePage";
 import RidesPage from "./containers/RidesPage";
 import RiderProfile from "./containers/RiderProfile";
 import SponsorsPage from "./containers/SponsorsPage";
 import SignupPage from "./containers/SignupPage";
-import PasswordReset  from "./containers/PasswordReset";
+import PasswordReset from "./containers/PasswordReset";
 import PasswordResetConfirm from "./containers/PasswordResetConfirm";
 
 export default (
@@ -28,13 +28,11 @@ export default (
 
     // # Main App handler
     <Route path="/" component={AppContainer}>
-      // ## Default route
-      <IndexRoute component={IndexPage} />
-
-      // ## Static Page Routing
-      <Route path="about" component={AboutPage} />
+      // ## Core Pages
+      <IndexRoute component={Home} />
+      <Route path="about" component={About} />
+      <Route path="the_charity" component={Charity} />
       <Route path="sponsors" component={SponsorsPage} />
-      <Route path="the_charity" component={CharityPage} />
 
       // ## Authentication and Account
       <Route path="login" component={LoginPage} />
