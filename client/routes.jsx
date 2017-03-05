@@ -8,9 +8,11 @@ import About from "techbikers/app/components/pages/About";
 import Charity from "techbikers/app/components/pages/Charity";
 import NotFound from "techbikers/app/components/pages/NotFound";
 
+// Chapters
+import ChapterDetails from "techbikers/chapters/containers/ChapterDetails";
+
 import Account from "./containers/Account";
 import AuthComplete from "./containers/AuthComplete";
-import ChapterPage from "./containers/ChapterPage";
 import Leaderboard from "./containers/Leaderboard";
 import LoginPage from "./containers/LoginPage";
 import RidePage from "./containers/RidePage";
@@ -59,7 +61,7 @@ export default (
 
       // ## Chapter Routing
       <Route path="chapters">
-        <Route path=":name" component={ChapterPage} />
+        <Route path=":name" component={ChapterDetails} />
       </Route>
 
       // ## Error handling

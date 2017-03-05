@@ -9,7 +9,7 @@ import { getRideById } from "../actions/ride";
 import { updatePageMeta } from "../actions/page";
 import { getUsersOnCurrentRide } from "../selectors/user";
 import { getCurrentRide } from "../selectors/ride";
-import { getChapterForCurrentRide } from "../selectors/chapter";
+import { getChapterForCurrentRide } from "techbikers/chapters/selectors";
 
 import RideRegistration from "./RideRegistration";
 import RidersList from "../components/RidersList";

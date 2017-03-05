@@ -8,6 +8,7 @@ import { syncHistoryWithStore } from "react-router-redux";
 import routes from "techbikers/routes";
 import configureStore from "techbikers/store";
 import { init } from "techbikers/app/actions";
+import chapterSagas from "techbikers/chapters/sagas";
 
 const initialState = {
   page: {
@@ -20,9 +21,14 @@ const initialState = {
   }
 };
 
-const store = configureStore(initialState);
+const sagas = [
+  chapterSagas
+];
+
+const store = configureStore(initialState, sagas);
 const history = syncHistoryWithStore(browserHistory, store);
 
+// Dispatch an init event to know the app is ready
 store.dispatch(init());
 
 if (!global.Intl) {
