@@ -9,6 +9,7 @@ import routes from "techbikers/routes";
 import configureStore from "techbikers/store";
 import { init } from "techbikers/app/actions";
 import chapterSagas from "techbikers/chapters/sagas";
+import rideSagas from "techbikers/rides/sagas";
 
 const initialState = {
   page: {
@@ -22,7 +23,8 @@ const initialState = {
 };
 
 const sagas = [
-  chapterSagas
+  chapterSagas,
+  rideSagas
 ];
 
 const store = configureStore(initialState, sagas);

@@ -1,6 +1,6 @@
 import { createSelector } from "reselect";
 
-import { getCurrentRide } from "techbikers/selectors/ride";
+import { getCurrentRide } from "techbikers/rides/selectors";
 
 const chapterSelector = state => state.entities.chapter || {};
 const pageEntityNameSelector = state => state.page.entity.name || null;

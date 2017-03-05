@@ -1,44 +1,41 @@
 import React, { PropTypes, Component } from "react";
-import { autobind } from "core-decorators";
 import { connect } from "react-redux";
-import { Link } from "react-router";
 import DocumentTitle from "react-document-title";
 
-import { getRides } from "../actions/ride";
-import { getUpcomingRides, getPastRides } from "../selectors/ride";
+import { fetchAllRides } from "techbikers/rides/actions";
+import { getUpcomingRides, getPastRides } from "techbikers/rides/selectors";
+import { RideShape } from "techbikers/rides/shapes";
 
-import RideCard from "../components/RideCard";
-import Spinner from "../components/Spinner";
+import RideCard from "techbikers/rides/components/RideCard";
 
-function mapStateToProps(state) {
-  return {
-    rides: {
-      upcoming: getUpcomingRides(state),
-      past: getPastRides(state)
-    }
-  }
-}
+const mapStateToProps = state => ({
+  upcoming: getUpcomingRides(state),
+  past: getPastRides(state)
+});
 
-@connect(mapStateToProps)
+const mapDispatchToProps = {
+  fetchAllRides
+};
+
+@connect(mapStateToProps, mapDispatchToProps)
 export default class Rides extends Component {
   static propTypes = {
-    rides: PropTypes.shape({
-      upcoming: PropTypes.array,
-      past: PropTypes.array
-    })
+    upcoming: PropTypes.arrayOf(RideShape),
+    past: PropTypes.arrayOf(RideShape),
+    fetchAllRides: PropTypes.func.isRequired
   };
 
   static defaultProps = {
-    rides: []
+    upcoming: [],
+    past: []
   };
 
   componentWillMount() {
-    const { dispatch } = this.props;
-    dispatch(getRides());
+    this.props.fetchAllRides();
   }
 
   render() {
-    const { upcoming, past } = this.props.rides;
+    const { upcoming, past } = this.props;
 
     return (
       <DocumentTitle title="Rides – Techbikers">

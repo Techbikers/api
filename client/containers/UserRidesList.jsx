@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { Link } from "react-router";
 
 import { getRidesForCurrentUser } from "../selectors/user";
-import { getRidesByUser } from "../actions/ride";
+import { fetchRidesByUser } from "techbikers/rides/actions";
 
 import Spinner from "../components/Spinner";
 
@@ -21,7 +21,7 @@ export default class UserRidesList extends Component {
 
   componentWillMount() {
     const { dispatch, userId } = this.props;
-    dispatch(getRidesByUser(userId));
+    dispatch(fetchRidesByUser(userId));
   }
 
   render() {

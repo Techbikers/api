@@ -1,7 +1,7 @@
 import { sortByOrder } from "lodash";
 import { createSelector } from "reselect";
 
-import { getCurrentRide } from "./ride";
+import { getCurrentRide } from "techbikers/rides/selectors";
 import { getAuthenticatedUserId } from "./user";
 
 const fundraiserSelector = state => state.entities.fundraiser || {};

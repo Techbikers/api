@@ -11,12 +11,14 @@ import NotFound from "techbikers/app/components/pages/NotFound";
 // Chapters
 import ChapterDetails from "techbikers/chapters/containers/ChapterDetails";
 
+// Rides
+import Rides from "techbikers/rides/containers/Rides";
+import RideDetails from "techbikers/rides/containers/RideDetails";
+
 import Account from "./containers/Account";
 import AuthComplete from "./containers/AuthComplete";
 import Leaderboard from "./containers/Leaderboard";
 import LoginPage from "./containers/LoginPage";
-import RidePage from "./containers/RidePage";
-import RidesPage from "./containers/RidesPage";
 import RiderProfile from "./containers/RiderProfile";
 import SponsorsPage from "./containers/SponsorsPage";
 import SignupPage from "./containers/SignupPage";
@@ -49,8 +51,8 @@ export default (
 
       // ## Ride Routing
       <Route path="rides">
-        <IndexRoute component={RidesPage} />
-        <Route path=":id(/:slug)" component={RidePage} />
+        <IndexRoute component={Rides} />
+        <Route path=":id(/:slug)" component={RideDetails} />
       </Route>
 
       // ## Rider Routing

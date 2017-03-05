@@ -7,7 +7,7 @@ import {
   CLEAR_UI_STATE } from "../actions/page";
 import {
   OPEN_RIDE_REGISTRATION_MODAL,
-  CLOSE_RIDE_REGISTRATION_MODAL } from "../actions/ride";
+  CLOSE_RIDE_REGISTRATION_MODAL } from "techbikers/rides/actions";
 import {
   BEGIN_PASSWORD_RESET_REQUEST,
   BEGIN_PASSWORD_RESET_SUCCESS } from "../actions/authentication";

@@ -1,67 +1,27 @@
-import { arrayOf } from "normalizr";
+/* global Stripe */
+
 import { EventTypes } from "redux-segment";
+import { createAction } from "redux-actions";
 
 import {
   API_REQUEST,
-  rideSchema,
   rideRegistrationSchema
 } from "../middleware/api";
 
-export const GET_RIDE_REQUEST = "GET_RIDE_REQUEST";
-export const GET_RIDE_RESPONSE = "GET_RIDE_RESPONSE";
-export const GET_RIDE_ERROR = "GET_RIDE_ERROR";
+export const FETCH_ALL_RIDES = "FETCH_ALL_RIDES";
+export const fetchAllRides = createAction(FETCH_ALL_RIDES);
 
-export function getRides() {
-  return {
-    [API_REQUEST]: {
-      endpoint: "/rides/",
-      schema: arrayOf(rideSchema),
-      requestActionType: GET_RIDE_REQUEST,
-      successActionType: GET_RIDE_RESPONSE,
-      errorActionType: GET_RIDE_ERROR
-    }
-  }
-}
+export const FETCH_RIDE_BY_ID = "FETCH_RIDE_BY_ID";
+export const fetchRideById = createAction(FETCH_RIDE_BY_ID);
 
-export function getRideById(rideId) {
-  return {
-    [API_REQUEST]: {
-      endpoint: `/rides/${rideId}`,
-      schema: rideSchema,
-      requestActionType: GET_RIDE_REQUEST,
-      successActionType: GET_RIDE_RESPONSE,
-      errorActionType: GET_RIDE_ERROR
-    }
-  }
-}
+export const FETCH_RIDES_BY_USER = "FETCH_RIDES_BY_USER";
+export const fetchRidesByUser = createAction(FETCH_RIDES_BY_USER);
 
-export function getRidesByUser(userId) {
-  return {
-    [API_REQUEST]: {
-      endpoint: `/riders/${userId}/rides`,
-      schema: arrayOf(rideSchema),
-      requestActionType: GET_RIDE_REQUEST,
-      successActionType: GET_RIDE_RESPONSE,
-      errorActionType: GET_RIDE_ERROR
-    }
-  }
-}
-
-export const GET_RIDE_REGISTRATION_REQUEST = "GET_RIDE_REGISTRATION_REQUEST";
-export const GET_RIDE_REGISTRATION_RESPONSE = "GET_RIDE_REGISTRATION_RESPONSE";
-export const GET_RIDE_REGISTRATION_ERROR = "GET_RIDE_REGISTRATION_ERROR";
-
-export function getRideRegistrationDetails(rideId, userId) {
-  return {
-    [API_REQUEST]: {
-      endpoint: `/rides/${rideId}/riders/${userId}`,
-      schema: rideRegistrationSchema,
-      requestActionType: GET_RIDE_REGISTRATION_REQUEST,
-      successActionType: GET_RIDE_REGISTRATION_RESPONSE,
-      errorActionType: GET_RIDE_REGISTRATION_ERROR
-    }
-  }
-}
+export const FETCH_RIDE_REGISTRATION_DETAILS = "FETCH_RIDE_REGISTRATION_DETAILS";
+export const fetchRideRegistrationDetails = createAction(
+  FETCH_RIDE_REGISTRATION_DETAILS,
+  (rideId, userId) => ({ rideId, userId })
+);
 
 export const NEW_RIDE_REGISTRATION_REQUEST = "NEW_RIDE_REGISTRATION_REQUEST";
 export const NEW_RIDE_REGISTRATION_RESPONSE = "NEW_RIDE_REGISTRATION_RESPONSE";
@@ -94,7 +54,7 @@ export function registerUserForRide(rideId, payload = null) {
         }
       }
     }
-  }
+  };
 }
 
 export const RIDE_REGISTRATION_CHARGE_REQUEST = "RIDE_REGISTRATION_CHARGE_REQUEST";
@@ -129,7 +89,7 @@ export function chargeUserForRide(rideId, userId, token = null, amount = null) {
         }
       }
     }
-  }
+  };
 }
 
 export const CREATE_STRIPE_TOKEN_REQUEST = "CREATE_STRIPE_TOKEN_REQUEST";
@@ -149,7 +109,7 @@ export function createTokenAndChargeUserForRide(rideId, userId, amount, cardDeta
         }
       }
     };
-  };
+  }
 
   return dispatch => {
     dispatch(actionWith({ type: CREATE_STRIPE_TOKEN_REQUEST }));
@@ -162,17 +122,17 @@ export function createTokenAndChargeUserForRide(rideId, userId, amount, cardDeta
         dispatch(actionWith({ type: CREATE_STRIPE_TOKEN_ERROR, error: response.error }));
       }
     });
-  }
+  };
 }
 
 export const OPEN_RIDE_REGISTRATION_MODAL = "OPEN_RIDE_REGISTRATION_MODAL";
 
 export function openRideRegistrationModal() {
-  return { type: OPEN_RIDE_REGISTRATION_MODAL }
+  return { type: OPEN_RIDE_REGISTRATION_MODAL };
 }
 
 export const CLOSE_RIDE_REGISTRATION_MODAL = "CLOSE_RIDE_REGISTRATION_MODAL";
 
 export function closeRideRegistrationModal() {
-  return { type: CLOSE_RIDE_REGISTRATION_MODAL }
+  return { type: CLOSE_RIDE_REGISTRATION_MODAL };
 }

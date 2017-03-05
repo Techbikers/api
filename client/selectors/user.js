@@ -1,7 +1,7 @@
 import { isEmpty } from "lodash";
 import { createSelector } from "reselect";
 
-import { getCurrentRide, getRegistrationsForCurrentRide } from "./ride";
+import { getCurrentRide, getRegistrationsForCurrentRide } from "techbikers/rides/selectors";
 
 const userSelector = state => state.entities.user || {};
 const rideSelector = state => state.entities.ride || {};

@@ -1,22 +1,24 @@
 import React, { Component, PropTypes } from "react";
-import { FormattedNumber } from "react-intl";
 import Modal from "react-modal";
 
-import { modalStyles } from "../utils/modal";
-import requireAuthentication from "../containers/requireAuthentication";
-import { closeRideRegistrationModal } from "../actions/ride";
+import { modalStyles } from "techbikers/utils/modal";
+import requireAuthentication from "techbikers/containers/requireAuthentication";
+import { closeRideRegistrationModal } from "techbikers/rides/actions";
+import { RideShape, RegistrationShape } from "techbikers/rides/shapes";
+import { UserShape } from "techbikers/users/shapes";
+import { FundraiserShape } from "techbikers/fundraisers/shapes";
 
-import SetupFundraising from "./SetupFundraising";
-import PreRegistrationForm from "./PreRegistrationForm";
-import CompleteRegistrationForm from "./CompleteRegistrationForm";
+import SetupFundraising from "techbikers/components/SetupFundraising";
+import PreRegistrationForm from "techbikers/rides/components/PreRegistrationForm";
+import CompleteRegistrationForm from "techbikers/rides/components/CompleteRegistrationForm";
 
 @requireAuthentication()
 export default class RideRegistrationModal extends Component {
   static propTypes = {
-    ride: PropTypes.object.isRequired,
-    user: PropTypes.object.isRequired,
-    fundraiser: PropTypes.object,
-    registration: PropTypes.object,
+    ride: RideShape.isRequired,
+    user: UserShape.isRequired,
+    fundraiser: FundraiserShape,
+    registration: RegistrationShape,
     dispatch: PropTypes.func.isRequired,
     isOpen: PropTypes.bool.isRequired
   };
@@ -26,7 +28,7 @@ export default class RideRegistrationModal extends Component {
   };
 
   render() {
-    const { dispatch, isOpen, onRequestClose, ...props } = this.props;
+    const { dispatch, isOpen } = this.props;
 
     return (
       <Modal style={modalStyles} isOpen={isOpen} onRequestClose={() => dispatch(closeRideRegistrationModal())}>
@@ -50,8 +52,9 @@ export default class RideRegistrationModal extends Component {
         return (
           <div className="ride-registration--form">
             <p>
-              Awesome - we've received your application to join this ride. You'll hear from us soon
-              so in the meantime, why not jump on your bike and go for a ride.</p>
+              `Awesome - we've received your application to join this ride. You'll hear from us soon
+              so in the meantime, why not jump on your bike and go for a ride.`
+            </p>
             <button className="btn btn-green" onClick={() => dispatch(closeRideRegistrationModal())}>
               Great!
             </button>
@@ -64,20 +67,25 @@ export default class RideRegistrationModal extends Component {
             <div className="ride-registration--form">
               <p>
                 You're all set! You've completed registration and we've received payment - all that's left
-                to do now is to setup your fundraising page and train!</p>
+                to do now is to setup your fundraising page and train!
+              </p>
               <SetupFundraising {...this.props} />
-              <button className="btn btn-grey" style={{marginLeft: 10}} onClick={() => dispatch(closeRideRegistrationModal())}>Not right now</button>
+              <button className="btn btn-grey" style={{ marginLeft: 10 }} onClick={() => dispatch(closeRideRegistrationModal())}>Not right now</button>
             </div>
           );
         } else {
           return (
             <div className="ride-registration--form">
               <p>
-                Nice work - that's all from us. On your bike and let's change lives!</p>
+                Nice work - that's all from us. On your bike and let's change lives!
+              </p>
               <button className="btn btn-grey" onClick={() => dispatch(closeRideRegistrationModal())}>OK!</button>
             </div>
           );
         }
+
+      default:
+        return null;
     }
   }
 }

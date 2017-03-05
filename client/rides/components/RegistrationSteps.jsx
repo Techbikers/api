@@ -33,7 +33,7 @@ class RegistrationSteps extends Component {
     super(options);
     this.state = {
       steps: this.props.steps
-    }
+    };
   }
 
   componentDidMount() {
@@ -45,7 +45,7 @@ class RegistrationSteps extends Component {
   }
 
   updateSteps() {
-    let newSteps = _.map(this.state.steps, (step) => {
+    const newSteps = _.map(this.state.steps, step => {
       if (this.props.step == step.number) {
         step.state = this.props.state;
       } else if (this.props.step > step.number) {
@@ -55,7 +55,7 @@ class RegistrationSteps extends Component {
       }
       return step;
     });
-    this.setState({"steps": newSteps});
+    this.setState({ "steps": newSteps });
   }
 
   render() {

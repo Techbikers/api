@@ -1,23 +1,23 @@
-import React, { Component } from "react";
-import { FormattedNumber } from "react-intl";
+import React, { Component, PropTypes } from "react";
 import { connect } from "react-redux";
 
 import {
-  getRideRegistrationDetails,
-  openRideRegistrationModal,
-  closeRideRegistrationModal } from "../actions/ride";
+  fetchRideRegistrationDetails,
+  openRideRegistrationModal } from "techbikers/rides/actions";
 import {
   getAuthenticatedUser,
-  getRegistrationForCurrentRideAndUser } from "../selectors/user";
-import { getFundraiserForCurrentRideAndUser } from "../selectors/fundraiser";
-import { getCurrentRide } from "../selectors/ride";
-import { getChapterForCurrentRide } from "../selectors/chapter";
+  getRegistrationForCurrentRideAndUser } from "techbikers/selectors/user";
+import { getFundraiserForCurrentRideAndUser } from "techbikers/selectors/fundraiser";
+import { getCurrentRide } from "techbikers/rides/selectors";
+import { getChapterForCurrentRide } from "techbikers/chapters/selectors";
+import { RideShape, RegistrationShape } from "techbikers/rides/shapes";
+import { UserShape } from "techbikers/users/shapes";
 
-import RideRegistrationModal from "../components/RideRegistrationModal";
-import RegistrationSteps from "../components/RegistrationSteps";
-import SetupFundraising from "../components/SetupFundraising";
+import RideRegistrationModal from "techbikers/rides/components/RideRegistrationModal";
+import RegistrationSteps from "techbikers/rides/components/RegistrationSteps";
+import SetupFundraising from "techbikers/components/SetupFundraising";
 
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
   const { rideRegistrationModal } = state.page.ui;
   const { errors } = state;
 
@@ -29,27 +29,41 @@ const mapStateToProps = (state) => {
     fundraiser: getFundraiserForCurrentRideAndUser(state),
     rideRegistrationModal,
     errors
-  }
-}
+  };
+};
 
-@connect(mapStateToProps)
+const mapDispatchToProps = {
+  fetchRideRegistrationDetails,
+  openRideRegistrationModal
+};
+
+@connect(mapStateToProps, mapDispatchToProps)
 export default class RideRegistration extends Component {
+  static propTypes = {
+    ride: RideShape,
+    user: UserShape,
+    registration: RegistrationShape,
+    fetchRideRegistrationDetails: PropTypes.func.isRequired,
+    openRideRegistrationModal: PropTypes.func.isRequired,
+    rideRegistrationModal: PropTypes.bool
+  };
+
   componentWillMount() {
-    const { dispatch, user, ride } = this.props;
+    const { user, ride } = this.props;
 
     if (user && ride) {
-      dispatch(getRideRegistrationDetails(ride.id, user.id));
+      this.props.fetchRideRegistrationDetails(ride.id, user.id);
     }
   }
 
   componentWillUpdate(nextProps) {
-    const { dispatch, user: prevUser } = this.props;
+    const { user: prevUser } = this.props;
     const { user, ride } = nextProps;
 
     if (!prevUser && user) {
       // The user has just logged in so we should fetch
       // the registration record (if it exists)
-      dispatch(getRideRegistrationDetails(ride.id, user.id));
+      this.props.fetchRideRegistrationDetails(ride.id, user.id);
     }
   }
 
@@ -60,7 +74,7 @@ export default class RideRegistration extends Component {
           <a className="btn">Now sold out</a>
         </header>
         <span className="more-info">
-          Registration for this ride has closed as it is now sold out
+          `Registration for this ride has closed as it is now sold out`
         </span>
       </div>
     );
@@ -76,8 +90,9 @@ export default class RideRegistration extends Component {
           <RegistrationSteps step={2} state="pending" />
           <div className="ride-registration--details">
             <p>
-              We've received your application to join this ride. You'll hear from us soon
-              so in the meantime, why not jump on your bike and go for a ride?</p>
+              `We've received your application to join this ride. You'll hear from us soon
+              so in the meantime, why not jump on your bike and go for a ride?`
+            </p>
           </div>
         </div>
       </div>
@@ -96,7 +111,8 @@ export default class RideRegistration extends Component {
             <p>
               Unfortunately your invite to register for this ride has now expired. Demand for our rides
               is always high so if you fail to accept the invite to register for the ride then we give
-              your spot to someone else on the waiting list.</p>
+              your spot to someone else on the waiting list.
+            </p>
           </div>
         </div>
       </div>
@@ -115,7 +131,8 @@ export default class RideRegistration extends Component {
             <p>
               Due to exceptional demand we've been unable to invite you to join the ride.
               Sorry if this is a disappointing outcome but we hope you'll apply to join
-              another Techbikers ride in the future!</p>
+              another Techbikers ride in the future!
+            </p>
           </div>
         </div>
       </div>
@@ -123,7 +140,7 @@ export default class RideRegistration extends Component {
   }
 
   renderCompleteRegistration() {
-    const { dispatch, user } = this.props;
+    const { user } = this.props;
 
     return (
       <div className="ride-registration--container ride-registration--popdown">
@@ -135,9 +152,10 @@ export default class RideRegistration extends Component {
           <div className="ride-registration--details">
             <p>
               Good news, {user.first_name} - you've been invited to join the ride. You now need to confirm
-              and pay the registration fee before your invite expires.</p>
+              and pay the registration fee before your invite expires.
+            </p>
           </div>
-          <a className="btn btn-green" onClick={() => dispatch(openRideRegistrationModal())}>Complete Registration</a>
+          <a className="btn btn-green" onClick={() => this.props.openRideRegistrationModal()}>Complete Registration</a>
         </div>
       </div>
     );
@@ -162,12 +180,10 @@ export default class RideRegistration extends Component {
   }
 
   renderStartRegistration() {
-    const { dispatch } = this.props;
-
     return (
       <div className="ride-registration--container">
         <header className="header-btn">
-          <a className="btn btn-green" onClick={() => dispatch(openRideRegistrationModal())}>Sign up for the ride!</a>
+          <a className="btn btn-green" onClick={() => this.props.openRideRegistrationModal()}>Sign up for the ride!</a>
         </header>
       </div>
     );
@@ -191,29 +207,26 @@ export default class RideRegistration extends Component {
           // This means they are waiting to be accepted so they can then
           // complete their registration.
           return this.renderPendingRegistration();
-          break;
 
         case "ACC":
           // The current rider has been accepted onto the ride. If their invite
           // to register hasn't expired then show them a form to complete signup.
           if (expired) {
             return this.renderExpiredRegistration();
-            break;
           }
 
           return this.renderCompleteRegistration();
-          break;
 
         case "REG":
           // The logged in rider has already signed up for the ride and
           // is confirmed as fully registered. No need to do anything
           // but get on that bike and train!
           return this.renderCompletedRegistration();
-          break;
 
         case "REJ":
           return this.renderRejectedRegistration();
-          break;
+        default:
+          return null;
       }
     } else {
       return this.renderStartRegistration();

@@ -3,11 +3,11 @@ import { FormattedNumber } from "react-intl";
 import forms, { Form } from "newforms";
 import { autobind } from "core-decorators";
 
-import { registerUserForRide } from "../actions/ride";
+import { registerUserForRide } from "techbikers/rides/actions";
+import { RideShape } from "techbikers/rides/shapes";
 
-import FormField from "./FormField";
-import Timestamp from "./Timestamp";
-import RegistrationSteps from "./RegistrationSteps";
+import FormField from "techbikers/components/FormField";
+import RegistrationSteps from "techbikers/rides/components/RegistrationSteps";
 
 const DetailsForm = Form.extend({
   statement: forms.CharField({
@@ -27,7 +27,7 @@ const DetailsForm = Form.extend({
 
 export default class RideRegistrationForm extends Component {
   static propTypes = {
-    ride: PropTypes.object.isRequired,
+    ride: RideShape.isRequired,
     dispatch: PropTypes.func.isRequired
   };
 
@@ -67,8 +67,8 @@ export default class RideRegistrationForm extends Component {
               got a great mix of people in the peloton, we've got a short application form below.`}
           </p>
           <p>
-            Please bear in mind: <b>If you're selected, you will have to pay a minimum contribution
-            of <FormattedNumber style="currency" currency={ride.currency} value={ride.price} /></b> to the ride
+            Please bear in mind: <b>If you're selected, you will have to pay a minimum contribution of
+              <FormattedNumber style="currency" currency={ride.currency} value={ride.price} /></b> to the ride
             cost to secure your spot. You can of course contribute more so more money is left for Room to Read!
           </p>
         </div>
