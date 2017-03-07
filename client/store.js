@@ -1,7 +1,6 @@
 import { compose, createStore, applyMiddleware } from "redux";
 import persistState from "redux-localstorage";
 import thunkMiddleware from "redux-thunk";
-import createLogger from "redux-logger";
 import { browserHistory } from "react-router";
 import { routerMiddleware } from "react-router-redux";
 import { createTracker } from "redux-segment";
@@ -12,7 +11,6 @@ import ravenMiddleware from "techbikers/middleware/raven";
 import rootReducer from "techbikers/reducers";
 
 export default function configureStore(initialState = {}, sagas = []) {
-  const loggerMiddleware = createLogger();
   const trackerMiddleware = createTracker();
   const sagaMiddleware = createSagaMiddleware();
 
@@ -38,8 +36,7 @@ export default function configureStore(initialState = {}, sagas = []) {
       thunkMiddleware,
       routerMiddleware(browserHistory),
       trackerMiddleware,
-      sagaMiddleware,
-      loggerMiddleware
+      sagaMiddleware
     ),
     window.devToolsExtension ? window.devToolsExtension() : f => f
   );
