@@ -3,30 +3,40 @@ import { connect } from "react-redux";
 import { Link } from "react-router";
 import { FormattedNumber } from "react-intl";
 
-import { getUserById } from "../actions/user";
+import { getUserById } from "techbikers/users/actions";
+import { UserShape } from "techbikers/users/shapes";
+import { FundraiserShape } from "techbikers/fundraisers/shapes";
 
-import Avatar from "../components/Avatar";
+import Avatar from "techbikers/users/components/Avatar";
 
 const mapStateToProps = (state, ownProps) => {
   const { user } = ownProps;
   return {
     userObject: state.entities.user ? state.entities.user[user] : null
   };
-}
+};
 
-@connect(mapStateToProps)
+const mapDispatchToProps = (dispatch, props) => ({
+  getUser: () => dispatch(getUserById(props.user))
+});
+
+@connect(mapStateToProps, mapDispatchToProps)
 export default class Fundraiser extends Component {
   static propTypes = {
-    fundraiser: PropTypes.object.isRequired,
+    fundraiser: FundraiserShape,
     position: PropTypes.number.isRequired,
-    userObject: PropTypes.object
+    userObject: UserShape,
+    currency: PropTypes.string,
+    totalRaised: PropTypes.string,
+    pageUrl: PropTypes.string,
+    getUser: PropTypes.func.isRequired
   };
 
   componentWillMount() {
-    const { dispatch, user, userObject } = this.props;
+    const { userObject } = this.props;
 
     if (!userObject) {
-      dispatch(getUserById(user));
+      this.props.getUser();
     }
   }
 

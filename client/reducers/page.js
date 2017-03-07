@@ -4,7 +4,7 @@ import { combineReducers } from "redux";
 import {
   SET_PAGE_ENTITY,
   UPDATE_META_INFO,
-  CLEAR_UI_STATE } from "../actions/page";
+  CLEAR_UI_STATE } from "techbikers/app/actions";
 import {
   OPEN_RIDE_REGISTRATION_MODAL,
   CLOSE_RIDE_REGISTRATION_MODAL } from "techbikers/rides/actions";

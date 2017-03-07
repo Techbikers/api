@@ -1,7 +1,7 @@
 import { arrayOf } from "normalizr";
 import { EventTypes } from "redux-segment";
 
-import { API_REQUEST, userSchema } from "../middleware/api";
+import { API_REQUEST, userSchema } from "techbikers/middleware/api";
 import { authenticateAs } from "techbikers/auth/actions";
 
 export const GET_USER_REQUEST = "GET_USER_REQUEST";
@@ -17,7 +17,7 @@ export function getUserById(id) {
       successActionType: GET_USER_RESPONSE,
       errorActionType: GET_USER_ERROR
     }
-  }
+  };
 }
 
 export function getUsersForRide(rideId) {
@@ -29,7 +29,7 @@ export function getUsersForRide(rideId) {
       successActionType: GET_USER_RESPONSE,
       errorActionType: GET_USER_ERROR
     }
-  }
+  };
 }
 
 export const CREATE_USER_REQUEST = "CREATE_USER_REQUEST";
@@ -41,7 +41,7 @@ export function createUser(user) {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(user)
-  }
+  };
 
   return {
     [API_REQUEST]: {
@@ -57,7 +57,7 @@ export function createUser(user) {
         eventType: EventTypes.track
       }
     }
-  }
+  };
 }
 
 export function createUserAndAuthenticate(user) {
@@ -79,7 +79,7 @@ export function updateUser(user) {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(user)
-  }
+  };
 
   return {
     [API_REQUEST]: {
@@ -95,5 +95,5 @@ export function updateUser(user) {
         eventType: EventTypes.track
       }
     }
-  }
+  };
 }

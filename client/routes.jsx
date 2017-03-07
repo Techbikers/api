@@ -22,10 +22,15 @@ import SignupPage from "techbikers/auth/containers/SignupPage";
 import PasswordReset from "techbikers/auth/containers/PasswordReset";
 import PasswordResetConfirm from "techbikers/auth/containers/PasswordResetConfirm";
 
-import Account from "./containers/Account";
-import Leaderboard from "./containers/Leaderboard";
-import RiderProfile from "./containers/RiderProfile";
-import SponsorsPage from "./containers/SponsorsPage";
+// Sponsors
+import SponsorsPage from "techbikers/sponsors/containers/SponsorsPage";
+
+// Users
+import Account from "techbikers/users/containers/Account";
+import Profile from "techbikers/users/containers/Profile";
+
+// Fundraising
+import Leaderboard from "techbikers/fundraisers/containers/Leaderboard";
 
 export default (
   <Route>
@@ -58,7 +63,7 @@ export default (
       </Route>
 
       // ## Rider Routing
-      <Route path="riders/:id" component={RiderProfile} />
+      <Route path="riders/:id" component={Profile} />
 
       // ## Fundraising
       <Route path="donate" component={Leaderboard} />

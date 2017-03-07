@@ -6,7 +6,7 @@ import DocumentTitle from "react-document-title";
 import forms, { Form } from "newforms";
 
 import { beginResetPassword } from "techbikers/auth/actions";
-import { clearResetPasswordStatus } from "techbikers/actions/page";
+import { clearResetPasswordStatus } from "techbikers/app/actions";
 
 import FormField from "techbikers/components/FormField";
 

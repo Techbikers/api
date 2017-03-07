@@ -1,30 +1,36 @@
 import React, { Component, PropTypes } from "react";
-import { Link } from "react-router";
 import { connect } from "react-redux";
-import { autobind } from "core-decorators";
 import DocumentTitle from "react-document-title";
 
-import { getRides } from "../actions/ride";
-import { getUserById } from "../actions/user";
-import { getAuthenticatedUser, getCurrentUser, getRidesForCurrentUser } from "../selectors/user";
+import { getUserById } from "techbikers/users/actions";
+import { getAuthenticatedUser } from "techbikers/auth/selectors";
+import { getCurrentUser, getRidesForCurrentUser } from "techbikers/users/selectors";
+import { UserShape } from "techbikers/users/shapes";
 
-import Avatar from "../components/Avatar";
-import TwitterLink from "../components/TwitterLink";
-import Spinner from "../components/Spinner";
-import UserRidesList from "./UserRidesList";
+import Avatar from "techbikers/users/components/Avatar";
+import UserRidesList from "techbikers/users/containers/UserRidesList";
+import TwitterLink from "techbikers/components/TwitterLink";
+import Spinner from "techbikers/components/Spinner";
 
-const mapStateToProps = (state) => {
-  return {
-    user: getCurrentUser(state),
-    rides: getRidesForCurrentUser(state),
-    authenticatedUser: getAuthenticatedUser(state)
-  }
-}
+const mapStateToProps = state => ({
+  user: getCurrentUser(state),
+  rides: getRidesForCurrentUser(state),
+  authenticatedUser: getAuthenticatedUser(state)
+});
 
-@connect(mapStateToProps)
+const mapDispatchToProps = {
+  getUserById
+};
+
+@connect(mapStateToProps, mapDispatchToProps)
 export default class RiderProfile extends Component {
   static propTypes = {
-    canEdit: PropTypes.bool
+    canEdit: PropTypes.bool,
+    params: PropTypes.shape({
+      id: PropTypes.number.isRequired
+    }),
+    user: UserShape,
+    getUserById: PropTypes.func.isRequired
   };
 
   static defaultProps = {
@@ -39,8 +45,8 @@ export default class RiderProfile extends Component {
   }
 
   componentWillMount() {
-    const { dispatch, params } = this.props;
-    dispatch(getUserById(params.id));
+    const { params } = this.props;
+    this.props.getUserById(params.id);
   }
 
   render() {
@@ -52,7 +58,7 @@ export default class RiderProfile extends Component {
     }
 
     return (
-      <DocumentTitle title={user.name + " – Techbikers"}>
+      <DocumentTitle title={`${user.name} – Techbikers`}>
         <div id="rider-profile">
           {isEditing ?
             <section className="toolbar">
@@ -66,9 +72,9 @@ export default class RiderProfile extends Component {
               <h1>{user.name}</h1>
               <h3>{user.company} |
                   {user.website} |
-                  <TwitterLink handle={user.twitter} /></h3>
+                <TwitterLink handle={user.twitter} /></h3>
               {canEdit ?
-                <a className="btn" href="edit">Edit Profile</a> : ''}
+                <a className="btn" href="edit">Edit Profile</a> : ""}
             </header>
 
             <div className="content text--centre">
@@ -82,8 +88,8 @@ export default class RiderProfile extends Component {
             <div className="content centerText">
               <p>{user.biography}</p>
 
-              {isEditing || user.statement !== '' ?
-                <h2>Why am i doing Techbikers?</h2> : ''}
+              {isEditing || user.statement !== "" ?
+                <h2>Why am i doing Techbikers?</h2> : ""}
 
               <p>{user.statement}</p>
             </div>
@@ -91,7 +97,7 @@ export default class RiderProfile extends Component {
 
           <section id="rides">
             <div className="content centerText">
-              <h2>{user.first_name}'s rides:</h2>
+              <h2>`${user.first_name}'s rides:`</h2>
               <UserRidesList userId={params.id} />
             </div>
           </section>

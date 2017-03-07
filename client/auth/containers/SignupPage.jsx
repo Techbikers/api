@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import { replace } from "react-router-redux";
 import DocumentTitle from "react-document-title";
 
-import { createUserAndAuthenticate } from "techbikers/actions/user";
+import { createUserAndAuthenticate } from "techbikers/users/actions";
 
 import ErrorMessage from "techbikers/components/ErrorMessage";
 import SignupForm from "techbikers/auth/components/SignupForm";

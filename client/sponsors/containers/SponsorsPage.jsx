@@ -2,20 +2,26 @@ import React, { Component, PropTypes } from "react";
 import { connect } from "react-redux";
 import DocumentTitle from "react-document-title";
 
-import { getSponsors } from "../actions/sponsor";
-import { getActiveSponsors } from "../selectors/sponsor";
-import Sponsor from "../components/Sponsor";
+import { getSponsors } from "techbikers/sponsors/actions";
+import { getActiveSponsors } from "techbikers/sponsors/selectors";
 
-const mapStateToProps = state => {
-  return { gold: getActiveSponsors(state) }
-}
+import Sponsor from "techbikers/sponsors/components/Sponsor";
 
-@connect(mapStateToProps)
+const mapStateToProps = state => ({
+  gold: getActiveSponsors(state)
+});
+
+const mapDispatchToProps = {
+  getSponsors
+};
+
+@connect(mapStateToProps, mapDispatchToProps)
 export default class SponsorsPage extends Component {
   static propTypes = {
     gold: PropTypes.arrayOf(PropTypes.object),
     silver: PropTypes.arrayOf(PropTypes.object),
-    inkind: PropTypes.arrayOf(PropTypes.object)
+    inkind: PropTypes.arrayOf(PropTypes.object),
+    getSponsors: PropTypes.func.isRequired
   };
 
   static defaultProps = {
@@ -25,8 +31,7 @@ export default class SponsorsPage extends Component {
   };
 
   componentWillMount() {
-    const { dispatch } = this.props;
-    dispatch(getSponsors());
+    this.props.getSponsors();
   }
 
   render() {
@@ -44,36 +49,36 @@ export default class SponsorsPage extends Component {
               <p>
                 We are honoured to have the following companies as our sponsors. Along with the effort
                 of our riders they make each Techbikers ride possible. We are incredibly grateful for
-                their support, which means that all donations go directly to Room to Read.</p>
+                their support, which means that all donations go directly to Room to Read.
+              </p>
 
               <h2>Gold Sponsors</h2>
               <ul className="list--secret">
-                {gold.map(sponsor => {
-                  return <Sponsor key={sponsor.id} sponsor={sponsor} />;
-                })}
+                {gold.map(sponsor =>
+                  <Sponsor key={sponsor.id} sponsor={sponsor} />
+                )}
               </ul>
 
               <h2>Silver Sponsors</h2>
               <ul className="list--secret">
-                {silver.map(sponsor => {
-                  return <Sponsor key={sponsor.id} sponsor={sponsor} />;
-                })}
+                {silver.map(sponsor =>
+                  <Sponsor key={sponsor.id} sponsor={sponsor} />
+                )}
               </ul>
 
               <h2 id="inkind">Sponsors in kind</h2>
               <p>
                 The following sponsors have donated their products, time, and energy to help TechBikers
-                reach their goal. We are very thankful for their support, and you should check them out.</p>
+                reach their goal. We are very thankful for their support, and you should check them out.
+              </p>
               <ul className="list--secret list--inline inkind">
-                {inkind.map(sponsor => {
-                  return (
-                    <li>
-                      <a href={sponsor.website} className="img" target="_blank">
-                        <img width="205" height="154" src={sponsor.logo} alt={sponsor.organization} />
-                      </a>
-                    </li>
-                  );
-                })}
+                {inkind.map(sponsor => (
+                  <li key={sponsor.id}>
+                    <a href={sponsor.website} className="img" target="_blank">
+                      <img width="205" height="154" src={sponsor.logo} alt={sponsor.organization} />
+                    </a>
+                  </li>
+                ))}
               </ul>
             </div>
           </section>

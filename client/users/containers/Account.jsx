@@ -4,34 +4,45 @@ import { Link } from "react-router";
 import DocumentTitle from "react-document-title";
 
 import { getAuthenticatedUser, getAuthenticatedUserId } from "techbikers/auth/selectors";
-import { getUserById } from "techbikers/actions/user";
-import { setPageEntity } from "techbikers/actions/page";
+import { getUserById } from "techbikers/users/actions";
+import { setPageEntity } from "techbikers/app/actions";
+import { UserShape } from "techbikers/users/shapes";
 
 import requireAuthentication from "techbikers/auth/containers/requireAuthentication";
-import UserRidesList from "./UserRidesList";
-import Spinner from "../components/Spinner";
+import UserRidesList from "techbikers/users/containers/UserRidesList";
+import Spinner from "techbikers/components/Spinner";
 
-const mapStateToProps = (state) => {
-  return {
-    id: getAuthenticatedUserId(state),
-    user: getAuthenticatedUser(state)
-  }
-}
+const mapStateToProps = state => ({
+  id: getAuthenticatedUserId(state),
+  user: getAuthenticatedUser(state)
+});
+
+const mapDispatchToProps = {
+  getUserById,
+  setPageEntity
+};
 
 @requireAuthentication()
-@connect(mapStateToProps)
+@connect(mapStateToProps, mapDispatchToProps)
 export default class Account extends Component {
+  static propTypes = {
+    id: PropTypes.number.isRequired,
+    user: UserShape,
+    getUserById: PropTypes.func.isRequired,
+    setPageEntity: PropTypes.func.isRequired
+  };
+
   componentWillMount() {
-    const { id, dispatch } = this.props;
-    dispatch(getUserById(id));
-    dispatch(setPageEntity({id}));
+    const { id } = this.props;
+    this.props.getUserById(id);
+    this.props.setPageEntity({ id });
   }
 
   render() {
     const { user } = this.props;
 
     if (!user) {
-      return <Spinner />
+      return <Spinner />;
     }
 
     return (
@@ -39,7 +50,7 @@ export default class Account extends Component {
         <section>
           <div className="content text--centre">
             <header>
-              <h1>Hi {user.first_name}!</h1>
+              <h1>Hi {user.firstName}!</h1>
             </header>
 
             <ul className="list-unstyled">

@@ -1,7 +1,7 @@
 import { EventTypes } from "redux-segment";
 
 import { API_REQUEST } from "techbikers/middleware/api";
-import { getUserById } from "techbikers/selectors/user";
+import { getUserById } from "techbikers/users/selectors";
 
 export const IDENTIFY_USER = "IDENTIFY_USER";
 

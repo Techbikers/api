@@ -8,7 +8,7 @@ import { RideShape, RegistrationShape } from "techbikers/rides/shapes";
 import { UserShape } from "techbikers/users/shapes";
 import { FundraiserShape } from "techbikers/fundraisers/shapes";
 
-import SetupFundraising from "techbikers/components/SetupFundraising";
+import SetupFundraising from "techbikers/fundraisers/components/SetupFundraising";
 import PreRegistrationForm from "techbikers/rides/components/PreRegistrationForm";
 import CompleteRegistrationForm from "techbikers/rides/components/CompleteRegistrationForm";
 

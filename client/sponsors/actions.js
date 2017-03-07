@@ -1,5 +1,5 @@
 import { arrayOf } from "normalizr";
-import { API_REQUEST, sponsorSchema } from "../middleware/api";
+import { API_REQUEST, sponsorSchema } from "techbikers/middleware/api";
 
 export const GET_SPONSOR_REQUEST = "GET_SPONSOR_REQUEST";
 export const GET_SPONSOR_RESPONSE = "GET_SPONSOR_RESPONSE";
@@ -14,7 +14,7 @@ export function getSponsors() {
       successActionType: GET_SPONSOR_RESPONSE,
       errorActionType: GET_SPONSOR_ERROR
     }
-  }
+  };
 }
 
 export function getSponsorById(id) {
@@ -26,7 +26,7 @@ export function getSponsorById(id) {
       successActionType: GET_SPONSOR_RESPONSE,
       errorActionType: GET_SPONSOR_ERROR
     }
-  }
+  };
 }
 
 export function getSponsorsForRide(rideId) {
@@ -38,5 +38,5 @@ export function getSponsorsForRide(rideId) {
       successActionType: GET_SPONSOR_RESPONSE,
       errorActionType: GET_SPONSOR_ERROR
     }
-  }
+  };
 }

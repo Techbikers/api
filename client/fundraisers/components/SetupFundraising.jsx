@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from "react";
 import { autobind } from "core-decorators";
 
-import { createFundraisingPage } from "../actions/fundraiser";
+import { createFundraisingPage } from "techbikers/fundraisers/actions";
 
 import AuthLogin from "techbikers/auth/containers/AuthLogin";
 
@@ -22,9 +22,9 @@ export default class SetupFundraising extends Component {
     const { fundraiser } = this.props;
 
     if (fundraiser) {
-      return <a className="btn btn-blue" href={fundraiser.pageUrl}>Go to my fundraising page</a>
+      return <a className="btn btn-blue" href={fundraiser.pageUrl}>Go to my fundraising page</a>;
     }
 
-    return <AuthLogin backend="justgiving" buttonText="Create Fundraising Page" onAuthSuccess={this.createFundraiser} />
+    return <AuthLogin backend="justgiving" buttonText="Create Fundraising Page" onAuthSuccess={this.createFundraiser} />;
   }
 }

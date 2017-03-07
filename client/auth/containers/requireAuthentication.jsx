@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from "react";
 import { connect } from "react-redux";
 import { replace } from "react-router-redux";
 
-import { getCurrentPathname } from "techbikers/selectors/routing";
+import { getCurrentPathname } from "techbikers/app/selectors";
 
 const wrapComponent = (WrappedComponent, overridePredicate) => {
   const mapStateToProps = (state, ownProps) => {

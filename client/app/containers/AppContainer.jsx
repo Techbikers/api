@@ -4,8 +4,8 @@ import { locationShape } from "react-router";
 import { isEqual } from "lodash";
 
 import { identifyUser } from "techbikers/auth/actions";
-import { setPageEntity } from "techbikers/actions/page";
-import { getUserById } from "techbikers/actions/user";
+import { setPageEntity } from "techbikers/app/actions";
+import { getUserById } from "techbikers/users/actions";
 import { getAuthenticatedUserId, getAuthenticatedUser } from "techbikers/auth/selectors";
 
 import App from "techbikers/app/components/App";

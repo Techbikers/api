@@ -1,7 +1,7 @@
 import { arrayOf } from "normalizr";
 import { EventTypes } from "redux-segment";
 
-import { API_REQUEST, fundraiserSchema } from "../middleware/api";
+import { API_REQUEST, fundraiserSchema } from "techbikers/middleware/api";
 
 export const GET_FUNDRAISER_REQUEST = "GET_FUNDRAISER_REQUEST";
 export const GET_FUNDRAISER_RESPONSE = "GET_FUNDRAISER_RESPONSE";
@@ -16,7 +16,7 @@ export function getActiveFundraisers() {
       successActionType: GET_FUNDRAISER_RESPONSE,
       errorActionType: GET_FUNDRAISER_ERROR
     }
-  }
+  };
 }
 
 export const NEW_FUNDRAISER_REQUEST = "NEW_FUNDRAISER_REQUEST";
@@ -50,5 +50,5 @@ export function createFundraisingPage(rideId, userId) {
         }
       }
     }
-  }
+  };
 }

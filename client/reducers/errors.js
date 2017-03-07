@@ -1,4 +1,4 @@
-import { CLEAR_ERRORS } from "../actions/error";
+import { CLEAR_ERRORS } from "techbikers/app/actions";
 
 export default function errors(state = null, { type, error }) {
   switch (type) {

@@ -6,8 +6,8 @@ import { FormattedNumber } from "react-intl";
 
 import { fetchRideById } from "techbikers/rides/actions";
 import { getCurrentRide } from "techbikers/rides/selectors";
-import { updatePageMeta } from "techbikers/actions/page";
-import { getUsersOnCurrentRide } from "techbikers/selectors/user";
+import { updatePageMeta } from "techbikers/app/actions";
+import { getUsersOnCurrentRide } from "techbikers/users/selectors";
 import { getChapterForCurrentRide } from "techbikers/chapters/selectors";
 import { RideShape } from "techbikers/rides/shapes";
 import { ChapterShape } from "techbikers/chapters/shapes";

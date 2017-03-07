@@ -5,8 +5,8 @@ import {
   fetchRideRegistrationDetails,
   openRideRegistrationModal } from "techbikers/rides/actions";
 import { getAuthenticatedUser } from "techbikers/auth/selectors";
-import { getRegistrationForCurrentRideAndUser } from "techbikers/selectors/user";
-import { getFundraiserForCurrentRideAndUser } from "techbikers/selectors/fundraiser";
+import { getRegistrationForCurrentRideAndUser } from "techbikers/users/selectors";
+import { getFundraiserForCurrentRideAndUser } from "techbikers/fundraisers/selectors";
 import { getCurrentRide } from "techbikers/rides/selectors";
 import { getChapterForCurrentRide } from "techbikers/chapters/selectors";
 import { RideShape, RegistrationShape } from "techbikers/rides/shapes";
@@ -14,7 +14,7 @@ import { UserShape } from "techbikers/users/shapes";
 
 import RideRegistrationModal from "techbikers/rides/components/RideRegistrationModal";
 import RegistrationSteps from "techbikers/rides/components/RegistrationSteps";
-import SetupFundraising from "techbikers/components/SetupFundraising";
+import SetupFundraising from "techbikers/fundraisers/components/SetupFundraising";
 
 const mapStateToProps = state => {
   const { rideRegistrationModal } = state.page.ui;

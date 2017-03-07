@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { Link } from "react-router";
 
 import { logout } from "techbikers/auth/actions";
-import { getCurrentPathname } from "techbikers/selectors/routing";
+import { getCurrentPathname } from "techbikers/app/selectors";
 
 const mapStateToProps = state => {
   const { state: authState } = state.auth;

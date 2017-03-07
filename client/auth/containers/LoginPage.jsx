@@ -2,8 +2,9 @@ import React, { Component, PropTypes } from "react";
 import { connect } from "react-redux";
 import { replace } from "react-router-redux";
 import { locationShape } from "react-router";
-import { authenticateAs } from "techbikers/auth/actions";
 import DocumentTitle from "react-document-title";
+
+import { authenticateAs } from "techbikers/auth/actions";
 
 import ErrorMessage from "techbikers/components/ErrorMessage";
 import LoginForm from "techbikers/auth/components/LoginForm";

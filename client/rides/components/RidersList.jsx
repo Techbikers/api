@@ -2,7 +2,7 @@ import React, { PropTypes } from "react";
 
 import { UserShape } from "techbikers/users/shapes";
 
-import RiderCard from "techbikers/components/RiderCard";
+import RiderCard from "techbikers/users/components/UserCard";
 
 const RidersList = ({ riders }) => (
   <section id="riders">
