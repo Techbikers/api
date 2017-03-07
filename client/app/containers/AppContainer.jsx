@@ -3,15 +3,15 @@ import { connect } from "react-redux";
 import { locationShape } from "react-router";
 import { isEqual } from "lodash";
 
-import { identifyUser } from "techbikers/actions/authentication";
+import { identifyUser } from "techbikers/auth/actions";
 import { setPageEntity } from "techbikers/actions/page";
 import { getUserById } from "techbikers/actions/user";
-import { getAuthenticatedUserId, getAuthenticatedUser } from "techbikers/selectors/user";
+import { getAuthenticatedUserId, getAuthenticatedUser } from "techbikers/auth/selectors";
 
 import App from "techbikers/app/components/App";
 
 const mapStateToProps = state => {
-  const { state: authState } = state.authentication;
+  const { state: authState } = state.auth;
   const isAuthenticated = authState === "authenticated";
   const pageMeta = state.page.meta || {};
 

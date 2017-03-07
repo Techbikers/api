@@ -1,8 +1,8 @@
 import Raven from "raven-js";
 
-import { AUTHENTICATION_SUCCESS, LOGOUT } from "../actions/authentication";
+import { AUTHENTICATION_SUCCESS, LOGOUT } from "techbikers/auth/actions";
 import { INIT } from "techbikers/app/actions";
-import { SENTRY_DSN } from "../config";
+import { SENTRY_DSN } from "techbikers/config";
 
 Raven.config(SENTRY_DSN).install();
 
@@ -16,7 +16,7 @@ export default store => next => action => {
 
   switch (action.type) {
     case INIT:
-      if (newState.authentication.state === "authenticated") {
+      if (newState.auth.state === "authenticated") {
         handleAuthentication(newState);
       }
       break;
@@ -40,8 +40,8 @@ export default store => next => action => {
 };
 
 function handleAuthentication(newState) {
-  const { userId, organisationId } = newState.authentication.claims;
-  const email = newState.authentication.email;
+  const { userId, organisationId } = newState.auth.claims;
+  const email = newState.auth.email;
   Raven.setUserContext({ userId, organisationId, email });
 }
 

@@ -15,15 +15,17 @@ import ChapterDetails from "techbikers/chapters/containers/ChapterDetails";
 import Rides from "techbikers/rides/containers/Rides";
 import RideDetails from "techbikers/rides/containers/RideDetails";
 
+// Auth
+import AuthComplete from "techbikers/auth/containers/AuthComplete";
+import LoginPage from "techbikers/auth/containers/LoginPage";
+import SignupPage from "techbikers/auth/containers/SignupPage";
+import PasswordReset from "techbikers/auth/containers/PasswordReset";
+import PasswordResetConfirm from "techbikers/auth/containers/PasswordResetConfirm";
+
 import Account from "./containers/Account";
-import AuthComplete from "./containers/AuthComplete";
 import Leaderboard from "./containers/Leaderboard";
-import LoginPage from "./containers/LoginPage";
 import RiderProfile from "./containers/RiderProfile";
 import SponsorsPage from "./containers/SponsorsPage";
-import SignupPage from "./containers/SignupPage";
-import PasswordReset from "./containers/PasswordReset";
-import PasswordResetConfirm from "./containers/PasswordResetConfirm";
 
 export default (
   <Route>

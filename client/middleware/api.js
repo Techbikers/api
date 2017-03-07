@@ -24,8 +24,8 @@ rideSchema.define({
 });
 
 export default store => next => action => {
-  const requestData = action[API_REQUEST]
-  const { authentication } = store.getState()
+  const requestData = action[API_REQUEST];
+  const { auth } = store.getState();
 
   if (typeof requestData === "undefined") {
     return next(action)
@@ -44,13 +44,13 @@ export default store => next => action => {
     throw new Error("Specify a string endpoint URL.")
   }
 
-  let tollerateUnauthorized = true
-  if (authentication && authentication.token) {
-    tollerateUnauthorized = false
+  let tollerateUnauthorized = true;
+  if (auth && auth.token) {
+    tollerateUnauthorized = false;
     fetchOptions.headers = {
-      Authorization: `Bearer ${authentication.token}`,
+      Authorization: `Bearer ${auth.token}`,
       ...fetchOptions.headers
-    }
+    };
   }
 
   function actionWith(data) {

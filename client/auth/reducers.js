@@ -7,8 +7,8 @@ import {
   AUTHENTICATION_FAILURE,
   LOGOUT,
   CLEAR_AUTHENTICATION_ERROR
-} from "../actions/authentication";
-import { UNEXPECTED_UNAUTHORIZED_API_RESPONSE } from "../middleware/api";
+} from "techbikers/auth/actions";
+import { UNEXPECTED_UNAUTHORIZED_API_RESPONSE } from "techbikers/middleware/api";
 
 export default combineReducers({
   state: authState,
@@ -17,45 +17,45 @@ export default combineReducers({
   failureReason,
   token,
   claims
-})
+});
 
 export function authState(state = "unauthenticated", action) {
   switch (action.type) {
     case AUTHENTICATION_REQUEST:
-      return "authenticating"
+      return "authenticating";
     case AUTHENTICATION_SUCCESS:
-      return "authenticated"
+      return "authenticated";
     case LOGOUT:
     case AUTHENTICATION_FAILURE:
     case UNEXPECTED_UNAUTHORIZED_API_RESPONSE:
-      return "unauthenticated"
+      return "unauthenticated";
     default:
-      return state
+      return state;
   }
 }
 
 export function authDidFail(state = false, action) {
   switch (action.type) {
     case AUTHENTICATION_FAILURE:
-      return true
+      return true;
     case AUTHENTICATION_SUCCESS:
     case LOGOUT:
     case CLEAR_AUTHENTICATION_ERROR:
-      return false
+      return false;
     default:
-      return state
+      return state;
   }
 }
 
 export function email(state = null, action) {
   switch (action.type) {
     case AUTHENTICATION_SUCCESS:
-      return action.email
+      return action.email;
     case LOGOUT:
     case UNEXPECTED_UNAUTHORIZED_API_RESPONSE:
-      return null
+      return null;
     default:
-      return state
+      return state;
   }
 }
 
@@ -63,45 +63,45 @@ export function failureReason(state = "", action) {
   switch (action.type) {
     case AUTHENTICATION_FAILURE:
       if (action.isNetworkError) {
-        return "Unable to connect to Robin - check your connection and try again."
+        return "Unable to connect to Robin - check your connection and try again.";
       } else if (action.httpStatus === 401) {
-        return "Incorrect username or password"
+        return "Incorrect username or password";
       }
-      return "An unknown error occurred"
+      return "An unknown error occurred";
     case AUTHENTICATION_SUCCESS:
     case LOGOUT:
     case CLEAR_AUTHENTICATION_ERROR:
-      return ""
+      return "";
     default:
-      return state
+      return state;
   }
 }
 
 export function token(state = null, action) {
   switch (action.type) {
     case AUTHENTICATION_SUCCESS:
-      return action.response.token
+      return action.response.token;
     case LOGOUT:
     case UNEXPECTED_UNAUTHORIZED_API_RESPONSE:
-      return null
+      return null;
     default:
-      return state
+      return state;
   }
 }
 
 export function claims(state = {}, action) {
-  let newClaims, newToken
+  let newClaims, newToken;
 
   switch (action.type) {
     case AUTHENTICATION_SUCCESS:
-      newToken = action.response.token
-      newClaims = jwtDecode(newToken)
-      return normalizeClaims(newClaims)
+      newToken = action.response.token;
+      newClaims = jwtDecode(newToken);
+      return normalizeClaims(newClaims);
     case LOGOUT:
     case UNEXPECTED_UNAUTHORIZED_API_RESPONSE:
-      return {}
+      return {};
     default:
-      return state
+      return state;
   }
 }
 
@@ -109,9 +109,8 @@ function normalizeClaims(newClaims) {
   const {
     user_id: userId,
     orig_iat: issuedTime,
-    exp: expirationTime,
-    ...rest
-  } = newClaims
+    exp: expirationTime
+  } = newClaims;
 
-  return { userId, issuedTime, expirationTime }
+  return { userId, issuedTime, expirationTime };
 }

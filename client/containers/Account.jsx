@@ -3,11 +3,11 @@ import { connect } from "react-redux";
 import { Link } from "react-router";
 import DocumentTitle from "react-document-title";
 
-import { getAuthenticatedUser, getAuthenticatedUserId } from "../selectors/user";
-import { getUserById } from "../actions/user";
-import { setPageEntity } from "../actions/page";
+import { getAuthenticatedUser, getAuthenticatedUserId } from "techbikers/auth/selectors";
+import { getUserById } from "techbikers/actions/user";
+import { setPageEntity } from "techbikers/actions/page";
 
-import requireAuthentication from "./requireAuthentication";
+import requireAuthentication from "techbikers/auth/containers/requireAuthentication";
 import UserRidesList from "./UserRidesList";
 import Spinner from "../components/Spinner";
 

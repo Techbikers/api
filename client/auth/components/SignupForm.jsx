@@ -1,27 +1,26 @@
 import React, { Component } from "react";
 import { Link } from "react-router";
 import { autobind } from "core-decorators";
-import forms, { Form, RenderForm } from "newforms";
-import { slice } from "lodash";
+import forms, { Form } from "newforms";
 
-import FormField from "./FormField";
-import ProgressButton from "./ProgressButton";
+import FormField from "techbikers/components/FormField";
+import ProgressButton from "techbikers/components/ProgressButton";
 
 const NewRiderForm = Form.extend({
   first_name: forms.CharField(),
   last_name: forms.CharField(),
   email: forms.EmailField(),
-  company: forms.CharField({required: false}),
-  website: forms.URLField({required: false}),
-  twitter: forms.CharField({required: false}),
-  password: forms.CharField({label: "Password", widget: forms.PasswordInput}),
-  password_confirm: forms.CharField({label: "Confirm password", widget: forms.PasswordInput}),
+  company: forms.CharField({ required: false }),
+  website: forms.URLField({ required: false }),
+  twitter: forms.CharField({ required: false }),
+  password: forms.CharField({ label: "Password", widget: forms.PasswordInput }),
+  password_confirm: forms.CharField({ label: "Confirm password", widget: forms.PasswordInput }),
 
   cleanWebsite() {
     // Add a protocol if there isn't already one
-    let url =  this.cleanedData.website;
+    let url = this.cleanedData.website;
     if (!/^(?:f|ht)tps?\:\/\//.test(url)) {
-        url = "http://" + url;
+      url = "http://" + url;
     }
     return url;
   },
@@ -29,8 +28,8 @@ const NewRiderForm = Form.extend({
   clean() {
     // Check that the passwords match
     if (this.cleanedData.password !== this.cleanedData.password_confirm) {
-      let message = "Passwords don't match.";
-      this.addError('password_confirm', message);
+      const message = "Passwords don't match.";
+      this.addError("password_confirm", message);
       throw forms.ValidationError(message);
     }
   }
@@ -83,7 +82,7 @@ export default class SignupForm extends Component {
           </div>
         </div>
         <p className="centerText">
-          <Link to={{ pathname: "/login", state: {modal: true, returnTo}}}>Already have an account from a previous ride?</Link>
+          <Link to={{ pathname: "/login", state: { modal: true, returnTo } }}>Already have an account from a previous ride?</Link>
         </p>
         <p className="centerText">
           <ProgressButton type="submit" onClick={this.createRider}>

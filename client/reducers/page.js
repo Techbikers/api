@@ -10,7 +10,7 @@ import {
   CLOSE_RIDE_REGISTRATION_MODAL } from "techbikers/rides/actions";
 import {
   BEGIN_PASSWORD_RESET_REQUEST,
-  BEGIN_PASSWORD_RESET_SUCCESS } from "../actions/authentication";
+  BEGIN_PASSWORD_RESET_SUCCESS } from "techbikers/auth/actions";
 
 export default combineReducers({
   entity,

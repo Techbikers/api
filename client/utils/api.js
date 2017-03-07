@@ -5,7 +5,7 @@ import fetch from "isomorphic-fetch";
 import { createAction } from "redux-actions";
 
 import { API_ROOT } from "techbikers/config";
-import { getAuthenticationToken } from "techbikers/selectors/user";
+import { getAuthToken } from "techbikers/auth/selectors";
 
 // Create some request actions so we can dispatch the result of any request
 // This allows other reducers/sagas to listen out for the response of requests
@@ -25,7 +25,7 @@ const request = {
 export function* callApi(endpoint, fetchOptions = {}, schema) {
   // If the endpoint is a full url, just use that - else append the api
   const fullUrl = (endpoint.indexOf("http") === 0) ? endpoint : API_ROOT + endpoint;
-  const token = yield select(getAuthenticationToken);
+  const token = yield select(getAuthToken);
 
   if (token) {
     fetchOptions.headers = {

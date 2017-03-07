@@ -2,7 +2,7 @@ import { sortByOrder } from "lodash";
 import { createSelector } from "reselect";
 
 import { getCurrentRide } from "techbikers/rides/selectors";
-import { getAuthenticatedUserId } from "./user";
+import { getAuthenticatedUserId } from "techbikers/auth/selectors";
 
 const fundraiserSelector = state => state.entities.fundraiser || {};
 

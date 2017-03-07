@@ -1,15 +1,14 @@
 import React, { Component, PropTypes } from "react";
 import { connect } from "react-redux";
 import { autobind } from "core-decorators";
-import { Link } from "react-router";
 import { replace } from "react-router-redux";
 import DocumentTitle from "react-document-title";
-import forms, { Form, RenderForm } from "newforms";
+import forms, { Form } from "newforms";
 
-import { confirmResetPasswordAndAuthenticate } from "../actions/authentication";
+import { confirmResetPasswordAndAuthenticate } from "techbikers/auth/actions";
 
-import FormField from "../components/FormField";
-import ErrorMessage from "../components/ErrorMessage";
+import FormField from "techbikers/components/FormField";
+import ErrorMessage from "techbikers/components/ErrorMessage";
 
 const ResetPasswordForm = Form.extend({
   password1: forms.CharField({
@@ -21,10 +20,10 @@ const ResetPasswordForm = Form.extend({
     widget: forms.PasswordInput
   }),
 
-  clean: ['password1', 'password2', function() {
+  clean: ["password1", "password2", function () {
     if (this.cleanedData.password1 !== this.cleanedData.password2) {
-      let message = "Passwords don't match.";
-      this.addError('password2', message);
+      const message = "Passwords don't match.";
+      this.addError("password2", message);
       throw forms.ValidationError(message);
     }
   }]
@@ -32,18 +31,18 @@ const ResetPasswordForm = Form.extend({
 
 const mapStateToProps = state => {
   const { errors } = state;
-  const { state: authState, authDidFail, failureReason } = state.authentication;
+  const { state: authState } = state.auth;
   const isAuthenticated = authState === "authenticated";
 
-  return { isAuthenticated, errors }
-}
+  return { isAuthenticated, errors };
+};
 
 @connect(mapStateToProps)
 export default class PasswordResetConfirm extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      form: new ResetPasswordForm({onChange: this.onFormChange})
+      form: new ResetPasswordForm({ onChange: this.onFormChange })
     };
   }
 
@@ -59,7 +58,7 @@ export default class PasswordResetConfirm extends Component {
     const { dispatch, isAuthenticated, location } = props;
 
     if (isAuthenticated) {
-      const redirectAfterLogin = location.state && location.state.returnTo || '/';
+      const redirectAfterLogin = location.state && location.state.returnTo || "/";
       dispatch(replace(redirectAfterLogin));
     }
   }

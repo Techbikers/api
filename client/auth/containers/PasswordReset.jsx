@@ -1,40 +1,48 @@
 import React, { Component, PropTypes } from "react";
 import { connect } from "react-redux";
 import { autobind } from "core-decorators";
-import { Link } from "react-router";
 import { replace } from "react-router-redux";
 import DocumentTitle from "react-document-title";
-import forms, { Form, RenderForm } from "newforms";
+import forms, { Form } from "newforms";
 
-import { beginResetPassword } from "../actions/authentication";
-import { clearResetPasswordStatus } from "../actions/page";
+import { beginResetPassword } from "techbikers/auth/actions";
+import { clearResetPasswordStatus } from "techbikers/actions/page";
 
-import FormField from "../components/FormField";
+import FormField from "techbikers/components/FormField";
 
 const SendResetLinkForm = Form.extend({
   email: forms.EmailField()
 });
 
 const mapStateToProps = state => {
-  const { state: authState, authDidFail, failureReason } = state.authentication;
+  const { state: authState } = state.auth;
   const isAuthenticated = authState === "authenticated";
 
   return {
     isAuthenticated,
     resetStatus: state.page.ui.passwordResetStatus
   };
-}
+};
 
-@connect(mapStateToProps)
+const mapDispatchToProps = {
+  replace,
+  beginResetPassword,
+  clearResetPasswordStatus
+};
+
+@connect(mapStateToProps, mapDispatchToProps)
 export default class PasswordReset extends Component {
   static propTypes = {
-    dispatch: PropTypes.func.isRequired
+    resetStatus: PropTypes.string,
+    replace: PropTypes.func.isRequired,
+    beginResetPassword: PropTypes.func.isRequired,
+    clearResetPasswordStatus: PropTypes.func.isRequired
   };
 
   constructor(props) {
     super(props);
     this.state = {
-      form: new SendResetLinkForm({onChange: this.onFormChange})
+      form: new SendResetLinkForm({ onChange: this.onFormChange })
     };
   }
 
@@ -47,11 +55,11 @@ export default class PasswordReset extends Component {
   }
 
   checkAuth(props) {
-    const { dispatch, isAuthenticated, location } = props;
+    const { isAuthenticated, location } = props;
 
     if (isAuthenticated) {
-      const redirectAfterLogin = location.state && location.state.returnTo || '/';
-      dispatch(replace(redirectAfterLogin));
+      const redirectAfterLogin = location.state && location.state.returnTo || "/";
+      this.props.replace(redirectAfterLogin);
     }
   }
 
@@ -61,21 +69,14 @@ export default class PasswordReset extends Component {
   }
 
   @autobind
-  sendResetLink(e) {
+  handleResetPassword(e) {
     e.preventDefault();
 
     const { form } = this.state;
-    const { dispatch } = this.props;
 
     if (form.validate()) {
-      dispatch(beginResetPassword(form.cleanedData.email));
+      this.props.beginResetPassword(form.cleanedData.email);
     }
-  }
-
-  @autobind
-  resetForm() {
-    const { dispatch } = this.props;
-    dispatch(clearResetPasswordStatus());
   }
 
   render() {
@@ -93,7 +94,7 @@ export default class PasswordReset extends Component {
               <p className="centerText">
                 OK - we've just emailed you a link to reset your password.
               </p>
-              <button className="btn btn-grey" onClick={this.resetForm}>Try again</button>
+              <button className="btn btn-grey" onClick={() => this.props.clearResetPasswordStatus()}>Try again</button>
             </div>
           :
             <div className="content">
@@ -101,13 +102,11 @@ export default class PasswordReset extends Component {
                 No problem! Just enter the email address you used to register your account with, click continue,
                 and we'll send an email to that address with a link to reset your password.
               </p>
-              <form id="resetpassword" role="form" onSubmit={this.sendResetLink}>
+              <form id="resetpassword" role="form" onSubmit={this.handleResetPassword}>
                 <div className="row centerText">
-                  {Object.keys(fields).map(key => {
-                    return (
-                      <FormField key={fields[key].htmlName} field={fields[key]} className="span2 offset2" />
-                    );
-                  })}
+                  {Object.keys(fields).map(key =>
+                    <FormField key={fields[key].htmlName} field={fields[key]} className="span2 offset2" />
+                  )}
                 </div>
                 <div className="row centerText">
                   <div className="span6">

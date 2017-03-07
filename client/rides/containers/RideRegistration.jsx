@@ -4,9 +4,8 @@ import { connect } from "react-redux";
 import {
   fetchRideRegistrationDetails,
   openRideRegistrationModal } from "techbikers/rides/actions";
-import {
-  getAuthenticatedUser,
-  getRegistrationForCurrentRideAndUser } from "techbikers/selectors/user";
+import { getAuthenticatedUser } from "techbikers/auth/selectors";
+import { getRegistrationForCurrentRideAndUser } from "techbikers/selectors/user";
 import { getFundraiserForCurrentRideAndUser } from "techbikers/selectors/fundraiser";
 import { getCurrentRide } from "techbikers/rides/selectors";
 import { getChapterForCurrentRide } from "techbikers/chapters/selectors";

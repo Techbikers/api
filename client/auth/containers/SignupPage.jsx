@@ -4,18 +4,18 @@ import { connect } from "react-redux";
 import { replace } from "react-router-redux";
 import DocumentTitle from "react-document-title";
 
-import { createUserAndAuthenticate } from "../actions/user";
+import { createUserAndAuthenticate } from "techbikers/actions/user";
 
-import ErrorMessage from "../components/ErrorMessage";
-import SignupForm from "../components/SignupForm";
+import ErrorMessage from "techbikers/components/ErrorMessage";
+import SignupForm from "techbikers/auth/components/SignupForm";
 
-const mapStateToProps = (state, ownProps) => {
+const mapStateToProps = state => {
   const { errors } = state;
-  const { state: authState, authDidFail, failureReason } = state.authentication;
+  const { state: authState } = state.auth;
   const isAuthenticated = authState === "authenticated";
 
-  return { isAuthenticated, errors }
-}
+  return { isAuthenticated, errors };
+};
 
 @connect(mapStateToProps)
 export default class SignupPage extends Component {
@@ -25,20 +25,20 @@ export default class SignupPage extends Component {
   };
 
   componentWillMount() {
-    this.checkAuth(this.props)
+    this.checkAuth(this.props);
   }
 
   componentWillReceiveProps(nextProps) {
-    this.checkAuth(nextProps)
+    this.checkAuth(nextProps);
   }
 
   checkAuth(props) {
-    const { dispatch, isAuthenticated, location } = props
+    const { dispatch, isAuthenticated, location } = props;
 
     if (isAuthenticated) {
-      const redirectAfterLogin = location.state && location.state.returnTo || '/';
+      const redirectAfterLogin = location.state && location.state.returnTo || "/";
 
-      dispatch(replace(redirectAfterLogin))
+      dispatch(replace(redirectAfterLogin));
     }
   }
 
@@ -51,7 +51,7 @@ export default class SignupPage extends Component {
 
   render() {
     const { location, errors } = this.props;
-    const redirectAfterLogin = location.state && location.state.returnTo || '/';
+    const redirectAfterLogin = location.state && location.state.returnTo || "/";
 
     return (
       <DocumentTitle title="Signup – Techbikers">

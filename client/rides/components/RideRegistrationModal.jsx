@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from "react";
 import Modal from "react-modal";
 
 import { modalStyles } from "techbikers/utils/modal";
-import requireAuthentication from "techbikers/containers/requireAuthentication";
+import requireAuthentication from "techbikers/auth/containers/requireAuthentication";
 import { closeRideRegistrationModal } from "techbikers/rides/actions";
 import { RideShape, RegistrationShape } from "techbikers/rides/shapes";
 import { UserShape } from "techbikers/users/shapes";

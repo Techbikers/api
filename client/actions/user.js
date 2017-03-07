@@ -2,7 +2,7 @@ import { arrayOf } from "normalizr";
 import { EventTypes } from "redux-segment";
 
 import { API_REQUEST, userSchema } from "../middleware/api";
-import { authenticateAs } from "./authentication";
+import { authenticateAs } from "techbikers/auth/actions";
 
 export const GET_USER_REQUEST = "GET_USER_REQUEST";
 export const GET_USER_RESPONSE = "GET_USER_RESPONSE";

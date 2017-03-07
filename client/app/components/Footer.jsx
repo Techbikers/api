@@ -1,6 +1,6 @@
 import React from "react";
 
-import AuthMenu from "techbikers/containers/AuthMenu";
+import AuthMenu from "techbikers/auth/containers/AuthMenu";
 
 const Footer = () => (
   <div role="footer">

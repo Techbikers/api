@@ -1,7 +1,7 @@
 import { EventTypes } from "redux-segment";
 
-import { API_REQUEST } from "../middleware/api";
-import { getUserById } from "./user";
+import { API_REQUEST } from "techbikers/middleware/api";
+import { getUserById } from "techbikers/selectors/user";
 
 export const IDENTIFY_USER = "IDENTIFY_USER";
 
@@ -17,7 +17,7 @@ export function identifyUser(userId, email, firstName, lastName) {
         }
       }
     }
-  }
+  };
 }
 
 export const AUTHENTICATION_REQUEST = "AUTHENTICATION_REQUEST";
@@ -30,7 +30,7 @@ export function authenticateAs(email, password) {
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
       username: email,
-      password: password
+      password
     })
   };
 
@@ -44,7 +44,7 @@ export function authenticateAs(email, password) {
         successActionType: AUTHENTICATION_SUCCESS,
         errorActionType: AUTHENTICATION_FAILURE
       }
-    }
+    };
   }
 
   return dispatch => dispatch(authenticateApiRequest(email, password)).then(
@@ -85,7 +85,7 @@ export function refreshAuthenticationToken(token) {
       successActionType: REFRESH_AUTHENTICATION_SUCCESS,
       errorActionType: REFRESH_AUTHENTICATION_FAILURE
     }
-  }
+  };
 }
 
 export const EXCHANGE_AUTHENTICATION_TOKEN_REQUEST = "EXCHANGE_AUTHENTICATION_TOKEN_REQUEST";
@@ -108,7 +108,7 @@ export function exchangeAuthenticationToken(backend, code, state) {
       successActionType: EXCHANGE_AUTHENTICATION_TOKEN_SUCCESS,
       errorActionType: EXCHANGE_AUTHENTICATION_TOKEN_FAILURE
     }
-  }
+  };
 }
 
 export function changePassword(email, password, newpassword1, newpassword2) {
@@ -118,8 +118,8 @@ export function changePassword(email, password, newpassword1, newpassword2) {
     body: JSON.stringify({
       email,
       password,
-      new_password1: newpassword1,
-      new_password2: newpassword2
+      new_password1: newpassword1, // eslint-disable-line camelcase
+      new_password2: newpassword2 // eslint-disable-line camelcase
     })
   };
 
@@ -131,7 +131,7 @@ export function changePassword(email, password, newpassword1, newpassword2) {
       successActionType: AUTHENTICATION_SUCCESS,
       errorActionType: AUTHENTICATION_FAILURE
     }
-  }
+  };
 }
 
 export const BEGIN_PASSWORD_RESET_REQUEST = "BEGIN_PASSWORD_RESET_REQUEST";
@@ -153,7 +153,7 @@ export function beginResetPassword(email) {
       successActionType: BEGIN_PASSWORD_RESET_SUCCESS,
       errorActionType: BEGIN_PASSWORD_RESET_FAILURE
     }
-  }
+  };
 }
 
 export const CONFIRM_PASSWORD_RESET_REQUEST = "CONFIRM_PASSWORD_RESET_REQUEST";
@@ -167,8 +167,8 @@ export function confirmResetPassword(id, token, newpassword1, newpassword2) {
     body: JSON.stringify({
       uid: id,
       token,
-      new_password1: newpassword1,
-      new_password2: newpassword2
+      new_password1: newpassword1, // eslint-disable-line camelcase
+      new_password2: newpassword2 // eslint-disable-line camelcase
     })
   };
 
@@ -180,7 +180,7 @@ export function confirmResetPassword(id, token, newpassword1, newpassword2) {
       successActionType: CONFIRM_PASSWORD_RESET_SUCCESS,
       errorActionType: CONFIRM_PASSWORD_RESET_FAILURE
     }
-  }
+  };
 }
 
 export function confirmResetPasswordAndAuthenticate(id, token, newpassword1, newpassword2) {
@@ -203,5 +203,5 @@ export function logout() {
         eventType: EventTypes.track
       }
     }
-  }
+  };
 }

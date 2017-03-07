@@ -1,14 +1,14 @@
 import { combineReducers } from "redux"
 import { routerReducer } from "react-router-redux"
 
-import authentication from "./authentication"
-import entities from "./entities";
+import auth from "techbikers/auth/reducers";
+import entities from "techbikers/reducers/entities";
 import errors from "./errors";
 import page from "./page";
 import oAuth from "./oAuth";
 
 export default combineReducers({
-  authentication,
+  auth,
   entities,
   errors,
   page,

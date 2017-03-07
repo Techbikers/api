@@ -17,11 +17,11 @@ export default function configureStore(initialState = {}, sagas = []) {
   const sagaMiddleware = createSagaMiddleware();
 
   const authenticationSlicer = () => state => {
-    const { state: authState } = state.authentication;
+    const { state: authState } = state.auth;
 
     if (authState === "authenticated") {
       return {
-        authentication: state.authentication
+        auth: state.auth
       };
     } else {
       return {};

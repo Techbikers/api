@@ -3,7 +3,7 @@ import { autobind } from "core-decorators";
 
 import { createFundraisingPage } from "../actions/fundraiser";
 
-import AuthLogin from "../containers/AuthLogin";
+import AuthLogin from "techbikers/auth/containers/AuthLogin";
 
 export default class SetupFundraising extends Component {
   static propTypes = {
