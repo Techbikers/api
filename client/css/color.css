@@ -1,0 +1,154 @@
+:root {
+  --yellow-color: #fdec18;
+  --red-color: #eb1c24;
+  --purple-color: #625398;
+  --green-color: #76c15a;
+  --blue-color: #4494c7;
+  --dark-color: #4C545B;
+  --slate-color: #9BA5B1;
+  --slate-light-color: #DFE8EA;
+
+  --brand-color: var(--green-color);
+  --default-font-color: #727479;
+
+  --grey-0: #F8F8F8;
+  --grey-1: #E2E1E0;
+  --grey-2: #C5C5C5;
+  --grey-3: #ACACAC;
+  --grey-4: #929292;
+
+  --base-grey: var(--grey-0);
+  --alt-color: #F5F7F9;
+
+  --success-color: var(--green-color);
+  --headsup-color: #F5A623;
+  --warning-color: #E35050;
+  --error-color: #EF8C8C;
+}
+
+.text-default {
+    color: var(--default-font-color);
+}
+
+/* brand */
+.text-brand,
+.text-brand-hover:hover {
+    color: var(--brand-color);
+}
+
+.text-brand-darken,
+.text-brand-darken-hover:hover {
+    color: color(var(--brand-color) shade(20%));
+}
+
+.text-brand-light, :local(.text-brand-light),
+.text-brand-light-hover:hover, :local(.text-brand-light-hover):hover {
+    color: color(var(--brand-color) tint(20%));
+}
+
+.bg-brand,
+.bg-brand-hover:hover { background-color: var(--brand-color); }
+
+.bg-brand-light,
+.bg-brand-light-hover:hover { background-color: color(var(--brand-color) tint(20%)); }
+
+
+/* success */
+
+.text-success { color: var(--success-color); }
+.bg-success { background-color: var(--success-color); }
+
+/* error */
+
+.text-error, :local(.text-error),
+.text-error-hover:hover {
+  color: var(--error-color);
+}
+
+.bg-error,
+.bg-error-hover:hover {
+  background-color: var(--error-color);
+}
+.bg-error-input {
+  background-color: #FCE8E8
+}
+
+/* heads up */
+
+.text-headsup {
+  color: var(--headsup-color);
+}
+
+.bg-headsup {
+  background-color: var(--headsup-color);
+}
+
+/* warning */
+
+.text-warning {
+  color: var(--warning-color) !important;
+}
+
+.bg-warning {
+  background-color: var(--warning-color);
+}
+
+/* favorite */
+.text-yellow,
+.text-yellow-hover:hover { color: var(--yellow-color); }
+
+.text-purple,
+.text-purple-hover:hover { color: var(--purple-color); }
+
+.text-green,
+.text-green-hover:hover { color: var(--green-color); }
+
+.text-red,
+.text-red:hover { color: var(--red-color); }
+
+.text-blue,
+.text-blue:hover { color: var(--blue-color); }
+
+.text-slate,
+.text-slate:hover { color: var(--slate-color); }
+
+.text-slate-light,
+.text-slate-light:hover { color: var(--slate-light-color); }
+
+.bg-yellow { background-color: var(--yellow-color); }
+.bg-purple { background-color: var(--purple-color); }
+.bg-blue { background-color: var(--blue-color); }
+.bg-red { background-color: var(--red-color); }
+.bg-green { background-color: var(--green-color); }
+.bg-slate { background-color: var(--slate-color); }
+.bg-slate-light { background-color: var(--slate-light-color); }
+
+/* alt */
+.bg-alt { background-color: var(--alt-color); }
+
+/* grey */
+.text-grey-1,
+.text-grey-1-hover:hover { color: var(--grey-1) }
+
+.text-grey-2,
+.text-grey-2-hover:hover { color: var(--grey-2) }
+
+.text-grey-3,
+.text-grey-3-hover:hover { color: var(--grey-3) }
+
+.text-grey-4,
+.text-grey-4-hover:hover { color: var(--grey-4) }
+
+.bg-grey-0 { background-color: var(--base-grey) }
+.bg-grey-1 { background-color: var(--grey-1) }
+.bg-grey-2 { background-color: var(--grey-2) }
+.bg-grey-3 { background-color: var(--grey-3) }
+.bg-grey-4 { background-color: var(--grey-4) }
+
+.text-dark { color: var(--dark-color); }
+
+/* white  - move to bottom for specificity since its often used on hovers, etc */
+.text-white,
+.text-white-hover:hover { color: #fff; }
+
+.bg-white { background-color: #fff; }

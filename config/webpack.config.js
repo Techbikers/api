@@ -1,5 +1,8 @@
 const path = require("path");
+const glob = require("glob");
 const webpack = require("webpack");
+const assignIn = require("lodash").assignIn;
+const webpackPostcssTools = require("webpack-postcss-tools");
 const BundleTracker = require("webpack-bundle-tracker");
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
 
@@ -51,7 +54,15 @@ module.exports = options => {
   const entry = {
     app: ["../client/index.jsx"],
     sass: ["../client/sass/main.scss"],
-    vendor: ["react", "react-router", "react-redux", "react-router-redux", "newforms", "core-decorators", "moment"]
+    style: ["../client/css/index.css"],
+    vendor: [
+      "react",
+      "react-router",
+      "react-redux",
+      "react-router-redux",
+      "newforms",
+      "moment"
+    ]
   };
 
   const hotEntry = [
@@ -81,6 +92,7 @@ module.exports = options => {
   const cssModulesConfig = {
     modules: options.cssModules,
     localIdentName: options.production ? "[hash:base64:5]" : "[name]___[local]___[hash:base64:5]",
+    importLoaders: 1,
     restructuring: false,
     compatibility: true
   };
@@ -98,12 +110,38 @@ module.exports = options => {
       include: path.join(__dirname, "..", "node_modules")
     }],
     "scss|sass": {
-      loaders: ["style", "css", "postcss", sassLoader],
+      loaders: ["style", "css", sassLoader],
       include: root
     }
   };
 
+  // Build mapping of CSS variables
+  const cssMaps = {
+    vars: {},
+    media: {},
+    selector: {}
+  };
+
+  glob.sync(`${root}/css/**/*.css`).map(webpackPostcssTools.makeVarMap).forEach(map => {
+    for (const name in cssMaps) {
+      if (Object.prototype.hasOwnProperty.call(cssMaps, name)) {
+        assignIn(cssMaps[name], map[name]);
+      }
+    }
+  });
+
   const cssnextConfig = {
+    features: {
+      customProperties: {
+        variables: cssMaps.vars
+      },
+      customMedia: {
+        extensions: cssMaps.media
+      }
+    },
+    import: {
+      path: [path.join(root, "css")]
+    },
     compress: false
   };
 
@@ -120,7 +158,8 @@ module.exports = options => {
   };
 
   const alias = {
-    "techbikers": root
+    "techbikers": root,
+    "static": path.join(__dirname, "..", "public")
   };
 
   const externals = [];
@@ -195,6 +234,7 @@ module.exports = options => {
         path: root,
         addDependencyTo: webpack
       }),
+      require("postcss-each"),
       require("postcss-url")(),
       require("postcss-cssnext")(cssnextConfig),
       require("postcss-browser-reporter")(),

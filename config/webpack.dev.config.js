@@ -1,4 +1,5 @@
 module.exports = require("./webpack.config")({
   devServer: true,
-  hotComponents: true
+  hotComponents: true,
+  cssModules: true
 });
