@@ -1,42 +1,10 @@
-import { arrayOf } from "normalizr";
-import { API_REQUEST, sponsorSchema } from "techbikers/middleware/api";
+import { createAction } from "redux-actions";
 
-export const GET_SPONSOR_REQUEST = "GET_SPONSOR_REQUEST";
-export const GET_SPONSOR_RESPONSE = "GET_SPONSOR_RESPONSE";
-export const GET_SPONSOR_ERROR = "GET_SPONSOR_ERROR";
+export const FETCH_ALL_SPONSORS = "FETCH_ALL_SPONSORS";
+export const fetchAllSponsors = createAction(FETCH_ALL_SPONSORS);
 
-export function getSponsors() {
-  return {
-    [API_REQUEST]: {
-      endpoint: "/sponsors/",
-      schema: arrayOf(sponsorSchema),
-      requestActionType: GET_SPONSOR_REQUEST,
-      successActionType: GET_SPONSOR_RESPONSE,
-      errorActionType: GET_SPONSOR_ERROR
-    }
-  };
-}
+export const FETCH_SPONSOR_BY_ID = "FETCH_SPONSOR_BY_ID";
+export const fetchSponsorById = createAction(FETCH_SPONSOR_BY_ID);
 
-export function getSponsorById(id) {
-  return {
-    [API_REQUEST]: {
-      endpoint: `/sponsors/${id}`,
-      schema: sponsorSchema,
-      requestActionType: GET_SPONSOR_REQUEST,
-      successActionType: GET_SPONSOR_RESPONSE,
-      errorActionType: GET_SPONSOR_ERROR
-    }
-  };
-}
-
-export function getSponsorsForRide(rideId) {
-  return {
-    [API_REQUEST]: {
-      endpoint: `/rides/${rideId}/sponsors`,
-      schema: arrayOf(sponsorSchema),
-      requestActionType: GET_SPONSOR_REQUEST,
-      successActionType: GET_SPONSOR_RESPONSE,
-      errorActionType: GET_SPONSOR_ERROR
-    }
-  };
-}
+export const FETCH_SPONSORS_BY_RIDE = "FETCH_SPONSORS_BY_RIDE";
+export const fetchSponsorByRide = createAction(FETCH_SPONSORS_BY_RIDE);

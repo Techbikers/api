@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from "react";
 import { connect } from "react-redux";
 import DocumentTitle from "react-document-title";
 
-import { getSponsors } from "techbikers/sponsors/actions";
+import { fetchAllSponsors } from "techbikers/sponsors/actions";
 import { getActiveSponsors } from "techbikers/sponsors/selectors";
 
 import Sponsor from "techbikers/sponsors/components/Sponsor";
@@ -12,7 +12,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = {
-  getSponsors
+  fetchAllSponsors
 };
 
 @connect(mapStateToProps, mapDispatchToProps)
@@ -21,7 +21,7 @@ export default class SponsorsPage extends Component {
     gold: PropTypes.arrayOf(PropTypes.object),
     silver: PropTypes.arrayOf(PropTypes.object),
     inkind: PropTypes.arrayOf(PropTypes.object),
-    getSponsors: PropTypes.func.isRequired
+    fetchAllSponsors: PropTypes.func.isRequired
   };
 
   static defaultProps = {
@@ -31,7 +31,7 @@ export default class SponsorsPage extends Component {
   };
 
   componentWillMount() {
-    this.props.getSponsors();
+    this.props.fetchAllSponsors();
   }
 
   render() {
