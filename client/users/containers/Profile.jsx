@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from "react";
 import { connect } from "react-redux";
 import DocumentTitle from "react-document-title";
 
-import { getUserById } from "techbikers/users/actions";
+import { fetchUserById } from "techbikers/users/actions";
 import { getAuthenticatedUser } from "techbikers/auth/selectors";
 import { getCurrentUser, getRidesForCurrentUser } from "techbikers/users/selectors";
 import { UserShape } from "techbikers/users/shapes";
@@ -18,9 +18,9 @@ const mapStateToProps = state => ({
   authenticatedUser: getAuthenticatedUser(state)
 });
 
-const mapDispatchToProps = {
-  getUserById
-};
+const mapDispatchToProps = (dispatch, props) => ({
+  fetchUser: () => dispatch(fetchUserById(props.params.id))
+});
 
 @connect(mapStateToProps, mapDispatchToProps)
 export default class RiderProfile extends Component {
@@ -30,7 +30,7 @@ export default class RiderProfile extends Component {
       id: PropTypes.number.isRequired
     }),
     user: UserShape,
-    getUserById: PropTypes.func.isRequired
+    fetchUser: PropTypes.func.isRequired
   };
 
   static defaultProps = {
@@ -45,8 +45,7 @@ export default class RiderProfile extends Component {
   }
 
   componentWillMount() {
-    const { params } = this.props;
-    this.props.getUserById(params.id);
+    this.props.fetchUser();
   }
 
   render() {
@@ -79,7 +78,7 @@ export default class RiderProfile extends Component {
 
             <div className="content text--centre">
               <p>
-                <a className="btn" href={user.donation_page}>Sponsor {user.first_name}</a>
+                <a className="btn" href={user.donationPage}>Sponsor {user.firstName}</a>
               </p>
             </div>
           </section>
@@ -97,7 +96,7 @@ export default class RiderProfile extends Component {
 
           <section id="rides">
             <div className="content centerText">
-              <h2>`${user.first_name}'s rides:`</h2>
+              <h2>{`${user.firstName}'s rides:`}</h2>
               <UserRidesList userId={params.id} />
             </div>
           </section>

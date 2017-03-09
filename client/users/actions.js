@@ -1,99 +1,40 @@
-import { arrayOf } from "normalizr";
 import { EventTypes } from "redux-segment";
+import { createAction } from "redux-actions";
 
-import { API_REQUEST, userSchema } from "techbikers/middleware/api";
-import { authenticateAs } from "techbikers/auth/actions";
+export const FETCH_USER_BY_ID = "FETCH_USER_BY_ID";
+export const fetchUserById = createAction(FETCH_USER_BY_ID);
 
-export const GET_USER_REQUEST = "GET_USER_REQUEST";
-export const GET_USER_RESPONSE = "GET_USER_RESPONSE";
-export const GET_USER_ERROR = "GET_USER_ERROR";
+export const FETCH_USERS_BY_RIDE = "FETCH_USERS_BY_RIDE";
+export const fetchUsersByRide = createAction(FETCH_USERS_BY_RIDE);
 
-export function getUserById(id) {
-  return {
-    [API_REQUEST]: {
-      endpoint: `/riders/${id}`,
-      schema: userSchema,
-      requestActionType: GET_USER_REQUEST,
-      successActionType: GET_USER_RESPONSE,
-      errorActionType: GET_USER_ERROR
-    }
-  };
-}
-
-export function getUsersForRide(rideId) {
-  return {
-    [API_REQUEST]: {
-      endpoint: `/rides/${rideId}/riders`,
-      schema: arrayOf(userSchema),
-      requestActionType: GET_USER_REQUEST,
-      successActionType: GET_USER_RESPONSE,
-      errorActionType: GET_USER_ERROR
-    }
-  };
-}
-
-export const CREATE_USER_REQUEST = "CREATE_USER_REQUEST";
-export const CREATE_USER_RESPONSE = "CREATE_USER_RESPONSE";
-export const CREATE_USER_ERROR = "CREATE_USER_ERROR";
-
-export function createUser(user) {
-  const fetchOptions = {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(user)
-  };
-
-  return {
-    [API_REQUEST]: {
-      endpoint: "/riders/",
-      schema: userSchema,
-      fetchOptions,
-      requestActionType: CREATE_USER_REQUEST,
-      successActionType: CREATE_USER_RESPONSE,
-      errorActionType: CREATE_USER_ERROR
-    },
-    meta: {
-      analytics: {
-        eventType: EventTypes.track
+export const CREATE_USER = "CREATE_USER";
+export const createUser = createAction(CREATE_USER,
+  user => user,
+  ({ email }) => ({
+    analytics: {
+      eventType: EventTypes.track,
+      eventPayload: {
+        properties: { email }
       }
     }
-  };
-}
+  })
+);
 
-export function createUserAndAuthenticate(user) {
-  return dispatch => dispatch(createUser(user)).then(
-    response => {
-      if (!response.error) {
-        dispatch(authenticateAs(user.email, user.password));
+export const CREATE_USER_AND_AUTHENTICATE = "CREATE_USER_AND_AUTHENTICATE";
+export const createUserAndAuthenticate = createAction(CREATE_USER_AND_AUTHENTICATE,
+  user => user,
+  ({ email }) => ({
+    analytics: {
+      eventType: EventTypes.track,
+      eventPayload: {
+        properties: { email }
       }
     }
-  );
-}
+  })
+);
 
-export const UPDATE_USER_REQUEST = "UPDATE_USER_REQUEST";
-export const UPDATE_USER_RESPONSE = "UPDATE_USER_RESPONSE";
-export const UPDATE_USER_ERROR = "UPDATE_USER_ERROR";
-
-export function updateUser(user) {
-  const fetchOptions = {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(user)
-  };
-
-  return {
-    [API_REQUEST]: {
-      endpoint: `/riders/${user.id}`,
-      schema: userSchema,
-      fetchOptions,
-      requestActionType: UPDATE_USER_REQUEST,
-      successActionType: UPDATE_USER_RESPONSE,
-      errorActionType: UPDATE_USER_ERROR
-    },
-    meta: {
-      analytics: {
-        eventType: EventTypes.track
-      }
-    }
-  };
-}
+export const UPDATE_USER = "UPDATE_USER";
+export const updateUser = createAction(UPDATE_USER,
+  user => user,
+  () => ({ analytics: { eventType: EventTypes.track } })
+);

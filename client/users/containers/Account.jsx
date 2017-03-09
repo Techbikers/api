@@ -4,7 +4,7 @@ import { Link } from "react-router";
 import DocumentTitle from "react-document-title";
 
 import { getAuthenticatedUser, getAuthenticatedUserId } from "techbikers/auth/selectors";
-import { getUserById } from "techbikers/users/actions";
+import { fetchUserById } from "techbikers/users/actions";
 import { setPageEntity } from "techbikers/app/actions";
 import { UserShape } from "techbikers/users/shapes";
 
@@ -18,7 +18,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = {
-  getUserById,
+  fetchUserById,
   setPageEntity
 };
 
@@ -28,13 +28,13 @@ export default class Account extends Component {
   static propTypes = {
     id: PropTypes.number.isRequired,
     user: UserShape,
-    getUserById: PropTypes.func.isRequired,
+    fetchUserById: PropTypes.func.isRequired,
     setPageEntity: PropTypes.func.isRequired
   };
 
   componentWillMount() {
     const { id } = this.props;
-    this.props.getUserById(id);
+    this.props.fetchUserById(id);
     this.props.setPageEntity({ id });
   }
 

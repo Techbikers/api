@@ -11,6 +11,7 @@ import { init } from "techbikers/app/actions";
 import chapterSagas from "techbikers/chapters/sagas";
 import rideSagas from "techbikers/rides/sagas";
 import sponsorSagas from "techbikers/sponsors/sagas";
+import userSagas from "techbikers/users/sagas";
 import notificationSagas from "techbikers/notifications/sagas";
 
 const initialState = {
@@ -28,6 +29,7 @@ const sagas = [
   chapterSagas,
   rideSagas,
   sponsorSagas,
+  userSagas,
   notificationSagas
 ];
 

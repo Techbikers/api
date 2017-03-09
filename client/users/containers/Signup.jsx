@@ -1,8 +1,8 @@
 import React, { Component, PropTypes } from "react";
-import { autobind } from "core-decorators";
 import { connect } from "react-redux";
 import { replace } from "react-router-redux";
 import DocumentTitle from "react-document-title";
+import { locationShape } from "react-router";
 
 import { createUserAndAuthenticate } from "techbikers/users/actions";
 
@@ -17,11 +17,18 @@ const mapStateToProps = state => {
   return { isAuthenticated, errors };
 };
 
-@connect(mapStateToProps)
+const mapDispatchToProps = {
+  replace,
+  createUserAndAuthenticate
+};
+
+@connect(mapStateToProps, mapDispatchToProps)
 export default class SignupPage extends Component {
   static propTypes = {
+    location: locationShape,
     isAuthenticated: PropTypes.bool,
-    dispatch: PropTypes.func.isRequired
+    replace: PropTypes.func.isRequired,
+    createUserAndAuthenticate: PropTypes.func.isRequired
   };
 
   componentWillMount() {
@@ -33,20 +40,16 @@ export default class SignupPage extends Component {
   }
 
   checkAuth(props) {
-    const { dispatch, isAuthenticated, location } = props;
+    const { isAuthenticated, location } = props;
 
     if (isAuthenticated) {
       const redirectAfterLogin = location.state && location.state.returnTo || "/";
-
-      dispatch(replace(redirectAfterLogin));
+      this.props.replace(redirectAfterLogin);
     }
   }
 
-  @autobind
-  handleSubmit(user) {
-    const { dispatch } = this.props;
-
-    dispatch(createUserAndAuthenticate(user));
+  handleSignup = user => {
+    this.props.createUserAndAuthenticate(user);
   }
 
   render() {
@@ -67,7 +70,9 @@ export default class SignupPage extends Component {
 
             <ErrorMessage errors={errors} />
 
-            <SignupForm ref="signupForm" onSubmit={this.handleSubmit} returnTo={redirectAfterLogin} />
+            <SignupForm
+              onSubmit={this.handleSignup}
+              returnTo={redirectAfterLogin} />
           </div>
         </section>
       </DocumentTitle>
