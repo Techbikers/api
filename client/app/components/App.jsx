@@ -9,6 +9,7 @@ import AnalyticsLoader from "techbikers/app/components/AnalyticsLoader";
 import Header from "techbikers/app/components/Header";
 import Footer from "techbikers/app/components/Footer";
 import MetaTags from "techbikers/app/components/MetaTags";
+import NotificationArea from "techbikers/notifications/containers/NotificationArea";
 
 const App = ({ children, pageMeta, modalChildren }) => (
   <IntlProvider locale="en">
@@ -18,6 +19,7 @@ const App = ({ children, pageMeta, modalChildren }) => (
       <Header />
       {children}
       <Footer />
+      <NotificationArea />
       <Modal isOpen={modalChildren !== null} style={modalStyles}>
         {modalChildren}
       </Modal>

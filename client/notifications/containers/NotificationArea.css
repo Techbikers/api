@@ -1,0 +1,9 @@
+.NotificationArea {
+  composes: fixed full left bottom from "css/layout";
+
+  z-index: 999;
+}
+
+.NotificationArea > * {
+  margin: 16px;
+}

@@ -1,0 +1,11 @@
+.TextNotification {
+
+}
+
+.text {
+  composes: bg-white from "css/color";
+}
+
+.error {
+  composes: text-white bg-warning from "css/color";
+}
