@@ -8,6 +8,7 @@ import { syncHistoryWithStore } from "react-router-redux";
 import routes from "techbikers/routes";
 import configureStore from "techbikers/store";
 import { init } from "techbikers/app/actions";
+import authSagas from "techbikers/auth/sagas";
 import chapterSagas from "techbikers/chapters/sagas";
 import rideSagas from "techbikers/rides/sagas";
 import sponsorSagas from "techbikers/sponsors/sagas";
@@ -26,6 +27,7 @@ const initialState = {
 };
 
 const sagas = [
+  authSagas,
   chapterSagas,
   rideSagas,
   sponsorSagas,

@@ -1,14 +1,13 @@
 import React, { Component, PropTypes } from "react";
 import { connect } from "react-redux";
-import { autobind } from "core-decorators";
 import { replace } from "react-router-redux";
 import DocumentTitle from "react-document-title";
 import forms, { Form } from "newforms";
+import { locationShape } from "react-router";
 
-import { confirmResetPasswordAndAuthenticate } from "techbikers/auth/actions";
+import { finishPasswordReset } from "techbikers/auth/actions";
 
 import FormField from "techbikers/components/FormField";
-import ErrorMessage from "techbikers/components/ErrorMessage";
 
 const ResetPasswordForm = Form.extend({
   password1: forms.CharField({
@@ -37,8 +36,24 @@ const mapStateToProps = state => {
   return { isAuthenticated, errors };
 };
 
-@connect(mapStateToProps)
+const mapDispatchToProps = {
+  replace,
+  finishPasswordReset
+};
+
+@connect(mapStateToProps, mapDispatchToProps)
 export default class PasswordResetConfirm extends Component {
+  static propTypes = {
+    isAuthenticated: PropTypes.bool,
+    location: locationShape,
+    params: PropTypes.shape({
+      uid: PropTypes.string,
+      token: PropTypes.string
+    }),
+    replace: PropTypes.func.isRequired,
+    finishPasswordReset: PropTypes.func.isRequired
+  };
+
   constructor(props) {
     super(props);
     this.state = {
@@ -55,34 +70,31 @@ export default class PasswordResetConfirm extends Component {
   }
 
   checkAuth(props) {
-    const { dispatch, isAuthenticated, location } = props;
+    const { isAuthenticated, location } = props;
 
     if (isAuthenticated) {
       const redirectAfterLogin = location.state && location.state.returnTo || "/";
-      dispatch(replace(redirectAfterLogin));
+      this.props.replace(redirectAfterLogin);
     }
   }
 
-  @autobind
-  onFormChange() {
+  onFormChange = () => {
     this.forceUpdate();
   }
 
-  @autobind
-  resetPassword(e) {
+  handlePasswordReset = e => {
     e.preventDefault();
     const { form } = this.state;
-    const { dispatch, params } = this.props;
 
     if (form.validate()) {
+      const { params } = this.props;
       const { password1, password2 } = form.cleanedData;
-      dispatch(confirmResetPasswordAndAuthenticate(params.uid, params.token, password1, password2));
+      this.props.finishPasswordReset(params.uid, params.token, password1, password2);
     }
   }
 
   render() {
     const fields = this.state.form.boundFieldsObj();
-    const { errors } = this.props;
 
     return (
       <DocumentTitle title="Reset Password – Techbikers">
@@ -91,14 +103,11 @@ export default class PasswordResetConfirm extends Component {
             <h1>Forgotten Password?</h1>
           </header>
           <div className="content">
-            <form id="loginform" role="form" onSubmit={this.resetPassword}>
-              <ErrorMessage errors={errors} />
+            <form id="loginform" role="form" onSubmit={this.handlePasswordReset}>
               <div className="row centerText">
-                {Object.keys(fields).map(key => {
-                  return (
-                    <FormField key={fields[key].htmlName} field={fields[key]} className="span2 offset2" />
-                  );
-                })}
+                {Object.keys(fields).map(key =>
+                  <FormField key={fields[key].htmlName} field={fields[key]} className="span2 offset2" />
+                )}
               </div>
               <div className="row centerText">
                 <div className="span6">

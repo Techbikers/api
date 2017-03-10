@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from "react";
 import { connect } from "react-redux";
 import { locationShape } from "react-router";
 
-import { exchangeAuthenticationToken } from "techbikers/auth/actions";
+import { exchangeToken } from "techbikers/auth/actions";
 import { getAuthToken } from "techbikers/auth/selectors";
 
 import Spinner from "techbikers/components/Spinner";
@@ -13,7 +13,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = {
-  exchangeAuthenticationToken
+  exchangeToken
 };
 
 @connect(mapStateToProps, mapDispatchToProps)
@@ -23,7 +23,7 @@ export default class AuthComplete extends Component {
     params: PropTypes.shape({
       backend: PropTypes.string.isRequired
     }).isRequired,
-    exchangeAuthenticationToken: PropTypes.func.isRequired
+    exchangeToken: PropTypes.func.isRequired
   };
 
   constructor(props) {
@@ -40,7 +40,7 @@ export default class AuthComplete extends Component {
     // ultimately returns an auth token we can log the user in with (or
     // an error with details).
     if (query && query.state && (query.code || query.oauth_token)) {
-      this.props.exchangeAuthenticationToken(backend, query.code || query.oauth_token, query.state);
+      this.props.exchangeToken(backend, query.code || query.oauth_token, query.state);
     }
   }
 

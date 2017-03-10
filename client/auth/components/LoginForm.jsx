@@ -28,19 +28,13 @@ export default class LoginForm extends Component {
     this.forceUpdate();
   }
 
-  @autobind
-  handleSubmit(event) {
+  handleSubmit = event => {
     event.preventDefault();
-
-    const { onSubmit } = this.props;
-    const { email, password } = this.state.form.cleanedData;
-
     if (this.state.form.validate()) {
-      return onSubmit(email, password);
-    } else {
-      return null;
+      const { email, password } = this.state.form.cleanedData;
+      this.props.onSubmit(email, password);
     }
-  }
+  };
 
   render() {
     const { returnTo } = this.props;

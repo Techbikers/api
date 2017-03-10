@@ -5,8 +5,8 @@ import { replace } from "react-router-redux";
 import DocumentTitle from "react-document-title";
 import forms, { Form } from "newforms";
 
-import { beginResetPassword } from "techbikers/auth/actions";
-import { clearResetPasswordStatus } from "techbikers/app/actions";
+import { beginPasswordReset } from "techbikers/auth/actions";
+import { clearPasswordResetStatus } from "techbikers/auth/actions/ui";
 
 import FormField from "techbikers/components/FormField";
 
@@ -20,14 +20,14 @@ const mapStateToProps = state => {
 
   return {
     isAuthenticated,
-    resetStatus: state.page.ui.passwordResetStatus
+    resetStatus: state.ui.auth.passwordResetStatus
   };
 };
 
 const mapDispatchToProps = {
   replace,
-  beginResetPassword,
-  clearResetPasswordStatus
+  beginPasswordReset,
+  clearPasswordResetStatus
 };
 
 @connect(mapStateToProps, mapDispatchToProps)
@@ -35,8 +35,8 @@ export default class PasswordReset extends Component {
   static propTypes = {
     resetStatus: PropTypes.string,
     replace: PropTypes.func.isRequired,
-    beginResetPassword: PropTypes.func.isRequired,
-    clearResetPasswordStatus: PropTypes.func.isRequired
+    beginPasswordReset: PropTypes.func.isRequired,
+    clearPasswordResetStatus: PropTypes.func.isRequired
   };
 
   constructor(props) {
@@ -75,7 +75,7 @@ export default class PasswordReset extends Component {
     const { form } = this.state;
 
     if (form.validate()) {
-      this.props.beginResetPassword(form.cleanedData.email);
+      this.props.beginPasswordReset(form.cleanedData.email);
     }
   }
 
@@ -94,7 +94,7 @@ export default class PasswordReset extends Component {
               <p className="centerText">
                 OK - we've just emailed you a link to reset your password.
               </p>
-              <button className="btn btn-grey" onClick={() => this.props.clearResetPasswordStatus()}>Try again</button>
+              <button className="btn btn-grey" onClick={() => this.props.clearPasswordResetStatus()}>Try again</button>
             </div>
           :
             <div className="content">

@@ -4,7 +4,7 @@ import { replace } from "react-router-redux";
 import { locationShape } from "react-router";
 import DocumentTitle from "react-document-title";
 
-import { authenticateAs } from "techbikers/auth/actions";
+import { authenticateUser } from "techbikers/auth/actions";
 
 import ErrorMessage from "techbikers/components/ErrorMessage";
 import LoginForm from "techbikers/auth/components/LoginForm";
@@ -19,7 +19,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = {
   replace,
-  authenticateAs
+  handleLogin: authenticateUser
 };
 
 @connect(mapStateToProps, mapDispatchToProps)
@@ -31,7 +31,7 @@ export default class LoginPage extends Component {
     location: locationShape,
     errors: PropTypes.string,
     replace: PropTypes.func.isRequired,
-    authenticateAs: PropTypes.func.isRequired
+    handleLogin: PropTypes.func.isRequired
   };
 
   componentWillMount() {
@@ -52,7 +52,7 @@ export default class LoginPage extends Component {
   }
 
   render() {
-    const { location, errors } = this.props;
+    const { location, errors, handleLogin } = this.props;
     const redirectAfterLogin = location.state && location.state.returnTo || "/";
 
     return (
@@ -64,7 +64,7 @@ export default class LoginPage extends Component {
           <div className="content">
             <ErrorMessage errors={errors} />
             <LoginForm
-              onSubmit={(email, password) => this.props.authenticateAs(email, password)}
+              onSubmit={handleLogin}
               returnTo={redirectAfterLogin}
               error={errors} />
           </div>

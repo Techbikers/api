@@ -26,12 +26,12 @@ export default store => next => action => {
       break;
 
     case LOGOUT:
-      handleLogout();
+      Raven.setUserContext();
       break;
 
     default:
       if (action.error) {
-        Raven.captureMessage(action.error.message || action.error, { details: action.error, level: "info" });
+        Raven.captureMessage(action.payload.message || action.payload, { details: action.payload, level: "info" });
         break;
       }
   }
@@ -39,12 +39,7 @@ export default store => next => action => {
   return result;
 };
 
-function handleAuthentication(newState) {
-  const { userId, organisationId } = newState.auth.claims;
-  const email = newState.auth.email;
-  Raven.setUserContext({ userId, organisationId, email });
-}
-
-function handleLogout() {
-  Raven.setUserContext();
+function handleAuthentication(state) {
+  const { user } = state.auth;
+  Raven.setUserContext({ user });
 }

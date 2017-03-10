@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from "react";
 import { connect } from "react-redux";
 import { autobind } from "core-decorators";
 
-import { authenticateWithToken } from "techbikers/auth/actions";
+import { authenticationCallback } from "techbikers/auth/actions";
 import { getAuthToken } from "techbikers/auth/selectors";
 
 const mapStateToProps = state => ({
@@ -10,7 +10,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = {
-  authenticateWithToken
+  authenticationCallback
 };
 
 @connect(mapStateToProps, mapDispatchToProps)
@@ -25,7 +25,7 @@ export default class AuthLogin extends Component {
       width: PropTypes.number,
       height: PropTypes.number
     }),
-    authenticateWithToken: PropTypes.func.isRequired,
+    authenticationCallback: PropTypes.func.isRequired,
     onAuthSuccess: PropTypes.func.isRequired
   };
 
@@ -68,7 +68,7 @@ export default class AuthLogin extends Component {
 
     // Even if the user is logged in, we'll swap out
     // the token so we have the latest info.
-    this.props.authenticateWithToken(response.token);
+    this.props.authenticationCallback(response.token);
 
     if (typeof onAuthSuccess === "function") {
       onAuthSuccess();

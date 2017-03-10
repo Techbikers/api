@@ -1,6 +1,7 @@
-import { combineReducers } from "redux"
-import { routerReducer } from "react-router-redux"
+import { combineReducers } from "redux";
+import { routerReducer } from "react-router-redux";
 
+import ui from "techbikers/reducers/ui";
 import auth from "techbikers/auth/reducers";
 import entities from "techbikers/reducers/entities";
 import errors from "./errors";
@@ -15,5 +16,6 @@ export default combineReducers({
   page,
   oAuth,
   routing: routerReducer,
-  notifications
+  notifications,
+  ui
 });
