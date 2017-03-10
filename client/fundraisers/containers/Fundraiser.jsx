@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { Link } from "react-router";
 import { FormattedNumber } from "react-intl";
 
-import { getUserById } from "techbikers/users/actions";
+import { fetchUserById } from "techbikers/users/actions";
 import { UserShape } from "techbikers/users/shapes";
 import { FundraiserShape } from "techbikers/fundraisers/shapes";
 
@@ -17,7 +17,7 @@ const mapStateToProps = (state, ownProps) => {
 };
 
 const mapDispatchToProps = (dispatch, props) => ({
-  getUser: () => dispatch(getUserById(props.user))
+  getUser: () => dispatch(fetchUserById(props.user))
 });
 
 @connect(mapStateToProps, mapDispatchToProps)

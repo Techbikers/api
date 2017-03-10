@@ -14,6 +14,7 @@ import rideSagas from "techbikers/rides/sagas";
 import sponsorSagas from "techbikers/sponsors/sagas";
 import userSagas from "techbikers/users/sagas";
 import notificationSagas from "techbikers/notifications/sagas";
+import fundraiserSagas from "techbikers/fundraisers/sagas";
 
 const initialState = {
   page: {
@@ -32,7 +33,8 @@ const sagas = [
   rideSagas,
   sponsorSagas,
   userSagas,
-  notificationSagas
+  notificationSagas,
+  fundraiserSagas
 ];
 
 const store = configureStore(initialState, sagas);

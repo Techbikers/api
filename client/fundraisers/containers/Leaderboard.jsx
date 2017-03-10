@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import DocumentTitle from "react-document-title";
 
 import { getLeaderboard } from "techbikers/fundraisers/selectors";
-import { getActiveFundraisers } from "techbikers/fundraisers/actions";
+import { fetchActiveFundraisers } from "techbikers/fundraisers/actions";
 import { FundraiserShape } from "techbikers/fundraisers/shapes";
 
 import Fundraiser from "techbikers/fundraisers/containers/Fundraiser";
@@ -13,18 +13,18 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = {
-  getActiveFundraisers
+  fetchActiveFundraisers
 };
 
 @connect(mapStateToProps, mapDispatchToProps)
 export default class Leaderboard extends Component {
   static propTypes = {
     fundraisers: PropTypes.arrayOf(FundraiserShape),
-    getActiveFundraisers: PropTypes.func.isRequired
+    fetchActiveFundraisers: PropTypes.func.isRequired
   };
 
   componentWillMount() {
-    this.props.getActiveFundraisers();
+    this.props.fetchActiveFundraisers();
   }
 
   render() {
