@@ -8,7 +8,10 @@ export const authenticateUser = createAction(AUTHENTICATE_USER,
 );
 
 export const AUTHENTICATION_SUCCESS = "AUTHENTICATION_SUCCESS";
-export const authSuccess = createAction(AUTHENTICATION_SUCCESS,
+export const authSuccess = createAction(AUTHENTICATION_SUCCESS);
+
+export const AUTHENTICATION_COMPLETE = "AUTHENTICATION_COMPLETE";
+export const authComplete = createAction(AUTHENTICATION_COMPLETE,
   identity,
   ({ userId, email, firstName, lastName }) => ({
     analytics: [
@@ -67,11 +70,6 @@ export const beginPasswordReset = createAction(BEGIN_PASSWORD_RESET,
       }
     }
   })
-);
-
-export const FINISH_PASSWORD_RESET = "FINISH_PASSWORD_RESET";
-export const finishPasswordReset = createAction(FINISH_PASSWORD_RESET,
-  (uid, token, new_password1, new_password2) => ({ uid, token, new_password1, new_password2 }) // eslint-disable-line camelcase
 );
 
 export const LOGOUT = "LOGOUT";

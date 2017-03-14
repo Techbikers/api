@@ -19,7 +19,6 @@ import RideDetails from "techbikers/rides/containers/RideDetails";
 import AuthComplete from "techbikers/auth/containers/AuthComplete";
 import LoginPage from "techbikers/auth/containers/LoginPage";
 import PasswordReset from "techbikers/auth/containers/PasswordReset";
-import PasswordResetConfirm from "techbikers/auth/containers/PasswordResetConfirm";
 
 // Sponsors
 import SponsorsPage from "techbikers/sponsors/containers/SponsorsPage";
@@ -49,12 +48,7 @@ export default (
       <Route path="login" component={LoginPage} />
       <Route path="signup" component={Signup} />
       <Route path="account" component={Account} />
-      <Route path="password">
-        <Route path="reset">
-          <IndexRoute component={PasswordReset} />
-          <Route path=":uid/:token" component={PasswordResetConfirm} />
-        </Route>
-      </Route>
+      <Route path="password/reset" component={PasswordReset} />
 
       // ## Ride Routing
       <Route path="rides">

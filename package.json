@@ -28,6 +28,7 @@
     }
   },
   "dependencies": {
+    "auth0-js": "^8.5.0",
     "babel-polyfill": "^6.13.0",
     "classnames": "^2.2.5",
     "compass-mixins": "^0.12.10",

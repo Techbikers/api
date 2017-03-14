@@ -1,19 +1,19 @@
 import { createSelector } from "reselect";
 
-const userSelector = state => state.entities.user || {};
-const authSelector = state => state.auth || {};
+export const getUserEntities = state => state.entities.user || {};
+export const getAuthState = state => state.auth || {};
 
 export const getAuthenticatedUserId = createSelector(
-  authSelector,
-  auth => (auth.state === "authenticated" ? auth.claims.userId : null)
+  getAuthState,
+  auth => (auth.state === "authenticated" && auth.claims["https://techbikers.com/user_id"])
 );
 
 export const getAuthToken = createSelector(
-  authSelector,
-  auth => auth.token
+  getAuthState,
+  auth => auth.idToken
 );
 
 export const getAuthenticatedUser = createSelector(
-  [userSelector, getAuthenticatedUserId],
+  [getUserEntities, getAuthenticatedUserId],
   (users, id) => users[id]
 );
