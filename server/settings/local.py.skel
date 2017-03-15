@@ -52,6 +52,9 @@ SLACK_CHANNEL = '@username' # Use your Slack username so you don't spam a channe
 SLACK_TOKEN = '' # Ask for the token or create your own bot to test
 SLACK_BACKEND = 'django_slack.backends.UrllibBackend'
 
+# Auth0 Settings
+JWT_AUTH['JWT_AUDIENCE'] = ''
+
 # Local Logging
 # This will output logs into the project directory during development
 LOGGING['handlers']['log_file'] = {

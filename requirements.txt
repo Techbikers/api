@@ -1,8 +1,7 @@
 # requirements.txt
-djangorestframework==3.3.3
-djangorestframework-jwt==1.8.0
-PyJWT==1.4.0
 Django==1.10.6
+djangorestframework==3.6.2
+djangorestframework-jwt==1.9.0
 Markdown==2.6.6
 stripe==1.23.0
 django-jsonfield==1.0.1
@@ -11,8 +10,8 @@ django-codemirror-widget==0.4.0
 requests==2.10.0
 sendgrid-django==2.0.0
 Pillow==2.9.0
-python-social-auth==0.2.19
 django-crontab==0.7.0
 django-webpack-loader==0.3.0
 raven==5.15.0
 django-slack==5.8.0
+cryptography==1.8.1

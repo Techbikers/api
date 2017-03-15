@@ -1,5 +1,6 @@
 import os
 import datetime
+from server.auth.utils import get_auth0_public_key
 
 ADMINS = (
     ('Michael Willmott', 'mwillmott@gmail.com')
@@ -28,69 +29,18 @@ REST_FRAMEWORK = {
     ),
 }
 
+# URL for the public certificate used to validate tokens
+AUTH0_PUBLIC_CERTIFICATE_URL = 'https://techbikers.eu.auth0.com/cer'
+
 JWT_AUTH = {
     'JWT_AUTH_HEADER_PREFIX': 'Bearer',
-    'JWT_ALLOW_REFRESH': True,
-    'JWT_EXPIRATION_DELTA': datetime.timedelta(hours=24),
-    'JWT_RESPONSE_PAYLOAD_HANDLER': 'server.auth.handlers.jwt_response_payload_handler'
+    'JWT_ALGORITHM': 'RS256',
+    'JWT_VERIFY': True,
+    'JWT_PUBLIC_KEY': get_auth0_public_key(AUTH0_PUBLIC_CERTIFICATE_URL),
+    'JWT_PAYLOAD_GET_USERNAME_HANDLER': 'server.auth.handlers.get_auth0_username_handler',
 }
 
-AUTHENTICATION_BACKENDS = (
-    'server.auth.backends.just_giving.JustGivingOAuth2',
-    'social.backends.facebook.FacebookOAuth2',
-    'django.contrib.auth.backends.ModelBackend'
-)
-
-SOCIAL_AUTH_URL_NAMESPACE = 'auth'
-SOCIAL_AUTH_PIPELINE = (
-    # Get the information we can about the user and return it in a simple
-    # format to create the user instance later. On some cases the details are
-    # already part of the auth response from the provider, but sometimes this
-    # could hit a provider API.
-    'social.pipeline.social_auth.social_details',
-
-    # Get the social uid from whichever service we're authing thru. The uid is
-    # the unique identifier of the given user in the provider.
-    'social.pipeline.social_auth.social_uid',
-
-    # Verifies that the current auth process is valid within the current
-    # project, this is were emails and domains whitelists are applied (if
-    # defined).
-    'social.pipeline.social_auth.auth_allowed',
-
-    # Checks if the current social-account is already associated in the site.
-    'social.pipeline.social_auth.social_user',
-
-    # Make up a username for this person, appends a random string at the end if
-    # there's any collision.
-    'social.pipeline.user.get_username',
-
-    # Associates the current social details with another user account with
-    # a similar email address. Disabled by default.
-    'social.pipeline.social_auth.associate_by_email',
-
-    # Create a user account if we haven't found one yet.
-    'social.pipeline.user.create_user',
-
-    # Create the record that associated the social account with this user.
-    'social.pipeline.social_auth.associate_user',
-
-    # Populate the extra_data field in the social record with the values
-    # specified by settings (and the default ones like access_token, etc).
-    'social.pipeline.social_auth.load_extra_data',
-
-    # Update the user record with any changed info from the auth service.
-    'social.pipeline.user.user_details'
-)
-
-
-# Facebook Social Auth Settings
-SOCIAL_AUTH_FACEBOOK_SCOPE = ['email']
-SOCIAL_AUTH_FACEBOOK_PROFILE_EXTRA_PARAMS = {
-    'fields': 'id,name,email',
-}
-
-
+# Email Backend
 EMAIL_BACKEND = 'sgbackend.SendGridBackend'
 DEFAULT_FROM_EMAIL = 'hello@techbikers.com'
 
@@ -183,7 +133,7 @@ INSTALLED_APPS = (
     'webpack_loader',
     'django.contrib.admin',
     'rest_framework',
-    'social.apps.django_app.default',
+    'rest_framework_jwt',
     'server',
     'server.api',
     'codemirror',

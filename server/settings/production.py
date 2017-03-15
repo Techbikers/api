@@ -46,6 +46,10 @@ ALLOWED_HOSTS = ['techbikers.com','spoke.techbikers.com']
 
 STRIPE_ENVIRONMENT = 'live'
 
+# Auth0 Settings
+# These are public details so no security risk
+JWT_AUTH['JWT_AUDIENCE'] = 'CZuJ8UsHJfF4Xbz4gukAVXC8YlQ2knUC'
+
 with open('../../production.json') as configFile:
     config = json.load(configFile);
     SECRET_KEY = config.get('secret_key')
@@ -59,8 +63,6 @@ with open('../../production.json') as configFile:
     MAILCHIMP_CORE_LIST_ID = email.get('mailchimp_core_list_id')
 
     social_auth = config.get('social_auth')
-    SOCIAL_AUTH_FACEBOOK_KEY = social_auth.get('facebook_key')
-    SOCIAL_AUTH_FACEBOOK_SECRET = social_auth.get('facebook_secret')
     SOCIAL_AUTH_JUSTGIVING_KEY = social_auth.get('justgiving_key')
     SOCIAL_AUTH_JUSTGIVING_SECRET = social_auth.get('justgiving_secret')
 

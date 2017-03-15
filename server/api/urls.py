@@ -1,9 +1,7 @@
 from django.conf.urls import url, include
-from rest_framework_jwt.views import refresh_jwt_token, obtain_jwt_token
 from .views.rides import RidesList, RideDetails, RideRidersList, RideRiderDetails, RideRiderCharge, RideSponsorsList, RideRiderFundraiser
 from .views.riders import RidersList, RiderProfile, RiderRides
 from .views.chapters import ChaptersList, ChapterDetails, ChapterMembersList
-from .views.auth import PasswordChange, PasswordReset, PasswordResetConfirm, TokenExchange
 from .views.sponsors import SponsorsList, SponsorDetails
 from .views.fundraisers import FundraisersList
 from .views.auth import AuthenticatedUserDetails, UserDetails
@@ -11,13 +9,7 @@ from .views.auth import AuthenticatedUserDetails, UserDetails
 
 auth_urls = [
     url(r'^verify', AuthenticatedUserDetails.as_view(), name='auth-verify'),
-    url(r'^account', UserDetails.as_view(), name='auth-account'),
-    url(r'^token/exchange', TokenExchange.as_view()),
-    url(r'^token/refresh', refresh_jwt_token),
-    url(r'^token', obtain_jwt_token),
-    url(r'^password/change', PasswordChange.as_view(), name='password-change'),
-    url(r'^password/reset/confirm', PasswordResetConfirm.as_view(), name='password_reset_confirm'),
-    url(r'^password/reset', PasswordReset.as_view(), name='password-reset')
+    url(r'^account', UserDetails.as_view(), name='auth-account')
 ]
 
 ride_urls = [
