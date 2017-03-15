@@ -1,4 +1,4 @@
-from django.conf.urls import patterns, url, include
+from django.conf.urls import url, include
 from rest_framework_jwt.views import refresh_jwt_token, obtain_jwt_token
 from .views.rides import RidesList, RideDetails, RideRidersList, RideRiderDetails, RideRiderCharge, RideSponsorsList, RideRiderFundraiser
 from .views.riders import RidersList, RiderProfile, RiderRides

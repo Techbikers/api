@@ -1,9 +1,6 @@
 import os
 import datetime
 
-from django.conf.global_settings import TEMPLATE_CONTEXT_PROCESSORS as TCP
-
-
 ADMINS = (
     ('Michael Willmott', 'mwillmott@gmail.com')
 )
@@ -145,16 +142,23 @@ STATICFILES_FINDERS = (
 #    'django.contrib.staticfiles.finders.DefaultStorageFinder',
 )
 
-
-# List of callables that know how to import templates from various sources.
-TEMPLATE_LOADERS = (
-    'django.template.loaders.filesystem.Loader',
-    'django.template.loaders.app_directories.Loader',
-#     'django.template.loaders.eggs.Loader',
-)
-
-TEMPLATE_CONTEXT_PROCESSORS = TCP + [
-    'django.core.context_processors.request'
+# Templates configuration
+TEMPLATES = [
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS': [
+            os.path.join(BASE, 'server', 'templates'),
+        ],
+        'APP_DIRS': True,
+        'OPTIONS': {
+            'context_processors': [
+                'django.template.context_processors.debug',
+                'django.template.context_processors.request',
+                'django.contrib.auth.context_processors.auth',
+                'django.contrib.messages.context_processors.messages',
+            ]
+        },
+    }
 ]
 
 CODEMIRROR_PATH = 'js/codemirror'
@@ -163,8 +167,6 @@ ROOT_URLCONF = 'server.urls'
 
 # Python dotted path to the WSGI application used by Django's runserver.
 WSGI_APPLICATION = 'server.wsgi.application'
-
-TEMPLATE_DIRS = (os.path.join(BASE, 'server', 'templates'),)
 
 INSTALLED_APPS = (
     'django.contrib.auth',
