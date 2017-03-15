@@ -6,7 +6,6 @@ PyJWT==1.4.0
 Markdown==2.6.6
 stripe==1.23.0
 django-jsonfield==0.9.13
-django-suit==0.2.18
 gunicorn==19.4.5
 django-codemirror-widget==0.4.0
 requests==2.10.0

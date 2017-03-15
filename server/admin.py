@@ -4,7 +4,6 @@ from django.contrib import admin
 from django.contrib.auth.models import User
 from django.contrib.auth.admin import UserAdmin
 from django.core import urlresolvers
-from suit.widgets import LinkedSelect
 from codemirror import CodeMirrorTextarea
 
 from server.models.riders import RiderProfile

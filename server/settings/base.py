@@ -8,16 +8,6 @@ ADMINS = (
     ('Michael Willmott', 'mwillmott@gmail.com')
 )
 
-SUIT_CONFIG = {
-    'ADMIN_NAME': 'Techbikers Admin',
-    'MENU': (
-        {'label': 'Users', 'models': ('auth.user', {'model': 'server.riderprofile', 'label': 'Profiles'}, 'auth.group')},
-        {'label': 'Rides & Riders', 'models': ('server.ride', {'model': 'server.rideriders', 'label': 'Riders'}, {'model': 'server.fundraiser', 'label': 'Fundraisers'}, 'server.sale')},
-        {'label': 'Chapters', 'models': ('server.chapter', 'server.membership')},
-        {'label': 'Sponsors', 'models': ('server.sponsor', {'model': 'server.ridesponsor', 'label': 'Ride Sponsors'})}
-    )
-}
-
 MANAGERS = ADMINS
 
 SERVER_EMAIL = "admin@spoke.techbikers.com"
@@ -185,7 +175,6 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'raven.contrib.django.raven_compat',
     'webpack_loader',
-    'suit',  # Admin interface
     'django.contrib.admin',
     'rest_framework',
     'social.apps.django_app.default',
