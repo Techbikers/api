@@ -2,7 +2,6 @@ import { merge } from "lodash";
 import { combineReducers } from "redux";
 
 import {
-  SET_PAGE_ENTITY,
   UPDATE_META_INFO,
   CLEAR_UI_STATE } from "techbikers/app/actions";
 import {
@@ -13,19 +12,9 @@ import {
   BEGIN_PASSWORD_RESET_SUCCESS } from "techbikers/auth/actions";
 
 export default combineReducers({
-  entity,
   meta,
   ui
 });
-
-export function entity(state = {}, { type, entity}) {
-  switch(type) {
-    case SET_PAGE_ENTITY:
-      return entity;
-    default:
-     return state;
-  }
-}
 
 export function meta(state = {}, { type, props}) {
   if (type === UPDATE_META_INFO) {

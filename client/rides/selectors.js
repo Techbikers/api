@@ -1,9 +1,10 @@
 import moment from "moment";
 import { createSelector } from "reselect";
 
+import { getCurrentEntity } from "techbikers/app/selectors";
+
 const rideSelector = state => state.entities.ride || {};
 const registrationSelector = state => state.entities.rideRegistration || {};
-const pageEntityIdSelector = state => Number(state.page.entity.id) || null;
 
 export const getAllRides = createSelector(
   [rideSelector],
@@ -11,8 +12,8 @@ export const getAllRides = createSelector(
 );
 
 export const getCurrentRide = createSelector(
-  [rideSelector, pageEntityIdSelector],
-  (rides, id) => rides[id]
+  [rideSelector, getCurrentEntity],
+  (rides, entity) => rides[entity.id]
 );
 
 export const getUpcomingRides = createSelector(
@@ -31,6 +32,6 @@ export const getRegistrationsForAllRides = createSelector(
 );
 
 export const getRegistrationsForCurrentRide = createSelector(
-  [getRegistrationsForAllRides, pageEntityIdSelector],
-  (registrations, rideId) => registrations.filter(registration => registration.ride === rideId)
+  [getRegistrationsForAllRides, getCurrentEntity],
+  (registrations, entity) => registrations.filter(registration => registration.ride === entity.id)
 );

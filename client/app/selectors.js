@@ -1,8 +1,9 @@
 import { createSelector } from "reselect";
 
-const locationSelector = state => state.routing.locationBeforeTransitions || {};
+export const getCurrentEntity = state => state.app.entity || {};
+export const getLocation = state => state.routing.locationBeforeTransitions || {};
 
 export const getCurrentPathname = createSelector(
-  [locationSelector],
+  [getLocation],
   location => location.pathname
 );

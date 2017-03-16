@@ -1,16 +1,16 @@
 import { isEmpty } from "lodash";
 import { createSelector } from "reselect";
 
+import { getCurrentEntity } from "techbikers/app/selectors";
 import { getCurrentRide, getRegistrationsForCurrentRide } from "techbikers/rides/selectors";
 import { getAuthenticatedUserId } from "techbikers/auth/selectors";
 
 const userSelector = state => state.entities.user || {};
 const rideSelector = state => state.entities.ride || {};
-const pageEntityIdSelector = state => state.page.entity.id || null;
 
 export const getCurrentUser = createSelector(
-  [userSelector, pageEntityIdSelector],
-  (users, id) => users[id]
+  [userSelector, getCurrentEntity],
+  (users, entity) => users[entity.id]
 );
 
 export const getUsersOnCurrentRide = createSelector(

@@ -3,49 +3,45 @@ import { connect } from "react-redux";
 import { locationShape } from "react-router";
 import { isEqual } from "lodash";
 
-import { setPageEntity } from "techbikers/app/actions";
+import { updateCurrentEntity } from "techbikers/app/actions";
 
 import App from "techbikers/app/components/App";
 
-const mapStateToProps = state => {
-  const { state: authState } = state.auth;
-  const isAuthenticated = authState === "authenticated";
-  const pageMeta = state.page.meta || {};
-
-  return {
-    isAuthenticated,
-    pageMeta
-  };
+const mapDispatchToProps = {
+  updateCurrentEntity
 };
 
-@connect(mapStateToProps)
+@connect(null, mapDispatchToProps)
 export default class AppContainer extends Component {
   static propTypes = {
     children: PropTypes.node.isRequired,
-    dispatch: PropTypes.func.isRequired,
     location: locationShape,
-    isAuthenticated: PropTypes.bool,
     params: PropTypes.shape({
-      id: PropTypes.number,
-      slug: PropTypes.string
-    })
+      id: PropTypes.string
+    }),
+    updateCurrentEntity: PropTypes.func.isRequired,
   };
 
-  componentWillMount() {
-    const { dispatch, params } = this.props;
+  updateEntity = props => {
+    if (props.params.id) {
+      const type = props.location.pathname.split("/")[1].slice(0, -1);
+      props.updateCurrentEntity(Number(props.params.id), type);
+    }
+  }
 
+  componentWillMount() {
     // Set the entity id for this page based on the url parameters
     // (not every page will have an entity associated with it)
-    dispatch(setPageEntity(params));
+    this.updateEntity(this.props);
   }
 
   componentWillReceiveProps(nextProps) {
-    const { dispatch, params, location } = this.props;
+    const { params, location } = this.props;
     const { params: nextParams, location: nextLocation } = nextProps;
 
     // Set the page entity id from url params (if there is one)
     if (nextParams && params && !isEqual(nextParams, params)) {
-      dispatch(setPageEntity(nextParams));
+      this.updateEntity(nextProps);
     }
 
     // next check if we're rendering a modal layer or not

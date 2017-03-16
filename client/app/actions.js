@@ -3,16 +3,6 @@ import { createAction } from "redux-actions";
 export const INIT = "INIT";
 export const init = createAction(INIT);
 
-export const SET_PAGE_ENTITY = "SET_PAGE_ENTITY";
-
-export function setPageEntity(params) {
-  return {
-    type: SET_PAGE_ENTITY,
-    entity: {
-      ...params
-    }
-  };
-}
 
 export const CLEAR_UI_STATE = "CLEAR_UI_STATE";
 
@@ -26,6 +16,10 @@ export function clearUIState(stateKey) {
 export function clearResetPasswordStatus() {
   return clearUIState("passwordResetStatus");
 }
+export const UPDATE_CURRENT_ENTITY = "UPDATE_CURRENT_ENTITY";
+export const updateCurrentEntity = createAction(UPDATE_CURRENT_ENTITY,
+  (id, type) => ({ id, type })
+);
 
 export const UPDATE_META_INFO = "UPDATE_META_INFO";
 
