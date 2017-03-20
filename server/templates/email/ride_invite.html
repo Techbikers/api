@@ -12,11 +12,11 @@
         wait to ride with you and raise money for <a href="http://techbikers.com/the_charity">Room to Read.</a></p>
 
     <p>
-        <b>To secure your place, please complete registration and pay your ride contribution by
+        <b>To secure your place, please complete registration and pay your ride contribution by midnight on
         {{ invite_expires|date:"d F" }}</b>.</p>
 
     <p>
-        If you haven't paid by then, we will release to the next batch, who might snap up your
+        If you haven't paid by then, we will release invites to the next batch, who might snap up your
         spot if you wait around.</p>
 
     <table class="full-width">
@@ -28,28 +28,8 @@
     </table>
 
     <p>
-        To reiterate, the ride costs about £{{ ride.full_cost }} per rider. To help cover costs and get more money to
-        Room to Read's aid projects, we're asking for a minimum contribution of £{{ ride.price }}.</p>
-
-    <p>
-        In return, you get "stuff" worth well over £300, and that's excluding all of the ride
-        planning, guiding, and networking you'll get in on!</p>
-
-    <p>
-        What goes into the £300+? Here's an extract:
-        <ul>
-            <li>Eurostar worth £80</li>
-            <li>Bus ride in Paris worth £10</li>
-            <li>Cycling jersey worth £50</li>
-            <li>Hotel night 1 £30</li>
-            <li>Hotel night 2 £30</li>
-            <li>Lunch x3 £30</li>
-            <li>Dinner x3 £30</li>
-            <li>Channel ferry £35</li>
-            <li>Boat ride on the Thames £15</li>
-            <li>Closing party £10</li>
-        </ul>
-    </p>
+        To reiterate, the ride costs about {{ ride.full_cost }}{{ ride.currency }} per rider. To help cover costs and get more money to
+        Room to Read's aid projects, we're asking for a minimum contribution of {{ ride.price }}{{ ride.currency }}.</p>
 
     <p>
         Once you've confirmed your place, we'll follow up with more information very soon -
