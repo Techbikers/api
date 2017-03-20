@@ -33,7 +33,8 @@ const CompleteRegistrationForm = ({dispatch, registration, ride, user, chapter, 
         submitText="Make payment & complete registration"
         onSubmit={({amount, number, cvc, exp, name}) => dispatch(createTokenAndChargeUserForRide(ride.id, user.id, amount, {number, cvc, exp, name}, chapter.public_key))}
         customAmount={true}
-        minAmount={ride.price} />
+        minAmount={ride.price}
+        currency={ride.currency} />
     </div>
   </div>
 );

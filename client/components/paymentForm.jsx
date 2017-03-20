@@ -129,13 +129,13 @@ export default class PaymentForm extends Component {
 
   render() {
     const fields = this.state.form.boundFieldsObj();
-    const { customAmount, submitText } = this.props;
+    const { customAmount, submitText, currency } = this.props;
 
     return (
       <form className="payment-form">
         {customAmount ?
           <div className="payment-form--amount row">
-            <h2>I can contribute £<FormField field={fields.amount} /></h2>
+            <h2>I can contribute {currency}<FormField field={fields.amount} /></h2>
           </div> : ""}
 
         <div className="payment-form--credit-card">
