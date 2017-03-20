@@ -2,6 +2,7 @@ import { takeEvery, call, fork, put, take } from "redux-saga/effects";
 import { Schema, arrayOf } from "normalizr";
 
 import { callApi } from "techbikers/utils/api";
+import { FundraiserSchema } from "techbikers/fundraisers/sagas";
 import {
   authenticateUser,
   AUTHENTICATION_SUCCESS } from "techbikers/auth/actions";
@@ -9,6 +10,10 @@ import { createTextNotification } from "techbikers/notifications/actions";
 import * as actions from "techbikers/users/actions";
 
 export const UserSchema = new Schema("user");
+
+UserSchema.define({
+  fundraisers: arrayOf(FundraiserSchema)
+});
 
 /**
  * Fetch a single user by their ID
