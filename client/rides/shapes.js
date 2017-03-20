@@ -18,10 +18,18 @@ export const RideShape = PropTypes.shape({
   fullCost: PropTypes.string,
   currency: PropTypes.string,
   isOver: PropTypes.bool.isRequired,
-  fundraisingTotal: PropTypes.string,
+  fundraisingTotal: PropTypes.number,
   fundraisingTarget: PropTypes.string
 });
 
 export const RegistrationShape = PropTypes.shape({
-
-})
+  id: PropTypes.number.isRequired,
+  ride: PropTypes.number.isRequired,
+  user: PropTypes.number.isRequired,
+  signupDate: PropTypes.string.isRequired,
+  signupExpires: PropTypes.string,
+  status: PropTypes.string.isRequired,
+  paid: PropTypes.bool.isRequired,
+  expired: PropTypes.bool.isRequired,
+  payload: PropTypes.object
+});

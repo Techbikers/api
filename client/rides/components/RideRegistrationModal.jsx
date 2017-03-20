@@ -1,91 +1,77 @@
-import React, { Component, PropTypes } from "react";
+import React, { PropTypes } from "react";
 import Modal from "react-modal";
 
 import { modalStyles } from "techbikers/utils/modal";
 import requireAuthentication from "techbikers/auth/containers/requireAuthentication";
-import { closeRideRegistrationModal } from "techbikers/rides/actions";
-import { RideShape, RegistrationShape } from "techbikers/rides/shapes";
-import { UserShape } from "techbikers/users/shapes";
-import { FundraiserShape } from "techbikers/fundraisers/shapes";
 
 import SetupFundraising from "techbikers/fundraisers/components/SetupFundraising";
-import PreRegistrationForm from "techbikers/rides/components/PreRegistrationForm";
-import CompleteRegistrationForm from "techbikers/rides/components/CompleteRegistrationForm";
+import ConnectedPreRegistrationForm from "techbikers/rides/containers/ConnectedPreRegistrationForm";
+import ConnectedCompleteRegistration from "techbikers/rides/containers/ConnectedCompleteRegistration";
+import CloseRideRegistrationModalButton from "techbikers/rides/containers/CloseRideRegistrationModalButton";
 
-@requireAuthentication()
-export default class RideRegistrationModal extends Component {
-  static propTypes = {
-    ride: RideShape.isRequired,
-    user: UserShape.isRequired,
-    fundraiser: FundraiserShape,
-    registration: RegistrationShape,
-    dispatch: PropTypes.func.isRequired,
-    isOpen: PropTypes.bool.isRequired
-  };
+const PendingRegistration = () => (
+  <div className="ride-registration--form">
+    <p>
+      Awesome - we've received your application to join this ride. You'll hear from us soon
+      so in the meantime, why not jump on your bike and go for a ride.
+    </p>
+    <CloseRideRegistrationModalButton className="btn-green" text="Great!" />
+  </div>
+);
 
-  static defaultProps = {
-    isOpen: false
-  };
+const FullyRegistered = () => (
+  <div className="ride-registration--form">
+    <p>
+      Nice work - that's all from us. On your bike and let's change lives!
+    </p>
+    <CloseRideRegistrationModalButton className="btn-grey" text="OK!" />
+  </div>
+);
 
-  render() {
-    const { dispatch, isOpen } = this.props;
+const CreateFundraiser = () => (
+  <div className="ride-registration--form">
+    <p>
+      You're all set! You've completed registration and we've received payment - all that's left
+      to do now is to setup your fundraising page and train!
+    </p>
+    <SetupFundraising />
+    <CloseRideRegistrationModalButton className="btn-grey" text="Not right now" />
+  </div>
+);
 
-    return (
-      <Modal style={modalStyles} isOpen={isOpen} onRequestClose={() => dispatch(closeRideRegistrationModal())}>
-        {this.renderContents()}
-      </Modal>
-    );
+const RideRegistrationModalContents = ({ status, hasFundraiser }) => {
+  switch (status) {
+    case "ACC":
+      return <ConnectedCompleteRegistration />;
+    case "PEN":
+      return <PendingRegistration />;
+    case "REG":
+      if (!hasFundraiser) {
+        return <CreateFundraiser />;
+      } else {
+        return <FullyRegistered />;
+      }
+    default:
+      return <ConnectedPreRegistrationForm />;
   }
+};
 
-  renderContents() {
-    const { dispatch, registration, fundraiser } = this.props;
+RideRegistrationModalContents.propTypes = {
+  status: PropTypes.string,
+  hasFundraiser: PropTypes.bool
+};
 
-    if (!registration) {
-      return <PreRegistrationForm {...this.props} />;
-    }
+const RideRegistrationModal = ({ isOpen = false, registrationStatus, hasFundraiser, onRequestClose }) => (
+  <Modal style={modalStyles} isOpen={isOpen} onRequestClose={() => onRequestClose()}>
+    <RideRegistrationModalContents status={registrationStatus} hasFundraiser={hasFundraiser}/>
+  </Modal>
+);
 
-    switch (registration.status) {
-      case "ACC":
-        return <CompleteRegistrationForm {...this.props} />;
+RideRegistrationModal.propTypes = {
+  isOpen: PropTypes.bool.isRequired,
+  registrationStatus: PropTypes.string,
+  hasFundraiser: PropTypes.bool,
+  onRequestClose: PropTypes.func.isRequired
+};
 
-      case "PEN":
-        return (
-          <div className="ride-registration--form">
-            <p>
-              `Awesome - we've received your application to join this ride. You'll hear from us soon
-              so in the meantime, why not jump on your bike and go for a ride.`
-            </p>
-            <button className="btn btn-green" onClick={() => dispatch(closeRideRegistrationModal())}>
-              Great!
-            </button>
-          </div>
-        );
-
-      case "REG":
-        if (!fundraiser) {
-          return (
-            <div className="ride-registration--form">
-              <p>
-                You're all set! You've completed registration and we've received payment - all that's left
-                to do now is to setup your fundraising page and train!
-              </p>
-              <SetupFundraising {...this.props} />
-              <button className="btn btn-grey" style={{ marginLeft: 10 }} onClick={() => dispatch(closeRideRegistrationModal())}>Not right now</button>
-            </div>
-          );
-        } else {
-          return (
-            <div className="ride-registration--form">
-              <p>
-                Nice work - that's all from us. On your bike and let's change lives!
-              </p>
-              <button className="btn btn-grey" onClick={() => dispatch(closeRideRegistrationModal())}>OK!</button>
-            </div>
-          );
-        }
-
-      default:
-        return null;
-    }
-  }
-}
+export default requireAuthentication()(RideRegistrationModal);

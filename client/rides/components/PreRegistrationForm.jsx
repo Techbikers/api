@@ -1,9 +1,7 @@
 import React, { Component, PropTypes } from "react";
 import { FormattedNumber } from "react-intl";
 import forms, { Form } from "newforms";
-import { autobind } from "core-decorators";
 
-import { registerUserForRide } from "techbikers/rides/actions";
 import { RideShape } from "techbikers/rides/shapes";
 
 import FormField from "techbikers/components/FormField";
@@ -28,7 +26,7 @@ const DetailsForm = Form.extend({
 export default class RideRegistrationForm extends Component {
   static propTypes = {
     ride: RideShape.isRequired,
-    dispatch: PropTypes.func.isRequired
+    registerUserForRide: PropTypes.func.isRequired
   };
 
   constructor(props) {
@@ -38,19 +36,15 @@ export default class RideRegistrationForm extends Component {
     };
   }
 
-  @autobind
-  onFormChange() {
-    this.forceUpdate();
-  }
+  onFormChange = () => this.forceUpdate()
 
-  @autobind
-  handleRegistration(e) {
-    e.preventDefault();
+  handleRegistration = event => {
+    event.preventDefault();
     const { form } = this.state;
-    const { dispatch, ride } = this.props;
+    const { ride } = this.props;
 
     if (form.validate()) {
-      dispatch(registerUserForRide(ride.id, form.cleanedData));
+      this.props.registerUserForRide(ride.id, form.cleanedData);
     }
   }
 
@@ -72,7 +66,7 @@ export default class RideRegistrationForm extends Component {
             cost to secure your spot. You can of course contribute more so more money is left for Room to Read!
           </p>
         </div>
-        <form>
+        <form onSubmit={this.handleRegistration}>
           <div className="row centerText">
             <div className="span6">
               <FormField field={fields.statement} />
@@ -85,7 +79,9 @@ export default class RideRegistrationForm extends Component {
             </div>
           </div>
           <div className="payment-form--submit" style={{ textAlign: "center" }}>
-            <button className="btn btn-blue" type="submit" onClick={this.handleRegistration} children={`Apply for ${ride.name}`} />
+            <button className="btn btn-blue" type="submit">
+              {`Apply for ${ride.name}`}
+            </button>
           </div>
         </form>
       </div>

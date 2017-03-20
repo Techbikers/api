@@ -2,17 +2,18 @@ import moment from "moment";
 import { createSelector } from "reselect";
 
 import { getCurrentEntity } from "techbikers/app/selectors";
+import { getAuthenticatedUserId } from "techbikers/auth/selectors";
 
-const rideSelector = state => state.entities.ride || {};
-const registrationSelector = state => state.entities.rideRegistration || {};
+export const getRides = state => state.entities.ride || {};
+export const getRegistrations = state => state.entities.registration || {};
 
 export const getAllRides = createSelector(
-  [rideSelector],
+  [getRides],
   rides => Object.keys(rides).map(id => rides[id])
 );
 
 export const getCurrentRide = createSelector(
-  [rideSelector, getCurrentEntity],
+  [getRides, getCurrentEntity],
   (rides, entity) => rides[entity.id]
 );
 
@@ -27,11 +28,16 @@ export const getPastRides = createSelector(
 );
 
 export const getRegistrationsForAllRides = createSelector(
-  [registrationSelector],
-  registrations => Object.keys(registrations).map(id => registrations[id])
+  [getRegistrations],
+  registrations => Object.values(registrations)
 );
 
 export const getRegistrationsForCurrentRide = createSelector(
   [getRegistrationsForAllRides, getCurrentEntity],
   (registrations, entity) => registrations.filter(registration => registration.ride === entity.id)
+);
+
+export const getRegistrationForCurrentRideAndUser = createSelector(
+  [getRegistrationsForCurrentRide, getAuthenticatedUserId],
+  (registrations, userId) => registrations.find(registration => registration.user === userId)
 );

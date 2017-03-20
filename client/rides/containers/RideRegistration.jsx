@@ -1,23 +1,25 @@
 import React, { Component, PropTypes } from "react";
 import { connect } from "react-redux";
 
+import { fetchRideRegistrationDetails } from "techbikers/rides/actions";
 import {
-  fetchRideRegistrationDetails,
-  openRideRegistrationModal } from "techbikers/rides/actions";
+  openRideRegistrationModal,
+  closeRideRegistrationModal } from "techbikers/rides/actions/ui";
 import { getAuthenticatedUser } from "techbikers/auth/selectors";
-import { getRegistrationForCurrentRideAndUser } from "techbikers/users/selectors";
+import { getRegistrationForCurrentRideAndUser } from "techbikers/rides/selectors";
 import { getFundraiserForCurrentRideAndUser } from "techbikers/fundraisers/selectors";
 import { getCurrentRide } from "techbikers/rides/selectors";
 import { getChapterForCurrentRide } from "techbikers/chapters/selectors";
 import { RideShape, RegistrationShape } from "techbikers/rides/shapes";
 import { UserShape } from "techbikers/users/shapes";
+import { FundraiserShape } from "techbikers/fundraisers/shapes";
 
 import RideRegistrationModal from "techbikers/rides/components/RideRegistrationModal";
 import RegistrationSteps from "techbikers/rides/components/RegistrationSteps";
 import SetupFundraising from "techbikers/fundraisers/components/SetupFundraising";
 
 const mapStateToProps = state => {
-  const { rideRegistrationModal } = state.page.ui;
+  const { rideRegistrationModal } = state.ui.rides;
   const { errors } = state;
 
   return {
@@ -33,7 +35,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = {
   fetchRideRegistrationDetails,
-  openRideRegistrationModal
+  handleOpenModal: openRideRegistrationModal,
+  handleCloseModal: closeRideRegistrationModal
 };
 
 @connect(mapStateToProps, mapDispatchToProps)
@@ -42,9 +45,11 @@ export default class RideRegistration extends Component {
     ride: RideShape,
     user: UserShape,
     registration: RegistrationShape,
+    fundraiser: FundraiserShape,
+    rideRegistrationModal: PropTypes.bool,
     fetchRideRegistrationDetails: PropTypes.func.isRequired,
-    openRideRegistrationModal: PropTypes.func.isRequired,
-    rideRegistrationModal: PropTypes.bool
+    handleOpenModal: PropTypes.func.isRequired,
+    handleCloseModal: PropTypes.func.isRequired
   };
 
   componentWillMount() {
@@ -73,7 +78,7 @@ export default class RideRegistration extends Component {
           <a className="btn">Now sold out</a>
         </header>
         <span className="more-info">
-          `Registration for this ride has closed as it is now sold out`
+          Registration for this ride has closed as it is now sold out
         </span>
       </div>
     );
@@ -89,8 +94,8 @@ export default class RideRegistration extends Component {
           <RegistrationSteps step={2} state="pending" />
           <div className="ride-registration--details">
             <p>
-              `We've received your application to join this ride. You'll hear from us soon
-              so in the meantime, why not jump on your bike and go for a ride?`
+              We've received your application to join this ride. You'll hear from us soon
+              so in the meantime, why not jump on your bike and go for a ride?
             </p>
           </div>
         </div>
@@ -154,7 +159,7 @@ export default class RideRegistration extends Component {
               and pay the registration fee before your invite expires.
             </p>
           </div>
-          <a className="btn btn-green" onClick={() => this.props.openRideRegistrationModal()}>Complete Registration</a>
+          <a className="btn btn-green" onClick={() => this.props.handleOpenModal()}>Complete Registration</a>
         </div>
       </div>
     );
@@ -182,7 +187,7 @@ export default class RideRegistration extends Component {
     return (
       <div className="ride-registration--container">
         <header className="header-btn">
-          <a className="btn btn-green" onClick={() => this.props.openRideRegistrationModal()}>Sign up for the ride!</a>
+          <a className="btn btn-green" onClick={() => this.props.handleOpenModal()}>Sign up for the ride!</a>
         </header>
       </div>
     );
@@ -233,8 +238,7 @@ export default class RideRegistration extends Component {
   }
 
   render() {
-    const { ride } = this.props;
-    const { rideRegistrationModal, ...props } = this.props;
+    const { ride, registration, rideRegistrationModal, fundraiser, handleCloseModal } = this.props;
 
     if (ride && ride.is_over) {
       return null;
@@ -245,7 +249,12 @@ export default class RideRegistration extends Component {
         {this.renderContent()}
 
         {rideRegistrationModal &&
-          <RideRegistrationModal isOpen={rideRegistrationModal} {...props} />}
+          <RideRegistrationModal
+            isOpen={rideRegistrationModal}
+            registrationStatus={registration && registration.status}
+            hasFundraiser={!!fundraiser}
+            onRequestClose={handleCloseModal} />
+        }
       </section>
     );
   }

@@ -2,8 +2,7 @@ import { isEmpty } from "lodash";
 import { createSelector } from "reselect";
 
 import { getCurrentEntity } from "techbikers/app/selectors";
-import { getCurrentRide, getRegistrationsForCurrentRide } from "techbikers/rides/selectors";
-import { getAuthenticatedUserId } from "techbikers/auth/selectors";
+import { getCurrentRide } from "techbikers/rides/selectors";
 
 const userSelector = state => state.entities.user || {};
 const rideSelector = state => state.entities.ride || {};
@@ -21,9 +20,4 @@ export const getUsersOnCurrentRide = createSelector(
 export const getRidesForCurrentUser = createSelector(
   [rideSelector, getCurrentUser],
   (rides, user) => (user && !isEmpty(rides) ? user.rides.map(id => rides[id]) : [])
-);
-
-export const getRegistrationForCurrentRideAndUser = createSelector(
-  [getRegistrationsForCurrentRide, getAuthenticatedUserId],
-  (registrations, userId) => registrations.find(registration => registration.user === userId)
 );
