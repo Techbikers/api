@@ -46,3 +46,13 @@ STRIPE_ENVIRONMENT = 'test'
 MAILCHIMP_API_URL = ''
 MAILCHIMP_API_KEY = ''
 MAILCHIMP_CORE_LIST_ID = ''
+
+# Local Logging
+# This will output logs into the project directory during development
+LOGGING['handlers']['log_file'] = {
+    'level': 'DEBUG',
+    'class': 'logging.FileHandler',
+    'filters': ['require_debug_false'],
+    'filename': os.path.join(BASE, 'logs/debug.log'),
+    'formatter': 'verbose',
+}

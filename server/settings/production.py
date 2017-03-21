@@ -69,3 +69,12 @@ with open('../../production.json') as configFile:
 
 MEDIA_ROOT = '/home/django/techbikers.com/media'
 STATIC_ROOT = '/home/django/techbikers.com/static'
+
+# Production Logging
+LOGGING['handlers']['log_file'] = {
+    'level': 'DEBUG',
+    'class': 'logging.FileHandler',
+    'filters': ['require_debug_false'],
+    'filename': '/home/django/techbikers.com/logs/debug.log',
+    'formatter': 'verbose',
+}

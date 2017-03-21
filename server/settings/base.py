@@ -237,13 +237,6 @@ LOGGING = {
             'filters': ['require_debug_false'],
             'class': 'django.utils.log.AdminEmailHandler',
         },
-        'log_file': {
-            'level': 'DEBUG',
-            'class': 'logging.FileHandler',
-            'filters': ['require_debug_false'],
-            'filename': '/Users/michael/Documents/Workspace/techbikers/logs/debug.log',
-            'formatter': 'verbose',
-        },
     },
     'loggers': {
         'django': {
