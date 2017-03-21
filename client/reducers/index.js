@@ -7,7 +7,6 @@ import auth from "techbikers/auth/reducers";
 import entities from "techbikers/reducers/entities";
 import errors from "./errors";
 import page from "./page";
-import oAuth from "./oAuth";
 import notifications from "techbikers/notifications/reducers";
 
 export default combineReducers({
@@ -16,7 +15,6 @@ export default combineReducers({
   entities,
   errors,
   page,
-  oAuth,
   routing: routerReducer,
   notifications,
   ui
