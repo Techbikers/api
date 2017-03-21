@@ -14,12 +14,12 @@ export const RideShape = PropTypes.shape({
   riderCapacity: PropTypes.number,
   riders: PropTypes.arrayOf(PropTypes.number),
   spacesLeft: PropTypes.number,
-  price: PropTypes.string,
-  fullCost: PropTypes.string,
+  price: PropTypes.number,
+  fullCost: PropTypes.number,
   currency: PropTypes.string,
   isOver: PropTypes.bool.isRequired,
   fundraisingTotal: PropTypes.number,
-  fundraisingTarget: PropTypes.string
+  fundraisingTarget: PropTypes.number
 });
 
 export const RegistrationShape = PropTypes.shape({

@@ -9,10 +9,10 @@ export const FundraiserShape = PropTypes.shape({
   signOnUrl: PropTypes.string,
   pageStatus: PropTypes.bool,
   currency: PropTypes.string,
-  fundraisingTarget: PropTypes.string,
-  totalRaisedOffline: PropTypes.string,
-  totalRaisedOnline: PropTypes.string,
-  totalRaisedSms: PropTypes.string,
-  totalRaised: PropTypes.string,
-  giftAid: PropTypes.string
+  fundraisingTarget: PropTypes.number,
+  totalRaisedOffline: PropTypes.number,
+  totalRaisedOnline: PropTypes.number,
+  totalRaisedSms: PropTypes.number,
+  totalRaised: PropTypes.number,
+  giftAid: PropTypes.number
 });

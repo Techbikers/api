@@ -18,6 +18,7 @@ JUST_GIVING_CHARITY_ID = '181334'
 JUST_GIVING_API_URL = 'https://api.justgiving.com/v1'
 
 REST_FRAMEWORK = {
+    'COERCE_DECIMAL_TO_STRING': False,
     'DEFAULT_RENDERER_CLASSES': (
         'rest_framework.renderers.JSONRenderer',
     ),

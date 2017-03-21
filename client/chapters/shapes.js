@@ -5,6 +5,6 @@ export const ChapterShape = PropTypes.shape({
   name: PropTypes.string.isRequired,
   description: PropTypes.string,
   publicKey: PropTypes.string,
-  membershipFee: PropTypes.string,
+  membershipFee: PropTypes.number,
   currency: PropTypes.string
 });
