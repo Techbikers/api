@@ -157,7 +157,7 @@ class RideRiderFundraiser(generics.RetrieveAPIView, generics.CreateAPIView):
         pageShortName = slugify('techbikers {0} {1}'.format(ride.name, user.id))
         pageStory = render_to_string('justgiving_page_story.html', {'ride': ride})
         payload = {
-            'charityId': settings.JUST_GIVING_CHARITY_ID,
+            'charityId': settings.JUSTGIVING_CHARITY_ID,
             'eventId': ride.just_giving_event_id,
             'pageShortName': pageShortName,
             'pageTitle': 'I\'m doing Techbikers {0}: Support my 300km cycle for childhood literacy!'.format(ride.chapter.name),
@@ -187,10 +187,10 @@ class RideRiderFundraiser(generics.RetrieveAPIView, generics.CreateAPIView):
                 }
             ]
         }
-        response = requests.put('{0}/fundraising/pages'.format(settings.JUST_GIVING_API_URL),
+        response = requests.put('{0}/fundraising/pages'.format(settings.JUSTGIVING_API_URL),
             headers = {
-                'x-api-key': settings.SOCIAL_AUTH_JUSTGIVING_KEY,
-                'x-application-key': settings.SOCIAL_AUTH_JUSTGIVING_SECRET,
+                'x-api-key': settings.JUSTGIVING_API_KEY,
+                'x-application-key': settings.JUSTGIVING_API_SECRET,
                 'Authorization': 'Bearer {0}'.format(social_user.extra_data['access_token'])},
             json=payload)
         response.raise_for_status()

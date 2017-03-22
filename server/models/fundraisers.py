@@ -41,10 +41,10 @@ class Fundraiser(models.Model):
         """
         try:
             response = requests.get(
-                '{0}/fundraising/pages{1}'.format(settings.JUST_GIVING_API_URL, self.pageShortName),
+                '{0}/fundraising/pages{1}'.format(settings.JUSTGIVING_API_URL, self.pageShortName),
                 headers={
-                    'x-api-key': settings.SOCIAL_AUTH_JUSTGIVING_KEY,
-                    'x-application-key': settings.SOCIAL_AUTH_JUSTGIVING_SECRET,
+                    'x-api-key': settings.JUSTGIVING_API_KEY,
+                    'x-application-key': settings.JUSTGIVING_API_SECRET,
                     'Content-Type': 'application/json'})
             response_json = response.json()
 

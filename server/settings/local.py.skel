@@ -55,6 +55,11 @@ SLACK_BACKEND = 'django_slack.backends.UrllibBackend'
 # Auth0 Settings
 JWT_AUTH['JWT_AUDIENCE'] = ''
 
+# Just Giving API
+JUSTGIVING_API_KEY = ''
+JUSTGIVING_API_SECRET = ''
+JUSTGIVING_API_URL = 'https://api.sandbox.justgiving.com/v1'
+
 # Local Logging
 # This will output logs into the project directory during development
 LOGGING['handlers']['log_file'] = {

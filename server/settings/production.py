@@ -61,10 +61,10 @@ with open('../../production.json') as configFile:
     MAILCHIMP_API_URL = email.get('mailchimp_api_url')
     MAILCHIMP_API_KEY = email.get('mailchimp_api_key')
     MAILCHIMP_CORE_LIST_ID = email.get('mailchimp_core_list_id')
-
-    social_auth = config.get('social_auth')
-    SOCIAL_AUTH_JUSTGIVING_KEY = social_auth.get('justgiving_key')
-    SOCIAL_AUTH_JUSTGIVING_SECRET = social_auth.get('justgiving_secret')
+    # Just Giving API
+    JUSTGIVING_API_KEY = config.get('justgiving_api_key')
+    JUSTGIVING_API_SECRET = config.get('justgiving_api_secret')
+    JUSTGIVING_API_URL = 'https://api.justgiving.com/v1'
 
     # Slack Bot Settings
     SLACK_CHANNEL = '#updates'
