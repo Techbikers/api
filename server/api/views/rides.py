@@ -146,7 +146,7 @@ class RideRiderFundraiser(generics.RetrieveAPIView, generics.CreateAPIView):
             'charityId': settings.JUST_GIVING_CHARITY_ID,
             'eventId': ride.just_giving_event_id,
             'pageShortName': pageShortName,
-            'pageTitle': 'I\'m doing TechBikers {0}: Support my 300km cycle for childhood literacy!'.format(ride.chapter.name),
+            'pageTitle': 'I\'m doing Techbikers {0}: Support my 300km cycle for childhood literacy!'.format(ride.chapter.name),
             'targetAmount': int(ride.fundraising_target),
             'currency': ride.currency.upper(),
             'justGivingOptIn': False,
