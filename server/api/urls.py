@@ -6,9 +6,12 @@ from .views.chapters import ChaptersList, ChapterDetails, ChapterMembersList
 from .views.auth import PasswordChange, PasswordReset, PasswordResetConfirm, TokenExchange
 from .views.sponsors import SponsorsList, SponsorDetails
 from .views.fundraisers import FundraisersList
+from .views.auth import AuthenticatedUserDetails, UserDetails
 
 
 auth_urls = [
+    url(r'^verify', AuthenticatedUserDetails.as_view(), name='auth-verify'),
+    url(r'^account', UserDetails.as_view(), name='auth-account'),
     url(r'^token/exchange', TokenExchange.as_view()),
     url(r'^token/refresh', refresh_jwt_token),
     url(r'^token', obtain_jwt_token),
