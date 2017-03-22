@@ -56,7 +56,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='ridesponsor',
             name='sponsor',
-            field=models.ForeignKey(to='core.Sponsor'),
+            field=models.ForeignKey(to='server.Sponsor'),
         ),
         migrations.AlterUniqueTogether(
             name='ridesponsor',

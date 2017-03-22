@@ -39,7 +39,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='fundraiser',
             name='ride',
-            field=models.ForeignKey(to='core.Ride'),
+            field=models.ForeignKey(to='server.Ride'),
         ),
         migrations.AddField(
             model_name='fundraiser',
