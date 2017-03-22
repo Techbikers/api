@@ -4,6 +4,7 @@ import requests
 import json
 from rest_framework import generics, serializers
 from rest_framework.exceptions import ValidationError
+from django.template.loader import render_to_string
 from django.shortcuts import get_object_or_404
 from django.contrib.auth.models import User
 from django.utils.text import slugify
@@ -140,18 +141,20 @@ class RideRiderFundraiser(generics.RetrieveAPIView, generics.CreateAPIView):
         # We want to make the api call first to create the
         # fundraising page with virgin money giving.
         pageShortName = slugify('techbikers {0} {1}'.format(ride.name, user.id))
+        pageStory = render_to_string('justgiving_page_story.html', {'ride': ride})
         payload = {
             'charityId': settings.JUST_GIVING_CHARITY_ID,
             'eventId': ride.just_giving_event_id,
             'pageShortName': pageShortName,
-            'pageTitle': "I'm doing TechBikers: Support my 260mi cycle for childhood literacy!",
-            'targetAmount': '500',
+            'pageTitle': 'I\'m doing TechBikers {0}: Support my 300km cycle for childhood literacy!'.format(ride.chapter.name),
+            'targetAmount': int(ride.fundraising_target),
+            'currency': ride.currency.upper(),
             'justGivingOptIn': False,
             'charityOptIn': False,
             'charityFunded': False,
-            'pageSummaryWhat': 'I am cycling from Paris to London',
+            'pageSummaryWhat': 'I am cycling from {0} to {1}'.format(ride.start_location, ride.end_location),
             'pageSummaryWhy': 'world change starts with educated children',
-            'pageStory': "<p><b>Did you know that if every child received an education, 170 million people would be lifted out of poverty?</b></p><p>In September, as the weather turns cold and wet, I will be on a bike, cycling over 200 miles from Paris to London with TechBikers to raise money for Room to Read. </p><p><b>Please support me with however much you can give.</b></p><p>Why? To support Room to Read's work on a cause I strongly believe in: providing children with an education. </p><p>Focusing on childhood literacy is one of the most effective ways to improve living standards across the globe.</p><p><b>WHERE WILL MY DONATION GO?</b></p><p>All your donations will go straight to Room to Read, who have received the coveted Four Star Rating from Charity Navigator nine(!) years in a row. About £12,000 will be used to rebuild a school in Nepal that was built in 2013 using TechBikers funds. The rest will go where the need is greatest. </p><p><b>WHAT'S TECHBIKERS?</b></p><p>Techbikers brings together the London tech startup community to help children in need by supporting literacy charity Room to Read.  Since 2012, over 120 entrepreneurs, VCs, and other tech enthusiasts have cycled 960km to raise $265,000 for this fantastic charity, and built a school, a handful of libraries, and supported the education of over 3,000 girls.</p>",
+            'pageStory': pageStory,
             'theme': {
                 'pageBackground': '#FFFFFF',
                 'buttonsThermometerFill': '#4494C7',
