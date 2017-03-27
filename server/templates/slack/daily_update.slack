@@ -1,0 +1,5 @@
+{% extends django_slack %}
+
+{% block text %}
+Here's an update on the {{ number_rides }} upcoming ride{{ number_rides|pluralize }}:
+{% endblock %}

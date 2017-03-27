@@ -2,6 +2,7 @@
 import stripe
 import requests
 import json
+from django_slack import slack_message
 from rest_framework import generics, serializers
 from rest_framework.exceptions import ValidationError
 from django.template.loader import render_to_string
@@ -54,11 +55,18 @@ class RideRidersList(generics.ListCreateAPIView):
         ride = Ride.objects.get(id=self.kwargs.get('id'))
         user = self.request.user
 
-        serializer.save(
+        registration = serializer.save(
             user=user,
             ride=ride,
             paid=False,
             status=RideRiders.PENDING)
+
+        slack_message('slack/new_registration.slack', {
+            'user': user,
+            'ride': ride,
+            'reg': registration
+        })
+
 
 
 class RideRiderDetails(generics.RetrieveAPIView):
@@ -118,6 +126,12 @@ class RideRiderCharge(generics.UpdateAPIView):
                 raise ValidationError(e.json_body['error'])
             sale.rider_id = request.user.id
             sale.save()
+
+            slack_message('slack/completed_registration.slack', {
+                'user': request.user,
+                'ride': ride,
+                'amount': amount
+            })
 
             serializer.save(status=RideRiders.REGISTERED, paid=True, sale=sale)
         else:
@@ -184,12 +198,18 @@ class RideRiderFundraiser(generics.RetrieveAPIView, generics.CreateAPIView):
         # Now let's create the fundraising record with the returned info
         response_json = response.json()
 
-        serializer.save(
+        fundraiser = serializer.save(
             user=user,
             ride=ride,
             pageUrl='http://www.justgiving.com/{0}'.format(pageShortName),
             pageId=response_json['pageId'],
             signOnUrl=response_json['signOnUrl'])
+
+        slack_message('slack/new_fundraiser.slack', {
+            'user': user,
+            'ride': ride,
+            'pageUrl': fundraiser.pageUrl
+        })
 
 
 class RideSponsorsList(generics.ListAPIView):

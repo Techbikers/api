@@ -11,6 +11,7 @@ INSTALLED_APPS += (
 )
 
 CRONJOBS = [
+    ('* 9 * * *', 'server.cronjobs.slack_daily_update'),
     ('*/15 * * * *', 'server.cronjobs.update_fundraisers'),
     ('* */2 * * *', 'server.cronjobs.batch_update_mailchimp_list')
 ]
@@ -62,6 +63,11 @@ with open('../../production.json') as configFile:
     SOCIAL_AUTH_FACEBOOK_SECRET = social_auth.get('facebook_secret')
     SOCIAL_AUTH_JUSTGIVING_KEY = social_auth.get('justgiving_key')
     SOCIAL_AUTH_JUSTGIVING_SECRET = social_auth.get('justgiving_secret')
+
+    # Slack Bot Settings
+    SLACK_CHANNEL = '#updates'
+    SLACK_TOKEN = config.get('slack_bot_token')
+    SLACK_BACKEND = 'django_slack.backends.UrllibBackend'
 
     RAVEN_CONFIG = {
         'dsn': config.get('sentry_dsn')

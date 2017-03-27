@@ -1,0 +1,6 @@
+{% extends django_slack %}
+
+{% block text %}
+Awesome, <https://techbikers.com/riders/{{ user.id }}|{{ user.get_full_name }}> has just applied to join <https://techbikers.com/rides/{{ ride.id }}|{{ ride.name }}>.
+<https://techbikers.com/admin/server/rideriders/{{ reg.id }}/change/|View their pending application>
+{% endblock %}

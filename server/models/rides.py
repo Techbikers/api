@@ -59,6 +59,14 @@ class Ride(models.Model):
         return self.riders.filter(rideriders__status=RideRiders.REGISTERED)
 
     @property
+    def invited_riders(self):
+        return self.riders.filter(rideriders__status=RideRiders.ACCEPTED)
+
+    @property
+    def pending_riders(self):
+        return self.riders.filter(rideriders__status=RideRiders.PENDING)
+
+    @property
     def description_html(self):
         return markdown.markdown(self.description, safe_mode='escape')
 

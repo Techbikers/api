@@ -94,6 +94,10 @@ SOCIAL_AUTH_FACEBOOK_PROFILE_EXTRA_PARAMS = {
 EMAIL_BACKEND = 'sgbackend.SendGridBackend'
 DEFAULT_FROM_EMAIL = 'hello@techbikers.com'
 
+# Slack Bot Settings
+SLACK_ICON_URL = 'https://techbikers.com/static/img/techbikers_bot.png'
+SLACK_USERNAME = 'Techbikers Mechanic'
+
 # Hosts/domain names that are valid for this site; required if DEBUG is False
 # See https://docs.djangoproject.com/en/1.5/ref/settings/#allowed-hosts
 
@@ -183,6 +187,7 @@ INSTALLED_APPS = (
     'server',
     'server.api',
     'codemirror',
+    'django_slack',
     'django_crontab'
 )
 
