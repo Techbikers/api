@@ -2,5 +2,5 @@
 
 {% block text %}
 And they're off! <https://techbikers.com/riders/{{ user.id }}|{{ user.get_full_name }}> has just created their fundraising page for the upcoming <https://techbikers.com/rides/{{ ride.id }}|{{ ride.name }}> ride.
-<{{ fundraiser.url }}|View their Just Giving page>
+<{{ fundraiser.pageUrl }}|View their Just Giving page>
 {% endblock %}
