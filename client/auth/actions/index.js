@@ -72,6 +72,19 @@ export const beginPasswordReset = createAction(BEGIN_PASSWORD_RESET,
   })
 );
 
+export const SIGNUP = "SIGNUP";
+export const signup = createAction(SIGNUP,
+  user => user,
+  ({ email }) => ({
+    analytics: {
+      eventType: EventTypes.track,
+      eventPayload: {
+        properties: { email }
+      }
+    }
+  })
+);
+
 export const LOGOUT = "LOGOUT";
 export const logout = createAction(LOGOUT,
   identity,

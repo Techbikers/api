@@ -1,9 +1,12 @@
 import moment from "moment";
-import { takeEvery, fork, put, select, call } from "redux-saga/effects";
+import { takeEvery, fork, put, select, call, take, race } from "redux-saga/effects";
 
 import { INIT } from "techbikers/app/actions";
 import authService from "techbikers/auth/services";
-import { createTextNotification } from "techbikers/notifications/actions";
+import {
+  createTextNotification,
+  createErrorNotification
+} from "techbikers/notifications/actions";
 import { fetchUserById } from "techbikers/users/actions";
 import { getAuthState, getAuthenticatedUserId } from "techbikers/auth/selectors";
 import * as actions from "techbikers/auth/actions";
@@ -79,6 +82,45 @@ export function* resetPassword({ payload }) {
   }
 }
 
+/**
+ * Create a new user and log them in
+ * @param {Object} payload - The new user object
+ * @param {string} payload.email
+ * @param {string} payload.first_name
+ * @param {string} payload.last_name
+ * @param {string} [payload.company]
+ * @param {string} [payload.website]
+ * @param {string} payload.password
+ * @param {string} payload.password_confirm
+ */
+export function* createUserAndAuthenticate({ payload }) {
+  const { email, password, password_confirm, ...metadata } = payload; // eslint-disable-line camelcase, no-unused-vars
+
+  // Attempt to create the user first
+  const { error } = yield authService.signup(
+    email,
+    password,
+    { ...metadata, name: `${metadata.first_name} ${metadata.last_name}` }
+  );
+
+  if (!error) {
+    // Log the new user in
+    yield put(actions.authenticateUser(email, password));
+
+    // Wait for successful authentication then push welcome notification
+    const { success } = yield race({
+      success: take(actions.AUTHENTICATION_SUCCESS),
+      failure: take(actions.AUTHENTICATION_FAILURE)
+    });
+
+    if (success) {
+      yield put(createTextNotification("Welcome to Techbikers!", 5000));
+    } else {
+      yield put(createErrorNotification("Ooops, something went wrong"));
+    }
+  }
+}
+
 export function* logout() {
   yield put(createTextNotification("You have successfully logged out!"));
 }
@@ -89,6 +131,7 @@ export default function* root() {
     fork(takeEvery, actions.AUTHENTICATE_USER, authenticateUser),
     fork(takeEvery, actions.AUTHENTICATION_SUCCESS, completeAuthentication),
     fork(takeEvery, actions.BEGIN_PASSWORD_RESET, resetPassword),
+    fork(takeEvery, actions.SIGNUP, createUserAndAuthenticate),
     fork(takeEvery, actions.LOGOUT, logout)
   ];
 }

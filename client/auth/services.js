@@ -29,6 +29,22 @@ class AuthService {
     ));
 
   /**
+   * Create a new Username-Password user
+   * @param {string} email         Email address of the new user
+   * @param {string} password      Password for the new user
+   * @param {Object} [metadata={}] Additional metadata for that user
+   */
+  signup = (email, password, metadata = {}) => new Promise(resolve =>
+    this.auth0.signup({
+      connection: "Username-Password-Authentication",
+      email,
+      password,
+      user_metadata: metadata // eslint-disable-line camelcase
+    }, (error, response) =>
+      resolve({ error, response })
+    ));
+
+  /**
    * Get user information from Auth0 using the access token
    * @param {string} accessToken - Access token for an authenticated user
    */
