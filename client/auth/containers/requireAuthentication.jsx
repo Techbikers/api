@@ -13,11 +13,19 @@ const wrapComponent = (WrappedComponent, overridePredicate) => {
     return { isAuthenticated, isOverridden, pathname };
   };
 
+  const mapDispatchToProps = dispatch => ({
+    redirectToLogin: returnTo => dispatch(replace({
+      pathname: "/login",
+      state: { modal: true, returnTo }
+    }))
+  });
+
   class AuthenticatedComponent extends Component {
     static propTypes = {
-      dispatch: PropTypes.func.isRequired,
+      redirectToLogin: PropTypes.func.isRequired,
       isAuthenticated: PropTypes.bool.isRequired,
-      isOverridden: PropTypes.bool.isRequired
+      isOverridden: PropTypes.bool.isRequired,
+      pathname: PropTypes.string.isRequired
     };
 
     componentWillMount() {
@@ -29,31 +37,28 @@ const wrapComponent = (WrappedComponent, overridePredicate) => {
     }
 
     checkAuth() {
-      const { dispatch, pathname } = this.props;
+      const { pathname, redirectToLogin } = this.props;
 
       if (!this.allowedAccess()) {
-        dispatch(replace({ pathname: "/login", state: { modal: true, returnTo: pathname } }));
+        redirectToLogin(pathname);
       }
     }
 
     allowedAccess() {
       const { isAuthenticated, isOverridden } = this.props;
-
       return isAuthenticated || isOverridden;
     }
 
     render() {
-      const { isAuthenticated, isOverridden, ...props } = this.props;
+      const { isAuthenticated, isOverridden, ...props } = this.props; // eslint-disable-line no-unused-vars
 
       return this.allowedAccess() ? <WrappedComponent {...props}/> : null;
     }
   }
 
-  return connect(mapStateToProps)(AuthenticatedComponent);
+  return connect(mapStateToProps, mapDispatchToProps)(AuthenticatedComponent);
 };
 
 export default function requireAuthentication(overridePredicate = () => false) {
-  return WrappedComponent => {
-    return wrapComponent(WrappedComponent, overridePredicate);
-  };
+  return WrappedComponent => wrapComponent(WrappedComponent, overridePredicate);
 }

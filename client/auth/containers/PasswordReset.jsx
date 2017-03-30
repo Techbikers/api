@@ -1,6 +1,5 @@
 import React, { Component, PropTypes } from "react";
 import { connect } from "react-redux";
-import { autobind } from "core-decorators";
 import { replace } from "react-router-redux";
 import DocumentTitle from "react-document-title";
 import forms, { Form } from "newforms";
@@ -8,6 +7,7 @@ import forms, { Form } from "newforms";
 import { beginPasswordReset } from "techbikers/auth/actions";
 import { clearPasswordResetStatus } from "techbikers/auth/actions/ui";
 
+import requireAnonymity from "techbikers/auth/containers/requireAnonymity";
 import FormField from "techbikers/components/FormField";
 
 const SendResetLinkForm = Form.extend({
@@ -30,6 +30,7 @@ const mapDispatchToProps = {
   clearPasswordResetStatus
 };
 
+@requireAnonymity()
 @connect(mapStateToProps, mapDispatchToProps)
 export default class PasswordReset extends Component {
   static propTypes = {
@@ -46,31 +47,12 @@ export default class PasswordReset extends Component {
     };
   }
 
-  componentWillMount() {
-    this.checkAuth(this.props);
-  }
-
-  componentWillReceiveProps(nextProps) {
-    this.checkAuth(nextProps);
-  }
-
-  checkAuth(props) {
-    const { isAuthenticated, location } = props;
-
-    if (isAuthenticated) {
-      const redirectAfterLogin = location.state && location.state.returnTo || "/";
-      this.props.replace(redirectAfterLogin);
-    }
-  }
-
-  @autobind
-  onFormChange() {
+  onFormChange = () => {
     this.forceUpdate();
   }
 
-  @autobind
-  handleResetPassword(e) {
-    e.preventDefault();
+  handleResetPassword = event => {
+    event.preventDefault();
 
     const { form } = this.state;
 

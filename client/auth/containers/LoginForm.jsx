@@ -1,19 +1,33 @@
 import React, { Component, PropTypes } from "react";
-import { autobind } from "core-decorators";
+import { connect } from "react-redux";
 import forms, { Form } from "newforms";
-import { Link } from "react-router";
+import { Link, locationShape } from "react-router";
+
+import { getLocation } from "techbikers/app/selectors";
+import { authenticateUser } from "techbikers/auth/actions";
 
 import FormField from "techbikers/components/FormField";
 
+/* eslint-disable babel/new-cap */
 const LoginFormSchema = Form.extend({
   email: forms.EmailField(),
   password: forms.CharField({ widget: forms.PasswordInput }),
 });
+/* eslint-enable */
 
+const mapStateToProps = state => ({
+  location: getLocation(state)
+});
+
+const mapDispatchToProps = {
+  login: authenticateUser
+};
+
+@connect(mapStateToProps, mapDispatchToProps)
 export default class LoginForm extends Component {
   static propTypes = {
-    returnTo: PropTypes.string,
-    onSubmit: PropTypes.func.isRequired
+    location: locationShape,
+    login: PropTypes.func.isRequired
   };
 
   constructor(options) {
@@ -23,25 +37,25 @@ export default class LoginForm extends Component {
     };
   }
 
-  @autobind
-  onFormChange() {
-    this.forceUpdate();
+  onFormChange = () => this.forceUpdate()
+
+  handleLogin = event => {
+    event.preventDefault();
+
+    const { form } = this.state;
+
+    if (form.validate()) {
+      const { email, password } = form.cleanedData;
+      this.props.login(email, password);
+    }
   }
 
-  handleSubmit = event => {
-    event.preventDefault();
-    if (this.state.form.validate()) {
-      const { email, password } = this.state.form.cleanedData;
-      this.props.onSubmit(email, password);
-    }
-  };
-
   render() {
-    const { returnTo } = this.props;
+    const { location } = this.props;
     const fields = this.state.form.boundFieldsObj();
 
     return (
-      <form id="loginform" role="form" onSubmit={this.handleSubmit}>
+      <form id="loginform" role="form" onSubmit={this.handleLogin}>
         <div className="row">
           {Object.keys(fields).map(key =>
             <FormField key={fields[key].htmlName} field={fields[key]} className="span2 offset2" />
@@ -52,9 +66,9 @@ export default class LoginForm extends Component {
             <input type="submit" value="Login" className="btn" />
           </div>
           <div className="span6">
-            Don"t have an account yet? <Link to={{ pathname: "/signup", state: { modal: true, returnTo } }}>Create one!</Link>
+            Don"t have an account yet? <Link to={{ pathname: "/signup", state: { ...location.state } }}>Create one!</Link>
             <br/>
-            <Link to={{ pathname: "/password/reset", state: { modal: true, returnTo } }}>Forgotten your password?</Link>
+            <Link to={{ pathname: "/password/reset", state: { ...location.state } }}>Forgotten your password?</Link>
           </div>
         </div>
       </form>

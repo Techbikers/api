@@ -1,11 +1,16 @@
-import React, { Component } from "react";
-import { Link } from "react-router";
-import { autobind } from "core-decorators";
+import React, { Component, PropTypes } from "react";
+import { connect } from "react-redux";
+import { Link, locationShape } from "react-router";
 import forms, { Form } from "newforms";
+import { slice } from "lodash";
+
+import { getLocation } from "techbikers/app/selectors";
+import { signup } from "techbikers/auth/actions";
 
 import FormField from "techbikers/components/FormField";
 import ProgressButton from "techbikers/components/ProgressButton";
 
+/* eslint-disable camelcase, babel/new-cap */
 const NewRiderForm = Form.extend({
   first_name: forms.CharField(),
   last_name: forms.CharField(),
@@ -20,7 +25,7 @@ const NewRiderForm = Form.extend({
     // Add a protocol if there isn't already one
     let url = this.cleanedData.website;
     if (!/^(?:f|ht)tps?\:\/\//.test(url)) {
-      url = "http://" + url;
+      url = `http://${url}`;
     }
     return url;
   },
@@ -34,8 +39,23 @@ const NewRiderForm = Form.extend({
     }
   }
 });
+/* eslint-enable */
 
+const mapStateToProps = state => ({
+  location: getLocation(state)
+});
+
+const mapDispatchToProps = {
+  signup
+};
+
+@connect(mapStateToProps, mapDispatchToProps)
 export default class SignupForm extends Component {
+  static propTypes = {
+    location: locationShape,
+    signup: PropTypes.func.isRequired
+  };
+
   constructor(props) {
     super(props);
     this.state = {
@@ -45,24 +65,19 @@ export default class SignupForm extends Component {
     };
   }
 
-  @autobind
-  onFormChange() {
-    this.forceUpdate();
-  }
+  onFormChange = () => this.forceUpdate()
 
-  @autobind
-  createRider() {
+  handleSignup = () => {
     const { form } = this.state;
-    const { onSubmit } = this.props;
 
-    if (form.validate() && typeof onSubmit === "function") {
-      onSubmit(form.cleanedData);
+    if (form.validate()) {
+      this.props.signup(form.cleanedData);
     }
   }
 
   render() {
     const { form } = this.state;
-    const { returnTo, error } = this.props;
+    const { location } = this.props;
 
     const fields = form.boundFieldsObj();
     const fieldComponents = Object.keys(fields).map(key => {
@@ -74,18 +89,20 @@ export default class SignupForm extends Component {
       <form>
         <div className="row">
           <div className="span2 offset1">
-            {_.slice(fieldComponents, 0, 4)}
+            {slice(fieldComponents, 0, 4)}
           </div>
 
           <div className="span2">
-            {_.slice(fieldComponents, 4, 8)}
+            {slice(fieldComponents, 4, 8)}
           </div>
         </div>
         <p className="centerText">
-          <Link to={{ pathname: "/login", state: { modal: true, returnTo } }}>Already have an account from a previous ride?</Link>
+          <Link to={{ pathname: "/login", state: { ...location.state } }}>
+            Already have an account from a previous ride?
+          </Link>
         </p>
         <p className="centerText">
-          <ProgressButton type="submit" onClick={this.createRider}>
+          <ProgressButton type="submit" onClick={this.handleSignup}>
             Sign Up
           </ProgressButton>
         </p>

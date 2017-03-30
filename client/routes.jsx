@@ -17,14 +17,14 @@ import RideDetails from "techbikers/rides/containers/RideDetails";
 
 // Auth
 import AuthComplete from "techbikers/auth/containers/AuthComplete";
-import LoginPage from "techbikers/auth/containers/LoginPage";
+import Signup from "techbikers/auth/components/Signup";
+import Login from "techbikers/auth/components/Login";
 import PasswordReset from "techbikers/auth/containers/PasswordReset";
 
 // Sponsors
 import SponsorsPage from "techbikers/sponsors/containers/SponsorsPage";
 
 // Users
-import Signup from "techbikers/users/containers/Signup";
 import Account from "techbikers/users/containers/Account";
 import Profile from "techbikers/users/containers/Profile";
 
@@ -45,7 +45,7 @@ export default (
       <Route path="sponsors" component={SponsorsPage} />
 
       // ## Authentication and Account
-      <Route path="login" component={LoginPage} />
+      <Route path="login" component={Login} />
       <Route path="signup" component={Signup} />
       <Route path="account" component={Account} />
       <Route path="password/reset" component={PasswordReset} />
