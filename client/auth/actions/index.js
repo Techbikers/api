@@ -7,6 +7,11 @@ export const authenticateUser = createAction(AUTHENTICATE_USER,
   (email, password) => ({ email, password })
 );
 
+export const AUTHENTICATE_SOCIAL_USER = "AUTHENTICATE_SOCIAL_USER";
+export const authenticateSocialUser = createAction(AUTHENTICATE_SOCIAL_USER,
+  (connection, callbackReturnTo, callbackAction) => ({ connection, callbackReturnTo, callbackAction })
+);
+
 export const AUTHENTICATION_SUCCESS = "AUTHENTICATION_SUCCESS";
 export const authSuccess = createAction(AUTHENTICATION_SUCCESS);
 
@@ -84,6 +89,14 @@ export const signup = createAction(SIGNUP,
     }
   })
 );
+
+export const STORE_AUTH_CALLBACK = "STORE_AUTH_CALLBACK";
+export const storeAuthCallback = createAction(STORE_AUTH_CALLBACK,
+  (returnTo, action) => ({ returnTo, action })
+);
+
+export const CLEAR_AUTH_CALLBACK = "CLEAR_AUTH_CALLBACK";
+export const clearAuthCallback = createAction(CLEAR_AUTH_CALLBACK);
 
 export const LOGOUT = "LOGOUT";
 export const logout = createAction(LOGOUT,

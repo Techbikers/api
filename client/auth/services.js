@@ -10,7 +10,7 @@ class AuthService {
       domain: AUTH0_DOMAIN,
       responseType: "token id_token",
       scope: "openid email",
-      redirectUri: `${window.location.origin}/login`
+      redirectUri: `${window.location.origin}/auth/complete`
     });
   }
 
@@ -27,6 +27,19 @@ class AuthService {
     }, (error, response) =>
       resolve({ error, response })
     ));
+
+  /**
+   * Log the user in using a specific connection (social login)
+   * @param {string} connection The authentication connection to use
+   */
+  authorize = connection =>
+    this.auth0.authorize({ connection });
+
+  parseHase = hash => new Promise(resolve =>
+    this.auth0.parseHash(hash, (error, result) =>
+      resolve({ error, result })
+    )
+  );
 
   /**
    * Create a new Username-Password user

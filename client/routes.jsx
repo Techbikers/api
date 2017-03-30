@@ -34,7 +34,7 @@ import Leaderboard from "techbikers/fundraisers/containers/Leaderboard";
 export default (
   <Route>
     // # Auth Response Handler
-    <Route path="/auth/complete/:backend" component={AuthComplete} />
+    <Route path="/auth/complete" component={AuthComplete} />
 
     // # Main App handler
     <Route path="/" component={AppContainer}>

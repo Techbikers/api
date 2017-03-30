@@ -1,14 +1,20 @@
 import moment from "moment";
 import { takeEvery, fork, put, select, call, take, race } from "redux-saga/effects";
+import { replace } from "react-router-redux";
 
 import { INIT } from "techbikers/app/actions";
+import { getLocation } from "techbikers/app/selectors";
 import authService from "techbikers/auth/services";
 import {
   createTextNotification,
   createErrorNotification
 } from "techbikers/notifications/actions";
 import { fetchUserById } from "techbikers/users/actions";
-import { getAuthState, getAuthenticatedUserId } from "techbikers/auth/selectors";
+import {
+  getAuthState,
+  getAuthenticatedUserId,
+  getAuthCallback
+} from "techbikers/auth/selectors";
 import * as actions from "techbikers/auth/actions";
 import * as ui from "techbikers/auth/actions/ui";
 
@@ -46,6 +52,65 @@ export function* authenticateUser({ payload }) {
   } else {
     // Authenticated successful, log the user in on the client
     yield put(actions.authSuccess(response));
+  }
+}
+
+/**
+ * Authenticate the user using a social connection
+ * @param {string} payload The connection to use
+ */
+export function* authenticateSocialUser({ payload }) {
+  const { connection, callbackReturnTo, callbackAction } = payload;
+
+  // Decide where we are redirecting to during the callback
+  // 1) callbackReturnTo if set
+  // 2) returnTo if in location state (this would be if the auth is in a modal)
+  // 3) current location
+  const location = yield select(getLocation);
+  const returnTo = callbackReturnTo || (location.state && location.state.returnTo) || location.pathname;
+
+  // Store the details of which actions to perform when the user returns
+  yield put(actions.storeAuthCallback(returnTo, callbackAction));
+
+  // Now redirect the user to the Auth0 Authorization URL
+  yield authService.authorize(connection);
+}
+
+/**
+ * Handle the callback from a redirected authentication call to Auth0
+ * @param {string} payload The URL on the callback URL
+ */
+function* authCallback({ payload }) {
+  // If there is no hash then redirect as they have probably got here by mistake
+  if (!payload) {
+    yield put(replace("/"));
+    return;
+  }
+
+  // First we need to parse the hash that was passed as the payload
+  const { error, result } = yield authService.parseHase(payload);
+
+  if (error) {
+    // Authentication failed
+    yield put(actions.authFailure(error));
+  } else {
+    // Authenticated successful
+    // Pass the new tokens through to the reducer
+    yield put(actions.authSuccess(result));
+
+    // Get information from the store about what to do next
+    const { returnTo, action } = yield select(getAuthCallback);
+
+    // Dispatch any callback actions
+    if (action && typeof action.type === "string") {
+      yield put(action);
+    }
+
+    // Now redirect the user and clear the store of callback info
+    yield [
+      put(replace(returnTo || "/")),
+      put(actions.clearAuthCallback())
+    ];
   }
 }
 
@@ -129,6 +194,8 @@ export default function* root() {
   yield [
     fork(takeEvery, INIT, checkAuthState),
     fork(takeEvery, actions.AUTHENTICATE_USER, authenticateUser),
+    fork(takeEvery, actions.AUTHENTICATE_SOCIAL_USER, authenticateSocialUser),
+    fork(takeEvery, actions.AUTHENTICATION_CALLBACK, authCallback),
     fork(takeEvery, actions.AUTHENTICATION_SUCCESS, completeAuthentication),
     fork(takeEvery, actions.BEGIN_PASSWORD_RESET, resetPassword),
     fork(takeEvery, actions.SIGNUP, createUserAndAuthenticate),

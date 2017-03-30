@@ -30,8 +30,21 @@ export default handleActions({
   [actions.logout]: () => ({
     state: "unauthenticated",
     claims: {}
+  }),
+
+  [actions.storeAuthCallback]: (state, { payload }) => ({
+    ...state,
+    callback: {
+      ...payload
+    }
+  }),
+
+  [actions.clearAuthCallback]: state => ({
+    ...state,
+    callback: {}
   })
 }, {
   state: "unauthenticated",
-  claims: {}
+  claims: {},
+  callback: {}
 });

@@ -17,3 +17,8 @@ export const getAuthenticatedUser = createSelector(
   [getUserEntities, getAuthenticatedUserId],
   (users, id) => users[id]
 );
+
+export const getAuthCallback = createSelector(
+  getAuthState,
+  auth => auth.callback || {}
+);
