@@ -83,4 +83,4 @@ class RiderSerializer(serializers.ModelSerializer):
         fields = ('id', 'email', 'password', 'name', 'first_name', 'last_name', 'avatar', 'company',
                   'website', 'twitter', 'biography', 'statement', 'donation_page', 'is_member', 'rides', 'fundraisers')
         read_only_fields = ('id', 'donation_page', 'fundraisers')
-        extra_kwargs = {'password': {'write_only': True}}
+        extra_kwargs = {'password': { 'required': False, 'write_only': True }}
