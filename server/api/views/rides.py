@@ -1,10 +1,9 @@
 # encoding=utf8
 import stripe
 import requests
-import json
 from django_slack import slack_message
-from rest_framework import generics, serializers
-from rest_framework.exceptions import ValidationError
+from rest_framework import generics
+from rest_framework.exceptions import ValidationError, ParseError
 from django.template.loader import render_to_string
 from django.shortcuts import get_object_or_404
 from django.contrib.auth.models import User
@@ -19,7 +18,7 @@ from server.api.serializers.riders import RiderSerializer
 from server.api.serializers.sponsors import SponsorSerializer
 from server.api.serializers.fundraisers import FundraiserSerializer
 from server.api.permissions import IsOwner, RiderIsAccepted
-
+from server.auth.utils import get_auth0_management_token
 
 class RidesList(generics.ListCreateAPIView):
     model = Ride
@@ -150,11 +149,35 @@ class RideRiderFundraiser(generics.RetrieveAPIView, generics.CreateAPIView):
     def perform_create(self, serializer):
         ride = Ride.objects.get(id=self.kwargs.get('id'))
         user = self.request.user
-        social_user = user.social_auth.filter(provider='justgiving')[0]
 
-        # We want to make the api call first to create the
-        # fundraising page with virgin money giving.
-        pageShortName = slugify('techbikers {0} {1}'.format(ride.name, user.id))
+        # Get the Just Giving access token from Auth0
+        management_token = get_auth0_management_token()
+        response = requests.get(
+            '{0}/users'.format(settings.AUTH0_API_URL),
+            headers={
+                'Authorization': 'Bearer {0}'.format(management_token)},
+            params={
+                'q': 'app_metadata.id:{0}'.format(user.id),
+                'search_engine': 'v2'})
+
+        response.raise_for_status()
+        remote_users = response.json()
+
+        # We should only find one Auth0 user with an ID in the app_metadata
+        # corresponding to the authenticated user ID. If this is not the
+        # case then throw an error
+        if len(remote_users) == 0:
+            raise ParseError("We could not find the remote user")
+
+        # Get the Just Giving access token from the remote user
+        try:
+            identities = remote_users[0]['identities']
+            justgiving = next(x for x in identities if x['connection'] == 'JustGiving')
+        except:
+            raise ParseError('We could not get the Just Giving identity for the user')
+
+        # Ok, now let's go ahead an actually create the fundraising page on Just Giving
+        pageShortName = slugify('techbikers {0} {1} 12'.format(ride.name, user.id))
         pageStory = render_to_string('justgiving_page_story.html', {'ride': ride})
         payload = {
             'charityId': settings.JUSTGIVING_CHARITY_ID,
@@ -187,11 +210,12 @@ class RideRiderFundraiser(generics.RetrieveAPIView, generics.CreateAPIView):
                 }
             ]
         }
-        response = requests.put('{0}/fundraising/pages'.format(settings.JUSTGIVING_API_URL),
-            headers = {
+        response = requests.put(
+            '{0}/fundraising/pages'.format(settings.JUSTGIVING_API_URL),
+            headers={
                 'x-api-key': settings.JUSTGIVING_API_KEY,
                 'x-application-key': settings.JUSTGIVING_API_SECRET,
-                'Authorization': 'Bearer {0}'.format(social_user.extra_data['access_token'])},
+                'Authorization': 'Bearer {0}'.format(justgiving['access_token'])},
             json=payload)
         response.raise_for_status()
 

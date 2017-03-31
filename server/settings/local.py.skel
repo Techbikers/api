@@ -53,6 +53,14 @@ SLACK_TOKEN = '' # Ask for the token or create your own bot to test
 SLACK_BACKEND = 'django_slack.backends.UrllibBackend'
 
 # Auth0 Settings
+AUTH0_CLIENT_ID = ''
+AUTH0_CLIENT_SECRET = ''
+AUTH0_CLIENT_AUDIENCE = 'https://techbikers.eu.auth0.com/api/v2/'
+AUTH0_TOKEN_URL = 'https://techbikers.eu.auth0.com/oauth/token'
+
+# Auth0 uses the client ID as the audience (note that this is not the same
+# client as above). We need to set this so we can properly verify tokens
+# sent to us during API requests
 JWT_AUTH['JWT_AUDIENCE'] = ''
 
 # Just Giving API

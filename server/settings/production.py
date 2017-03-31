@@ -46,10 +46,6 @@ ALLOWED_HOSTS = ['techbikers.com','spoke.techbikers.com']
 
 STRIPE_ENVIRONMENT = 'live'
 
-# Auth0 Settings
-# These are public details so no security risk
-JWT_AUTH['JWT_AUDIENCE'] = 'CZuJ8UsHJfF4Xbz4gukAVXC8YlQ2knUC'
-
 with open('../../production.json') as configFile:
     config = json.load(configFile);
     SECRET_KEY = config.get('secret_key')
@@ -70,6 +66,16 @@ with open('../../production.json') as configFile:
     SLACK_CHANNEL = '#updates'
     SLACK_TOKEN = config.get('slack_bot_token')
     SLACK_BACKEND = 'django_slack.backends.UrllibBackend'
+
+    # Auth0 Settings
+    auth0 = config.get('auth0')
+    AUTH0_CLIENT_ID = auth0.get('client_id')
+    AUTH0_CLIENT_SECRET = auth0.get('client_secret')
+
+    # Auth0 uses the client ID as the audience (note that this is not the same
+    # client as above). We need to set this so we can properly verify tokens
+    # sent to us during API requests
+    JWT_AUTH['JWT_AUDIENCE'] = auth0.get('web_client_id')
 
     RAVEN_CONFIG = {
         'dsn': config.get('sentry_dsn')

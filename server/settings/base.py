@@ -28,6 +28,10 @@ REST_FRAMEWORK = {
     ),
 }
 
+# Auth0 API
+AUTH0_API_URL = 'https://techbikers.eu.auth0.com/api/v2'
+AUTH0_TOKEN_URL = 'https://techbikers.eu.auth0.com/oauth/token'
+AUTH0_CLIENT_AUDIENCE = 'https://techbikers.eu.auth0.com/api/v2/'
 # URL for the public certificate used to validate tokens
 AUTH0_PUBLIC_CERTIFICATE_URL = 'https://techbikers.eu.auth0.com/cer'
 
@@ -86,6 +90,16 @@ STATICFILES_DIRS = (
     # Don't forget to use absolute paths, not relative paths.
     (os.path.join(BASE, 'public'),)
 )
+
+# Caching Settings
+# We don't use this much and don't currently cache pages/api responses so
+# this doesn't need to be anything better than local-memory caching
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
+        'TIMEOUT': 80000
+    }
+}
 
 # List of finder classes that know how to find static files in
 # various locations.
