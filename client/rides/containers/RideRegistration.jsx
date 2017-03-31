@@ -16,7 +16,7 @@ import { FundraiserShape } from "techbikers/fundraisers/shapes";
 
 import RideRegistrationModal from "techbikers/rides/components/RideRegistrationModal";
 import RegistrationSteps from "techbikers/rides/components/RegistrationSteps";
-import SetupFundraising from "techbikers/fundraisers/components/SetupFundraising";
+import SetupFundraising from "techbikers/fundraisers/containers/SetupFundraising";
 
 const mapStateToProps = state => {
   const { rideRegistrationModal } = state.ui.rides;

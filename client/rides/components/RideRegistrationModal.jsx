@@ -4,7 +4,7 @@ import Modal from "react-modal";
 import { modalStyles } from "techbikers/utils/modal";
 import requireAuthentication from "techbikers/auth/containers/requireAuthentication";
 
-import SetupFundraising from "techbikers/fundraisers/components/SetupFundraising";
+import SetupFundraising from "techbikers/fundraisers/containers/SetupFundraising";
 import ConnectedPreRegistrationForm from "techbikers/rides/containers/ConnectedPreRegistrationForm";
 import ConnectedCompleteRegistration from "techbikers/rides/containers/ConnectedCompleteRegistration";
 import CloseRideRegistrationModalButton from "techbikers/rides/containers/CloseRideRegistrationModalButton";

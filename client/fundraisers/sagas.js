@@ -23,7 +23,7 @@ export function* createFundraiser({ payload }) {
       user: userId
     })
   };
-  return yield call(callApi, `/rides/${rideId}/riders/${userId}/fundraiser`, fetchOptions, arrayOf(FundraiserSchema));
+  return yield call(callApi, `/rides/${rideId}/riders/${userId}/fundraiser`, fetchOptions, FundraiserSchema);
 }
 
 export default function* root() {
