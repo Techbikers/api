@@ -3,12 +3,12 @@ import datetime
 from server.auth.utils import get_auth0_public_key
 
 ADMINS = (
-    ('Michael Willmott', 'mwillmott@gmail.com')
+    ('Michael Willmott', 'michael@techbikers.com')
 )
 
 MANAGERS = ADMINS
 
-SERVER_EMAIL = "admin@spoke.techbikers.com"
+SERVER_EMAIL = "spoke@techbikers.com"
 
 BASE = os.path.abspath(os.path.dirname(__name__))
 
@@ -51,9 +51,6 @@ DEFAULT_FROM_EMAIL = 'hello@techbikers.com'
 SLACK_ICON_URL = 'https://techbikers.com/static/img/techbikers_bot.png'
 SLACK_USERNAME = 'Techbikers Mechanic'
 
-# Hosts/domain names that are valid for this site; required if DEBUG is False
-# See https://docs.djangoproject.com/en/1.5/ref/settings/#allowed-hosts
-
 
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
@@ -64,8 +61,6 @@ TIME_ZONE = 'Europe/London'
 # Language code for this installation. All choices can be found here:
 # http://www.i18nguy.com/unicode/language-identifiers.html
 LANGUAGE_CODE = 'en-gb'
-
-SITE_ID = 1
 
 # If you set this to False, Django will make some optimizations so as not
 # to load the internationalization machinery.
@@ -139,7 +134,6 @@ INSTALLED_APPS = (
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
-    'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'raven.contrib.django.raven_compat',
