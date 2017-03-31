@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import { authCallback } from "techbikers/auth/actions";
 
 import Spinner from "techbikers/components/Spinner";
+import SpreadBox from "techbikers/components/SpreadBox";
 
 const mapDispatchToProps = {
   authCallback
@@ -21,9 +22,13 @@ export default class AuthComplete extends Component {
 
   render() {
     return (
-      <div>
-        <Spinner />
-      </div>
+      <SpreadBox>
+        <Spinner>
+          One moment
+          <br />
+          We're still thinking!
+        </Spinner>
+      </SpreadBox>
     );
   }
 }
