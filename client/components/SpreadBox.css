@@ -1,0 +1,4 @@
+.SpreadBox {
+  composes: spread from "css/layout";
+  composes: flex align-center justify-center from "css/flex";
+}
