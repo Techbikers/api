@@ -140,7 +140,10 @@ export function* changePassword({ payload }) {
  * @param {string} payload - Email address
  */
 export function* resetPassword({ payload }) {
-  const { error } = yield authService.changePassword(payload);
+  const [{ error }] = [
+    yield put(ui.updatePasswordResetStatus("loading")),
+    yield call(authService.changePassword, payload)
+  ];
 
   if (!error) {
     yield put(ui.updatePasswordResetStatus("emailed"));

@@ -7,6 +7,7 @@ import forms, { Form } from "newforms";
 import { beginPasswordReset } from "techbikers/auth/actions";
 import { clearPasswordResetStatus } from "techbikers/auth/actions/ui";
 
+import Button from "techbikers/components/Button";
 import requireAnonymity from "techbikers/auth/containers/requireAnonymity";
 import FormField from "techbikers/components/FormField";
 
@@ -76,7 +77,7 @@ export default class PasswordReset extends Component {
               <p className="centerText">
                 OK - we've just emailed you a link to reset your password.
               </p>
-              <button className="btn btn-grey" onClick={() => this.props.clearPasswordResetStatus()}>Try again</button>
+              <Button onClick={() => this.props.clearPasswordResetStatus()}>Try again</Button>
             </div>
           :
             <div className="content">
@@ -92,7 +93,7 @@ export default class PasswordReset extends Component {
                 </div>
                 <div className="row centerText">
                   <div className="span6">
-                    <button disabled={resetStatus === "loading"} className="btn btn-green" type="submit">Continue</button>
+                    <Button loading={resetStatus === "loading"} kind="positive" type="submit">Continue</Button>
                   </div>
                 </div>
               </form>
