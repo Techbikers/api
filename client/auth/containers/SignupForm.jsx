@@ -8,7 +8,7 @@ import { getLocation } from "techbikers/app/selectors";
 import { signup } from "techbikers/auth/actions";
 
 import FormField from "techbikers/components/FormField";
-import ProgressButton from "techbikers/components/ProgressButton";
+import Button from "techbikers/components/Button";
 
 /* eslint-disable camelcase, babel/new-cap */
 const NewRiderForm = Form.extend({
@@ -42,7 +42,8 @@ const NewRiderForm = Form.extend({
 /* eslint-enable */
 
 const mapStateToProps = state => ({
-  location: getLocation(state)
+  location: getLocation(state),
+  loading: state.auth.state === "authenticating"
 });
 
 const mapDispatchToProps = {
@@ -53,6 +54,7 @@ const mapDispatchToProps = {
 export default class SignupForm extends Component {
   static propTypes = {
     location: locationShape,
+    loading: PropTypes.bool,
     signup: PropTypes.func.isRequired
   };
 
@@ -67,7 +69,8 @@ export default class SignupForm extends Component {
 
   onFormChange = () => this.forceUpdate()
 
-  handleSignup = () => {
+  handleSignup = event => {
+    event.preventDefault();
     const { form } = this.state;
 
     if (form.validate()) {
@@ -77,7 +80,7 @@ export default class SignupForm extends Component {
 
   render() {
     const { form } = this.state;
-    const { location } = this.props;
+    const { loading, location } = this.props;
 
     const fields = form.boundFieldsObj();
     const fieldComponents = Object.keys(fields).map(key => {
@@ -86,7 +89,7 @@ export default class SignupForm extends Component {
     });
 
     return (
-      <form>
+      <form onSubmit={this.handleSignup}>
         <div className="row">
           <div className="span2 offset1">
             {slice(fieldComponents, 0, 4)}
@@ -102,9 +105,9 @@ export default class SignupForm extends Component {
           </Link>
         </p>
         <p className="centerText">
-          <ProgressButton type="submit" onClick={this.handleSignup}>
+          <Button type="submit" loading={loading}>
             Sign Up
-          </ProgressButton>
+          </Button>
         </p>
       </form>
     );

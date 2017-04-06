@@ -1,10 +1,10 @@
 import jwtDecode from "jwt-decode";
-import { handleActions } from "redux-actions";
+import { handleActions, combineActions } from "redux-actions";
 
 import * as actions from "techbikers/auth/actions";
 
 export default handleActions({
-  [actions.authenticateUser]: state => ({
+  [combineActions(actions.authenticateUser, actions.signup)]: state => ({
     ...state,
     state: "authenticating"
   }),

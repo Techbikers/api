@@ -6,6 +6,7 @@ import { Link, locationShape } from "react-router";
 import { getLocation } from "techbikers/app/selectors";
 import { authenticateUser } from "techbikers/auth/actions";
 
+import Button from "techbikers/components/Button";
 import FormField from "techbikers/components/FormField";
 
 /* eslint-disable babel/new-cap */
@@ -16,7 +17,8 @@ const LoginFormSchema = Form.extend({
 /* eslint-enable */
 
 const mapStateToProps = state => ({
-  location: getLocation(state)
+  location: getLocation(state),
+  loading: state.auth.state === "authenticating"
 });
 
 const mapDispatchToProps = {
@@ -27,6 +29,7 @@ const mapDispatchToProps = {
 export default class LoginForm extends Component {
   static propTypes = {
     location: locationShape,
+    loading: PropTypes.bool,
     login: PropTypes.func.isRequired
   };
 
@@ -51,7 +54,7 @@ export default class LoginForm extends Component {
   }
 
   render() {
-    const { location } = this.props;
+    const { loading, location } = this.props;
     const fields = this.state.form.boundFieldsObj();
 
     return (
@@ -63,7 +66,7 @@ export default class LoginForm extends Component {
         </div>
         <div className="row centerText">
           <div className="span6">
-            <input type="submit" value="Login" className="btn" />
+            <Button loading={loading} type="submit">Login</Button>
           </div>
           <div className="span6">
             Don"t have an account yet? <Link to={{ pathname: "/signup", state: { ...location.state } }}>Create one!</Link>
