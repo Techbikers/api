@@ -5,7 +5,7 @@ import DocumentTitle from "react-document-title";
 
 import { getAuthenticatedUser, getAuthenticatedUserId } from "techbikers/auth/selectors";
 import { fetchUserById } from "techbikers/users/actions";
-import { setPageEntity } from "techbikers/app/actions";
+import { updateCurrentEntity } from "techbikers/app/actions";
 import { UserShape } from "techbikers/users/shapes";
 
 import requireAuthentication from "techbikers/auth/containers/requireAuthentication";
@@ -19,7 +19,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = {
   fetchUserById,
-  setPageEntity
+  updateCurrentEntity
 };
 
 @requireAuthentication()
@@ -29,17 +29,17 @@ export default class Account extends Component {
     id: PropTypes.number.isRequired,
     user: UserShape,
     fetchUserById: PropTypes.func.isRequired,
-    setPageEntity: PropTypes.func.isRequired
+    updateCurrentEntity: PropTypes.func.isRequired
   };
 
   componentWillMount() {
     const { id } = this.props;
     this.props.fetchUserById(id);
-    this.props.setPageEntity({ id });
+    this.props.updateCurrentEntity({ id });
   }
 
   render() {
-    const { user } = this.props;
+    const { id, user } = this.props;
 
     if (!user) {
       return <Spinner />;
@@ -60,7 +60,7 @@ export default class Account extends Component {
 
             <div className="current-rides">
               <h2>Your upcoming rides:</h2>
-              <UserRidesList />
+              <UserRidesList userId={id} />
             </div>
 
           </div>
