@@ -177,10 +177,10 @@ module.exports = options => {
     ".scss"
   ];
 
-  const publicPath = options.devServer ? "http://localhost:3000/static/js/" : "/static/js/";
+  const publicPath = options.devServer ? "http://localhost:3000/static/bundles/" : "/static/bundles/";
 
   const output = {
-    path: path.join(__dirname, "server", "static", "js"),
+    path: path.join(__dirname, "..", "public", "bundles"),
     publicPath,
     filename: "[name]-[hash].js"
   };
