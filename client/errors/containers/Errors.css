@@ -1,0 +1,5 @@
+.Errors {
+  composes: m2 p1 from "css/spacing";
+  composes: bg-error from "css/color";
+  composes: rounded from "css/rounded";
+}
