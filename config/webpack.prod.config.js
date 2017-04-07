@@ -1,6 +1,6 @@
 module.exports = require("./webpack.config")({
-  longTermCaching: true,
+  production: true,
   separateStylesheet: true,
   minimize: true,
-  production: true
+  cssModules: true
 });
