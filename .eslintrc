@@ -111,7 +111,7 @@
     "vars-on-top": 1,
     "wrap-iife": [2, "inside"],
     "yoda": 2,
-    "babel/new-cap": 1,
+    "babel/new-cap": 0,
     "babel/object-shorthand": 1,
     "babel/arrow-parens": [1, "as-needed"],
     "babel/no-await-in-loop": 1,
