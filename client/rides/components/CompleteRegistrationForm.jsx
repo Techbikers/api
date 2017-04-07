@@ -5,12 +5,12 @@ import { RideShape, RegistrationShape } from "techbikers/rides/shapes";
 import { UserShape } from "techbikers/users/shapes";
 import { ChapterShape } from "techbikers/chapters/shapes";
 
-import ErrorMessage from "techbikers/components/ErrorMessage";
+import Errors from "techbikers/errors/containers/Errors";
 import PaymentForm from "techbikers/components/PaymentForm";
 import Timestamp from "techbikers/components/Timestamp";
 import RegistrationSteps from "techbikers/rides/components/RegistrationSteps";
 
-const CompleteRegistrationForm = ({ registration, ride, errors, paymentProcessing, handlePayment }) => (
+const CompleteRegistrationForm = ({ registration, ride, paymentProcessing, handlePayment }) => (
   <div className="ride-registration--form">
     <RegistrationSteps step={3} />
 
@@ -28,7 +28,7 @@ const CompleteRegistrationForm = ({ registration, ride, errors, paymentProcessin
         If you are able, we welcome you to pay more. This means more sponsor money goes directly to Room to Read!
       </p>
 
-      <ErrorMessage errors={errors} />
+      <Errors errorKey="payment" />
 
       <PaymentForm
         loading={paymentProcessing}
@@ -46,7 +46,6 @@ CompleteRegistrationForm.propTypes = {
   ride: RideShape,
   user: UserShape,
   chapter: ChapterShape,
-  errors: PropTypes.string,
   paymentProcessing: PropTypes.bool,
   handlePayment: PropTypes.func.isRequired
 };

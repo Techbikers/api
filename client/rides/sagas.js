@@ -6,6 +6,7 @@ import { stripeCreateToken } from "techbikers/utils/payment";
 import * as actions from "techbikers/rides/actions";
 import { ChapterSchema } from "techbikers/chapters/sagas";
 import { UserSchema } from "techbikers/users/sagas";
+import { addError } from "techbikers/errors/actions";
 
 export const RideSchema = new Schema("ride");
 export const RegistrationSchema = new Schema("registration");
@@ -81,8 +82,12 @@ export function* rideRegistrationPayment({ payload: { rideId, userId, amount, ca
 
   if (response.error) {
     // Something went wrong when getting the charge token
-    yield put(actions.registrationFailure());
-    return false; // TODO
+    const { type, message } = response.error;
+    yield [
+      put(actions.registrationFailure()),
+      put(addError("payment", type, message))
+    ];
+    return false;
   }
 
   // Now we can go ahead and charge the user
