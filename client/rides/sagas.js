@@ -1,4 +1,4 @@
-import { takeEvery, call, fork } from "redux-saga/effects";
+import { takeEvery, call, fork, put } from "redux-saga/effects";
 import { Schema, arrayOf } from "normalizr";
 
 import { callApi } from "techbikers/utils/api";
@@ -81,6 +81,7 @@ export function* rideRegistrationPayment({ payload: { rideId, userId, amount, ca
 
   if (response.error) {
     // Something went wrong when getting the charge token
+    yield put(actions.registrationFailure());
     return false; // TODO
   }
 
@@ -94,7 +95,17 @@ export function* rideRegistrationPayment({ payload: { rideId, userId, amount, ca
       amount
     })
   };
-  return yield call(callApi, `/rides/${rideId}/riders/${userId}/charge`, fetchOptions, RegistrationSchema);
+  const result = yield call(callApi, `/rides/${rideId}/riders/${userId}/charge`, fetchOptions, RegistrationSchema);
+
+  if (!result.error) {
+    // Payment successful - the user is now registered!
+    yield put(actions.registrationSuccess());
+    return true;
+  } else {
+    // Something went wrong
+    yield put(actions.registrationFailure());
+    return false; // TODO
+  }
 }
 
 export default function* root() {

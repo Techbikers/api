@@ -10,7 +10,7 @@ import PaymentForm from "techbikers/components/PaymentForm";
 import Timestamp from "techbikers/components/Timestamp";
 import RegistrationSteps from "techbikers/rides/components/RegistrationSteps";
 
-const CompleteRegistrationForm = ({ registration, ride, errors, handlePayment }) => (
+const CompleteRegistrationForm = ({ registration, ride, errors, paymentProcessing, handlePayment }) => (
   <div className="ride-registration--form">
     <RegistrationSteps step={3} />
 
@@ -31,6 +31,7 @@ const CompleteRegistrationForm = ({ registration, ride, errors, handlePayment })
       <ErrorMessage errors={errors} />
 
       <PaymentForm
+        loading={paymentProcessing}
         submitText="Make payment & complete registration"
         onSubmit={({ amount, number, cvc, exp, name }) => handlePayment(amount, { number, cvc, exp, name })}
         customAmount
@@ -46,6 +47,7 @@ CompleteRegistrationForm.propTypes = {
   user: UserShape,
   chapter: ChapterShape,
   errors: PropTypes.string,
+  paymentProcessing: PropTypes.bool,
   handlePayment: PropTypes.func.isRequired
 };
 

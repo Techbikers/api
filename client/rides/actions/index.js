@@ -44,3 +44,9 @@ export const chargeUserForRide = createAction(CHARGE_USER_FOR_RIDE,
     }
   })
 );
+
+export const REGISTRATION_FAILURE = "REGISTRATION_FAILURE";
+export const registrationFailure = createAction(REGISTRATION_FAILURE);
+
+export const REGISTRATION_SUCCESS = "REGISTRATION_SUCCESS";
+export const registrationSuccess = createAction(REGISTRATION_SUCCESS);

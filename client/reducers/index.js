@@ -8,6 +8,7 @@ import entities from "techbikers/reducers/entities";
 import errors from "./errors";
 import page from "./page";
 import notifications from "techbikers/notifications/reducers";
+import rides from "techbikers/rides/reducers";
 
 export default combineReducers({
   app,
@@ -15,6 +16,7 @@ export default combineReducers({
   entities,
   errors,
   page,
+  rides,
   routing: routerReducer,
   notifications,
   ui

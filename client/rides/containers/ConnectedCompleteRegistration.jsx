@@ -9,7 +9,8 @@ import CompleteRegistrationForm from "techbikers/rides/components/CompleteRegist
 const mapStateToProps = state => ({
   ride: getCurrentRide(state),
   chapter: getChapterForCurrentRide(state),
-  registration: getRegistrationForCurrentRideAndUser(state)
+  registration: getRegistrationForCurrentRideAndUser(state),
+  paymentProcessing: state.rides.registrationState === "processing"
 });
 
 const mapDispatchToProps = dispatch => ({
