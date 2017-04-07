@@ -21,106 +21,80 @@
   --alt-color: #F5F7F9;
 
   --success-color: var(--green-color);
-  --headsup-color: #F5A623;
-  --warning-color: #E35050;
-  --error-color: #EF8C8C;
+  --info-color: var(--blue-color);
+  --warning-color: #F5A623;
+  --error-color: #E35050;
 }
 
-.text-default {
-    color: var(--default-font-color);
-}
+.text-default { color: var(--default-font-color); }
 
 /* brand */
 .text-brand,
-.text-brand-hover:hover {
-    color: var(--brand-color);
-}
+.text-brand-hover:hover { color: var(--brand-color); }
 
 .text-brand-darken,
-.text-brand-darken-hover:hover {
-    color: color(var(--brand-color) shade(20%));
-}
+.text-brand-darken-hover:hover { color: color(var(--brand-color) shade(20%)); }
 
-.text-brand-light, :local(.text-brand-light),
-.text-brand-light-hover:hover, :local(.text-brand-light-hover):hover {
-    color: color(var(--brand-color) tint(20%));
-}
+.text-brand-light,
+.text-brand-light-hover:hover { color: color(var(--brand-color) tint(20%)); }
 
-.bg-brand,
-.bg-brand-hover:hover { background-color: var(--brand-color); }
-
-.bg-brand-light,
-.bg-brand-light-hover:hover { background-color: color(var(--brand-color) tint(20%)); }
+.bg-brand       { background-color: var(--brand-color); }
+.bg-brand-light { background-color: color(var(--brand-color) tint(20%)); }
 
 
 /* success */
 
-.text-success { color: var(--success-color); }
+.text-success,
+.text-success-hover:hover { color: var(--success-color); }
+
 .bg-success { background-color: var(--success-color); }
+
+/* info */
+
+.text-info,
+.text-info-hover:hover { color: var(--info-color); }
+
+.bg-info { background-color: var(--info-color); }
 
 /* error */
 
-.text-error, :local(.text-error),
-.text-error-hover:hover {
-  color: var(--error-color);
-}
+.text-error,
+.text-error-hover:hover { color: var(--error-color); }
 
-.bg-error,
-.bg-error-hover:hover {
-  background-color: var(--error-color);
-}
-.bg-error-input {
-  background-color: #FCE8E8
-}
-
-/* heads up */
-
-.text-headsup {
-  color: var(--headsup-color);
-}
-
-.bg-headsup {
-  background-color: var(--headsup-color);
-}
+.bg-error { background-color: var(--error-color); }
 
 /* warning */
 
-.text-warning {
-  color: var(--warning-color) !important;
-}
+.text-warning,
+.text-warning-hover:hover { color: var(--warning-color) !important; }
 
-.bg-warning {
-  background-color: var(--warning-color);
-}
+.bg-warning { background-color: var(--warning-color); }
 
-/* favorite */
+/* Brand Colors */
 .text-yellow,
 .text-yellow-hover:hover { color: var(--yellow-color); }
-
 .text-purple,
 .text-purple-hover:hover { color: var(--purple-color); }
-
 .text-green,
-.text-green-hover:hover { color: var(--green-color); }
-
+.text-green-hover:hover  { color: var(--green-color); }
 .text-red,
-.text-red:hover { color: var(--red-color); }
-
+.text-red:hover          { color: var(--red-color); }
 .text-blue,
-.text-blue:hover { color: var(--blue-color); }
-
+.text-blue:hover         { color: var(--blue-color); }
+.text-dark,
+.text-dark-hover:hover   { color: var(--dark-color); }
 .text-slate,
-.text-slate:hover { color: var(--slate-color); }
-
+.text-slate:hover        { color: var(--slate-color); }
 .text-slate-light,
-.text-slate-light:hover { color: var(--slate-light-color); }
+.text-slate-light:hover  { color: var(--slate-light-color); }
 
-.bg-yellow { background-color: var(--yellow-color); }
-.bg-purple { background-color: var(--purple-color); }
-.bg-blue { background-color: var(--blue-color); }
-.bg-red { background-color: var(--red-color); }
-.bg-green { background-color: var(--green-color); }
-.bg-slate { background-color: var(--slate-color); }
+.bg-yellow      { background-color: var(--yellow-color); }
+.bg-purple      { background-color: var(--purple-color); }
+.bg-blue        { background-color: var(--blue-color); }
+.bg-red         { background-color: var(--red-color); }
+.bg-green       { background-color: var(--green-color); }
+.bg-dark        { background-color: var(--dark-color); }
+.bg-slate       { background-color: var(--slate-color); }
 .bg-slate-light { background-color: var(--slate-light-color); }
 
 /* alt */
@@ -144,8 +118,6 @@
 .bg-grey-2 { background-color: var(--grey-2) }
 .bg-grey-3 { background-color: var(--grey-3) }
 .bg-grey-4 { background-color: var(--grey-4) }
-
-.text-dark { color: var(--dark-color); }
 
 /* white  - move to bottom for specificity since its often used on hovers, etc */
 .text-white,

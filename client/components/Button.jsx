@@ -1,36 +1,13 @@
-import React, { Component, PropTypes } from "react";
-import classNames from "classnames";
+import React, { PropTypes } from "react";
 
-import styles from "../styles/button";
+import ButtonWrapper from "techbikers/components/ButtonWrapper";
 
-export default class Button extends Component {
-  static propTypes = {
-    children: PropTypes.node,
-    className: PropTypes.string,
-    href: PropTypes.string,
-    block: PropTypes.bool,
-    fill: PropTypes.bool,
-    color: PropTypes.oneOf(["offWhite", "grey", "red", "yellow", "blue", "purple", "green"])
-  };
+const Button = ({ type = "button", ...props }) => (
+  <button type={type} {...props} />
+);
 
-  static defaultProps = {
-    block: false,
-    fill: true,
-    color: "blue"
-  };
+Button.propTypes = {
+  type: PropTypes.string
+};
 
-  render() {
-    const { block, fill, color, className, children, ...props } = this.props;
-    const condClasses = {
-      [styles.block]: block,
-      [styles.noFill]: !fill
-    };
-    const Element = this.props.href ? "a" : "button";
-
-    return (
-      <Element className={classNames(styles.Button, condClasses, styles[color], className)} {...props}>
-        {children}
-      </Element>
-    );
-  }
-}
+export default ButtonWrapper()(Button);
