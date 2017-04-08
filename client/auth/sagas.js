@@ -3,6 +3,7 @@ import { takeEvery, fork, put, select, call, take, race } from "redux-saga/effec
 import { replace } from "react-router-redux";
 
 import { INIT } from "techbikers/app/actions";
+import { addError } from "techbikers/errors/actions";
 import { getLocation } from "techbikers/app/selectors";
 import authService from "techbikers/auth/services";
 import {
@@ -48,7 +49,10 @@ export function* authenticateUser({ payload }) {
 
   if (error) {
     // Authentication failed
-    yield put(actions.authFailure(error));
+    yield [
+      put(addError("authentication", error.code, error.description)),
+      put(actions.authFailure())
+    ];
   } else {
     // Authenticated successful, log the user in on the client
     yield put(actions.authSuccess(response));
@@ -171,21 +175,29 @@ export function* createUserAndAuthenticate({ payload }) {
     { ...metadata, name: `${metadata.first_name} ${metadata.last_name}` }
   );
 
-  if (!error) {
-    // Log the new user in
-    yield put(actions.authenticateUser(email, password));
+  if (error) {
+    yield [
+      put(addError("signup", error.code, error.description)),
+      put(actions.authFailure())
+    ];
+    return false;
+  }
 
-    // Wait for successful authentication then push welcome notification
-    const { success } = yield race({
-      success: take(actions.AUTHENTICATION_SUCCESS),
-      failure: take(actions.AUTHENTICATION_FAILURE)
-    });
+  // Log the new user in
+  yield put(actions.authenticateUser(email, password));
 
-    if (success) {
-      yield put(createTextNotification("Welcome to Techbikers!", 5000));
-    } else {
-      yield put(createErrorNotification("Ooops, something went wrong"));
-    }
+  // Wait for successful authentication then push welcome notification
+  const { success } = yield race({
+    success: take(actions.AUTHENTICATION_SUCCESS),
+    failure: take(actions.AUTHENTICATION_FAILURE)
+  });
+
+  if (success) {
+    yield put(createTextNotification("Welcome to Techbikers!", 5000));
+    return true;
+  } else {
+    yield put(createErrorNotification("Ooops, something went wrong"));
+    return false;
   }
 }
 
