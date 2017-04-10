@@ -6,5 +6,6 @@ export const ChapterShape = PropTypes.shape({
   description: PropTypes.string,
   publicKey: PropTypes.string,
   membershipFee: PropTypes.number,
-  currency: PropTypes.string
+  currency: PropTypes.string,
+  rides: PropTypes.arrayOf(PropTypes.number)
 });
