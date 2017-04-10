@@ -23,9 +23,10 @@ export default class AppContainer extends Component {
   };
 
   updateEntity = props => {
-    if (props.params.id) {
-      const type = props.location.pathname.split("/")[1].slice(0, -1);
-      props.updateCurrentEntity(Number(props.params.id), type);
+    const { params, location } = props;
+    if (params.id || params.name) {
+      const type = location.pathname.split("/")[1].slice(0, -1);
+      props.updateCurrentEntity(params.id && Number(params.id), params.name, type);
     }
   }
 

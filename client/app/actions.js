@@ -5,7 +5,7 @@ export const init = createAction(INIT);
 
 export const UPDATE_CURRENT_ENTITY = "UPDATE_CURRENT_ENTITY";
 export const updateCurrentEntity = createAction(UPDATE_CURRENT_ENTITY,
-  (id, type) => ({ id, type })
+  (id, name, type) => ({ id, name, type })
 );
 
 export const UPDATE_META_INFO = "UPDATE_META_INFO";
