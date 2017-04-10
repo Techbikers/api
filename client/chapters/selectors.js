@@ -1,23 +1,23 @@
 import { createSelector } from "reselect";
 
+import { getCurrentEntity } from "techbikers/app/selectors";
 import { getCurrentRide } from "techbikers/rides/selectors";
 
-const chapterSelector = state => state.entities.chapter || {};
-const pageEntityNameSelector = state => state.page.entity.name || null;
+const getChapters = state => state.entities.chapter || {};
 
 export const getAllChapters = createSelector(
-  [chapterSelector],
-  chapters => Object.keys(chapters).map(id => chapters[id])
+  [getChapters],
+  chapters => Object.values(chapters)
 );
 
 export const getCurrentChapter = createSelector(
-  [getAllChapters, pageEntityNameSelector],
-  (chapters, name) => chapters.find(
-    chapter => chapter.name.toLowerCase() === name.toLowerCase()
+  [getAllChapters, getCurrentEntity],
+  (chapters, entity) => chapters.find(
+    chapter => chapter.name.toLowerCase() === entity.name.toLowerCase()
   )
 );
 
 export const getChapterForCurrentRide = createSelector(
-  [chapterSelector, getCurrentRide],
+  [getChapters, getCurrentRide],
   (chapters, ride) => chapters[ride ? ride.chapter : null]
 );
