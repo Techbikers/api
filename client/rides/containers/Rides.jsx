@@ -58,7 +58,7 @@ export default class Rides extends Component {
             </header>
 
             <ul className="ride-list">
-              {past.map(ride => (
+              {past.reverse().map(ride => (
                 <li key={ride.id}>
                   <RideCard {...ride} />
                 </li>

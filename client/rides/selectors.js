@@ -9,7 +9,9 @@ export const getRegistrations = state => state.entities.registration || {};
 
 export const getAllRides = createSelector(
   [getRides],
-  rides => Object.keys(rides).map(id => rides[id])
+  rides => Object.values(rides).sort((a, b) =>
+    moment(a.startDate).isAfter(b.startDate)
+  )
 );
 
 export const getCurrentRide = createSelector(
