@@ -46,7 +46,7 @@ export default class RiderProfile extends Component {
   }
 
   render() {
-    const { user, canEdit, params } = this.props;
+    const { user, canEdit } = this.props;
     const { isEditing } = this.state;
 
     if (!user) {
@@ -64,13 +64,13 @@ export default class RiderProfile extends Component {
 
           <section id="header">
             <header className="centerText">
-              <Avatar {...user} size="130" rounded />
+              <Avatar {...user} size={130} rounded />
               <h1>{user.name}</h1>
               <h3>{user.company} |
                   {user.website} |
                 <TwitterLink handle={user.twitter} /></h3>
               {canEdit ?
-                <Link className="btn" to={`/account`}>Edit Profile</Link> : ""}
+                <Link className="btn" to="/account">Edit Profile</Link> : ""}
             </header>
 
             <div className="content text--centre">
@@ -94,7 +94,7 @@ export default class RiderProfile extends Component {
           <section id="rides">
             <div className="content centerText">
               <h2>{`${user.firstName}'s rides:`}</h2>
-              <UserRidesList userId={params.id} />
+              <UserRidesList userId={user.id} />
             </div>
           </section>
         </div>
