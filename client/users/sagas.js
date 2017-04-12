@@ -36,11 +36,12 @@ export function* fetchUsersByRide({ payload }) {
  * @param {Object} payload - Updated user object
  */
 export function* updateUser({ payload }) {
-  const result = yield call(apiPut, `/riders/${payload.id}`, payload, UserSchema);
-  if (!result.error) {
+  const { error } = yield call(apiPut, `/riders/${payload.id}`, payload, UserSchema);
+
+  if (!error) {
     yield put(createTextNotification("Profile updated"));
   } else {
-    yield put(createErrorNotification("Error updating profile"));
+    yield put(createErrorNotification("Whoops - we couldn't update your profile"));
   }
 }
 
