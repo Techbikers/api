@@ -7,5 +7,5 @@
 }
 
 .error {
-  composes: text-white bg-warning from "css/color";
+  composes: text-white bg-error from "css/color";
 }
