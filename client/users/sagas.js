@@ -1,6 +1,7 @@
 import { takeEvery, call, fork, put } from "redux-saga/effects";
 import { Schema, arrayOf } from "normalizr";
 
+import { formatUserObject } from "techbikers/users/helpers";
 import { callApi, apiPut } from "techbikers/utils/api";
 import { FundraiserSchema } from "techbikers/fundraisers/sagas";
 import * as actions from "techbikers/users/actions";
@@ -36,7 +37,8 @@ export function* fetchUsersByRide({ payload }) {
  * @param {Object} payload - Updated user object
  */
 export function* updateUser({ payload }) {
-  const { error } = yield call(apiPut, `/riders/${payload.id}`, payload, UserSchema);
+  const user = yield call(formatUserObject, payload);
+  const { error } = yield call(apiPut, `/riders/${payload.id}`, user, UserSchema);
 
   if (!error) {
     yield put(createTextNotification("Profile updated"));
