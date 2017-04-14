@@ -1,5 +1,4 @@
 import os
-import datetime
 from server.auth.utils import get_auth0_public_key
 
 ADMINS = (
@@ -101,7 +100,6 @@ CACHES = {
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
-#    'django.contrib.staticfiles.finders.DefaultStorageFinder',
 )
 
 # Templates configuration
@@ -145,7 +143,8 @@ INSTALLED_APPS = (
     'server.api',
     'codemirror',
     'django_slack',
-    'django_crontab'
+    'django_crontab',
+    'corsheaders'
 )
 
 MIDDLEWARE_CLASSES = (
@@ -154,6 +153,7 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
 )
 
 LOGGING = {
@@ -227,3 +227,8 @@ LOGGING = {
         }
     }
 }
+
+CORS_ORIGIN_WHITELIST = (
+    'localhost:8000',
+    'techbikers.local'
+)
