@@ -230,5 +230,6 @@ LOGGING = {
 
 CORS_ORIGIN_WHITELIST = (
     'localhost:8000',
-    'techbikers.local'
+    'techbikers.local',
+    'techbikers.local:8000'
 )
