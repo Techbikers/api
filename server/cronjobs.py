@@ -1,12 +1,15 @@
 import hashlib
 import requests
 import json
+import logging
 from datetime import datetime
 from django.conf import settings
 from django.contrib.auth.models import User
 from django_slack import slack_message
 from server.models.fundraisers import Fundraiser
 from server.models.rides import Ride, RideRiders
+
+logger = logging.getLogger("django_crontab.crontab")
 
 
 def slack_daily_update():
@@ -39,12 +42,60 @@ def slack_daily_update():
 
     slack_message('slack/daily_update.slack', { 'number_rides': rides.count() }, attachments)
 
-def update_fundraisers():
-    fundraisers = Fundraiser.objects.filter(pageStatus=True)
 
-    # Iterate over the objects and update them
-    for fundraiser in fundraisers:
-        fundraiser.fetch_details()
+def update_fundraisers():
+    """
+    Gets the latest fundraising stats for each ride by calling the JustGiving API
+    to get the event fundraisers (using the event ID for each ride) and then
+    updating each corresponding fundraiser.
+
+    Note: there is a function on the Fundraiser model itself that will update an
+    individual record by calling the Just Giving API. If we were to use this then
+    we'd end up calling the Just Giving API a lot more than by bulk fetching
+    fundraiser pages by event (ride).
+    """
+
+    # Get all the rides that have an event id
+    rides = Ride.objects.filter(just_giving_event_id__isnull=False)
+
+    for ride in rides:
+        # Fetch the event pages from Just Giving
+        response = requests.get(
+            '{0}/event/{1}/pages'.format(settings.JUSTGIVING_API_URL, ride.just_giving_event_id),
+            headers={
+                'x-api-key': settings.JUSTGIVING_API_KEY,
+                'x-application-key': settings.JUSTGIVING_API_SECRET,
+                'Content-Type': 'application/json'})
+        response_json = response.json()
+
+        # Update the fundraisers
+        for page in response_json.get("fundraisingPages", []):
+            # If the page status is "Cancelled" then we can ignore this page. It's
+            # usually because someone went and created their own page and then
+            # cancelled the automatcally created one.
+            if page.get("pageStatus") == "Cancelled":
+                logger.info("Cancelled fundraising page received and ignored")
+                continue
+
+            try:
+                # Get the associated fundraiser object
+                fundraiser = Fundraiser.objects.get(pageId=page.get("pageId"))
+
+                # Update the model with the results
+                fundraiser.pageStatus = page.get("pageStatus", "Active") == "Active"
+                fundraiser.currency = page.get("currencyCode", fundraiser.currency)
+                fundraiser.fundraisingTarget = page.get("targetAmount", fundraiser.fundraisingTarget)
+                fundraiser.totalRaisedOffline = page.get("offlineDonations", fundraiser.totalRaisedOffline)
+                fundraiser.totalRaisedOnline = page.get("totalRaisedOnline", fundraiser.totalRaisedOnline)
+                fundraiser.totalRaisedSms = page.get("totalRaisedSms", fundraiser.totalRaisedSms)
+                fundraiser.totalRaised = page.get("raisedAmount", fundraiser.totalRaised)
+                fundraiser.giftAid = page.get("giftAidPlusSupplement", fundraiser.giftAid)
+
+                # Save
+                fundraiser.save()
+            except Fundraiser.DoesNotExist:
+                # We don't have a local record for this fundraising page
+                logger.warning('Unexpected event page received', exc_info=True, extra={ 'eventPage': page })
 
 
 def put_mailchimp_member_operation(user):
