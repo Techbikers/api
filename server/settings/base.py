@@ -1,4 +1,5 @@
 import os
+import sys
 from server.auth.utils import get_auth0_public_key
 
 ADMINS = (
@@ -158,7 +159,7 @@ MIDDLEWARE_CLASSES = (
 
 LOGGING = {
     'version': 1,
-    'disable_existing_loggers': False,
+    'disable_existing_loggers': True,
     'root': {
         'level': 'WARNING',
         'handlers': ['sentry'],
@@ -187,6 +188,7 @@ LOGGING = {
             'level': 'INFO',
             'filters': ['require_debug_true'],
             'class': 'logging.StreamHandler',
+            'stream': sys.stdout,
         },
         'sentry': {
             'level': 'WARNING',
@@ -195,14 +197,15 @@ LOGGING = {
             'tags': {'custom-tag': 'x'},
         },
         'mail_admins': {
-            'level': 'DEBUG',
+            'level': 'CRITICAL',
             'filters': ['require_debug_false'],
             'class': 'django.utils.log.AdminEmailHandler',
+            'include_html': True,
         },
     },
     'loggers': {
         'django': {
-            'handlers': ['console', 'sentry'],
+            'handlers': ['console', 'sentry', 'mail_admins'],
         },
         'django.request': {
             'handlers': ['console', 'sentry'],
@@ -212,7 +215,7 @@ LOGGING = {
         },
         'django.db.backends': {
             'level': 'ERROR',
-            'handlers': ['log_file'],
+            'handlers': ['console'],
             'propagate': False,
         },
         'raven': {
