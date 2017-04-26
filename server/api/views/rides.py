@@ -177,7 +177,7 @@ class RideRiderFundraiser(generics.RetrieveAPIView, generics.CreateAPIView):
             raise ParseError('We could not get the Just Giving identity for the user')
 
         # Ok, now let's go ahead an actually create the fundraising page on Just Giving
-        pageShortName = slugify('techbikers {0} {1} 12'.format(ride.name, user.id))
+        pageShortName = slugify('techbikers {0} {1}'.format(ride.name, user.id))
         pageStory = render_to_string('justgiving_page_story.html', {'ride': ride})
         payload = {
             'charityId': settings.JUSTGIVING_CHARITY_ID,
