@@ -24,7 +24,7 @@ import * as ui from "techbikers/auth/actions/ui";
  * fetch any required user information (profile, refreshed token etc)
  */
 export function* checkAuthState() {
-  const { state, exp } = yield select(getAuthState);
+  const { state, claims: { exp } } = yield select(getAuthState);
 
   if (state === "authenticated") {
     // Check that the token is still valid
