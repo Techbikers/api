@@ -14,12 +14,23 @@ import Avatar from "techbikers/users/components/Avatar";
 import UserRidesList from "techbikers/users/containers/UserRidesList";
 import TwitterLink from "techbikers/components/TwitterLink";
 import Spinner from "techbikers/components/Spinner";
+import Content from "techbikers/app/components/Content";
 
 const Toolbar = styled.section`
   background: ${yellow};
   text-align: center;
   padding: 10px;
   margin-bottom: 10px;
+`;
+
+const Rides = styled.section`
+  border-top: 1px solid #e2e2e2;
+  border-bottom: 1px solid #e2e2e2;
+  background: #f5f5f5;
+`;
+
+const RidesHeader = styled.h2`
+  text-align: center;
 `;
 
 const mapStateToProps = (state, ownProps) => ({
@@ -101,12 +112,12 @@ export default class RiderProfile extends Component {
             </div>
           </section>
 
-          <section id="rides">
-            <div className="content centerText">
-              <h2>{`${user.firstName}'s rides:`}</h2>
+          <Rides>
+            <Content>
+              <RidesHeader>{user.firstName}'s rides:</RidesHeader>
               <UserRidesList userId={user.id} />
-            </div>
-          </section>
+            </Content>
+          </Rides>
         </div>
       </DocumentTitle>
     );
