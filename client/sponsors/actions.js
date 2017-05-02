@@ -7,4 +7,4 @@ export const FETCH_SPONSOR_BY_ID = "FETCH_SPONSOR_BY_ID";
 export const fetchSponsorById = createAction(FETCH_SPONSOR_BY_ID);
 
 export const FETCH_SPONSORS_BY_RIDE = "FETCH_SPONSORS_BY_RIDE";
-export const fetchSponsorByRide = createAction(FETCH_SPONSORS_BY_RIDE);
+export const fetchSponsorsByRide = createAction(FETCH_SPONSORS_BY_RIDE);

@@ -5,10 +5,12 @@ import DocumentTitle from "react-document-title";
 import { FormattedNumber } from "react-intl";
 
 import { fetchRideById } from "techbikers/rides/actions";
+import { fetchSponsorsByRide } from "techbikers/sponsors/actions";
 import { getCurrentRide } from "techbikers/rides/selectors";
 import { updatePageMeta } from "techbikers/app/actions";
 import { getUsersOnCurrentRide } from "techbikers/users/selectors";
 import { getChapterForCurrentRide } from "techbikers/chapters/selectors";
+import { getSponsorsForCurrentRide } from "techbikers/sponsors/selectors";
 import { RideShape } from "techbikers/rides/shapes";
 import { ChapterShape } from "techbikers/chapters/shapes";
 
@@ -20,11 +22,13 @@ import Spinner from "techbikers/components/Spinner";
 const mapStateToProps = state => ({
   ride: getCurrentRide(state),
   chapter: getChapterForCurrentRide(state),
-  riders: getUsersOnCurrentRide(state)
+  riders: getUsersOnCurrentRide(state),
+  sponsors: getSponsorsForCurrentRide(state)
 });
 
 const mapDispatchToProps = (dispatch, props) => ({
   fetchCurrentRide: () => dispatch(fetchRideById(props.params.id)),
+  fetchSponsors: () => dispatch(fetchSponsorsByRide(props.params.id)),
   updatePageMetaForCurrentRide: (name, description) => dispatch(updatePageMeta({
     "og:title": `Techbikers - ${name}`,
     "og:description": description
@@ -38,12 +42,14 @@ export default class RidePage extends Component {
     chapter: ChapterShape,
     riders: PropTypes.arrayOf(PropTypes.object),
     fetchCurrentRide: PropTypes.func.isRequired,
+    fetchSponsors: PropTypes.func.isRequired,
     updatePageMetaForCurrentRide: PropTypes.func.isRequired
   };
 
   componentWillMount() {
     const { ride } = this.props;
     this.props.fetchCurrentRide();
+    this.props.fetchSponsors();
 
     if (ride) {
       this.props.updatePageMetaForCurrentRide(ride.name, ride.strapline);

@@ -1,16 +1,22 @@
 import { takeEvery, call, fork } from "redux-saga/effects";
-import { Schema, arrayOf } from "normalizr";
+import { schema } from "normalizr";
 
 import { callApi } from "techbikers/utils/api";
 import * as actions from "techbikers/sponsors/actions";
 
-export const SponsorSchema = new Schema("sponsor");
+export const RideSponsorSchema = new schema.Entity("rideSponsor", {}, {
+  idAttribute: value => `${value.ride}-${value.sponsor}`
+});
+
+export const SponsorSchema = new schema.Entity("sponsor", {
+  rides: [RideSponsorSchema]
+});
 
 /**
  * Fetch all sponsors
  */
 export function* fetchAllSponsors() {
-  return yield call(callApi, "/sponsors/", {}, arrayOf(SponsorSchema));
+  return yield call(callApi, "/sponsors/", {}, [SponsorSchema]);
 }
 
 /**
@@ -25,14 +31,14 @@ export function* fetchSponsorById({ payload }) {
  * Fetch all sponsors for a particular rides
  * @param {number} payload - ID of the ride
  */
-export function* fetchSponsorByRide({ payload }) {
-  return yield call(callApi, `/rides/${payload}/sponsors`, {}, arrayOf(SponsorSchema));
+export function* fetchSponsorsByRide({ payload }) {
+  return yield call(callApi, `/sponsors/?rides=${payload}`, {}, [SponsorSchema]);
 }
 
 export default function* root() {
   yield [
     fork(takeEvery, actions.FETCH_ALL_SPONSORS, fetchAllSponsors),
     fork(takeEvery, actions.FETCH_SPONSOR_BY_ID, fetchSponsorById),
-    fork(takeEvery, actions.FETCH_SPONSORS_BY_RIDE, fetchSponsorByRide)
+    fork(takeEvery, actions.FETCH_SPONSORS_BY_RIDE, fetchSponsorsByRide)
   ];
 }
