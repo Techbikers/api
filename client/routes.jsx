@@ -21,9 +21,6 @@ import Signup from "techbikers/auth/components/Signup";
 import Login from "techbikers/auth/components/Login";
 import PasswordReset from "techbikers/auth/containers/PasswordReset";
 
-// Sponsors
-import SponsorsPage from "techbikers/sponsors/containers/SponsorsPage";
-
 // Users
 import Account from "techbikers/users/containers/Account";
 import Profile from "techbikers/users/containers/Profile";
@@ -42,7 +39,6 @@ export default (
       <IndexRoute component={Home} />
       <Route path="about" component={About} />
       <Route path="the_charity" component={Charity} />
-      <Route path="sponsors" component={SponsorsPage} />
 
       // ## Authentication and Account
       <Route path="login" component={Login} />

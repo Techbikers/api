@@ -1,4 +1,4 @@
-import React, { Component, PropTypes } from "react";
+import React, { PropTypes } from "react";
 import { Link } from "react-router";
 import styled from "styled-components";
 
@@ -20,7 +20,7 @@ const NavLink = styled(Link)`
 
   &:hover {
     text-decoration: none;
-    ${props => props.color ? `color: ${props.color}` : ""}
+    ${props => (props.color ? `color: ${props.color}` : "")}
   }
 `;
 
@@ -47,7 +47,7 @@ const Section = styled.div`
   align-items: center;
 `;
 
-export default () => (
+const Header = () => (
   <Content role="header">
     <Navigation>
       <Section>
@@ -61,10 +61,6 @@ export default () => (
 
         <NavLink to="/about" color="#4494c7">
           About
-        </NavLink>
-
-        <NavLink to="/sponsors" color="#625398">
-          Sponsors
         </NavLink>
 
         <NavLink to="/the_charity" color="#76c15a">
@@ -82,3 +78,5 @@ export default () => (
     </Navigation>
   </Content>
 );
+
+export default Header;
