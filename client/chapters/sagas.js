@@ -1,17 +1,17 @@
 import { takeEvery, call, fork } from "redux-saga/effects";
-import { Schema, arrayOf } from "normalizr";
+import { schema } from "normalizr";
 
 import { callApi } from "techbikers/utils/api";
 import * as actions from "techbikers/chapters/actions";
 
-export const ChapterSchema = new Schema("chapter");
+export const ChapterSchema = new schema.Entity("chapter");
 
 /**
  * Call the API to fetch a chapter by its name
  * @param  {string} payload - The name of the chapter
  */
 export function* fetchChapterByName({ payload }) {
-  return yield call(callApi, `/chapters/?search=${payload}`, {}, arrayOf(ChapterSchema));
+  return yield call(callApi, `/chapters/?search=${payload}`, {}, [ChapterSchema]);
 }
 
 export default function* root() {

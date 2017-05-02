@@ -1,16 +1,16 @@
 import { takeEvery, call, fork } from "redux-saga/effects";
-import { Schema, arrayOf } from "normalizr";
+import { schema } from "normalizr";
 
 import { callApi } from "techbikers/utils/api";
 import * as actions from "techbikers/fundraisers/actions";
 
-export const FundraiserSchema = new Schema("fundraiser");
+export const FundraiserSchema = new schema.Entity("fundraiser");
 
 /**
  * Fetch all fundraisers
  */
 export function* fetchActiveFundraisers() {
-  return yield call(callApi, "/fundraisers/", {}, arrayOf(FundraiserSchema));
+  return yield call(callApi, "/fundraisers/", {}, [FundraiserSchema]);
 }
 
 export function* createFundraiser({ payload }) {

@@ -1,5 +1,5 @@
 import { takeEvery, call, fork, put } from "redux-saga/effects";
-import { Schema, arrayOf } from "normalizr";
+import { schema } from "normalizr";
 
 import { callApi } from "techbikers/utils/api";
 import { stripeCreateToken } from "techbikers/utils/payment";
@@ -8,19 +8,17 @@ import { ChapterSchema } from "techbikers/chapters/sagas";
 import { UserSchema } from "techbikers/users/sagas";
 import { addError } from "techbikers/errors/actions";
 
-export const RideSchema = new Schema("ride");
-export const RegistrationSchema = new Schema("registration");
-
-RideSchema.define({
+export const RegistrationSchema = new schema.Entity("registration");
+export const RideSchema = new schema.Entity("ride", {
   chapter: ChapterSchema,
-  riders: arrayOf(UserSchema)
+  riders: [UserSchema]
 });
 
 /**
  * Call the API to fetch all rides
  */
 export function* fetchAllRides() {
-  return yield call(callApi, "/rides/", {}, arrayOf(RideSchema));
+  return yield call(callApi, "/rides/", {}, [RideSchema]);
 }
 
 /**
@@ -36,7 +34,7 @@ export function* fetchRideById({ payload }) {
  * @param {number} payload - User ID
  */
 export function* fetchRidesByUser({ payload }) {
-  return yield call(callApi, `/riders/${payload}/rides`, {}, arrayOf(RideSchema));
+  return yield call(callApi, `/riders/${payload}/rides`, {}, [RideSchema]);
 }
 
 /**

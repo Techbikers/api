@@ -1,5 +1,5 @@
 import { takeEvery, call, fork, put } from "redux-saga/effects";
-import { Schema, arrayOf } from "normalizr";
+import { schema } from "normalizr";
 
 import { formatUserObject } from "techbikers/users/helpers";
 import { callApi, apiPut } from "techbikers/utils/api";
@@ -10,10 +10,8 @@ import {
   createErrorNotification
 } from "techbikers/notifications/actions";
 
-export const UserSchema = new Schema("user");
-
-UserSchema.define({
-  fundraisers: arrayOf(FundraiserSchema)
+export const UserSchema = new schema.Entity("user", {
+  fundraisers: [FundraiserSchema]
 });
 
 /**
@@ -29,7 +27,7 @@ export function* fetchUserById({ payload }) {
  * @param {number} payload - Ride ID
  */
 export function* fetchUsersByRide({ payload }) {
-  return yield call(callApi, `/rides/${payload}/riders`, {}, arrayOf(UserSchema));
+  return yield call(callApi, `/rides/${payload}/riders`, {}, [UserSchema]);
 }
 
 /**
