@@ -6,7 +6,7 @@ from server.models.sponsors import Sponsor, RideSponsor
 class RideSponsorSerializer(serializers.ModelSerializer):
   class Meta:
     model = RideSponsor
-    fields = ('ride', 'sponsor_level')
+    fields = ('sponsor', 'ride', 'sponsor_level')
 
 
 class SponsorSerializer(serializers.ModelSerializer):
@@ -14,3 +14,4 @@ class SponsorSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Sponsor
+        fields = ('id', 'organisation', 'description', 'logo', 'website', 'twitter', 'facebook', 'rides')

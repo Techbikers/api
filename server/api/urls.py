@@ -1,5 +1,5 @@
 from django.conf.urls import url, include
-from .views.rides import RidesList, RideDetails, RideRidersList, RideRiderDetails, RideRiderCharge, RideSponsorsList, RideRiderFundraiser
+from .views.rides import RidesList, RideDetails, RideRidersList, RideRiderDetails, RideRiderCharge, RideRiderFundraiser
 from .views.riders import RidersList, RiderProfile, RiderRides
 from .views.chapters import ChaptersList, ChapterDetails, ChapterMembersList
 from .views.sponsors import SponsorsList, SponsorDetails
@@ -17,7 +17,6 @@ ride_urls = [
     url(r'^(?P<id>\d+)/riders/(?P<rider_id>\d+)/charge', RideRiderCharge.as_view(), name='ride-rider-charge'),
     url(r'^(?P<id>\d+)/riders/(?P<rider_id>\d+)', RideRiderDetails.as_view(), name='ride-rider-details'),
     url(r'^(?P<id>\d+)/riders', RideRidersList.as_view(), name='ride-riders'),
-    url(r'^(?P<id>\d+)/sponsors', RideSponsorsList.as_view(), name='ride-sponsors'),
     url(r'^(?P<id>\d+)', RideDetails.as_view(), name='ride-details'),
     url(r'^$', RidesList.as_view(), name='rides-list')
 ]

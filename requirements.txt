@@ -16,4 +16,4 @@ raven==5.15.0
 django-slack==5.8.0
 cryptography==1.8.1
 django-cors-headers==2.0.2
-
+django-filter==1.0.2

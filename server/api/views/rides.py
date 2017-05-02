@@ -234,11 +234,3 @@ class RideRiderFundraiser(generics.RetrieveAPIView, generics.CreateAPIView):
             'ride': ride,
             'pageUrl': fundraiser.pageUrl
         })
-
-
-class RideSponsorsList(generics.ListAPIView):
-    model = Sponsor
-    serializer_class = SponsorSerializer
-
-    def get_queryset(self):
-        return Sponsor.objects.filter(rides__id=self.kwargs.get('id'))
