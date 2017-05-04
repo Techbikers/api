@@ -73,11 +73,12 @@ export default class RiderProfile extends Component {
                 <Link className="btn" to="/account">Edit Profile</Link> : ""}
             </header>
 
-            <div className="content text--centre">
-              <p>
-                <a className="btn" href={user.donationPage}>Sponsor {user.firstName}</a>
-              </p>
-            </div>
+            {user.donationPage &&
+              <div className="content text--centre">
+                <p>
+                  <a className="btn" href={user.donationPage}>Sponsor {user.firstName}</a>
+                </p>
+              </div>}
           </section>
 
           <section id="description">
