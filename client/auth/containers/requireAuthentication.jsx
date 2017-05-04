@@ -29,30 +29,34 @@ const wrapComponent = (WrappedComponent, overridePredicate) => {
     };
 
     componentWillMount() {
-      this.checkAuth();
+      this.checkAuth(this.props);
     }
 
-    componentDidUpdate() {
-      this.checkAuth();
+    componentWillUpdate(props) {
+      this.checkAuth(props);
     }
 
-    checkAuth() {
-      const { pathname, redirectToLogin } = this.props;
+    shouldComponentUpdate({ isAuthenticated, isOverridden }) {
+      return (isAuthenticated !== this.props.isAuthenticated) ||
+             (isOverridden !== this.props.isOverridden);
+    }
 
-      if (!this.allowedAccess()) {
+    checkAuth(props) {
+      const { pathname, redirectToLogin } = props;
+      if (!this.allowedAccess(props) && pathname !== "/login") {
         redirectToLogin(pathname);
       }
     }
 
-    allowedAccess() {
-      const { isAuthenticated, isOverridden } = this.props;
+    allowedAccess(props) {
+      const { isAuthenticated, isOverridden } = props;
       return isAuthenticated || isOverridden;
     }
 
     render() {
       const { isAuthenticated, isOverridden, ...props } = this.props; // eslint-disable-line no-unused-vars
 
-      return this.allowedAccess() ? <WrappedComponent {...props}/> : null;
+      return this.allowedAccess(this.props) ? <WrappedComponent {...props}/> : null;
     }
   }
 

@@ -23,16 +23,18 @@ const wrapComponent = WrappedComponent => {
     };
 
     componentWillMount() {
-      this.checkAuth();
+      this.checkAuth(this.props);
     }
 
-    componentDidUpdate() {
-      this.checkAuth();
+    componentWillUpdate(nextProps) {
+      this.checkAuth(nextProps);
     }
 
-    checkAuth() {
-      const { isAuthenticated, location } = this.props;
+    shouldComponentUpdate({ isAuthenticated }) {
+      return isAuthenticated !== this.props.isAuthenticated;
+    }
 
+    checkAuth({ isAuthenticated, location }) {
       if (isAuthenticated) {
         this.props.replace(location.state && location.state.returnTo || "/");
       }
