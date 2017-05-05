@@ -14,6 +14,7 @@ class Fundraiser(models.Model):
     pageUrl = models.URLField()
     signOnUrl = models.URLField(blank=True, null=True)
     currency = models.CharField(max_length = 3, default = 'GBP')
+    manuallyCreated = models.BooleanField(default=False)
 
     # Fundraising details
     fundraisingTarget = models.DecimalField(max_digits=6, decimal_places=2, blank=True, null=True)

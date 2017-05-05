@@ -97,6 +97,15 @@ def update_fundraisers():
                 # We don't have a local record for this fundraising page
                 logger.warning('Unexpected event page received', exc_info=True, extra={ 'eventPage': page })
 
+    # Now update pages that were manually created (the above won't do it as they
+    # aren't linked to an event). This is inefficient as it calls the Just Giving
+    # API for each individual fundraiser; there shouldn't be many of these pages
+    # though
+    manualFundraisers = Fundraiser.objects.filter(manuallyCreated=True, pageStatus=True)
+
+    for fundraiser in manualFundraisers:
+        fundraiser.fetch_details()
+
 
 def put_mailchimp_member_operation(user):
     # The hash of their email is used to identify them in Mailchimp
