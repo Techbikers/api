@@ -6,10 +6,6 @@ from server.models.sales import Sale
 from server.models.chapters import Chapter
 
 
-def now_plus_a_year():
-    return datetime.now().date() + timedelta(days=365)
-
-
 class Membership(models.Model):
     user = models.ForeignKey(User)
     sale = models.ForeignKey(Sale, blank=True, null=True)
@@ -18,11 +14,15 @@ class Membership(models.Model):
     # Membership start
     start_date = models.DateField(auto_now_add=True)
     # Membership end (defaults to 365 days later... doesn't account for leap years)
-    end_date = models.DateField(blank=True, null=True, default=now_plus_a_year())
+    end_date = models.DateField(blank=True, null=True)
 
     @property
     def expired(self):
         return self.end_date < datetime.now().date()
+
+    def save(self, *args, **kwargs):
+        self.end_date = datetime.now().date() + timedelta(days=365)
+        super().save(*args, **kwargs)
 
     class Meta:
         db_table = 'memberships'
