@@ -7,6 +7,21 @@ import { getUpcomingRides, getPastRides } from "techbikers/rides/selectors";
 import { RideShape } from "techbikers/rides/shapes";
 
 import RideCard from "techbikers/rides/components/RideCard";
+import Spinner from "techbikers/components/Spinner";
+
+const RidesList = ({ rides }) => (
+  <ul className="ride-list">
+    {rides.map(ride => (
+      <li key={ride.id}>
+        <RideCard {...ride} />
+      </li>
+    ))}
+  </ul>
+);
+
+RidesList.propTypes = {
+  rides: PropTypes.arrayOf(RideShape)
+};
 
 const mapStateToProps = state => ({
   upcoming: getUpcomingRides(state),
@@ -37,6 +52,10 @@ export default class Rides extends Component {
   render() {
     const { upcoming, past } = this.props;
 
+    if (upcoming.length === 0 || past.length === 0) {
+      return <Spinner />;
+    }
+
     return (
       <DocumentTitle title="Rides – Techbikers">
         <div className="content">
@@ -45,25 +64,13 @@ export default class Rides extends Component {
               <h1>Upcoming & Current Rides</h1>
             </header>
 
-            <ul className="ride-list">
-              {upcoming.map(ride => (
-                <li key={ride.id}>
-                  <RideCard {...ride} />
-                </li>
-              ))}
-            </ul>
+            <RidesList rides={upcoming} />
 
             <header>
               <h1>Past Rides</h1>
             </header>
 
-            <ul className="ride-list">
-              {past.reverse().map(ride => (
-                <li key={ride.id}>
-                  <RideCard {...ride} />
-                </li>
-              ))}
-            </ul>
+            <RidesList rides={past} />
           </section>
         </div>
       </DocumentTitle>

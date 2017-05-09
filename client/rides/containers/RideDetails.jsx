@@ -8,21 +8,19 @@ import { fetchRideById } from "techbikers/rides/actions";
 import { fetchSponsorsByRide } from "techbikers/sponsors/actions";
 import { getCurrentRide } from "techbikers/rides/selectors";
 import { updatePageMeta } from "techbikers/app/actions";
-import { getUsersOnCurrentRide } from "techbikers/users/selectors";
 import { getChapterForCurrentRide } from "techbikers/chapters/selectors";
 import { getSponsorsForCurrentRide } from "techbikers/sponsors/selectors";
 import { RideShape } from "techbikers/rides/shapes";
 import { ChapterShape } from "techbikers/chapters/shapes";
 
 import RideRegistration from "techbikers/rides/containers/RideRegistration";
-import RidersList from "techbikers/rides/components/RidersList";
+import ConnectedRidersList from "techbikers/rides/containers/ConnectedRidersList";
 import Timestamp from "techbikers/components/Timestamp";
 import Spinner from "techbikers/components/Spinner";
 
 const mapStateToProps = state => ({
   ride: getCurrentRide(state),
   chapter: getChapterForCurrentRide(state),
-  riders: getUsersOnCurrentRide(state),
   sponsors: getSponsorsForCurrentRide(state)
 });
 
@@ -40,7 +38,6 @@ export default class RidePage extends Component {
   static propTypes = {
     ride: RideShape,
     chapter: ChapterShape,
-    riders: PropTypes.arrayOf(PropTypes.object),
     fetchCurrentRide: PropTypes.func.isRequired,
     fetchSponsors: PropTypes.func.isRequired,
     updatePageMetaForCurrentRide: PropTypes.func.isRequired
@@ -64,7 +61,7 @@ export default class RidePage extends Component {
   }
 
   render() {
-    const { ride, chapter, riders } = this.props;
+    const { ride, chapter } = this.props;
 
     if (!ride) {
       return <Spinner>loading ride details</Spinner>;
@@ -88,7 +85,7 @@ export default class RidePage extends Component {
 
             <RideRegistration />
 
-            <RidersList riders={riders} />
+            <ConnectedRidersList />
 
             <section id="description">
               <div className="content" dangerouslySetInnerHTML={{ __html: ride.descriptionHtml }} />

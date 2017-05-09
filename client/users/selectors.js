@@ -14,7 +14,13 @@ export const getCurrentUser = createSelector(
 
 export const getUsersOnCurrentRide = createSelector(
   [userSelector, getCurrentRide],
-  (users, ride) => (ride ? ride.riders.map(id => users[id]) : [])
+  (users, ride) => (ride ? ride.riders.reduce((riders, id) => {
+    if (!users[id]) {
+      return [...riders];
+    } else {
+      return [...riders, users[id]];
+    }
+  }, []) : [])
 );
 
 export const getRidesForCurrentUser = createSelector(
