@@ -9,7 +9,10 @@ from server.models.rides import Ride, RideRiders
 
 class RideSerializer(serializers.ModelSerializer):
     chapter = ChapterSerializer()
-    riders = RiderSerializer(source='registered_riders', many=True, read_only=True)
+    riders = serializers.SerializerMethodField(source='get_riders', read_only=True)
+
+    def get_riders(self, ride):
+        return ride.registered_riders.values_list('id', flat=True)
 
     class Meta:
         model = Ride
