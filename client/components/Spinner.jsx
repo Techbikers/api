@@ -3,19 +3,22 @@ import styled, { keyframes } from "styled-components";
 
 import { green, purple } from "techbikers/utils/style-variables";
 
+/**
+ * Styled root component
+ */
 const Root = styled.div`
-  margin: 100px auto;
   max-width: 200px;
-
-  ${props => props.noMargin ? `
-    margin: -3px 0;
-  ` : ""}
+  margin: 0 auto;
+  padding: ${props => props.spacing};
 `;
 
 Root.propTypes = {
-  noMargin: PropTypes.bool
+  spacing: PropTypes.string
 };
 
+/**
+ * Styled loader container component
+ */
 const Loader = styled.div`
   margin: 0 auto;
   width: 1em;
@@ -24,6 +27,14 @@ const Loader = styled.div`
   font-size: ${props => props.size}px;
 `;
 
+Loader.propTypes = {
+  size: PropTypes.number
+};
+
+
+/**
+ * Styled spinning cube component
+ */
 const cubemove = keyframes`
   25% {
     transform: translateX(0.65em) rotate(-90deg) scale(0.5);
@@ -45,52 +56,45 @@ const Cube = styled.div`
   width: 0.35em;
   height: 0.35em;
   animation: ${cubemove} 1.8s infinite ease-in-out;
+  animation-delay: ${props => props.delay || "0s"};
+  background-color: ${props => (props.light ? "#FFFFFF" : `${props.color}`)};
 `;
 
-const Cube1 = styled(Cube)`
-  background-color: ${green};
-
-  ${props => props.light ? `
-    background-color: #FFFFFF;
-  ` : ""}
-`;
-
-Cube1.propTypes = {
-  light: PropTypes.bool
+Cube.propTypes = {
+  delay: PropTypes.string,
+  color: PropTypes.string
 };
 
-const Cube2 = styled(Cube)`
-  background-color: ${purple};
-  animation-delay: -0.9s;
-
-  ${props => props.light ? `
-    background-color: #FFFFFF;
-  ` : ""}
-`;
-
-Cube2.propTypes = {
-  light: PropTypes.bool
-};
-
+/**
+ * Styled message component
+ */
 const Message = styled.div`
   margin: 10px 0;
   text-align: center;
+  font-size: 1rem;
 `;
 
-const Spinner = ({ size = 56, light = false, noMargin = false, children }) => (
-  <Root noMargin={noMargin}>
+/**
+ * Final Spinner component
+ * @param {Number}  [size=56]         Size of the spinner
+ * @param {Boolean} [light=false]     Makes the spinner background white
+ * @param {String}  [spacing="100px"] Spacing around the spinner
+ */
+const Spinner = ({ size = 56, light = false, spacing = "100px", children }) => (
+  <Root spacing={spacing}>
     <Loader size={size}>
-      <Cube1 light={light} />
-      <Cube2 light={light} />
+      <Cube color={green} light={light} />
+      <Cube color={purple} delay="-0.9s" light={light} />
     </Loader>
-    {children && <Message>{children}</Message>}
+    {children &&
+      <Message>{children}</Message>}
   </Root>
 );
 
 Spinner.propTypes = {
+  spacing: PropTypes.string,
   size: PropTypes.number,
   light: PropTypes.bool,
-  noMargin: PropTypes.bool,
   children: PropTypes.node
 };
 
