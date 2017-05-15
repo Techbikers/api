@@ -61,7 +61,7 @@ def update_fundraisers():
     for ride in rides:
         # Fetch the event pages from Just Giving
         response = requests.get(
-            '{0}/event/{1}/pages'.format(settings.JUSTGIVING_API_URL, ride.just_giving_event_id),
+            '{0}/event/{1}/pages?pageSize=100'.format(settings.JUSTGIVING_API_URL, ride.just_giving_event_id),
             headers={
                 'x-api-key': settings.JUSTGIVING_API_KEY,
                 'x-application-key': settings.JUSTGIVING_API_SECRET,
