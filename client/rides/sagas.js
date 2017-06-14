@@ -107,6 +107,7 @@ export function* rideRegistrationPayment({ payload: { rideId, userId, amount, ca
   } else {
     // Something went wrong
     yield put(actions.registrationFailure());
+    yield result.error.map(error => put(addError("payment", "validation", error)));
     return false; // TODO
   }
 }
