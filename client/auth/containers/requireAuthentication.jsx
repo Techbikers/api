@@ -32,13 +32,8 @@ const wrapComponent = (WrappedComponent, overridePredicate) => {
       this.checkAuth(this.props);
     }
 
-    componentWillUpdate(props) {
-      this.checkAuth(props);
-    }
-
-    shouldComponentUpdate({ isAuthenticated, isOverridden }) {
-      return (isAuthenticated !== this.props.isAuthenticated) ||
-             (isOverridden !== this.props.isOverridden);
+    componentWillUpdate(nextProps) {
+      this.checkAuth(nextProps);
     }
 
     checkAuth(props) {
