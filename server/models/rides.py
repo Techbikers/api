@@ -125,6 +125,19 @@ class RideRiders(models.Model):
     def expired(self):
         return self.signup_expires is not None and datetime.now().date() > self.signup_expires
 
+    def get_fundraiser(self):
+        try:
+            return self.user.fundraiser_set.get(ride=self.ride)
+        except:
+            return None
+
+    # Get an associated fundraiser
+    fundraiser = cached_property(get_fundraiser, name='fundraiser')
+
+    @property
+    def has_fundraiser(self):
+        return self.get_fundraiser() is not None
+
     def save(self, *args, **kwargs):
         """
         On save, update timestamps

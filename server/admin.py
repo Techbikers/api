@@ -110,12 +110,17 @@ class RideAdmin(admin.ModelAdmin):
 
 @admin.register(RideRiders)
 class RideRidersAdmin(admin.ModelAdmin):
-    list_display = ('view_edit', 'ride_link', 'user_link', 'user', 'status', 'paid', 'signup_date')
+    list_display = ('view_edit', 'ride_link', 'user_link', 'user', 'status', 'paid', '_has_fundraiser', 'signup_date')
     list_filter = ('ride__name', 'status')
     search_fields = ('user__first_name', 'user__last_name', 'user__email')
-    readonly_fields = ('user_link', 'ride_link', 'sale_link', 'signup_date')
-    fields = ('user_link', 'user', 'ride_link', 'ride', 'signup_date', 'signup_expires', 'status', 'paid', 'sale_link', 'payload')
+    readonly_fields = ('user_link', 'ride_link', 'sale_link', 'signup_date', 'fundraiser_link')
+    fields = ('user_link', 'user', 'ride_link', 'ride', 'signup_date', 'signup_expires', 'status', 'paid', 'sale_link', 'fundraiser_link', 'payload')
     actions = ['invite_rider']
+
+    def _has_fundraiser(self, instance):
+        return instance.has_fundraiser
+    _has_fundraiser.boolean = True
+    _has_fundraiser.short_description = "Fundraiser"
 
     def invite_rider(self, request, queryset):
         for obj in queryset:
@@ -144,6 +149,12 @@ class RideRidersAdmin(admin.ModelAdmin):
         return '<a href="%s">%s</a>' % (change_url, obj.sale.charge_id)
     sale_link.short_description = 'Sale'
     sale_link.allow_tags = True
+
+    def fundraiser_link(self, obj):
+        change_url = urlresolvers.reverse('admin:server_fundraiser_change', args=(obj.fundraiser.id,))
+        return '%s %s (<a href="%s">View/Edit Fundraiser</a>)' % (obj.fundraiser.currency, obj.fundraiser.totalRaised, change_url)
+    fundraiser_link.short_description = 'Fundraiser'
+    fundraiser_link.allow_tags = True
 
 
 
