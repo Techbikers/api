@@ -104,6 +104,15 @@ class RideRiderCharge(generics.UpdateAPIView):
         request = self.request
         ride = Ride.objects.get(id=self.kwargs.get('id'))
         amount = request.data.get('amount')
+
+        # Check that there is actually space left on the ride
+        # People shouldn't get here if there isn't but let's make sure we don't
+        # charge anyone if there isn't enough space on the ride
+        if ride.spaces_left == 0:
+            raise ValidationError("This ride is already at full capacity")
+
+        # Determine how much we are charging this user (either the minimum
+        # contribution or more if they have explicitely specified more)
         if amount is None:
             amount = ride.price
         else:
@@ -112,6 +121,7 @@ class RideRiderCharge(generics.UpdateAPIView):
         if amount < ride.price:
             raise ValidationError("The amount can't be less than the price of the ride.")
 
+        # Go ahead and charge them!
         if ride.price > 0:
             try:
                 sale = Sale.charge(
