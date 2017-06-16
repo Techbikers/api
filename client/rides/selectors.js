@@ -21,7 +21,7 @@ export const getCurrentRide = createSelector(
 
 export const getUpcomingRides = createSelector(
   [getAllRides],
-  rides => rides.filter(ride => moment().isSameOrBefore(ride.startDate))
+  rides => rides.filter(ride => moment().isSameOrBefore(ride.endDate))
 );
 
 export const getPastRides = createSelector(
