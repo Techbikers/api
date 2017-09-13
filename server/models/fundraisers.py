@@ -17,12 +17,12 @@ class Fundraiser(models.Model):
     manuallyCreated = models.BooleanField(default=False)
 
     # Fundraising details
-    fundraisingTarget = models.DecimalField(max_digits=6, decimal_places=2, blank=True, null=True)
-    totalRaisedOffline = models.DecimalField(max_digits=6, decimal_places=2, blank=True, null=True)
-    totalRaisedOnline = models.DecimalField(max_digits=6, decimal_places=2, blank=True, null=True)
-    totalRaisedSms = models.DecimalField(max_digits=6, decimal_places=2, blank=True, null=True)
-    totalRaised = models.DecimalField(max_digits=6, decimal_places=2, blank=True, null=True)
-    giftAid = models.DecimalField(max_digits=6, decimal_places=2, blank=True, null=True)
+    fundraisingTarget = models.DecimalField(max_digits=16, decimal_places=2, blank=True, null=True)
+    totalRaisedOffline = models.DecimalField(max_digits=16, decimal_places=2, blank=True, null=True)
+    totalRaisedOnline = models.DecimalField(max_digits=16, decimal_places=2, blank=True, null=True)
+    totalRaisedSms = models.DecimalField(max_digits=16, decimal_places=2, blank=True, null=True)
+    totalRaised = models.DecimalField(max_digits=16, decimal_places=2, blank=True, null=True)
+    giftAid = models.DecimalField(max_digits=16, decimal_places=2, blank=True, null=True)
 
     @property
     def pageShortName(self):
