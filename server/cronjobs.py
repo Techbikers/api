@@ -19,28 +19,29 @@ def slack_daily_update():
     attachments = []
     rides = Ride.objects.filter(end_date__gte=datetime.now().date())
 
-    for ride in rides:
-        attachment = {
-            'color': 'good',
-            'title': ride.name,
-            'title_link': 'https://techbikers.com/rides/{0}/{1}'.format(ride.id, ride.slug),
-            'fields': [{
-                'title': 'Rider Registrations',
-                'value': ':white_check_mark: {0} registered, :envelope: {1} invited, :clock1: {2} pending'.format(
-                    ride.registered_riders.count(),
-                    ride.invited_riders.count(),
-                    ride.pending_riders.count()
-                ),
-                'short': False
-            }, {
-                'title': 'Fundraising Total',
-                'value': ':moneybag: {0} {1}'.format(ride.currency.upper(), ride.fundraising_total),
-                'short': False
-            }]
-        }
-        attachments.append(attachment)
+    if rides.count() > 0:
+        for ride in rides:
+            attachment = {
+                'color': 'good',
+                'title': ride.name,
+                'title_link': 'https://techbikers.com/rides/{0}/{1}'.format(ride.id, ride.slug),
+                'fields': [{
+                    'title': 'Rider Registrations',
+                    'value': ':white_check_mark: {0} registered, :envelope: {1} invited, :clock1: {2} pending'.format(
+                        ride.registered_riders.count(),
+                        ride.invited_riders.count(),
+                        ride.pending_riders.count()
+                    ),
+                    'short': False
+                }, {
+                    'title': 'Fundraising Total',
+                    'value': ':moneybag: {0} {1}'.format(ride.currency.upper(), ride.fundraising_total),
+                    'short': False
+                }]
+            }
+            attachments.append(attachment)
 
-    slack_message('slack/daily_update.slack', { 'number_rides': rides.count() }, attachments)
+        slack_message('slack/daily_update.slack', { 'number_rides': rides.count() }, attachments)
 
 
 def update_fundraisers():
