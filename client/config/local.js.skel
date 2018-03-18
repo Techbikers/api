@@ -1,3 +1,0 @@
-// copy this file to local.js and export anything here to override settings in the global config
-
-// export const API_ROOT = "http://localhost:8000/api"
