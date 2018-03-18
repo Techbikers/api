@@ -35,7 +35,7 @@ DATABASES = {
     }
 }
 
-ALLOWED_HOSTS = ['techbikers.com','spoke.techbikers.com']
+ALLOWED_HOSTS = ['api.techbikers.com']
 
 STRIPE_ENVIRONMENT = 'live'
 
