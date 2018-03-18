@@ -18,13 +18,6 @@ DATABASES = {
     }
 }
 
-WEBPACK_LOADER = {
-    'DEFAULT': {
-        'BUNDLE_DIR_NAME': 'dist/',
-        'STATS_FILE': os.path.join(BASE, 'webpack-stats.json')
-    }
-}
-
 # Sendgrid API key
 # This is used to handle all transactional mail
 SENDGRID_API_KEY = ''

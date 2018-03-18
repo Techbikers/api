@@ -35,13 +35,6 @@ DATABASES = {
     }
 }
 
-WEBPACK_LOADER = {
-    'DEFAULT': {
-        'BUNDLE_DIR_NAME': 'dist/',
-        'STATS_FILE': os.path.join(BASE, 'webpack-stats-prod.json')
-    }
-}
-
 ALLOWED_HOSTS = ['techbikers.com','spoke.techbikers.com']
 
 STRIPE_ENVIRONMENT = 'live'

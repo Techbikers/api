@@ -139,7 +139,6 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'raven.contrib.django.raven_compat',
-    'webpack_loader',
     'django.contrib.admin',
     'rest_framework',
     'rest_framework_jwt',
