@@ -11,5 +11,5 @@ urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
 
     # API
-    url(r'^api/', include('server.api.urls')),
+    url(r'^', include('server.api.urls')),
 ]
