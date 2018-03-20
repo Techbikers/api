@@ -5,11 +5,6 @@ from base import *
 
 DEBUG = False
 
-INSTALLED_APPS += (
-    # other apps for production site
-    "gunicorn",
-)
-
 CRONJOBS = [
     ('0 9 * * *', 'server.cronjobs.slack_daily_update'),
     ('*/15 * * * *', 'server.cronjobs.update_fundraisers'),

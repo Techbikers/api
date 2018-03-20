@@ -1,0 +1,25 @@
+# [START django_app]
+runtime: python27
+api_version: 1
+threadsafe: yes
+
+handlers:
+- url: .*
+  script: server.wsgi.application
+
+libraries:
+- name: MySQLdb
+  version: 1.2.5
+- name: PIL
+  version: "1.1.7"
+- name: ssl
+  version: "2.7.11"
+# [END django_app]
+
+skip_files:
+- ^(.*/)?#.*#$
+- ^(.*/)?.*~$
+- ^(.*/)?.*\.py[co]$
+- ^(.*/)?.*/RCS/.*$
+- ^(.*/)?\..*$
+- ^env/.*$
