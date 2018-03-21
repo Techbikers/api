@@ -143,7 +143,6 @@ INSTALLED_APPS = (
     'server.api',
     'codemirror',
     'django_slack',
-    'django_crontab',
     'corsheaders'
 )
 

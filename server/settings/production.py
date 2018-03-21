@@ -5,16 +5,6 @@ from base import *
 
 DEBUG = False
 
-CRONJOBS = [
-    ('0 9 * * *', 'server.cronjobs.slack_daily_update'),
-    ('*/15 * * * *', 'server.cronjobs.update_fundraisers'),
-    ('* */2 * * *', 'server.cronjobs.batch_update_mailchimp_list')
-]
-CRONTAB_COMMAND_PREFIX = 'cd /home/django/techbikers.com/releases/current;'
-CRONTAB_PYTHON_EXECUTABLE = '/home/django/techbikers.com/bin/python'
-CRONTAB_DJANGO_MANAGE_PATH = 'manage.py'
-CRONTAB_DJANGO_SETTINGS_MODULE = 'server.settings.production'
-
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTOCOL', 'https')
 
 DEFAULT_DB_ALIAS = 'default'
