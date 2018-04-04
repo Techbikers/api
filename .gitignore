@@ -9,4 +9,5 @@ server/settings/local.py
 
 venv/
 build/
+lib/
 logs/
