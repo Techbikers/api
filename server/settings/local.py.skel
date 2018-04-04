@@ -53,13 +53,3 @@ JWT_AUTH['JWT_AUDIENCE'] = ''
 JUSTGIVING_API_KEY = ''
 JUSTGIVING_API_SECRET = ''
 JUSTGIVING_API_URL = 'https://api.sandbox.justgiving.com/v1'
-
-# Local Logging
-# This will output logs into the project directory during development
-LOGGING['handlers']['log_file'] = {
-    'level': 'DEBUG',
-    'class': 'logging.FileHandler',
-    'filters': ['require_debug_false'],
-    'filename': os.path.join(BASE, 'logs/debug.log'),
-    'formatter': 'verbose',
-}

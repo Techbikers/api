@@ -215,16 +215,6 @@ LOGGING = {
             'level': 'ERROR',
             'handlers': ['console'],
             'propagate': False,
-        },
-        'raven': {
-            'level': 'DEBUG',
-            'handlers': ['log_file'],
-            'propagate': False,
-        },
-        'sentry.errors': {
-            'level': 'DEBUG',
-            'handlers': ['log_file'],
-            'propagate': False,
         }
     }
 }
