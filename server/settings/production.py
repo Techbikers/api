@@ -21,7 +21,7 @@ DATABASES = {
     }
 }
 
-ALLOWED_HOSTS = ['api.techbikers.com']
+ALLOWED_HOSTS = ['api.techbikers.com', 'nimble-airline-178615.appspot.com']
 
 STRIPE_ENVIRONMENT = 'live'
 
