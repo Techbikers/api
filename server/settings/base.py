@@ -36,7 +36,7 @@ AUTH0_API_URL = 'https://techbikers.eu.auth0.com/api/v2'
 AUTH0_TOKEN_URL = 'https://techbikers.eu.auth0.com/oauth/token'
 AUTH0_CLIENT_AUDIENCE = 'https://techbikers.eu.auth0.com/api/v2/'
 # URL for the public certificate used to validate tokens
-AUTH0_PUBLIC_CERTIFICATE_URL = 'https://techbikers.eu.auth0.com/cer'
+AUTH0_PUBLIC_CERTIFICATE_URL = 'https://techbikers.eu.auth0.com/pem'
 
 JWT_AUTH = {
     'JWT_AUTH_HEADER_PREFIX': 'Bearer',

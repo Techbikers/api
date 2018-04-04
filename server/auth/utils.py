@@ -1,9 +1,11 @@
 import urllib
 import requests
 import jwt
+import ssl
 from datetime import datetime
-from cryptography.x509 import load_pem_x509_certificate
-from cryptography.hazmat.backends import default_backend
+from binascii import a2b_base64
+from Crypto.PublicKey import RSA
+from Crypto.Util.asn1 import DerSequence
 from django.core.cache import cache
 from django.conf import settings
 
@@ -14,9 +16,22 @@ def get_auth0_public_key(cert_url):
     """
 
     cert_file = urllib.urlopen(cert_url)
-    cert_obj = load_pem_x509_certificate(cert_file.read(), default_backend())
+    cert_obj = cert_file.read()
 
-    return cert_obj.public_key()
+    # Convert from PEM to DER
+    der = ssl.PEM_cert_to_DER_cert(cert_obj)
+
+    # Extract subjectPublicKeyInfo field from X.509 certificate (see RFC3280)
+    cert = DerSequence()
+    cert.decode(der)
+    tbsCertificate = DerSequence()
+    tbsCertificate.decode(cert[0])
+    subjectPublicKeyInfo = tbsCertificate[6]
+
+    # Initialize RSA key
+    rsa_key = RSA.importKey(subjectPublicKeyInfo)
+
+    return rsa_key
 
 
 def get_auth0_management_token():
