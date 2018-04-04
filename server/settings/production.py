@@ -12,12 +12,12 @@ DEFAULT_DB_ALIAS = 'default'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': (os.path.join(BASE,'..','..','db','techbikers.sqlite')),
-        'USER': '',
-        'PASSWORD': '',
-        'HOST': '',
-        'PORT': '',
+        'ENGINE': 'django.db.backends.mysql',
+        'HOST': '/cloudsql/nimble-airline-178615:europe-west1:techbikers-db',
+        'PORT': '3306',
+        'NAME': 'techbikers',
+        'USER': Settings.get('TECHBIKERS_DB_USER'),
+        'PASSWORD': Settings.get('TECHBIKERS_DB_PASSWORD')
     }
 }
 
