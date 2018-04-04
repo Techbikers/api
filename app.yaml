@@ -6,6 +6,8 @@ threadsafe: yes
 handlers:
 - url: .*
   script: server.wsgi.application
+  secure: always
+  redirect_http_response_code: 301
 
 libraries:
 - name: MySQLdb
