@@ -2,6 +2,7 @@ import os
 import json
 
 from base import *
+from server.settings.settings_model import Settings
 
 DEBUG = False
 
@@ -24,40 +25,38 @@ ALLOWED_HOSTS = ['api.techbikers.com']
 
 STRIPE_ENVIRONMENT = 'live'
 
-with open('../../production.json') as configFile:
-    config = json.load(configFile);
-    SECRET_KEY = config.get('secret_key')
+SECRET_KEY = Settings.get('SECRET_KEY')
 
-    email = config.get('email')
-    # Sendgrid API
-    SENDGRID_API_KEY = email.get('sendgrid_api_key')
-    # Mailchimp API
-    MAILCHIMP_API_URL = email.get('mailchimp_api_url')
-    MAILCHIMP_API_KEY = email.get('mailchimp_api_key')
-    MAILCHIMP_CORE_LIST_ID = email.get('mailchimp_core_list_id')
-    # Just Giving API
-    JUSTGIVING_API_KEY = config.get('justgiving_api_key')
-    JUSTGIVING_API_SECRET = config.get('justgiving_api_secret')
-    JUSTGIVING_API_URL = 'https://api.justgiving.com/v1'
+# Sendgrid API
+SENDGRID_API_KEY = Settings.get('SENDGRID_API_KEY')
 
-    # Slack Bot Settings
-    SLACK_CHANNEL = '#updates'
-    SLACK_TOKEN = config.get('slack_bot_token')
-    SLACK_BACKEND = 'django_slack.backends.UrllibBackend'
+# Mailchimp API
+MAILCHIMP_API_URL = Settings.get('MAILCHIMP_API_URL')
+MAILCHIMP_API_KEY = Settings.get('MAILCHIMP_API_KEY')
+MAILCHIMP_CORE_LIST_ID = Settings.get('MAILCHIMP_CORE_LIST_ID')
 
-    # Auth0 Settings
-    auth0 = config.get('auth0')
-    AUTH0_CLIENT_ID = auth0.get('client_id')
-    AUTH0_CLIENT_SECRET = auth0.get('client_secret')
+# Just Giving API
+JUSTGIVING_API_KEY = Settings.get('JUSTGIVING_API_KEY')
+JUSTGIVING_API_SECRET = Settings.get('JUSTGIVING_API_SECRET')
+JUSTGIVING_API_URL = 'https://api.justgiving.com/v1'
 
-    # Auth0 uses the client ID as the audience (note that this is not the same
-    # client as above). We need to set this so we can properly verify tokens
-    # sent to us during API requests
-    JWT_AUTH['JWT_AUDIENCE'] = auth0.get('web_client_id')
+# Slack Bot Settings
+SLACK_CHANNEL = '#updates'
+SLACK_TOKEN = Settings.get('SLACK_BOT_TOKEN')
+SLACK_BACKEND = 'django_slack.backends.UrllibBackend'
 
-    RAVEN_CONFIG = {
-        'dsn': config.get('sentry_dsn')
-    }
+# Auth0 Settings
+AUTH0_CLIENT_ID = Settings.get('AUTH0_CLIENT_ID')
+AUTH0_CLIENT_SECRET = Settings.get('AUTH0_CLIENT_SECRET')
+
+# Auth0 uses the client ID as the audience (note that this is not the same
+# client as above). We need to set this so we can properly verify tokens
+# sent to us during API requests
+JWT_AUTH['JWT_AUDIENCE'] = Settings.get('AUTH0_WEB_CLIENT_ID')
+
+RAVEN_CONFIG = {
+    'dsn': Settings.get('SENTRY_DSN')
+}
 
 MEDIA_ROOT = '/home/django/techbikers.com/media'
 STATIC_ROOT = '/home/django/techbikers.com/static'
