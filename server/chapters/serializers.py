@@ -1,5 +1,6 @@
 from rest_framework import serializers
-from server.models.chapters import Chapter
+
+from server.chapters.models import Chapter
 
 
 class ChapterSerializer(serializers.ModelSerializer):

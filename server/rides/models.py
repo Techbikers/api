@@ -7,7 +7,7 @@ from django.core.mail import EmailMultiAlternatives
 from django.template.loader import get_template
 from django.template import Context
 
-from server.models.chapters import Chapter
+from server.chapters.models import Chapter
 from server.models.sales import Sale
 
 
