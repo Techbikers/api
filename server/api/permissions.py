@@ -1,6 +1,6 @@
 from rest_framework import permissions
 from rest_framework.exceptions import PermissionDenied
-from server.models.rides import RideRiders
+from server.rides.models import RideRiders
 
 
 class IsOwner(permissions.BasePermission):

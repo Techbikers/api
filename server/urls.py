@@ -11,5 +11,6 @@ urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
 
     # API
+    url(r'^rides/', include('server.rides.urls')),
     url(r'^', include('server.api.urls')),
 ]

@@ -12,15 +12,6 @@ auth_urls = [
     url(r'^account', UserDetails.as_view(), name='auth-account')
 ]
 
-ride_urls = [
-    url(r'^(?P<id>\d+)/riders/(?P<rider_id>\d+)/fundraiser', RideRiderFundraiser.as_view(), name='ride-rider-fundraiser'),
-    url(r'^(?P<id>\d+)/riders/(?P<rider_id>\d+)/charge', RideRiderCharge.as_view(), name='ride-rider-charge'),
-    url(r'^(?P<id>\d+)/riders/(?P<rider_id>\d+)', RideRiderDetails.as_view(), name='ride-rider-details'),
-    url(r'^(?P<id>\d+)/riders', RideRidersList.as_view(), name='ride-riders'),
-    url(r'^(?P<id>\d+)', RideDetails.as_view(), name='ride-details'),
-    url(r'^$', RidesList.as_view(), name='rides-list')
-]
-
 rider_urls = [
     url(r'^(?P<id>\d+)/rides', RiderRides.as_view(), name='rider-rides'),
     url(r'^(?P<id>\d+)', RiderProfile.as_view(), name='rider-profile'),
@@ -44,7 +35,6 @@ fundraiser_urls = [
 
 urlpatterns = [
     url(r'^auth/', include(auth_urls)),
-    url(r'^rides/', include(ride_urls)),
     url(r'^riders/', include(rider_urls)),
     url(r'^chapters/', include(chapter_urls)),
     url(r'^sponsors/', include(sponsor_urls)),

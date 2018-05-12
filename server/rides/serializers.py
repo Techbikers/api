@@ -2,9 +2,10 @@ import requests
 from django.conf import settings
 from rest_framework import serializers
 from rest_framework.validators import UniqueTogetherValidator
+
 from server.api.serializers.chapters import ChapterSerializer
-from .riders import RiderSerializer
-from server.models.rides import Ride, RideRiders
+from server.rides.serializers import RiderSerializer
+from server.rides.models import Ride, RideRiders
 
 
 class RideSerializer(serializers.ModelSerializer):
