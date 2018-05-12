@@ -1,5 +1,6 @@
 from rest_framework import serializers
-from server.models.fundraisers import Fundraiser
+
+from server.fundraisers.models import Fundraiser
 
 
 class FundraiserSerializer(serializers.ModelSerializer):

@@ -12,6 +12,7 @@ urlpatterns = [
 
     # API
     url(r'^chapters/', include('server.chapters.urls')),
+    url(r'^fundraisers/', include('server.fundraisers.urls')),
     url(r'^rides/', include('server.rides.urls')),
     url(r'^riders/', include('server.riders.urls')),
     url(r'^', include('server.api.urls')),

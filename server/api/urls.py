@@ -17,12 +17,7 @@ sponsor_urls = [
     url(r'^$', SponsorsList.as_view(), name='sponsor-list')
 ]
 
-fundraiser_urls = [
-    url(r'^$', FundraisersList.as_view(), name='fundraiser-list')
-]
-
 urlpatterns = [
     url(r'^auth/', include(auth_urls)),
     url(r'^sponsors/', include(sponsor_urls)),
-    url(r'^fundraisers/', include(fundraiser_urls))
 ]
