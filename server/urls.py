@@ -12,5 +12,6 @@ urlpatterns = [
 
     # API
     url(r'^rides/', include('server.rides.urls')),
+    url(r'^riders/', include('server.riders.urls')),
     url(r'^', include('server.api.urls')),
 ]

@@ -1,10 +1,11 @@
 from django.contrib.auth.models import User
 from rest_framework import generics
 from rest_framework.permissions import AllowAny
+
 from server.api.permissions import IsOwnerOrReadOnly
-from server.api.serializers.riders import RiderSerializer
-from server.api.serializers.rides import RideSerializer
-from server.models.rides import Ride
+from server.riders.serializers import RiderSerializer
+from server.rides.serializers import RideSerializer
+from server.rides.models import Ride
 
 
 class RidersList(generics.ListCreateAPIView):

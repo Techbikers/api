@@ -15,7 +15,7 @@ from server.models.sales import Sale
 from server.models.sponsors import Sponsor
 from server.models.fundraisers import Fundraiser
 from server.rides.serializers import RideSerializer, RideRiderSerializer
-from server.api.serializers.riders import RiderSerializer
+from server.riders.serializers import RiderSerializer
 from server.api.serializers.sponsors import SponsorSerializer
 from server.api.serializers.fundraisers import FundraiserSerializer
 from server.api.permissions import IsOwner, RiderIsAccepted

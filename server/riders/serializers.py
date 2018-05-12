@@ -1,8 +1,8 @@
 import hashlib
-
 from django.contrib.auth.models import User
 from rest_framework import serializers
-from server.models.rides import RideRiders
+
+from server.rides.models import RideRiders
 from server.api.serializers.fundraisers import FundraiserSerializer
 
 
