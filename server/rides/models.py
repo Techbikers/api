@@ -8,7 +8,7 @@ from django.template.loader import get_template
 from django.template import Context
 
 from server.chapters.models import Chapter
-from server.models.sales import Sale
+from server.sales.models import Sale
 
 
 class Ride(models.Model):

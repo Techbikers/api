@@ -11,7 +11,7 @@ from django.utils.text import slugify
 from django.conf import settings
 
 from server.rides.models import Ride, RideRiders
-from server.models.sales import Sale
+from server.sales.models import Sale
 from server.models.sponsors import Sponsor
 from server.fundraisers.models import Fundraiser
 from server.rides.serializers import RideSerializer, RideRiderSerializer

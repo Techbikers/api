@@ -5,7 +5,7 @@ from rest_framework import generics, filters, status
 from rest_framework.response import Response
 
 from server.chapters.models import Chapter
-from server.models.sales import Sale
+from server.sales.models import Sale
 from server.chapters.serializers import ChapterSerializer
 from server.riders.serializers import RiderSerializer
 from server.api.serializers.memberships import MembershipSerializer
