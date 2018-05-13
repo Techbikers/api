@@ -4,8 +4,6 @@ from django.contrib.auth.models import User
 from django.db.models.signals import post_save, pre_delete
 from django.dispatch import receiver
 
-from server.models.memberships import Membership
-
 
 class RiderProfile(models.Model):
     # Link to main user record
@@ -29,10 +27,6 @@ class RiderProfile(models.Model):
             return fundraisers.last().pageUrl
         else:
             return None
-
-    @property
-    def is_member(self):
-        return Membership.objects.filter(user=self.user, end_date__gte=datetime.now()).exists()
 
     @receiver(post_save, sender=User)
     def create_profile_for_user(sender, instance=None, created=False, **kwargs):

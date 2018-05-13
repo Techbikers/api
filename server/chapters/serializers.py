@@ -12,4 +12,4 @@ class ChapterSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Chapter
-        fields = ('id', 'name', 'description', 'public_key', 'membership_fee', 'currency', 'rides')
+        fields = ('id', 'name', 'description', 'public_key', 'currency', 'rides')
