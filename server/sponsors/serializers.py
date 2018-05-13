@@ -1,6 +1,6 @@
 from rest_framework import serializers
-from server.models.sponsors import Sponsor, RideSponsor
 
+from server.sponsors.models import Sponsor, RideSponsor
 
 
 class RideSponsorSerializer(serializers.ModelSerializer):

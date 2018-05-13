@@ -12,12 +12,6 @@ auth_urls = [
     url(r'^account', UserDetails.as_view(), name='auth-account')
 ]
 
-sponsor_urls = [
-    url(r'^(?P<id>\d+)', SponsorDetails.as_view(), name='sponsor-details'),
-    url(r'^$', SponsorsList.as_view(), name='sponsor-list')
-]
-
 urlpatterns = [
     url(r'^auth/', include(auth_urls)),
-    url(r'^sponsors/', include(sponsor_urls)),
 ]

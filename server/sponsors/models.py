@@ -5,7 +5,7 @@ from django.conf import settings
 from django.dispatch import receiver
 from django.contrib.auth.models import User
 
-from server.models.rides import Ride
+from server.rides.models import Ride
 
 def generate_filename(instance, filename):
     ext = filename.split('.')[-1]
@@ -27,7 +27,7 @@ class Sponsor(models.Model):
     def __unicode__(self):
         return self.organisation
 
-    @receiver(post_delete, sender='server.Sponsor')
+    @receiver(post_delete, sender='sponsors.Sponsor')
     def delete_sponsor_logo(sender, instance=None, **kwargs):
         storage, path = instance.logo.storage, instance.logo.path
         storage.delete(path)

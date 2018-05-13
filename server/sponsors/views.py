@@ -1,6 +1,7 @@
 from rest_framework import generics
-from server.models.sponsors import Sponsor
-from server.api.serializers.sponsors import SponsorSerializer
+
+from server.sponsors.models import Sponsor
+from server.sponsors.serializers import SponsorSerializer
 
 
 class SponsorsList(generics.ListAPIView):
