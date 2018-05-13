@@ -6,13 +6,12 @@ from django.contrib.auth.admin import UserAdmin
 from django.core import urlresolvers
 from codemirror import CodeMirrorTextarea
 
-from server.models.riders import RiderProfile
-from server.models.rides import Ride, RideRiders
-from server.models.chapters import Chapter
-from server.models.sales import Sale
-from server.models.memberships import Membership
-from server.models.sponsors import Sponsor, RideSponsor
-from server.models.fundraisers import Fundraiser
+from server.riders.models import RiderProfile
+from server.rides.models import Ride, RideRiders
+from server.chapters.models import Chapter
+from server.sales.models import Sale
+from server.sponsors.models import Sponsor, RideSponsor
+from server.fundraisers.models import Fundraiser
 
 
 # USER ADMIN
@@ -37,7 +36,7 @@ class RiderProfileAdmin(admin.ModelAdmin):
     ordering = ['user']
     readonly_fields = ('user_link',)
     fields = ('user_link', 'company', 'website', 'twitter', 'biography', 'statement', 'donation_page')
-    list_display = ('user', 'company', 'twitter', 'is_member')
+    list_display = ('user', 'company', 'twitter')
     list_filter = ('company',)
 
     def user_link(self, obj):
@@ -210,38 +209,6 @@ class FundraisersAdmin(admin.ModelAdmin):
 class ChapterAdmin(admin.ModelAdmin):
     ordering = ['name']
     list_display = ('name',)
-
-
-
-
-# CHAPTER MEMBERSHIP ADMIN
-# ------------------------
-
-@admin.register(Membership)
-class MembershipAdmin(admin.ModelAdmin):
-    list_display = ('chapter', 'user_link', 'user', 'start_date', 'end_date', 'expired')
-    list_filter = ('chapter__name',)
-    search_fields = ('user__first_name', 'user__last_name', 'user__email')
-    readonly_fields = ('user_link', 'chapter_link', 'start_date', 'sale_link')
-    fields = ('user_link', 'user', 'chapter_link', 'chapter', 'start_date', 'end_date', 'sale_link')
-
-    def user_link(self, obj):
-        change_url = urlresolvers.reverse('admin:auth_user_change', args=(obj.user.id,))
-        return '<a href="%s">%s %s</a>' % (change_url, obj.user.first_name, obj.user.last_name)
-    user_link.short_description = 'User'
-    user_link.allow_tags = True
-
-    def chapter_link(self, obj):
-        change_url = urlresolvers.reverse('admin:server_chapter_change', args=(obj.chapter.id,))
-        return '<a href="%s">%s</a>' % (change_url, obj.chapter.name)
-    chapter_link.short_description = 'Chapter'
-    chapter_link.allow_tags = True
-
-    def sale_link(self, obj):
-        change_url = urlresolvers.reverse('admin:server_sale_change', args=(obj.sale.id,))
-        return '<a href="%s">%s</a>' % (change_url, obj.sale.charge_id)
-    sale_link.short_description = 'Sale'
-    sale_link.allow_tags = True
 
 
 

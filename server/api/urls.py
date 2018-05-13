@@ -16,5 +16,4 @@ urlpatterns = [
     url(r'^rides/', include('server.rides.urls')),
     url(r'^riders/', include('server.riders.urls')),
     url(r'^sponsors/', include('server.sponsors.urls')),
-    url(r'^', include('server.api.urls')),
 ]
