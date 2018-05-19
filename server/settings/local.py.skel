@@ -13,8 +13,12 @@ MEDIA_ROOT = ''
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': (os.path.join(BASE, 'techbikers.sqlite'))
+        'ENGINE': 'django.db.backends.mysql',
+        'HOST': os.environ['DB_SERVICE'],
+        'PORT': os.environ['DB_PORT'],
+        'NAME': os.environ['MYSQL_DATABASE'],
+        'USER': os.environ['MYSQL_USER'],
+        'PASSWORD': os.environ['MYSQL_PASSWORD']
     }
 }
 

@@ -1,0 +1,18 @@
+version: '3'
+
+services:
+  db:
+    image: mysql:5.7
+    env_file:
+      - .env
+  api:
+    build: .
+    command: python manage.py runserver 0.0.0.0:8000 --settings=server.settings.local
+    volumes:
+      - .:/techbikers
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+    env_file:
+      - .env
