@@ -1,0 +1,10 @@
+cron:
+- description: "Daily Slack Update"
+  url: /tasks/daily-slack-update
+  schedule: every day 09:00
+- description: "Update Fundraisers"
+  url: /tasks/update-fundraisers
+  schedule: every 15 minutes
+- description: "Update Mailchimp List"
+  url: /tasks/update-mailchimp-list
+  schedule: every 2 hours

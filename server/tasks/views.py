@@ -6,19 +6,25 @@ from datetime import datetime
 from django.conf import settings
 from django.contrib.auth.models import User
 from django_slack import slack_message
-from server.models.fundraisers import Fundraiser
-from server.models.rides import Ride, RideRiders
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
 
-logger = logging.getLogger("django_crontab.crontab")
+from server.fundraisers.models import Fundraiser
+from server.rides.models import Ride, RideRiders
 
 
-def slack_daily_update():
+logger = logging.getLogger("cronjobs")
+
+@api_view()
+def daily_slack_update(request):
     """
     Posts to the Techbikers Slack with a daily update on the current rides
     """
     attachments = []
     rides = Ride.objects.filter(end_date__gte=datetime.now().date())
 
+    # If we have some current or upcoming rides, bundle together the
+    # stats for each one ready to send to Slack
     if rides.count() > 0:
         for ride in rides:
             attachment = {
@@ -41,10 +47,15 @@ def slack_daily_update():
             }
             attachments.append(attachment)
 
+        # Post the update to Slack
         slack_message('slack/daily_update.slack', { 'number_rides': rides.count() }, attachments)
 
+        # Return all good
+        return Response({'message': 'success'})
 
-def update_fundraisers():
+
+@api_view()
+def update_fundraisers(request):
     """
     Gets the latest fundraising stats for each ride by calling the JustGiving API
     to get the event fundraisers (using the event ID for each ride) and then
@@ -107,6 +118,9 @@ def update_fundraisers():
     for fundraiser in manualFundraisers:
         fundraiser.fetch_details()
 
+    # Return all good
+    return Response({'message': 'success'})
+
 
 def put_mailchimp_member_operation(user):
     # The hash of their email is used to identify them in Mailchimp
@@ -147,8 +161,8 @@ def put_mailchimp_member_operation(user):
 
     return operation
 
-
-def batch_update_mailchimp_list():
+@api_view()
+def update_mailchimp_list(request):
     users = User.objects.all()
     batch_operations = []
 
@@ -164,4 +178,4 @@ def batch_update_mailchimp_list():
         data=json.dumps({'operations': batch_operations})
     )
 
-    return response
+    return Response({'message': 'success'})
