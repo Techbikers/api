@@ -1,0 +1,527 @@
+{
+  "swagger" : "2.0",
+  "info" : {
+    "description" : "No description",
+    "version" : "1.0.0",
+    "title" : "techbikers"
+  },
+  "consumes" : [ "application/json" ],
+  "produces" : [ "application/json" ],
+  "paths" : {
+    "/auth/account" : {
+      "get" : {
+        "summary" : "Account details",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "Status 200"
+          }
+        }
+      }
+    },
+    "/auth/verify" : {
+      "get" : {
+        "summary" : "Verify account",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "Status 200"
+          }
+        }
+      }
+    },
+    "/chapters" : {
+      "get" : {
+        "summary" : "Chapter list",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "Status 200"
+          }
+        }
+      }
+    },
+    "/chapters/{chapterId}" : {
+      "get" : {
+        "summary" : "Chapter details",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "Status 200"
+          }
+        }
+      },
+      "parameters" : [ {
+        "name" : "chapterId",
+        "in" : "path",
+        "required" : true,
+        "type" : "string"
+      } ]
+    },
+    "/chapters/{chapterId}/members" : {
+      "get" : {
+        "summary" : "Chapter members",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "Status 200"
+          }
+        }
+      },
+      "parameters" : [ {
+        "name" : "chapterId",
+        "in" : "path",
+        "required" : true,
+        "type" : "string"
+      } ]
+    },
+    "/fundraisers" : {
+      "get" : {
+        "summary" : "Fundraiser list",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "Status 200"
+          }
+        }
+      }
+    },
+    "/rides" : {
+      "get" : {
+        "summary" : "Ride list",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "Status 200"
+          }
+        }
+      }
+    },
+    "/rides/{rideId}" : {
+      "get" : {
+        "summary" : "Ride details",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "Status 200"
+          }
+        }
+      },
+      "parameters" : [ {
+        "name" : "rideId",
+        "in" : "path",
+        "required" : true,
+        "type" : "string"
+      } ]
+    },
+    "/rides/{rideId}/riders" : {
+      "get" : {
+        "summary" : "Ride riders list",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "Status 200"
+          }
+        }
+      },
+      "post" : {
+        "summary" : "Register ride rider",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "Status 200"
+          }
+        }
+      },
+      "parameters" : [ {
+        "name" : "rideId",
+        "in" : "path",
+        "required" : true,
+        "type" : "string"
+      } ]
+    },
+    "/rides/{rideId}/riders/{riderId}" : {
+      "get" : {
+        "summary" : "Ride rider details",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "Status 200"
+          }
+        }
+      },
+      "parameters" : [ {
+        "name" : "rideId",
+        "in" : "path",
+        "required" : true,
+        "type" : "string"
+      }, {
+        "name" : "riderId",
+        "in" : "path",
+        "required" : true,
+        "type" : "string"
+      } ]
+    },
+    "/rides/{rideId}/riders/{riderId}/charge" : {
+      "put" : {
+        "summary" : "Charge ride rider",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "Status 200"
+          }
+        }
+      },
+      "parameters" : [ {
+        "name" : "rideId",
+        "in" : "path",
+        "required" : true,
+        "type" : "string"
+      }, {
+        "name" : "riderId",
+        "in" : "path",
+        "required" : true,
+        "type" : "string"
+      } ]
+    },
+    "/rides/{rideId}/riders/{riderId}/fundraiser" : {
+      "post" : {
+        "summary" : "Set up fundraising page for ride rider",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "Status 200"
+          }
+        }
+      },
+      "parameters" : [ {
+        "name" : "rideId",
+        "in" : "path",
+        "required" : true,
+        "type" : "string"
+      }, {
+        "name" : "riderId",
+        "in" : "path",
+        "required" : true,
+        "type" : "string"
+      } ]
+    },
+    "/riders" : {
+      "get" : {
+        "summary" : "Rider list",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "Status 200"
+          }
+        }
+      }
+    },
+    "/riders/{riderId}" : {
+      "get" : {
+        "summary" : "Rider details",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "Status 200"
+          }
+        }
+      },
+      "parameters" : [ {
+        "name" : "riderId",
+        "in" : "path",
+        "required" : true,
+        "type" : "string"
+      } ]
+    },
+    "/riders/{riderId}/rides" : {
+      "get" : {
+        "summary" : "Rider rides",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "Status 200"
+          }
+        }
+      },
+      "parameters" : [ {
+        "name" : "riderId",
+        "in" : "path",
+        "required" : true,
+        "type" : "string"
+      } ]
+    },
+    "/sponsors" : {
+      "get" : {
+        "summary" : "Sponsor list",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "Status 200"
+          }
+        }
+      }
+    },
+    "/sponsors/{sponsorId}" : {
+      "get" : {
+        "summary" : "Sponsor details",
+        "parameters" : [ ],
+        "responses" : {
+          "200" : {
+            "description" : "Status 200"
+          }
+        }
+      },
+      "parameters" : [ {
+        "name" : "sponsorId",
+        "in" : "path",
+        "required" : true,
+        "type" : "string"
+      } ]
+    }
+  },
+  "definitions" : {
+    "Chapter" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "integer"
+        },
+        "name" : {
+          "type" : "string"
+        },
+        "description" : {
+          "type" : "string"
+        },
+        "public_key" : {
+          "type" : "string"
+        },
+        "membership_fee" : {
+          "type" : "number"
+        },
+        "currency" : {
+          "type" : "string"
+        },
+        "rides" : {
+          "type" : "array",
+          "items" : {
+            "type" : "integer"
+          }
+        }
+      },
+      "example" : "\n{\"id\":1,\"name\":\"London\",\"description\":\"\",\"public_key\":\"pk_live_izsId7GPdTyYckkZN6bqD2A3\",\"membership_fee\":0.0,\"currency\":\"gbp\",\"rides\":[18,15,11,8,7,6,5,3,1,4]}"
+    },
+    "Fundraiser" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "integer"
+        },
+        "user" : {
+          "type" : "integer"
+        },
+        "ride" : {
+          "type" : "integer"
+        },
+        "pageId" : {
+          "type" : "integer"
+        },
+        "pageUrl" : {
+          "type" : "string"
+        },
+        "signOnUrl" : {
+          "type" : "string"
+        },
+        "pageStatus" : {
+          "type" : "boolean"
+        },
+        "currency" : {
+          "type" : "string"
+        },
+        "fundraisingTarget" : {
+          "type" : "number"
+        },
+        "totalRaisedOffline" : {
+          "type" : "number"
+        },
+        "totalRaisedOnline" : {
+          "type" : "number"
+        },
+        "totalRaisedSms" : {
+          "type" : "number"
+        },
+        "totalRaised" : {
+          "type" : "number"
+        },
+        "giftAid" : {
+          "type" : "number"
+        }
+      },
+      "example" : "{\"id\":276,\"user\":179,\"ride\":17,\"pageId\":10944446,\"pageUrl\":\"https://www.justgiving.com/ezerider\",\"signOnUrl\":null,\"pageStatus\":true,\"currency\":\"GBP\",\"fundraisingTarget\":1000.0,\"totalRaisedOffline\":0.0,\"totalRaisedOnline\":1270.73,\"totalRaisedSms\":0.0,\"totalRaised\":1270.73,\"giftAid\":140.7}"
+    },
+    "Ride" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "integer"
+        },
+        "name" : {
+          "type" : "string"
+        },
+        "slug" : {
+          "type" : "string"
+        },
+        "strapline" : {
+          "type" : "string"
+        },
+        "description_html" : {
+          "type" : "string"
+        },
+        "start_location" : {
+          "type" : "string"
+        },
+        "end_location" : {
+          "type" : "string"
+        },
+        "start_date" : {
+          "type" : "string"
+        },
+        "end_date" : {
+          "type" : "string"
+        },
+        "chapter" : {
+          "$ref" : "#/definitions/Chapter"
+        },
+        "rider_capacity" : {
+          "type" : "integer"
+        },
+        "riders" : {
+          "type" : "array",
+          "items" : {
+            "type" : "integer"
+          }
+        },
+        "spaces_left" : {
+          "type" : "integer"
+        },
+        "price" : {
+          "type" : "number"
+        },
+        "full_cost" : {
+          "type" : "number"
+        },
+        "currency" : {
+          "type" : "string"
+        },
+        "is_over" : {
+          "type" : "boolean"
+        },
+        "fundraising_total" : {
+          "type" : "number"
+        },
+        "fundraising_target" : {
+          "type" : "number"
+        }
+      },
+      "example" : "\n{\"id\":18,\"name\":\"Paris to London 2018\",\"slug\":\"paris-to-london-2018\",\"strapline\":\"On June 29th, 60+ techies will ride from Paris to London. Over the 3 day, 200 mile ride they will raise $75000+ for Room to Read.\",\"description_html\":\"<p>description</p>\",\"start_location\":\"Paris\",\"end_location\":\"London\",\"start_date\":\"2018-06-29\",\"end_date\":\"2018-07-01\",\"chapter\":{\"id\":1,\"name\":\"London\",\"description\":\"\",\"public_key\":\"pk_live_izsId7GPdTyYckkZN6bqD2A3\",\"membership_fee\":0.0,\"currency\":\"gbp\",\"rides\":[18,15,11,8,7,6,5,3,1,4]},\"rider_capacity\":60,\"riders\":[907,911,923,784,924,721,926,63,928,442,905,934,933,935,940,688,946,956,288,966,955,992],\"spaces_left\":38,\"price\":325.0,\"full_cost\":560.0,\"currency\":\"gbp\",\"is_over\":false,\"fundraising_total\":0,\"fundraising_target\":500.0}"
+    },
+    "Rider" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "integer"
+        },
+        "name" : {
+          "type" : "string"
+        },
+        "first_name" : {
+          "type" : "string"
+        },
+        "last_name" : {
+          "type" : "string"
+        },
+        "avatar" : {
+          "type" : "string"
+        },
+        "company" : {
+          "type" : "string"
+        },
+        "website" : {
+          "type" : "string"
+        },
+        "twitter" : {
+          "type" : "string"
+        },
+        "biography" : {
+          "type" : "string"
+        },
+        "statement" : {
+          "type" : "string"
+        },
+        "donation_page" : {
+          "type" : "string"
+        },
+        "is_member" : {
+          "type" : "boolean"
+        },
+        "rides" : {
+          "type" : "array",
+          "items" : {
+            "type" : "integer"
+          }
+        },
+        "fundraisers" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "#/definitions/Fundraiser"
+          }
+        }
+      },
+      "example" : "{\"id\":26,\"name\":\"Kate Jackson\",\"first_name\":\"Kate\",\"last_name\":\"Jackson\",\"avatar\":\"https://www.gravatar.com/avatar/038359985d3b36761ec5542f60faae82\",\"company\":\"TableCrowd\",\"website\":\"www.tablecrowd.com\",\"twitter\":\"katejacksonk\",\"biography\":\"Co founder of TableCrowd & SilkFred. Founder of EIS-SEIS.com\",\"statement\":\"\",\"donation_page\":\"http://www.justgiving.com/techbikers-paris-to-london-2016-26\",\"is_member\":false,\"rides\":[1,3,6,8],\"fundraisers\":[{\"id\":47,\"user\":26,\"ride\":6,\"pageId\":7710834,\"pageUrl\":\"https://www.justgiving.com/bite-me\",\"signOnUrl\":null,\"pageStatus\":false,\"currency\":\"GBP\",\"fundraisingTarget\":500.0,\"totalRaisedOffline\":0.0,\"totalRaisedOnline\":688.09,\"totalRaisedSms\":0.0,\"totalRaised\":688.09,\"giftAid\":143.75},{\"id\":118,\"user\":26,\"ride\":8,\"pageId\":8942807,\"pageUrl\":\"http://www.justgiving.com/techbikers-paris-to-london-2016-26\",\"signOnUrl\":\"https://www.justgiving.com/auth/3773e6d9-9487-4bbf-94a0-9680d8cf4b13\",\"pageStatus\":false,\"currency\":\"GBP\",\"fundraisingTarget\":500.0,\"totalRaisedOffline\":0.0,\"totalRaisedOnline\":450.0,\"totalRaisedSms\":0.0,\"totalRaised\":450.0,\"giftAid\":105.0}]}"
+    },
+    "Sponsor" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "integer"
+        },
+        "organisation" : {
+          "type" : "string"
+        },
+        "description" : {
+          "type" : "string"
+        },
+        "logo" : {
+          "type" : "string"
+        },
+        "website" : {
+          "type" : "string"
+        },
+        "twitter" : {
+          "type" : "string"
+        },
+        "facebook" : {
+          "type" : "string"
+        },
+        "rides" : {
+          "type" : "array",
+          "items" : {
+            "type" : "object",
+            "properties" : {
+              "sponsor" : {
+                "type" : "integer"
+              },
+              "ride" : {
+                "type" : "integer"
+              },
+              "sponsor_level" : {
+                "type" : "string"
+              }
+            }
+          }
+        }
+      },
+      "example" : "\n{\"id\":6,\"organisation\":\"Seedrs\",\"description\":\"Sponsor description.\",\"logo\":\"https://techbikers.com/media/sponsor_logos/1463501609.jpg\",\"website\":\"https://www.seedrs.com/\",\"twitter\":\"https://twitter.com/Seedrs\",\"facebook\":\"https://facebook.com/Seedrs\",\"rides\":[{\"sponsor\":6,\"ride\":8,\"sponsor_level\":\"gold\"}]}"
+    }
+  }
+}

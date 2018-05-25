@@ -37,6 +37,12 @@ Then start your server!
 
     python manage.py runserver 8000 --settings=server.settings.local
 
+API
+-----
+
+The API documentation is defined using [Swagger](https://swagger.io/docs/specification/about/) at [docs/swagger.json](./docs/swagger.json).
+
+You can test the API at https://techbikers.restlet.io/
 
 Contributing
 ------------
