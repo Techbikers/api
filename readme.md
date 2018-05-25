@@ -31,11 +31,11 @@ Run from the following commands from the project root.
 
 First build the database.
 
-    python manage.py syncdb
+    python manage.py migrate --settings=server.settings.local
 
 Then start your server!
 
-    python manage.py runserver 8000 --settings=techbikers.settings.local
+    python manage.py runserver 8000 --settings=server.settings.local
 
 
 Contributing
@@ -47,5 +47,5 @@ Want to contribute? Great! Get in touch tech@techbikers.com
 2. Create a branch (`git checkout -b my_branch`)
 3. Commit your changes (`git commit -am "Added something cool!"`)
 4. Push to the branch (`git push origin my_branch`)
-5. Open a Pull Request
+5. Open a [Pull Request](https://github.com/Techbikers/techbikers/compare/)
 6. Go for a ride on your bike and wait.
