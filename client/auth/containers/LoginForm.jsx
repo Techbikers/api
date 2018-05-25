@@ -69,7 +69,7 @@ export default class LoginForm extends Component {
             <Button loading={loading} type="submit">Login</Button>
           </div>
           <div className="span6">
-            Don"t have an account yet? <Link to={{ pathname: "/signup", state: { ...location.state } }}>Create one!</Link>
+            Don't have an account yet? <Link to={{ pathname: "/signup", state: { ...location.state } }}>Create one!</Link>
             <br/>
             <Link to={{ pathname: "/password/reset", state: { ...location.state } }}>Forgotten your password?</Link>
           </div>
