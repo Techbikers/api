@@ -199,26 +199,20 @@ LOGGING = {
             'filters': ['require_debug_false'],
             'tags': {'custom-tag': 'x'},
         },
-        'mail_admins': {
-            'level': 'CRITICAL',
-            'filters': ['require_debug_false'],
-            'class': 'django.utils.log.AdminEmailHandler',
-            'include_html': True,
-        },
     },
     'loggers': {
         'django': {
-            'handlers': ['console', 'sentry', 'mail_admins'],
+            'handlers': ['console', 'sentry'],
         },
         'django.request': {
             'handlers': ['console', 'sentry'],
         },
-        'django_crontab.crontab': {
+        'cronjobs': {
             'handlers': ['console', 'sentry'],
         },
         'django.db.backends': {
             'level': 'ERROR',
-            'handlers': ['console'],
+            'handlers': ['console', 'sentry'],
             'propagate': False,
         }
     }
