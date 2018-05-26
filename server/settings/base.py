@@ -124,7 +124,7 @@ TEMPLATES = [
 
 CODEMIRROR_PATH = 'js/codemirror'
 
-ROOT_URLCONF = 'server.urls'
+ROOT_URLCONF = 'server.api.urls'
 
 # Python dotted path to the WSGI application used by Django's runserver.
 WSGI_APPLICATION = 'server.wsgi.application'

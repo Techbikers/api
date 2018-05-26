@@ -58,5 +58,5 @@ RAVEN_CONFIG = {
     'dsn': Settings.get('SENTRY_DSN')
 }
 
-MEDIA_ROOT = '/home/django/techbikers.com/media'
-STATIC_ROOT = '/home/django/techbikers.com/static'
+MEDIA_ROOT = 'media'
+STATIC_ROOT = 'static'
