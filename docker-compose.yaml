@@ -7,7 +7,7 @@ services:
       - .env
   api:
     build: .
-    command: python manage.py runserver 0.0.0.0:8000 --settings=server.settings.local
+    command: python manage.py runserver 0.0.0.0:8000
     volumes:
       - .:/techbikers
     ports:
