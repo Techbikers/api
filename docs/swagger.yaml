@@ -1,9 +1,16 @@
 ---
 swagger: "2.0"
 info:
-  description: "No description"
+  description: "https://github.com/Techbikers/techbikers"
   version: "1.0.0"
-  title: "techbikers"
+  title: "Techbikers API"
+  contact: {}
+  license:
+    name: "MIT"
+host: "techbikers.com"
+basePath: "/api"
+schemes:
+- "https"
 consumes:
 - "application/json"
 produces:
@@ -112,6 +119,8 @@ paths:
       responses:
         200:
           description: "Status 200"
+      security:
+      - Auth0: []
     parameters:
     - name: "rideId"
       in: "path"
@@ -127,6 +136,8 @@ paths:
       responses:
         200:
           description: "Status 200"
+      security:
+      - Auth0: []
     parameters:
     - name: "rideId"
       in: "path"
@@ -137,7 +148,7 @@ paths:
       in: "path"
       required: true
       type: "string"
-      x-example: "784"
+      x-example: "2"
     x-restlet:
       section: "Rides"
   /rides/{rideId}/riders/{riderId}/charge:
@@ -147,6 +158,8 @@ paths:
       responses:
         200:
           description: "Status 200"
+      security:
+      - Auth0: []
     parameters:
     - name: "rideId"
       in: "path"
@@ -157,7 +170,7 @@ paths:
       in: "path"
       required: true
       type: "string"
-      x-example: "784"
+      x-example: "2"
     x-restlet:
       section: "Rides"
   /rides/{rideId}/riders/{riderId}/fundraiser:
@@ -167,6 +180,8 @@ paths:
       responses:
         200:
           description: "Status 200"
+      security:
+      - Auth0: []
     parameters:
     - name: "rideId"
       in: "path"
@@ -177,7 +192,7 @@ paths:
       in: "path"
       required: true
       type: "string"
-      x-example: "784"
+      x-example: "2"
     x-restlet:
       section: "Rides"
   /riders/:
@@ -201,7 +216,7 @@ paths:
       in: "path"
       required: true
       type: "string"
-      x-example: "784"
+      x-example: "2"
     x-restlet:
       section: "Riders"
   /riders/{riderId}/rides:
@@ -216,7 +231,7 @@ paths:
       in: "path"
       required: true
       type: "string"
-      x-example: "784"
+      x-example: "2"
     x-restlet:
       section: "Riders"
   /sponsors/:
@@ -303,6 +318,13 @@ paths:
       x-example: "6"
     x-restlet:
       section: "Sponsors"
+securityDefinitions:
+  Auth0:
+    type: "oauth2"
+    authorizationUrl: ""
+    tokenUrl: ""
+    flow: "accessCode"
+    scopes: {}
 definitions:
   Chapter:
     type: "object"
@@ -416,7 +438,7 @@ definitions:
       ,\"start_date\":\"2018-06-29\",\"end_date\":\"2018-07-01\",\"chapter\":{\"id\"\
       :1,\"name\":\"London\",\"description\":\"\",\"public_key\":\"pk_live_izsId7GPdTyYckkZN6bqD2A3\"\
       ,\"membership_fee\":0.0,\"currency\":\"gbp\",\"rides\":[18,15,11,8,7,6,5,3,1,4]},\"\
-      rider_capacity\":60,\"riders\":[907,911,923,784,924,721,926,63,928,442,905,934,933,935,940,688,946,956,288,966,955,992],\"\
+      rider_capacity\":60,\"riders\":[907,911,923,2,924,721,926,63,928,442,905,934,933,935,940,688,946,956,288,966,955,992],\"\
       spaces_left\":38,\"price\":325.0,\"full_cost\":560.0,\"currency\":\"gbp\",\"\
       is_over\":false,\"fundraising_total\":0,\"fundraising_target\":500.0}"
     x-restlet:
@@ -516,7 +538,3 @@ x-restlet:
     Rides: {}
     Riders: {}
     Sponsors: {}
-  texts:
-    9ldwvsg:
-      title: "Description"
-      content: "techbikers.com API"
