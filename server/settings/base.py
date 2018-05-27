@@ -127,7 +127,7 @@ CODEMIRROR_PATH = 'js/codemirror'
 ROOT_URLCONF = 'server.api.urls'
 
 # Python dotted path to the WSGI application used by Django's runserver.
-WSGI_APPLICATION = 'server.wsgi.application'
+WSGI_APPLICATION = 'server.api.wsgi.application'
 
 INSTALLED_APPS = (
     'django.contrib.auth',
