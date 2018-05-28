@@ -160,6 +160,9 @@ MIDDLEWARE_CLASSES = (
     'corsheaders.middleware.CorsMiddleware',
 )
 
+# Enable CORS and allow anyone to access the API
+CORS_ORIGIN_ALLOW_ALL = True
+
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': True,
@@ -217,9 +220,3 @@ LOGGING = {
         }
     }
 }
-
-CORS_ORIGIN_WHITELIST = (
-    'localhost:8000',
-    'techbikers.local',
-    'techbikers.local:8000'
-)
