@@ -138,19 +138,19 @@ class RideRidersAdmin(admin.ModelAdmin):
     user_link.allow_tags = True
 
     def ride_link(self, obj):
-        change_url = urlresolvers.reverse('admin:server_ride_change', args=(obj.ride.id,))
+        change_url = urlresolvers.reverse('admin:rides_ride_change', args=(obj.ride.id,))
         return '<a href="%s">%s</a>' % (change_url, obj.ride.name)
     ride_link.short_description = 'Ride'
     ride_link.allow_tags = True
 
     def sale_link(self, obj):
-        change_url = urlresolvers.reverse('admin:server_sale_change', args=(obj.sale.id,))
+        change_url = urlresolvers.reverse('admin:sales_sale_change', args=(obj.sale.id,))
         return '<a href="%s">%s</a>' % (change_url, obj.sale.charge_id)
     sale_link.short_description = 'Sale'
     sale_link.allow_tags = True
 
     def fundraiser_link(self, obj):
-        change_url = urlresolvers.reverse('admin:server_fundraiser_change', args=(obj.fundraiser.id,))
+        change_url = urlresolvers.reverse('admin:fundraisers_fundraiser_change', args=(obj.fundraiser.id,))
         return '%s %s (<a href="%s">View/Edit Fundraiser</a>)' % (obj.fundraiser.currency, obj.fundraiser.totalRaised, change_url)
     fundraiser_link.short_description = 'Fundraiser'
     fundraiser_link.allow_tags = True
@@ -194,7 +194,7 @@ class FundraisersAdmin(admin.ModelAdmin):
     user_link.allow_tags = True
 
     def ride_link(self, obj):
-        change_url = urlresolvers.reverse('admin:server_ride_change', args=(obj.ride.id,))
+        change_url = urlresolvers.reverse('admin:rides_ride_change', args=(obj.ride.id,))
         return '<a href="%s">%s</a>' % (change_url, obj.ride.name)
     ride_link.short_description = 'Ride'
     ride_link.allow_tags = True
@@ -259,13 +259,13 @@ class RideSponsorAdmin(admin.ModelAdmin):
     view_edit.short_description = ""
 
     def ride_link(self, obj):
-        change_url = urlresolvers.reverse('admin:server_ride_change', args=(obj.ride.id,))
+        change_url = urlresolvers.reverse('admin:rides_ride_change', args=(obj.ride.id,))
         return '<a href="%s">%s</a>' % (change_url, obj.ride.name)
     ride_link.short_description = 'Ride'
     ride_link.allow_tags = True
 
     def sponsor_link(self, obj):
-        change_url = urlresolvers.reverse('admin:server_sponsor_change', args=(obj.sponsor.id,))
+        change_url = urlresolvers.reverse('admin:sponsors_sponsor_change', args=(obj.sponsor.id,))
         return '<a href="%s">%s</a>' % (change_url, obj.sponsor.organisation)
     sponsor_link.short_description = 'Sponsor'
     sponsor_link.allow_tags = True
