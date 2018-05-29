@@ -4,6 +4,8 @@ from django.contrib.auth.models import User
 from django.db.models.signals import post_save, pre_delete
 from django.dispatch import receiver
 
+from server.fundraisers.models import Fundraiser
+
 
 class RiderProfile(models.Model):
     # Link to main user record
@@ -22,7 +24,7 @@ class RiderProfile(models.Model):
 
     @property
     def donation_page(self):
-        fundraisers = self.user.fundraiser_set
+        fundraisers = Fundraiser.objects.filter(user=self.user)
         if fundraisers.count() > 0:
             return fundraisers.last().pageUrl
         else:

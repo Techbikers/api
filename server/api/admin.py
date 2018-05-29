@@ -34,7 +34,7 @@ class RiderAdmin(UserAdmin):
 @admin.register(RiderProfile)
 class RiderProfileAdmin(admin.ModelAdmin):
     ordering = ['user']
-    readonly_fields = ('user_link',)
+    readonly_fields = ('user_link', 'donation_page')
     fields = ('user_link', 'company', 'website', 'twitter', 'biography', 'statement', 'donation_page')
     list_display = ('user', 'company', 'twitter')
     list_filter = ('company',)
