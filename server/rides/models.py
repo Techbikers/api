@@ -1,4 +1,4 @@
-import markdown, jsonfield
+import markdown
 from datetime import datetime, timedelta
 from django.db import models
 from django.utils.functional import  cached_property
@@ -6,6 +6,7 @@ from django.contrib.auth.models import User
 from django.core.mail import EmailMultiAlternatives
 from django.template.loader import get_template
 from django.template import Context
+from django_mysql.models import JSONField
 
 from server.chapters.models import Chapter
 from server.sales.models import Sale
@@ -111,7 +112,7 @@ class RideRiders(models.Model):
     # When their opportunity to complete registration expires (optional)
     signup_expires = models.DateField(blank=True, null=True)
     # Payload contains any other information we might have asked the user for during registration
-    payload = jsonfield.JSONField()
+    payload = JSONField()
     # Whether they have paid for the ride
     paid = models.BooleanField()
     # If they paid, link to the sale transaction record

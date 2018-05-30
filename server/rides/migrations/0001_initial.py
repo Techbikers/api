@@ -53,7 +53,7 @@ class Migration(migrations.Migration):
                 ('status', models.CharField(choices=[(b'PEN', b'Pending'), (b'ACC', b'Accepted'), (b'REG', b'Registered'), (b'REJ', b'Rejected'), (b'WIT', b'Withdrawn')], default=b'PEN', max_length=3)),
                 ('signup_date', models.DateField()),
                 ('signup_expires', models.DateField(blank=True, null=True)),
-                ('payload', jsonfield.fields.JSONField(default=dict)),
+                ('payload', models.TextField(blank=True)),
                 ('paid', models.BooleanField()),
                 ('ride', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='rides.Ride')),
                 ('sale', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, to='sales.Sale')),
