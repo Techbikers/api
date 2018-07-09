@@ -3,7 +3,7 @@ import React from "react"
 const MailchimpForm = () => (
   <section id="mailchimp" style={{ background: "#4494c7", padding: 15, marginTop: 40, borderRadius: 10, color: "white" }}>
     <header style={{ margin: 0 }}>
-      <h1>Learn more about our plans for 2017!</h1>
+      <h1>Learn more about our plans for 2018!</h1>
     </header>
 
     <form
