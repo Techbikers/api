@@ -1,6 +1,15 @@
 import os
 import sys
+import jwt
 from server.auth.utils import get_auth0_public_key
+
+# Force the use of Pycrypo rather than the Crypography library
+# This is needed so that we can successfully verify auth tokens
+# used in requests to our API. If this is deployed to App Engine
+# we can't make use of the Crypography library.
+from jwt.contrib.algorithms.pycrypto import RSAAlgorithm
+jwt.register_algorithm('RS256', RSAAlgorithm(RSAAlgorithm.SHA256))
+
 
 ADMINS = (
     ('Michael Willmott', 'michael@techbikers.com')
