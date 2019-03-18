@@ -1,6 +1,7 @@
 # encoding=utf8
 import stripe
 import requests
+import base64
 from django_slack import slack_message
 from rest_framework import generics
 from rest_framework.exceptions import ValidationError, ParseError
@@ -161,31 +162,24 @@ class RideRiderFundraiser(generics.RetrieveAPIView, generics.CreateAPIView):
         ride = Ride.objects.get(id=self.kwargs.get('id'))
         user = self.request.user
 
-        # Get the Just Giving access token from Auth0
-        management_token = get_auth0_management_token()
-        response = requests.get(
-            '{0}/users'.format(settings.AUTH0_API_URL),
+        # Get the Just Giving access token by using the auth code we received
+        # We need to encode the API key and secret to submit in the header with this requests
+        auth_header = base64.b64encode('{0}:{1}'.format(
+            settings.JUSTGIVING_API_KEY,
+            settings.JUSTGIVING_API_SECRET))
+
+        response = requests.post(
+            '{0}/connect/token'.format(settings.JUSTGIVING_AUTH_URL),
             headers={
-                'Authorization': 'Bearer {0}'.format(management_token)},
-            params={
-                'q': 'app_metadata.id:{0}'.format(user.id),
-                'search_engine': 'v2'})
+                'Authorization': 'Basic {0}'.format(auth_header)},
+            data={
+                'code': self.request.data.get('auth_code'),
+                'grant_type': 'authorization_code',
+                'redirect_uri': settings.JUSTGIVING_REDIRECT_URI})
 
         response.raise_for_status()
-        remote_users = response.json()
-
-        # We should only find one Auth0 user with an ID in the app_metadata
-        # corresponding to the authenticated user ID. If this is not the
-        # case then throw an error
-        if len(remote_users) == 0:
-            raise ParseError("We could not find the remote user")
-
-        # Get the Just Giving access token from the remote user
-        try:
-            identities = remote_users[0]['identities']
-            justgiving = next(x for x in identities if x['connection'] == 'JustGiving')
-        except:
-            raise ParseError('We could not get the Just Giving identity for the user')
+        tokens_json = response.json()
+        access_token = tokens_json.get('access_token')
 
         # Ok, now let's go ahead an actually create the fundraising page on Just Giving
         pageShortName = slugify('techbikers {0} {1}'.format(ride.name, user.id))
@@ -221,13 +215,15 @@ class RideRiderFundraiser(generics.RetrieveAPIView, generics.CreateAPIView):
                 }
             ]
         }
+
         response = requests.put(
             '{0}/fundraising/pages'.format(settings.JUSTGIVING_API_URL),
             headers={
                 'x-api-key': settings.JUSTGIVING_API_KEY,
                 'x-application-key': settings.JUSTGIVING_API_SECRET,
-                'Authorization': 'Bearer {0}'.format(justgiving['access_token'])},
+                'Authorization': 'Bearer {0}'.format(access_token)},
             json=payload)
+
         response.raise_for_status()
 
         # Now let's create the fundraising record with the returned info
@@ -237,8 +233,7 @@ class RideRiderFundraiser(generics.RetrieveAPIView, generics.CreateAPIView):
             user=user,
             ride=ride,
             pageUrl='http://www.justgiving.com/{0}'.format(pageShortName),
-            pageId=response_json['pageId'],
-            signOnUrl=response_json['signOnUrl'])
+            pageId=response_json['pageId'])
 
         slack_message('slack/new_fundraiser.slack', {
             'user': user,

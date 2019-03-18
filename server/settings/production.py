@@ -39,6 +39,8 @@ MAILCHIMP_CORE_LIST_ID = Settings.get('MAILCHIMP_CORE_LIST_ID')
 JUSTGIVING_API_KEY = Settings.get('JUSTGIVING_API_KEY')
 JUSTGIVING_API_SECRET = Settings.get('JUSTGIVING_API_SECRET')
 JUSTGIVING_API_URL = 'https://api.justgiving.com/v1'
+JUSTGIVING_AUTH_URL = 'https://identity.justgiving.com'
+JUSTGIVING_REDIRECT_URI = 'https://techbikers.com/oauth/callback'
 
 # Slack Bot Settings
 SLACK_CHANNEL = '#updates'
