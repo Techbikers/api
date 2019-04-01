@@ -235,8 +235,12 @@ class RideRiderFundraiser(generics.RetrieveAPIView, generics.CreateAPIView):
             pageUrl='http://www.justgiving.com/{0}'.format(pageShortName),
             pageId=response_json['pageId'])
 
-        slack_message('slack/new_fundraiser.slack', {
-            'user': user,
-            'ride': ride,
-            'pageUrl': fundraiser.pageUrl
-        })
+        try:
+            slack_message('slack/new_fundraiser.slack', {
+                'user': user,
+                'ride': ride,
+                'pageUrl': fundraiser.pageUrl
+            })
+        except:
+            # No worries, no Slack notification
+            pass
