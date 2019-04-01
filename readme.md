@@ -17,11 +17,9 @@ Installation
 
 Ensure you have Python installed (2.7.X) and pip.
 
+    docker-compose build
+
 Checkout and go to the repo then run
-
-    pip install -r requirements.txt
-
-Hopefully it will all work! You might need to run the above with sudo.
 
 
 Usage
@@ -31,11 +29,16 @@ Run from the following commands from the project root.
 
 First build the database.
 
-    python manage.py migrate --settings=server.settings.local
+    docker-compose run api python manage.py migrate
+
+Then create a super user so you can login to the admin console. This will
+prompt you to create a username and password for this user.
+
+    docker-compose run api python manage.py createsuperuser
 
 Then start your server!
 
-    python manage.py runserver 8000 --settings=server.settings.local
+    docker-compose up
 
 
 Contributing
