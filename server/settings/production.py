@@ -1,8 +1,13 @@
 import os
 import json
+import requests
 
 from base import *
 from server.settings.settings_model import Settings
+
+# Use the App Engine Requests adapter. This makes sure that Requests uses URLFetch.
+from requests_toolbelt.adapters import appengine
+appengine.monkeypatch()
 
 DEBUG = False
 
