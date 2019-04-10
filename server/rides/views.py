@@ -2,6 +2,7 @@
 import stripe
 import requests
 import base64
+import logging
 from django_slack import slack_message
 from rest_framework import generics
 from rest_framework.exceptions import ValidationError, ParseError
@@ -164,20 +165,24 @@ class RideRiderFundraiser(generics.RetrieveAPIView, generics.CreateAPIView):
 
         # Get the Just Giving access token by using the auth code we received
         # We need to encode the API key and secret to submit in the header with this requests
-        auth_header = base64.b64encode('{0}:{1}'.format(
-            settings.JUSTGIVING_API_KEY,
-            settings.JUSTGIVING_API_SECRET))
+        try:
+            auth_header = base64.b64encode('{0}:{1}'.format(
+                settings.JUSTGIVING_API_KEY,
+                settings.JUSTGIVING_API_SECRET))
 
-        response = requests.post(
-            '{0}/connect/token'.format(settings.JUSTGIVING_AUTH_URL),
-            headers={
-                'Authorization': 'Basic {0}'.format(auth_header)},
-            data={
-                'code': self.request.data.get('auth_code'),
-                'grant_type': 'authorization_code',
-                'redirect_uri': settings.JUSTGIVING_REDIRECT_URI})
+            response = requests.post(
+                '{0}/connect/token'.format(settings.JUSTGIVING_AUTH_URL),
+                headers={
+                    'Authorization': 'Basic {0}'.format(auth_header)},
+                data={
+                    'code': self.request.data.get('auth_code'),
+                    'grant_type': 'authorization_code',
+                    'redirect_uri': settings.JUSTGIVING_REDIRECT_URI})
+            response.raise_for_status()
+        except requests.exceptions.HTTPError as e:
+            logging.error(response.text, exc_info=True)
+            raise ParseError(response.text)
 
-        response.raise_for_status()
         tokens_json = response.json()
         access_token = tokens_json.get('access_token')
 
@@ -216,15 +221,18 @@ class RideRiderFundraiser(generics.RetrieveAPIView, generics.CreateAPIView):
             ]
         }
 
-        response = requests.put(
-            '{0}/fundraising/pages'.format(settings.JUSTGIVING_API_URL),
-            headers={
-                'x-api-key': settings.JUSTGIVING_API_KEY,
-                'x-application-key': settings.JUSTGIVING_API_SECRET,
-                'Authorization': 'Bearer {0}'.format(access_token)},
-            json=payload)
-
-        response.raise_for_status()
+        try:
+            response = requests.put(
+                '{0}/fundraising/pages'.format(settings.JUSTGIVING_API_URL),
+                headers={
+                    'x-api-key': settings.JUSTGIVING_API_KEY,
+                    'x-application-key': settings.JUSTGIVING_API_SECRET,
+                    'Authorization': 'Bearer {0}'.format(access_token)},
+                json=payload)
+            response.raise_for_status()
+        except requests.exceptions.HTTPError as e:
+            logging.error(response.text, exc_info=True)
+            raise ParseError(response.text)
 
         # Now let's create the fundraising record with the returned info
         response_json = response.json()
