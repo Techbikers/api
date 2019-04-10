@@ -8,9 +8,6 @@ ALLOWED_HOSTS = ['localhost']
 
 INTERNAL_IPS = ('127.0.0.1',)
 
-STATIC_ROOT = ''
-MEDIA_ROOT = ''
-
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
@@ -59,3 +56,6 @@ JUSTGIVING_API_SECRET = ''
 JUSTGIVING_API_URL = 'https://api.sandbox.justgiving.com/v1'
 JUSTGIVING_AUTH_URL = 'https://identity.justgiving.com'
 JUSTGIVING_REDIRECT_URI = 'http://localhost:3000/oauth/callback'
+
+MEDIA_ROOT = 'media'
+STATIC_ROOT = 'static'
