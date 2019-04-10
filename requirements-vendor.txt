@@ -7,7 +7,7 @@ stripe==1.23.0
 jsonfield==2.0.2
 django-codemirror-widget==0.4.0
 sendgrid-django==2.0.0
-raven==5.15.0
+raven==6.10.0
 django-slack==5.8.0
 django-cors-headers==2.0.2
 django-filter==1.0.2
