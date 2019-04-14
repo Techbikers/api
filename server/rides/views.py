@@ -180,8 +180,8 @@ class RideRiderFundraiser(generics.RetrieveAPIView, generics.CreateAPIView):
                     'redirect_uri': settings.JUSTGIVING_REDIRECT_URI})
             response.raise_for_status()
         except requests.exceptions.HTTPError as e:
-            logging.error(response.text, exc_info=True)
-            raise ParseError(response.text)
+            logging.error(response.json(), exc_info=True)
+            raise ParseError(response.json())
 
         tokens_json = response.json()
         access_token = tokens_json.get('access_token')
@@ -231,8 +231,8 @@ class RideRiderFundraiser(generics.RetrieveAPIView, generics.CreateAPIView):
                 json=payload)
             response.raise_for_status()
         except requests.exceptions.HTTPError as e:
-            logging.error(response.text, exc_info=True)
-            raise ParseError(response.text)
+            logging.error(response.json(), exc_info=True)
+            raise ParseError(response.json())
 
         # Now let's create the fundraising record with the returned info
         response_json = response.json()
